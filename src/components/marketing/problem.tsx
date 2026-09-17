@@ -1,8 +1,8 @@
 const PAIN_POINTS = [
-  "Your traffic is flat even though your rankings haven't moved — because AI Overviews and chat answers are absorbing the clicks.",
-  "You've read ten blog posts about GEO and still don't have an actual process to follow.",
-  "You don't know what makes an AI model cite one source over another, so you're guessing at structure and formatting.",
-  "Every 'AI SEO' course you've seen is either recycled SEO advice with a new name, or too theoretical to act on this week.",
+  "Your customer's question changed shape — from a keyword typed into Google to a full question asked of ChatGPT, Gemini, or Claude, which just hands back a shortlist, sometimes one name.",
+  "You've asked ChatGPT to \"grade\" your site's AI-optimization and gotten a different score every time — because it's improvising a judgment, not applying a fixed rubric.",
+  "Most \"GEO audit\" tools are the same trick with a dashboard on top: your URL gets wrapped in a prompt and sent to a model, so the score still isn't reproducible.",
+  "You know GEO matters but have no repeatable way to audit a site, prioritize fixes, or charge for the work.",
 ];
 
 export function Problem() {
@@ -10,7 +10,7 @@ export function Problem() {
     <section className="border-b border-black">
       <div className="mx-auto max-w-4xl px-6 py-16 sm:py-20">
         <h2 className="text-center text-3xl font-bold tracking-tight sm:text-4xl">
-          Search changed. Most people&apos;s strategy didn&apos;t.
+          Search has changed direction twice already.
         </h2>
         <div className="mt-10 grid gap-6 sm:grid-cols-2">
           {PAIN_POINTS.map((point) => (

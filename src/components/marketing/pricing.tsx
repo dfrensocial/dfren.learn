@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 const INCLUDES = [
-  "6 modules, 40+ lessons, 12+ hours of video",
-  "Downloadable GEO audit checklist & templates",
+  "1.5 hours of video — the 6 GEO pillars, no filler",
+  "The GEO quick-win checklist from the course",
+  "Client research questionnaire + Claude Code prompt pack",
   "Lifetime access, including future updates",
-  "Private community access",
 ];
 
 export function Pricing() {

@@ -1,7 +1,7 @@
 const STATS = [
-  { value: "12+", label: "hours of video" },
-  { value: "40+", label: "lessons" },
-  { value: "6", label: "modules" },
+  { value: "1.5 hrs", label: "runtime, no filler" },
+  { value: "6", label: "GEO pillars covered" },
+  { value: "2", label: "revenue models" },
   { value: "Lifetime", label: "access & updates" },
 ];
 

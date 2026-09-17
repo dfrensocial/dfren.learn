@@ -5,15 +5,16 @@ export function Hero() {
     <section className="border-b border-black">
       <div className="mx-auto max-w-5xl px-6 py-16 sm:py-24">
         <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
-          The GEO Course
+          The GEO Blueprint
         </p>
         <h1 className="mx-auto mt-4 max-w-3xl text-center text-4xl font-bold leading-tight tracking-tight sm:text-6xl">
-          Get your content cited by ChatGPT, Perplexity, and Google AI&nbsp;Overviews
+          Get your business recommended by ChatGPT, Gemini, and Claude
         </h1>
         <p className="mx-auto mt-6 max-w-xl text-center text-lg text-neutral-600">
-          A step-by-step system for Generative Engine Optimization — built for
-          creators and marketers who are done chasing rankings that AI
-          answers have already made invisible.
+          A practical course on Generative Engine Optimization — how it
+          actually works, and how to turn it into income. 1.5 hours, no
+          fluff, built around a real audit tool and two working revenue
+          models.
         </p>
 
         <div className="mt-8 flex flex-col items-center gap-3">

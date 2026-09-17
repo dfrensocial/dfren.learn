@@ -1,33 +1,33 @@
 const MODULES = [
   {
-    title: "Module 1 — How Generative Engines Actually Retrieve Answers",
+    title: "1 — How AI Actually Picks the Next Word",
     description:
-      "RAG pipelines, embeddings, and citation selection — the mental model everything else builds on.",
+      "The plain-terms mental model of how a transformer predicts an answer — no equations, just what every GEO tactic is actually influencing.",
   },
   {
-    title: "Module 2 — Entity & Authority Foundations",
+    title: "2 — SEO vs GEO: What Changed and Why",
     description:
-      "Structuring your brand and content as a citable entity across Google, Bing, and LLM training/retrieval data.",
+      "Google Search → Voice → AI Search. Where SEO and GEO overlap, where they diverge, and why ranking well doesn't guarantee an AI citation.",
   },
   {
-    title: "Module 3 — Content Structure for AI Citation",
+    title: "3 — The 6 Pillars of GEO",
     description:
-      "Formatting, answer-first writing, schema markup, and the patterns that get pulled into AI Overviews and chat answers.",
+      "Technical Optimization, Answer-First Content, Citation Authority, AI Comprehension, Content Freshness, and Content Depth — plus the quick win for each.",
   },
   {
-    title: "Module 4 — Technical GEO for Next.js / Modern Stacks",
+    title: "4 — Why Manual Audits Don't Work (and the Fix)",
     description:
-      "llms.txt, structured data, Core Web Vitals, and crawler access — the technical checklist, done once.",
+      "Why asking ChatGPT to grade your site gives a different score every time, and a live demo of Litmus running a fixed, repeatable 6-pillar audit.",
   },
   {
-    title: "Module 5 — Measuring What Actually Matters",
+    title: "5 — Two Ways to Turn GEO Into Revenue",
     description:
-      "Tracking citations and AI referral traffic when traditional rank tracking stops telling the full story.",
+      "Charging to fix what an audit finds, and charging on an ongoing basis for content — both laid out as a step-by-step client workflow.",
   },
   {
-    title: "Module 6 — The 30-Day GEO Rollout Plan",
+    title: "6 — Client Onboarding & Proving It Worked",
     description:
-      "A week-by-week plan to apply everything to a real site, in order, without getting stuck planning forever.",
+      "Setting up tracking before you start, setting timeline expectations, and turning a before/after into the case study that wins your next client.",
   },
 ];
 
@@ -39,8 +39,8 @@ export function Curriculum() {
           What&apos;s inside
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-center text-neutral-600">
-          Six modules, in the order you actually need them — foundation
-          first, execution second, measurement last.
+          One 1.5-hour sitting, in the order you actually need it —
+          foundation first, the 6 pillars second, monetization last.
         </p>
 
         <ol className="mt-10 divide-y divide-black border border-black">

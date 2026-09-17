@@ -3,6 +3,7 @@ import { Hero } from "@/components/marketing/hero";
 import { StatsBar } from "@/components/marketing/stats-bar";
 import { Problem } from "@/components/marketing/problem";
 import { Curriculum } from "@/components/marketing/curriculum";
+import { Bonus } from "@/components/marketing/bonus";
 import { Instructor } from "@/components/marketing/instructor";
 import { Testimonials } from "@/components/marketing/testimonials";
 import { Pricing } from "@/components/marketing/pricing";
@@ -19,6 +20,7 @@ export default function LandingPage() {
       <StatsBar />
       <Problem />
       <Curriculum />
+      <Bonus />
       <Instructor />
       <Testimonials />
       <Pricing />
