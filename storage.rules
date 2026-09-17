@@ -1,0 +1,11 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Public course thumbnails/marketing assets.
+    match /courses/{courseId}/public/{fileName} {
+      allow read: if true;
+      allow write: if false; // admin SDK (server) only
+    }
+  }
+}

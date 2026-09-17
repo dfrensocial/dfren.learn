@@ -1,0 +1,41 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isEnrolled(courseId) {
+      return isSignedIn() &&
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)/enrollments/$(courseId));
+    }
+
+    match /courses/{courseId} {
+      allow read: if resource.data.published == true;
+      allow write: if false; // admin SDK (server) only
+
+      match /lessons/{lessonId} {
+        // Everyone can see lesson titles/ordering; only enrolled users get
+        // the Mux identifiers, which is what actually unlocks playback.
+        allow read: if isEnrolled(courseId) ||
+          !("muxPlaybackId" in resource.data);
+        allow write: if false; // admin SDK (server) only
+      }
+    }
+
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+
+      match /enrollments/{courseId} {
+        allow read: if isOwner(userId);
+        allow write: if false; // only the Razorpay webhook (admin SDK) grants enrollments
+      }
+    }
+  }
+}
