@@ -57,7 +57,11 @@ function CourseView({ params }: { params: Promise<{ courseId: string }> }) {
     getDoc(doc(db, "users", user.uid, "enrollments", courseId)).then((snap) =>
       setEnrolled(snap.exists())
     );
-  }, [user, courseId]);
+    // Checkout success navigates here with ?purchased=1 via router.push — if
+    // we were already mounted on this exact route (enrolled-first-then-buy),
+    // that's a query-only change, not a remount, so re-run this check on it
+    // or the just-granted enrollment never gets picked up.
+  }, [user, courseId, justPurchased]);
 
   if (!course || !courseId) {
     return <div className="h-64 animate-pulse bg-neutral-100" />;
