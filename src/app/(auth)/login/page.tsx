@@ -160,10 +160,29 @@ function LoginForm() {
           <button
             onClick={handleSendLink}
             disabled={submitting}
-            className="mt-1 text-sm font-medium underline disabled:opacity-50"
+            className="mt-1 block w-full text-center text-sm font-medium underline disabled:opacity-50"
           >
             Email me a sign-in link instead
           </button>
+
+          <p className="mt-6 text-center text-sm text-neutral-500">
+            New here?{" "}
+            <Link
+              href={
+                searchParams.get("redirect")
+                  ? `/signup?redirect=${encodeURIComponent(searchParams.get("redirect")!)}`
+                  : "/signup"
+              }
+              className="font-medium underline"
+            >
+              Create an account
+            </Link>
+            , or just{" "}
+            <Link href="/#pricing" className="font-medium underline">
+              buy the course
+            </Link>{" "}
+            — that creates one for you automatically.
+          </p>
         </>
       )}
       </div>
