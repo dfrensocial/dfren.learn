@@ -4,6 +4,8 @@
 // There's no admin UI yet; when one exists, it should write through the same
 // Firestore shape this script does.
 
+export {}; // force module scope so this file's `main` doesn't collide with other scripts
+
 process.loadEnvFile(".env.local");
 
 async function main() {

@@ -2,6 +2,13 @@ import jwt from "jsonwebtoken";
 
 type PlaybackTokenType = "video" | "thumbnail" | "storyboard";
 
+// Mux requires the JWT `aud` claim as these single-letter codes, not the full word.
+const AUDIENCE_CODE: Record<PlaybackTokenType, string> = {
+  video: "v",
+  thumbnail: "t",
+  storyboard: "s",
+};
+
 /**
  * Mux signed URLs are what make playback un-guessable: without this token
  * the playback ID alone is not enough to stream the asset (assets must be
@@ -22,8 +29,7 @@ export function signMuxPlaybackToken(
   return jwt.sign(
     {
       sub: playbackId,
-      aud: type,
-      kid: keyId,
+      aud: AUDIENCE_CODE[type],
     },
     Buffer.from(privateKey, "base64").toString("utf-8"),
     {
