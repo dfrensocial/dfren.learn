@@ -56,11 +56,7 @@ export default function CoursePage({
 
       {!enrolled && (
         <div className="mt-6">
-          <CheckoutButton
-            courseId={courseId}
-            amountInPaise={course.priceInPaise}
-            courseTitle={course.title}
-          />
+          <CheckoutButton courseId={courseId} courseTitle={course.title} />
         </div>
       )}
 

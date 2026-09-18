@@ -11,19 +11,22 @@ import { Guarantee } from "@/components/marketing/guarantee";
 import { FAQ } from "@/components/marketing/faq";
 import { FinalCTA } from "@/components/marketing/final-cta";
 import { MarketingFooter } from "@/components/marketing/footer";
+import { geoBlueprintCourse } from "@/content/courses/geo-blueprint";
 
 export default function LandingPage() {
+  const course = geoBlueprintCourse;
+
   return (
     <main className="min-h-screen bg-white text-black">
       <MarketingNav />
-      <Hero />
-      <StatsBar />
+      <Hero hero={course.hero} />
+      <StatsBar stats={course.stats} />
       <Problem />
-      <Curriculum />
-      <Bonus />
-      <Instructor />
-      <Testimonials />
-      <Pricing />
+      <Curriculum curriculum={course.curriculum} />
+      <Bonus bonus={course.bonus} />
+      <Instructor instructor={course.instructor} />
+      <Testimonials testimonials={course.testimonials} />
+      <Pricing courseId={course.id} pricing={course.pricing} />
       <Guarantee />
       <FAQ />
       <FinalCTA />

@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyRazorpayWebhookSignature } from "@/lib/razorpay/server";
-import { adminDb } from "@/lib/firebase/admin";
+import { grantCourseAccess } from "@/lib/razorpay/grant-access";
 
 // Razorpay signs the raw request body, so it must be read as text, not parsed as JSON first.
+// This is the idempotent fallback for /api/razorpay/verify — it covers a browser
+// tab closing before the client-side verify call completes.
 export async function POST(req: NextRequest) {
   const rawBody = await req.text();
   const signature = req.headers.get("x-razorpay-signature");
@@ -14,17 +16,9 @@ export async function POST(req: NextRequest) {
   const event = JSON.parse(rawBody);
 
   if (event.event === "payment.captured") {
-    const { courseId, userId } = event.payload.payment.entity.notes;
-    await adminDb
-      .collection("users")
-      .doc(userId)
-      .collection("enrollments")
-      .doc(courseId)
-      .set({
-        courseId,
-        purchasedAt: new Date().toISOString(),
-        paymentId: event.payload.payment.entity.id,
-      });
+    const payment = event.payload.payment.entity;
+    const { courseId, email } = payment.notes;
+    await grantCourseAccess({ email, courseId, paymentId: payment.id });
   }
 
   return NextResponse.json({ received: true });

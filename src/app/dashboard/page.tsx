@@ -2,18 +2,29 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase/client";
 import type { Course } from "@/types/course";
 
 export default function DashboardPage() {
-  const [courses, setCourses] = useState<Course[]>([]);
+  const router = useRouter();
+  const [courses, setCourses] = useState<Course[] | null>(null);
 
   useEffect(() => {
     getDocs(collection(db, "courses")).then((snap) => {
-      setCourses(snap.docs.map((d) => ({ id: d.id, ...d.data() }) as Course));
+      const list = snap.docs.map((d) => ({ id: d.id, ...d.data() }) as Course);
+      // Single-course-site shortcut: skip the list, go straight to the course.
+      // Once a second course exists this naturally falls through to the list below.
+      if (list.length === 1) {
+        router.replace(`/dashboard/courses/${list[0].id}`);
+        return;
+      }
+      setCourses(list);
     });
-  }, []);
+  }, [router]);
+
+  if (courses === null) return null;
 
   return (
     <div>

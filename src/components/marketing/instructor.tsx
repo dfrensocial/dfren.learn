@@ -1,6 +1,11 @@
 import Link from "next/link";
+import type { CourseContent } from "@/content/courses/geo-blueprint";
 
-export function Instructor() {
+export function Instructor({
+  instructor,
+}: {
+  instructor: CourseContent["instructor"];
+}) {
   return (
     <section className="border-b border-black">
       <div className="mx-auto grid max-w-4xl gap-8 px-6 py-16 sm:grid-cols-[200px_1fr] sm:py-20">
@@ -13,21 +18,11 @@ export function Instructor() {
         <div>
           <h2 className="text-2xl font-bold tracking-tight">Your instructor</h2>
           <p className="mt-1 text-sm text-neutral-500">
-            K Sai Anirudh — Founder, AiVirex Innovations
+            {instructor.name} — {instructor.title}
           </p>
-          <p className="mt-3 text-neutral-700">
-            Before writing a single slide of this course, Sai and the AiVirex
-            team spent time researching GEO properly — papers, testing, real
-            iteration — because most tools marketed as &ldquo;AI visibility
-            scanners&rdquo; turned out to be a URL wrapped in a ChatGPT prompt,
-            giving a different score every time you ran it. That research
-            became <span className="font-medium">Litmus</span>, a GEO audit
-            tool that scores a site against a fixed, repeatable rubric instead
-            of guessing — and this course teaches the same six-pillar
-            framework it&apos;s built on, plus how to charge for it.
-          </p>
+          <p className="mt-3 text-neutral-700">{instructor.bio}</p>
           <Link
-            href="https://www.linkedin.com/in/sai-anirudh-415001168/"
+            href={instructor.linkedinUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-3 inline-block text-sm font-medium underline"
