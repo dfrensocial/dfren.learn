@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { adminAuth } from "@/lib/firebase/admin";
 import { grantCourseAccess } from "@/lib/razorpay/grant-access";
+import { isRazorpayConfigured } from "@/lib/razorpay/server";
 
 // Lets the UI (checkout flow, dashboard, video playback) be fully tested
 // before Razorpay exists — hard-disabled the moment real Razorpay keys are
 // configured, since it grants access with no payment verification at all.
 export async function POST(req: NextRequest) {
-  if (process.env.RAZORPAY_KEY_ID) {
+  if (isRazorpayConfigured()) {
     return NextResponse.json({ error: "Test mode is disabled" }, { status: 404 });
   }
 

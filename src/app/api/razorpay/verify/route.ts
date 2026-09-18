@@ -1,26 +1,37 @@
 import { NextRequest, NextResponse } from "next/server";
 import { adminAuth } from "@/lib/firebase/admin";
-import { verifyRazorpayPaymentSignature } from "@/lib/razorpay/server";
+import { razorpay, verifyRazorpayPaymentSignature } from "@/lib/razorpay/server";
 import { grantCourseAccess } from "@/lib/razorpay/grant-access";
 
 // Called by the client right after Razorpay's checkout handler fires. The
-// signature check below is what makes this trustworthy — without it, this
-// would just be a client saying "trust me, I paid."
+// signature check only proves orderId+paymentId are a genuine pair from
+// Razorpay — it says nothing about who paid or for what course. courseId and
+// email must therefore come from the order's own `notes` (set server-side at
+// creation in /api/razorpay/create-order), never from this request body —
+// otherwise anyone who ever completed one checkout could replay their valid
+// signature with a different email and grant themselves (or take over)
+// an arbitrary account. Same authoritative-source pattern the webhook uses.
 export async function POST(req: NextRequest) {
   const {
     razorpay_order_id: orderId,
     razorpay_payment_id: paymentId,
     razorpay_signature: signature,
-    courseId,
-    email,
   } = await req.json();
 
-  if (!orderId || !paymentId || !signature || !courseId || !email) {
+  if (!orderId || !paymentId || !signature) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
   if (!verifyRazorpayPaymentSignature({ orderId, paymentId, signature })) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
+  }
+
+  const order = await razorpay.orders.fetch(orderId).catch(() => null);
+  const courseId = order?.notes?.courseId as string | undefined;
+  const email = order?.notes?.email as string | undefined;
+
+  if (!courseId || !email) {
+    return NextResponse.json({ error: "Order not found or missing notes" }, { status: 400 });
   }
 
   const authHeader = req.headers.get("authorization");

@@ -35,6 +35,23 @@ function LoginForm() {
   const [completingLink, setCompletingLink] = useState(
     () => typeof window !== "undefined" && isSignInWithEmailLink(auth, window.location.href)
   );
+  // Set when there's no cached email for the link (different browser/device)
+  // and we need to ask for it inline instead of a jarring window.prompt().
+  const [needsEmailConfirm, setNeedsEmailConfirm] = useState(false);
+  const [confirmEmail, setConfirmEmail] = useState("");
+
+  async function finishEmailLinkSignIn(emailForLink: string) {
+    try {
+      const { user } = await signInWithEmailLink(auth, emailForLink, window.location.href);
+      window.localStorage.removeItem(EMAIL_LINK_STORAGE_KEY);
+      await syncSessionCookie(user);
+      router.push(searchParams.get("redirect") ?? "/dashboard");
+    } catch {
+      setError("That sign-in link is invalid or has expired.");
+      setCompletingLink(false);
+      setNeedsEmailConfirm(false);
+    }
+  }
 
   // Guest-checkout accounts have no password — this completes the sign-in
   // when the user arrives here from the emailed link.
@@ -43,25 +60,22 @@ function LoginForm() {
 
     // Deferred to a microtask so every setState below runs from a callback,
     // not directly in the effect body.
-    Promise.resolve().then(async () => {
+    Promise.resolve().then(() => {
       const storedEmail = window.localStorage.getItem(EMAIL_LINK_STORAGE_KEY);
-      const emailForLink = storedEmail ?? window.prompt("Confirm your email to finish logging in");
-      if (!emailForLink) {
-        setCompletingLink(false);
+      if (!storedEmail) {
+        setNeedsEmailConfirm(true);
         return;
       }
-
-      try {
-        const { user } = await signInWithEmailLink(auth, emailForLink, window.location.href);
-        window.localStorage.removeItem(EMAIL_LINK_STORAGE_KEY);
-        await syncSessionCookie(user);
-        router.push(searchParams.get("redirect") ?? "/dashboard");
-      } catch {
-        setError("That sign-in link is invalid or has expired.");
-        setCompletingLink(false);
-      }
+      finishEmailLinkSignIn(storedEmail);
     });
-  }, [completingLink, router, searchParams]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [completingLink]);
+
+  function handleConfirmEmailSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!confirmEmail) return;
+    finishEmailLinkSignIn(confirmEmail);
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -101,6 +115,36 @@ function LoginForm() {
     } finally {
       setSubmitting(false);
     }
+  }
+
+  if (completingLink && needsEmailConfirm) {
+    return (
+      <main className="flex min-h-screen w-full flex-col items-center justify-center bg-white px-6 text-black">
+        <div className="w-full max-w-sm">
+          <h1 className="text-2xl font-bold tracking-tight">Confirm your email</h1>
+          <p className="mt-2 text-sm text-neutral-600">
+            Enter the email this sign-in link was sent to.
+          </p>
+          <form onSubmit={handleConfirmEmailSubmit} className="mt-6 flex flex-col gap-3">
+            <input
+              type="email"
+              required
+              autoFocus
+              placeholder="Email"
+              value={confirmEmail}
+              onChange={(e) => setConfirmEmail(e.target.value)}
+              className="border border-black px-3 py-2"
+            />
+            <button
+              type="submit"
+              className="bg-black px-4 py-3 font-semibold text-white transition hover:bg-neutral-800"
+            >
+              Continue
+            </button>
+          </form>
+        </div>
+      </main>
+    );
   }
 
   if (completingLink) {

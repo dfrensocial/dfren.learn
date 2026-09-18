@@ -23,25 +23,36 @@ export function SecureVideoPlayer({
     if (!user) return;
 
     let cancelled = false;
-    (async () => {
-      const idToken = await user.getIdToken();
-      const res = await fetch("/api/mux/playback-token", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${idToken}`,
-        },
-        body: JSON.stringify({ courseId, lessonId }),
-      });
 
-      if (!res.ok) {
-        if (!cancelled) setError("You don't have access to this lesson.");
-        return;
+    // Deferred to a microtask so every setState here runs from a callback,
+    // not directly in the effect body.
+    Promise.resolve().then(async () => {
+      if (cancelled) return;
+      setError(null);
+      setPlayback(null);
+
+      try {
+        const idToken = await user.getIdToken();
+        const res = await fetch("/api/mux/playback-token", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${idToken}`,
+          },
+          body: JSON.stringify({ courseId, lessonId }),
+        });
+
+        if (!res.ok) {
+          if (!cancelled) setError("You don't have access to this lesson.");
+          return;
+        }
+
+        const data = await res.json();
+        if (!cancelled) setPlayback(data);
+      } catch {
+        if (!cancelled) setError("Couldn't load this lesson. Please try again.");
       }
-
-      const data = await res.json();
-      if (!cancelled) setPlayback(data);
-    })();
+    });
 
     return () => {
       cancelled = true;
