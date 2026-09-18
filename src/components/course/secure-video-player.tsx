@@ -12,9 +12,11 @@ export function SecureVideoPlayer({
   lessonId: string;
 }) {
   const { user } = useAuth();
-  const [playback, setPlayback] = useState<{ playbackId: string; token: string } | null>(
-    null
-  );
+  const [playback, setPlayback] = useState<{
+    playbackId: string;
+    token: string;
+    thumbnailToken: string;
+  } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -61,7 +63,7 @@ export function SecureVideoPlayer({
     <div onContextMenu={(e) => e.preventDefault()}>
       <MuxPlayer
         playbackId={playback.playbackId}
-        tokens={{ playback: playback.token }}
+        tokens={{ playback: playback.token, thumbnail: playback.thumbnailToken }}
         streamType="on-demand"
         style={{ aspectRatio: "16/9", width: "100%" }}
       />

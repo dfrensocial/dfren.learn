@@ -41,5 +41,6 @@ export async function POST(req: NextRequest) {
   }
 
   const token = signMuxPlaybackToken(playbackId, "video");
-  return NextResponse.json({ playbackId, token });
+  const thumbnailToken = signMuxPlaybackToken(playbackId, "thumbnail");
+  return NextResponse.json({ playbackId, token, thumbnailToken });
 }

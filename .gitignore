@@ -40,3 +40,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# raw course video dropped in the repo root for scripts/upload-lesson.ts —
+# upload to Mux, then delete; never commit it (see README)
+/*.mp4
+/*.mov
+/*.mkv
+/*.webm

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { CourseContent } from "@/content/courses/geo-blueprint";
 
@@ -9,11 +10,14 @@ export function Instructor({
   return (
     <section className="border-b border-black">
       <div className="mx-auto grid max-w-4xl gap-8 px-6 py-16 sm:grid-cols-[200px_1fr] sm:py-20">
-        {/* Placeholder headshot — swap for a real photo */}
-        <div className="mx-auto aspect-square w-40 border border-black bg-neutral-100 sm:mx-0 sm:w-full">
-          <div className="flex h-full items-center justify-center text-xs text-neutral-400">
-            Photo
-          </div>
+        <div className="mx-auto aspect-square w-40 overflow-hidden rounded-full sm:mx-0 sm:w-full">
+          <Image
+            src="/images/instructor.jpg"
+            alt={instructor.name}
+            width={400}
+            height={400}
+            className="h-full w-full object-cover"
+          />
         </div>
         <div>
           <h2 className="text-2xl font-bold tracking-tight">Your instructor</h2>
