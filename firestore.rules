@@ -21,10 +21,15 @@ service cloud.firestore {
       allow write: if false; // admin SDK (server) only
 
       match /lessons/{lessonId} {
-        // Everyone can see lesson titles/ordering; only enrolled users get
-        // the Mux identifiers, which is what actually unlocks playback.
-        allow read: if isEnrolled(courseId) ||
-          !("muxPlaybackId" in resource.data);
+        // A list query can't be validated against isEnrolled()/field-presence
+        // conditions (Firestore can only permit a list when the query mirrors
+        // the rule as a simple field filter), so listing lesson metadata
+        // (titles/order) is public here. That's safe: Mux assets are signed-
+        // policy, so a bare playbackId is useless without a token, and
+        // /api/mux/playback-token independently re-checks enrollment before
+        // issuing one. `get` (a direct single-doc fetch) stays gated.
+        allow list: if true;
+        allow get: if isEnrolled(courseId) || !("muxPlaybackId" in resource.data);
         allow write: if false; // admin SDK (server) only
       }
     }
