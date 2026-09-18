@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase/client";
@@ -29,8 +30,16 @@ export default function SignupPage() {
   }
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-sm flex-col justify-center px-6">
-      <h1 className="text-2xl font-semibold">Create your account</h1>
+    <main className="flex min-h-screen w-full flex-col items-center justify-center bg-white px-6 text-black">
+      <div className="w-full max-w-sm">
+      <Link href="/" className="mb-8 text-lg font-bold tracking-tight">
+        dfren<span className="text-neutral-400">Learn</span>
+      </Link>
+      <h1 className="text-2xl font-bold tracking-tight">Create your account</h1>
+      <p className="mt-1 text-sm text-neutral-500">
+        Buying the course? You don&apos;t need this — just click Enroll and pay,
+        an account is created for you automatically.
+      </p>
       <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-3">
         <input
           type="email"
@@ -38,7 +47,7 @@ export default function SignupPage() {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="rounded-md border border-neutral-300 px-3 py-2"
+          className="border border-black px-3 py-2"
         />
         <input
           type="password"
@@ -47,17 +56,18 @@ export default function SignupPage() {
           placeholder="Password (min. 6 characters)"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="rounded-md border border-neutral-300 px-3 py-2"
+          className="border border-black px-3 py-2"
         />
         {error && <p className="text-sm text-red-600">{error}</p>}
         <button
           type="submit"
           disabled={submitting}
-          className="rounded-md bg-neutral-900 px-4 py-2 text-white disabled:opacity-50"
+          className="bg-black px-4 py-3 font-semibold text-white transition hover:bg-neutral-800 disabled:opacity-50"
         >
           {submitting ? "Creating account..." : "Sign up"}
         </button>
       </form>
+      </div>
     </main>
   );
 }

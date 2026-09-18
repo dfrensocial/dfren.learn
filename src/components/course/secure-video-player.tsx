@@ -46,8 +46,14 @@ export function SecureVideoPlayer({
     };
   }, [user, courseId, lessonId]);
 
-  if (error) return <p className="text-sm text-red-600">{error}</p>;
-  if (!playback) return <div className="aspect-video animate-pulse bg-neutral-200" />;
+  if (error) {
+    return (
+      <div className="flex aspect-video items-center justify-center border border-black bg-neutral-50">
+        <p className="text-sm text-neutral-600">{error}</p>
+      </div>
+    );
+  }
+  if (!playback) return <div className="aspect-video animate-pulse bg-neutral-100" />;
 
   return (
     // Discourages casual right-click download attempts; determined users can

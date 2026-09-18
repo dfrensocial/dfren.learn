@@ -8,6 +8,7 @@ import {
   isSignInWithEmailLink,
   signInWithEmailLink,
 } from "firebase/auth";
+import Link from "next/link";
 import { auth } from "@/lib/firebase/client";
 import { syncSessionCookie } from "@/lib/firebase/auth-context";
 
@@ -104,15 +105,19 @@ function LoginForm() {
 
   if (completingLink) {
     return (
-      <main className="mx-auto flex min-h-screen max-w-sm flex-col justify-center px-6">
+      <main className="flex min-h-screen w-full items-center justify-center bg-white px-6 text-black">
         <p className="text-neutral-600">Signing you in...</p>
       </main>
     );
   }
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-sm flex-col justify-center px-6">
-      <h1 className="text-2xl font-semibold">Log in</h1>
+    <main className="flex min-h-screen w-full flex-col items-center justify-center bg-white px-6 text-black">
+      <div className="w-full max-w-sm">
+      <Link href="/" className="mb-8 text-lg font-bold tracking-tight">
+        dfren<span className="text-neutral-400">Learn</span>
+      </Link>
+      <h1 className="text-2xl font-bold tracking-tight">Log in</h1>
 
       {linkSent ? (
         <p className="mt-6 text-sm text-neutral-600">
@@ -129,7 +134,7 @@ function LoginForm() {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="rounded-md border border-neutral-300 px-3 py-2"
+              className="border border-black px-3 py-2"
             />
             <input
               type="password"
@@ -137,13 +142,13 @@ function LoginForm() {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="rounded-md border border-neutral-300 px-3 py-2"
+              className="border border-black px-3 py-2"
             />
             {error && <p className="text-sm text-red-600">{error}</p>}
             <button
               type="submit"
               disabled={submitting}
-              className="rounded-md bg-neutral-900 px-4 py-2 text-white disabled:opacity-50"
+              className="bg-black px-4 py-3 font-semibold text-white transition hover:bg-neutral-800 disabled:opacity-50"
             >
               {submitting ? "Logging in..." : "Log in"}
             </button>
@@ -161,6 +166,7 @@ function LoginForm() {
           </button>
         </>
       )}
+      </div>
     </main>
   );
 }

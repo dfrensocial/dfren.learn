@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { MarketingNav } from "@/components/marketing/nav";
 import { Hero } from "@/components/marketing/hero";
 import { StatsBar } from "@/components/marketing/stats-bar";
@@ -12,6 +13,22 @@ import { FAQ } from "@/components/marketing/faq";
 import { FinalCTA } from "@/components/marketing/final-cta";
 import { MarketingFooter } from "@/components/marketing/footer";
 import { geoBlueprintCourse } from "@/content/courses/geo-blueprint";
+
+export const metadata: Metadata = {
+  title: `${geoBlueprintCourse.title} — dfrenLearn`,
+  description: geoBlueprintCourse.hero.subheadline,
+  openGraph: {
+    title: geoBlueprintCourse.hero.headline,
+    description: geoBlueprintCourse.hero.subheadline,
+    type: "website",
+    siteName: "dfrenLearn",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: geoBlueprintCourse.hero.headline,
+    description: geoBlueprintCourse.hero.subheadline,
+  },
+};
 
 export default function LandingPage() {
   const course = geoBlueprintCourse;

@@ -24,15 +24,17 @@ export default function DashboardPage() {
     });
   }, [router]);
 
-  if (courses === null) return null;
+  if (courses === null) {
+    return <div className="h-24 animate-pulse bg-neutral-100" />;
+  }
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold">Your courses</h1>
+      <h1 className="text-2xl font-bold tracking-tight">Your courses</h1>
       <ul className="mt-6 grid gap-4 sm:grid-cols-2">
         {courses.map((course) => (
-          <li key={course.id} className="rounded-lg border border-neutral-200 p-4">
-            <Link href={`/dashboard/courses/${course.id}`} className="font-medium">
+          <li key={course.id} className="border border-black p-4">
+            <Link href={`/dashboard/courses/${course.id}`} className="font-semibold">
               {course.title}
             </Link>
             <p className="mt-1 text-sm text-neutral-600">{course.description}</p>
