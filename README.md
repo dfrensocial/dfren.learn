@@ -28,11 +28,11 @@ Architecture and rules: see [AGENTS.md](./AGENTS.md).
 4. Auto-generated English subtitles are now requested on every upload (`upload-lesson.ts`/`test-mux-lesson.ts`) — no extra setup, it's Mux's built-in speech-to-text and the tracks are served inside the same signed HLS manifest as the video, so the player's CC button just works once a track finishes processing (usually shortly after the asset itself goes `ready`).
 5. **Not set up yet — Mux Data (viewer engagement/QoE analytics):** needs a Mux Data **Environment Key**, which is separate from the Video API tokens above. Get one from the Mux dashboard → **Data** → **Environments** (safe to expose client-side — it's an analytics key, not a secret) and add it as `NEXT_PUBLIC_MUX_ENV_KEY`. Once that exists, pass `envKey={process.env.NEXT_PUBLIC_MUX_ENV_KEY}` and a `metadata={{ video_id: lessonId, video_title: ..., viewer_user_id: user.uid }}` prop to `MuxPlayer` in `secure-video-player.tsx` — that's the entire integration, mux-player-react handles the beaconing itself. Left undone here because it needs an env var only the account owner can create.
 
-### Razorpay
-1. Create an account at razorpay.com (test mode is fine to start).
-2. API Keys → generate → `RAZORPAY_KEY_ID` / `RAZORPAY_KEY_SECRET` (also set `NEXT_PUBLIC_RAZORPAY_KEY_ID` to the same key id).
-3. Webhooks → add `https://<your-domain>/api/razorpay/webhook`, subscribe to `payment.captured`, copy the secret into `RAZORPAY_WEBHOOK_SECRET`.
-4. Until these are set, the site runs in **test-payment mode** automatically (see below) — no code change needed when you do add them.
+### Razorpay — currently blocked on KYC (as of 2026-09-23)
+1. Create an account at razorpay.com.
+2. API Keys → generate → `RAZORPAY_KEY_ID` / `RAZORPAY_KEY_SECRET` (also set `NEXT_PUBLIC_RAZORPAY_KEY_ID` to the same key id). **Razorpay now requires account KYC/approval before generating *any* API key, including test mode** — there's nothing to do here until that clears, this isn't a config issue on our end.
+3. Webhooks → add `https://<your-domain>/api/razorpay/webhook`, subscribe to `payment.captured`, copy the secret into `RAZORPAY_WEBHOOK_SECRET`. **Razorpay validates that the webhook URL actually resolves** (unlike Mux, which accepts a not-yet-live placeholder domain) — so this step also needs a real deployed domain, which is another reason to deploy to Vercel before/independent of Razorpay approval.
+4. Until all three vars are set, the site runs in **test-payment mode** automatically (see below) — no code change needed when they're added.
 
 ## Adding course content (no admin UI yet)
 
