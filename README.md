@@ -67,14 +67,9 @@ Still needed:
 - Deploy target (Vercel recommended) + wiring the Mux/Razorpay webhook URLs to that domain.
 - `middleware.ts` uses Next's now-deprecated middleware convention (proxy is the replacement) — fine functionally, worth migrating later with `npx @next/codemod@canary middleware-to-proxy .`.
 
-### Deferred from the 2026-09-18 UX/security review (next up)
-Everything critical from that review is already fixed (see git log). These are the lower-priority items from the same three-agent audit that were explicitly deferred, not forgotten:
-- No mobile hamburger menu on the marketing nav — "Log in" and the anchor links (`Curriculum`/`FAQ`) are `hidden sm:inline` with no fallback, so they're unreachable from the nav on phones.
-- No rate-limiting/abuse controls on guest-facing endpoints (`create-order`, `verify`, `simulate-payment`) — all accept unauthenticated requests keyed only by a client-supplied email.
-- `courseId` isn't existence-checked in `/api/razorpay/verify`, the webhook, or `/api/test/simulate-payment` (only `create-order` checks it) — low impact today (single course), worth hardening before multi-course.
+### Deferred from the 2026-09-18 UX/security review — status as of 2026-09-22
+Mobile nav, rate-limiting, courseId validation, and CSRF hardening are all shipped now (see git log). One item remains open:
 - `firestore.rules` `allow list: if true` on lessons returns full lesson docs (including `muxPlaybackId`/`muxAssetId`) to any unauthenticated client via a collection query. Currently safe only because Mux assets are signed-policy, so the ID alone doesn't unlock playback — but it's a fragile backstop. Consider moving those fields off the publicly-listable doc.
-- `/api/auth/session` has no CSRF protection (no origin check, `sameSite: "lax"`) — low real impact since nothing sensitive is currently authorized by the session cookie itself (see AGENTS.md's note that RSCs don't actually verify it — everything protected goes through Firestore rules or ID-token checks instead), but worth an origin check for defense-in-depth.
-- General UX pass: anything else from a fresh look at the full user flow (marketing → signup/login → checkout → dashboard → video) that reads as unpolished or inconsistent, now that the functional bugs are fixed.
 
 ### Mux feature audit (2026-09-22)
 Done in this pass:
