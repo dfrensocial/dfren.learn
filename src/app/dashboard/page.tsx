@@ -69,8 +69,8 @@ export default function DashboardPage() {
       <h1 className="text-2xl font-bold tracking-tight">Your courses</h1>
       <ul className="mt-6 grid gap-4 sm:grid-cols-2">
         {courses.map((course) => (
-          <li key={course.id} className="border border-black p-4">
-            <Link href={`/dashboard/courses/${course.id}`} className="font-semibold">
+          <li key={course.id} className="border border-black p-4 transition-colors hover:bg-neutral-50">
+            <Link href={`/dashboard/courses/${course.id}`} className="font-semibold hover:underline">
               {course.title}
             </Link>
             <p className="mt-1 text-sm text-neutral-600">{course.description}</p>

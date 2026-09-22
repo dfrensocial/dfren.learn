@@ -21,7 +21,12 @@ async function main() {
 
   console.log("Creating Mux asset...");
   const asset = await mux.video.assets.create({
-    inputs: [{ url: TEST_VIDEO_URL }],
+    inputs: [
+      {
+        url: TEST_VIDEO_URL,
+        generated_subtitles: [{ language_code: "en", name: "English (auto)" }],
+      },
+    ],
     playback_policy: ["signed"],
     passthrough: `${COURSE_ID}:${LESSON_ID}`,
   });

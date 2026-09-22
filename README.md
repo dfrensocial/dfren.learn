@@ -25,6 +25,8 @@ Architecture and rules: see [AGENTS.md](./AGENTS.md).
 1. Create an account at mux.com, get `MUX_TOKEN_ID` / `MUX_TOKEN_SECRET` from Settings → Access Tokens.
 2. Settings → Signing Keys → create one → gives `MUX_SIGNING_KEY_ID` and the base64 private key (`MUX_SIGNING_KEY_PRIVATE`). This is what makes lesson playback un-guessable — every asset must be created with `playback_policy: "signed"`.
 3. Settings → Webhooks → point at `https://<your-domain>/api/mux/webhook`, copy the signing secret into `MUX_WEBHOOK_SECRET`.
+4. Auto-generated English subtitles are now requested on every upload (`upload-lesson.ts`/`test-mux-lesson.ts`) — no extra setup, it's Mux's built-in speech-to-text and the tracks are served inside the same signed HLS manifest as the video, so the player's CC button just works once a track finishes processing (usually shortly after the asset itself goes `ready`).
+5. **Not set up yet — Mux Data (viewer engagement/QoE analytics):** needs a Mux Data **Environment Key**, which is separate from the Video API tokens above. Get one from the Mux dashboard → **Data** → **Environments** (safe to expose client-side — it's an analytics key, not a secret) and add it as `NEXT_PUBLIC_MUX_ENV_KEY`. Once that exists, pass `envKey={process.env.NEXT_PUBLIC_MUX_ENV_KEY}` and a `metadata={{ video_id: lessonId, video_title: ..., viewer_user_id: user.uid }}` prop to `MuxPlayer` in `secure-video-player.tsx` — that's the entire integration, mux-player-react handles the beaconing itself. Left undone here because it needs an env var only the account owner can create.
 
 ### Razorpay
 1. Create an account at razorpay.com (test mode is fine to start).
@@ -74,12 +76,17 @@ Everything critical from that review is already fixed (see git log). These are t
 - `/api/auth/session` has no CSRF protection (no origin check, `sameSite: "lax"`) — low real impact since nothing sensitive is currently authorized by the session cookie itself (see AGENTS.md's note that RSCs don't actually verify it — everything protected goes through Firestore rules or ID-token checks instead), but worth an origin check for defense-in-depth.
 - General UX pass: anything else from a fresh look at the full user flow (marketing → signup/login → checkout → dashboard → video) that reads as unpolished or inconsistent, now that the functional bugs are fixed.
 
-### Mux feature audit (next up)
-Only signed playback + basic thumbnail tokens are wired up right now. Mux's free/included tier has a lot more that isn't being used — do a proper audit and integrate what's worth it for course-video delivery quality:
-- Auto-generated captions/subtitles (`mux.video.assets.generateSubtitles` — seen in the SDK's method list, unused so far).
-- Mux Data analytics (viewer engagement, playback quality/rebuffering stats) — currently only using Mux Video, not Mux Data.
-- Storyboards/animated GIF previews for scrubbing (`createStaticRendition`, GIF endpoints).
-- Scene/shot detection (`retrieveShots`/`generateShots`) if useful for chaptering lessons.
-- Mux CLI for local dev/asset management workflows, instead of only the Node SDK via scripts.
-- Richer `@mux/mux-player-react` features beyond the bare signed player currently used (chapters, playback rate control, better poster/loading states, resumption/watch-progress).
-- MP4 static renditions if a downloadable option is ever wanted (weigh against the signed-only protection model — would need its own signed-download flow, not a plain public MP4).
+### Mux feature audit (2026-09-22)
+Done in this pass:
+- **Auto-captions**: `new_asset_settings.inputs[0].generated_subtitles` set on every upload (`scripts/upload-lesson.ts`, `scripts/test-mux-lesson.ts`) — Mux's built-in ASR, included on standard plans. No player change needed to *display* them — subtitle tracks ride inside the same signed HLS manifest already unlocked by the existing video token, so the CC button just appears once the track is `ready`.
+- **Storyboard scrub-preview thumbnails**: `signMuxPlaybackToken(playbackId, "storyboard")` was already implemented in `signing.ts` but unused — now wired through `/api/mux/playback-token` (returns `storyboardToken`) and `secure-video-player.tsx` (`tokens.storyboard`). Same signed-token model as video/thumbnail, just a different JWT audience; `mux-player-react` derives the `storyboard.vtt` URL from the playback ID automatically once the token is present.
+- **Playback rate control**: `playbackRates` prop set on `MuxPlayer` (0.75x–2x) — visible in the player's settings menu.
+- **Resume from last position**: `secure-video-player.tsx` reads/writes `localStorage` (`mux-progress:<courseId>:<lessonId>`) on the viewer's own device, throttled to ~1 write/5s of playback, cleared on `ended`. Purely a per-device convenience — never sent anywhere, never used for access control.
+
+Deliberately not implemented — needs something only the account owner can provide:
+- **Mux Data analytics** (viewer engagement, rebuffering/QoE) — needs a `NEXT_PUBLIC_MUX_ENV_KEY` from Mux dashboard → Data → Environments. See the Mux setup section above for the exact wiring once that key exists.
+- **Chapters** (`MuxPlayer.addChapters()` / the `chapterchange` event) — needs per-lesson timestamp/title data that doesn't exist yet (no schema field for it, no content authored). Worth adding once lesson content design decides chapter markers matter; would need a new Firestore field (e.g. `lessons/{id}.chapters`) fed into the player via `ref.current.addChapters(...)` after mount.
+- **Shot/scene detection** (`generateShots`/`retrieveShots`) — evaluated and skipped: it's for finding *visual* cut points in raw footage, not a fit for narrated single-camera course lessons, and there's no chaptering UI to feed it into anyway (see Chapters above).
+- **MP4 static renditions / downloads** — skipped on purpose: a downloadable MP4 needs its own signed-download flow to avoid becoming a plain public URL, which conflicts with the signed-only protection model this app is built around. Not implementing without an explicit "let students download lessons" product decision.
+
+Mux CLI — evaluated, not adopted: it's a scaffolding/local-dev tool (spin up a demo player, quick asset CRUD from a terminal) aimed at projects with no existing SDK integration. This repo already drives everything through `@mux/mux-node` in typed, reviewable scripts (`upload-lesson.ts`, `test-mux-lesson.ts`) wired into the same Firebase writes the CLI knows nothing about — the CLI would just be a second, weaker way to do half of what those scripts already do. Not worth adding.

@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { adminAuth } from "@/lib/firebase/admin";
 import { razorpay, verifyRazorpayPaymentSignature } from "@/lib/razorpay/server";
 import { grantCourseAccess } from "@/lib/razorpay/grant-access";
+import { isValidPublishedCourse } from "@/lib/razorpay/validate-course";
+import { getClientIp, rateLimit } from "@/lib/rate-limit";
 
 // Called by the client right after Razorpay's checkout handler fires. The
 // signature check only proves orderId+paymentId are a genuine pair from
@@ -12,6 +14,18 @@ import { grantCourseAccess } from "@/lib/razorpay/grant-access";
 // signature with a different email and grant themselves (or take over)
 // an arbitrary account. Same authoritative-source pattern the webhook uses.
 export async function POST(req: NextRequest) {
+  const ip = getClientIp(req);
+  const { allowed, retryAfterSeconds } = rateLimit(`verify:${ip}`, {
+    limit: 20,
+    windowMs: 60_000,
+  });
+  if (!allowed) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again shortly." },
+      { status: 429, headers: { "Retry-After": String(retryAfterSeconds) } }
+    );
+  }
+
   const {
     razorpay_order_id: orderId,
     razorpay_payment_id: paymentId,
@@ -32,6 +46,10 @@ export async function POST(req: NextRequest) {
 
   if (!courseId || !email) {
     return NextResponse.json({ error: "Order not found or missing notes" }, { status: 400 });
+  }
+
+  if (!(await isValidPublishedCourse(courseId))) {
+    return NextResponse.json({ error: "Course not found" }, { status: 400 });
   }
 
   const authHeader = req.headers.get("authorization");

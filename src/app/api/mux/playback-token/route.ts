@@ -42,5 +42,9 @@ export async function POST(req: NextRequest) {
 
   const token = signMuxPlaybackToken(playbackId, "video");
   const thumbnailToken = signMuxPlaybackToken(playbackId, "thumbnail");
-  return NextResponse.json({ playbackId, token, thumbnailToken });
+  // Storyboard token unlocks the scrub-preview thumbnails (storyboard.vtt) for
+  // this signed asset — same signed-token model as video/thumbnail, just a
+  // different JWT audience ("s"). No new Mux feature/plan needed.
+  const storyboardToken = signMuxPlaybackToken(playbackId, "storyboard");
+  return NextResponse.json({ playbackId, token, thumbnailToken, storyboardToken });
 }

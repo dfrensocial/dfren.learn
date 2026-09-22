@@ -170,8 +170,10 @@ function CourseView({ params }: { params: Promise<{ courseId: string }> }) {
                 <button
                   disabled={!enrolled}
                   onClick={() => setActiveLessonId(lesson.id)}
-                  className={`flex w-full items-center gap-3 px-4 py-3 text-left ${
-                    isActive ? "bg-black text-white" : "disabled:text-neutral-400"
+                  className={`flex w-full items-center gap-3 px-4 py-3 text-left transition-colors disabled:cursor-not-allowed ${
+                    isActive
+                      ? "bg-black text-white"
+                      : "enabled:hover:bg-neutral-50 disabled:text-neutral-400"
                   }`}
                 >
                   <span

@@ -36,6 +36,18 @@ async function main() {
     new_asset_settings: {
       playback_policy: ["signed"],
       passthrough: `${courseId}:${lessonId}`,
+      // Auto-generate English subtitles from the lesson audio (Mux's built-in
+      // speech-to-text, included on standard plans — no separate captioning
+      // service). The main input is the direct-upload file itself, so this
+      // entry omits `url` per Mux's docs for that case. Tracks land in the
+      // `preparing` state and flip to `ready` shortly after the asset itself
+      // does; they're then served inside the same signed HLS manifest, so no
+      // extra signed-token plumbing is needed to expose them in the player.
+      inputs: [
+        {
+          generated_subtitles: [{ language_code: "en", name: "English (auto)" }],
+        },
+      ],
     },
   });
 
@@ -68,6 +80,13 @@ async function main() {
 
   const playbackId = asset.playback_ids?.[0]?.id;
   if (!playbackId) throw new Error("No playback ID on ready asset");
+
+  const subtitleTrack = asset.tracks?.find((t) => t.type === "text");
+  if (subtitleTrack) {
+    console.log(
+      `Auto-generated subtitles: track ${subtitleTrack.id} is "${subtitleTrack.status}" (usually finishes shortly after the asset itself).`
+    );
+  }
 
   await adminDb
     .collection("courses")
