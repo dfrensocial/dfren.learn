@@ -34,7 +34,7 @@ async function makeRevealed(basePath: string, encodedPath: string, outPath: stri
 
 async function main() {
   const payload = "a91f7c"; // short id -> looked up server-side to the viewer, not the email itself
-  const deltas = [16, 24, 32, 40];
+  const deltas = [4, 8, 12, 16, 20, 24];
 
   for (const delta of deltas) {
     const pngPath = path.join(OUT, `encoded-delta${delta}.png`);
@@ -53,6 +53,22 @@ async function main() {
     console.log("PNG decode:", decodedPng.text === payload ? `OK -> "${decodedPng.text}"` : `FAILED (got "${decodedPng.text}")`);
     console.log("JPEG q85 decode:", decodedJpg.text === payload ? `OK -> "${decodedJpg.text}"` : `FAILED (got "${decodedJpg.text}")`);
   }
+
+  // Robustness check: downscale+upscale+JPEG to simulate a phone recording
+  // a laptop screen.
+  const finalDelta = 24;
+  const finalPng = path.join(OUT, `encoded-delta${finalDelta}.png`);
+  const screenRecPath = path.join(OUT, `encoded-delta${finalDelta}-screenrec-sim.jpg`);
+  const meta = await sharp(finalPng).metadata();
+  await sharp(finalPng)
+    .resize(Math.round((meta.width ?? 1050) * 0.65), Math.round((meta.height ?? 573) * 0.65))
+    .resize(meta.width, meta.height)
+    .jpeg({ quality: 78 })
+    .toFile(screenRecPath);
+  const expectedPeriod = 16 + payload.length * 8;
+  const decodedScreenRec = await decode({ inputPath: screenRecPath, expectedPeriod });
+  console.log(`\n--- delta=${finalDelta}, downscale 65%+upscale+JPEG78 (screen-recording simulation) ---`);
+  console.log("Decode:", decodedScreenRec.text === payload ? `OK -> "${decodedScreenRec.text}"` : `FAILED (got "${decodedScreenRec.text}")`);
 
   console.log("\nAll output images in:", OUT);
 }

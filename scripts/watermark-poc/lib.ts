@@ -1,15 +1,38 @@
-// Invisible forensic watermark: blind, differential luminance encoding.
-// For each payload bit, a small left/right pair of blocks gets pushed apart
-// in brightness. Decoding only needs the mean brightness difference between
-// the two halves of each cell, so no original/unwatermarked reference is
-// needed -- that's what makes it usable against a leaked screen-recording
-// where we'll never have the "clean" frame to diff against.
+// Invisible forensic watermark: blind, differential luminance encoding,
+// shaped with a smooth 2D window instead of a flat rectangle so there are
+// no hard block edges -- the earlier flat-block version looked like a
+// checkerboard specifically because of those edges, not because of the
+// brightness change itself. (A blue-channel-only variant was tried and
+// rejected: on a near-black scene, added blue is a saturated color popping
+// out of black -- far MORE visible than an equal luminance push, not less.
+// The "eye is less sensitive to blue" rule of thumb only holds against a
+// colorful backdrop, not against black.) For each payload bit, a left/right
+// pair of soft blobs gets pushed apart in brightness. Decoding only needs
+// the mean brightness difference between the two halves of each cell, so no
+// original/unwatermarked reference is needed -- that's what makes it usable
+// against a leaked screen-recording where we'll never have the "clean"
+// frame to diff against.
 
 import sharp from "sharp";
 
-const CELL_W = 32; // one bit cell = two 16x16 blocks side by side
-const CELL_H = 16;
+const CELL_W = 16; // one bit cell = two 8x8 blocks side by side
+const CELL_H = 8;
 const BLOCK_W = CELL_W / 2;
+
+// Equal push across R/G/B (plain average brightness) -- matches what the
+// encoder actually writes, so decode reads back exactly what was pushed.
+function weightedValue(data: Buffer, width: number, channels: number, x: number, y: number) {
+  const idx = (y * width + x) * channels;
+  return (data[idx] + data[idx + 1] + data[idx + 2]) / 3;
+}
+
+// Raised-cosine bump: 0 at both ends of a `size`-wide span, 1 at the center.
+// Applying this in both x and y turns a flat rectangular push into a soft
+// blob that fades to nothing at every block boundary -- no more hard edges
+// for the eye to lock onto.
+function windowValue(localPos: number, size: number) {
+  return Math.sin((Math.PI * (localPos + 0.5)) / size) ** 2;
+}
 
 function stringToBits(str: string): number[] {
   const bits: number[] = [];
@@ -47,7 +70,7 @@ function localStdDev(data: Buffer, width: number, channels: number, x0: number, 
   let n = 0;
   for (let y = y0; y < y0 + h; y++) {
     for (let x = x0; x < x0 + w; x++) {
-      const l = luminance(data, width, channels, x, y);
+      const l = weightedValue(data, width, channels, x, y);
       sum += l;
       sumSq += l * l;
       n++;
@@ -57,12 +80,15 @@ function localStdDev(data: Buffer, width: number, channels: number, x0: number, 
   return Math.sqrt(Math.max(0, sumSq / n - mean * mean));
 }
 
+// Headroom/direction is judged on the channel(s) actually being pushed
+// (weightedValue, blue-heavy), not overall luma -- clipping happens per
+// channel, and blue can be near 0 or 255 while luma looks mid-range.
 function localMean(data: Buffer, width: number, channels: number, x0: number, y0: number, w: number, h: number) {
   let sum = 0;
   let n = 0;
   for (let y = y0; y < y0 + h; y++) {
     for (let x = x0; x < x0 + w; x++) {
-      sum += luminance(data, width, channels, x, y);
+      sum += weightedValue(data, width, channels, x, y);
       n++;
     }
   }
@@ -84,7 +110,7 @@ export async function encode({
   inputPath,
   outputPath,
   payload,
-  delta = 8,
+  delta = 24,
   floorScale = 0.15,
   referenceStdDev = 8,
 }: {
@@ -122,9 +148,11 @@ export async function encode({
       const pushRight = bit === 0 ? dir * effectiveDelta : 0;
 
       for (let by = 0; by < CELL_H; by++) {
+        const wy = windowValue(by, CELL_H);
         for (let bx = 0; bx < BLOCK_W; bx++) {
-          if (pushLeft) applyDelta(data, width, channels, x0 + bx, y0 + by, pushLeft);
-          if (pushRight) applyDelta(data, width, channels, x0 + BLOCK_W + bx, y0 + by, pushRight);
+          const w = wy * windowValue(bx, BLOCK_W);
+          if (pushLeft) applyDelta(data, width, channels, x0 + bx, y0 + by, pushLeft * w);
+          if (pushRight) applyDelta(data, width, channels, x0 + BLOCK_W + bx, y0 + by, pushRight * w);
         }
       }
     }
@@ -170,8 +198,8 @@ export async function decode({ inputPath, expectedPeriod }: { inputPath: string;
       let rightSum = 0;
       for (let by = 0; by < CELL_H; by++) {
         for (let bx = 0; bx < BLOCK_W; bx++) {
-          leftSum += luminance(data, width, channels, x0 + bx, y0 + by);
-          rightSum += luminance(data, width, channels, x0 + BLOCK_W + bx, y0 + by);
+          leftSum += weightedValue(data, width, channels, x0 + bx, y0 + by);
+          rightSum += weightedValue(data, width, channels, x0 + BLOCK_W + bx, y0 + by);
         }
       }
       const cellMean = (leftSum + rightSum) / (CELL_W * CELL_H);
@@ -217,11 +245,6 @@ function matchesSync(bits: number[]) {
 
 function isPrintable(str: string) {
   return str.length > 0 && [...str].every((c) => c.charCodeAt(0) >= 32 && c.charCodeAt(0) < 127);
-}
-
-function luminance(data: Buffer, width: number, channels: number, x: number, y: number) {
-  const idx = (y * width + x) * channels;
-  return 0.299 * data[idx] + 0.587 * data[idx + 1] + 0.114 * data[idx + 2];
 }
 
 export { CELL_W, CELL_H };
