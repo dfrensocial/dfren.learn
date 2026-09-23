@@ -21,16 +21,17 @@ service cloud.firestore {
       allow write: if false; // admin SDK (server) only
 
       match /lessons/{lessonId} {
-        // A list query can't be validated against isEnrolled()/field-presence
-        // conditions (Firestore can only permit a list when the query mirrors
-        // the rule as a simple field filter), so listing lesson metadata
-        // (titles/order) is public here. That's safe: Mux assets are signed-
-        // policy, so a bare playbackId is useless without a token, and
-        // /api/mux/playback-token independently re-checks enrollment before
-        // issuing one. `get` (a direct single-doc fetch) stays gated.
-        allow list: if true;
-        allow get: if isEnrolled(courseId) || !("muxPlaybackId" in resource.data);
+        // Only title/order/status live on this doc — muxPlaybackId/muxAssetId
+        // live in the private `mux/data` subdoc below instead, so this is
+        // safe to list/get for anyone regardless of enrollment.
+        allow read: if true;
         allow write: if false; // admin SDK (server) only
+
+        match /mux/{doc} {
+          allow get: if isEnrolled(courseId);
+          allow list: if false; // no query can return this — must be a known-ID get
+          allow write: if false; // admin SDK (server) only
+        }
       }
     }
 
@@ -40,6 +41,14 @@ service cloud.firestore {
       match /enrollments/{courseId} {
         allow read: if isOwner(userId);
         allow write: if false; // only the Razorpay webhook (admin SDK) grants enrollments
+      }
+
+      match /activeSessions/{sessionId} {
+        allow read, write: if false; // admin SDK (server) only — concurrent-stream tracking
+      }
+
+      match /loginEvents/{eventId} {
+        allow read, write: if false; // admin SDK (server) only — manual audit trail
       }
     }
   }

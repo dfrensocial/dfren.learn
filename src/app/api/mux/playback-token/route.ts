@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { adminAuth, adminDb } from "@/lib/firebase/admin";
 import { signMuxPlaybackToken } from "@/lib/mux/signing";
+import { lessonMuxDataRef } from "@/lib/mux/lesson-doc";
+import { checkAndRegisterSession } from "@/lib/session-limit";
+import { rateLimit } from "@/lib/rate-limit";
 
 // Issues a short-lived, per-viewer signed token — never expose a raw playback ID to the client.
 export async function POST(req: NextRequest) {
@@ -15,7 +18,24 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid session" }, { status: 401 });
   }
 
-  const { courseId, lessonId } = await req.json();
+  // Per-account (not per-IP — sharing routes through different IPs) cap on
+  // how many tokens one account can pull in an hour. Generous: normal use is
+  // one call per lesson switch plus reloads, not a tight loop.
+  const { allowed: withinRate } = rateLimit(`playback-token:${decoded.uid}`, {
+    limit: 60,
+    windowMs: 60 * 60_000,
+  });
+  if (!withinRate) {
+    return NextResponse.json(
+      { error: "Too many playback requests. Please try again later." },
+      { status: 429 }
+    );
+  }
+
+  const { courseId, lessonId, sessionId } = await req.json();
+  if (!courseId || !lessonId || !sessionId) {
+    return NextResponse.json({ error: "Missing courseId, lessonId, or sessionId" }, { status: 400 });
+  }
 
   const enrollment = await adminDb
     .collection("users")
@@ -28,14 +48,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Not enrolled in this course" }, { status: 403 });
   }
 
-  const lesson = await adminDb
-    .collection("courses")
-    .doc(courseId)
-    .collection("lessons")
-    .doc(lessonId)
-    .get();
+  const { allowed } = await checkAndRegisterSession({ uid: decoded.uid, sessionId, courseId, lessonId });
+  if (!allowed) {
+    return NextResponse.json(
+      { error: "Too many devices are streaming this account right now. Close another one and try again." },
+      { status: 429 }
+    );
+  }
 
-  const playbackId = lesson.data()?.muxPlaybackId;
+  const muxData = await lessonMuxDataRef(adminDb, courseId, lessonId).get();
+  const playbackId = muxData.data()?.muxPlaybackId;
   if (!playbackId) {
     return NextResponse.json({ error: "Lesson has no video" }, { status: 404 });
   }

@@ -9,6 +9,10 @@ import { useAuth } from "@/lib/firebase/auth-context";
 // students re-watching a dense lesson slower, or skimming a familiar one fast.
 const PLAYBACK_RATES = [0.75, 1, 1.25, 1.5, 1.75, 2];
 
+// How often to ping /api/mux/heartbeat while actually playing, so this
+// session keeps counting as "active" for the concurrent-stream cap.
+const HEARTBEAT_INTERVAL_MS = 20_000;
+
 // Resume-from-last-position is purely a per-viewer convenience: it reads and
 // writes localStorage on the viewer's own device only, never sent to a server
 // or shared between viewers, and never used to decide access — enrollment
@@ -61,6 +65,15 @@ export function SecureVideoPlayer({
   const [error, setError] = useState<string | null>(null);
   const playerRef = useRef<MuxPlayerElement | null>(null);
   const lastSaveRef = useRef(0);
+  const lastHeartbeatRef = useRef(0);
+  // One random ID per player mount — reloading the page is a new "session"
+  // (correct: this caps simultaneous playing streams, not devices over time).
+  // useState's lazy initializer (not useRef's plain initial value) is the
+  // sanctioned way to compute a one-time random value — calling an impure
+  // function directly during render is otherwise disallowed.
+  const [sessionId] = useState<string>(() =>
+    typeof crypto !== "undefined" ? crypto.randomUUID() : Math.random().toString(36)
+  );
 
   useEffect(() => {
     if (!user) return;
@@ -82,11 +95,17 @@ export function SecureVideoPlayer({
             "Content-Type": "application/json",
             Authorization: `Bearer ${idToken}`,
           },
-          body: JSON.stringify({ courseId, lessonId }),
+          body: JSON.stringify({ courseId, lessonId, sessionId }),
         });
 
         if (!res.ok) {
-          if (!cancelled) setError("You don't have access to this lesson.");
+          if (cancelled) return;
+          const body = await res.json().catch(() => null);
+          setError(
+            res.status === 429
+              ? (body?.error ?? "Too many devices are streaming this account right now.")
+              : "You don't have access to this lesson."
+          );
           return;
         }
 
@@ -100,11 +119,11 @@ export function SecureVideoPlayer({
     return () => {
       cancelled = true;
     };
-  }, [user, courseId, lessonId]);
+  }, [user, courseId, lessonId, sessionId]);
 
   if (error) {
     return (
-      <div className="flex aspect-video items-center justify-center border border-black bg-neutral-50">
+      <div className="flex aspect-video items-center justify-center border border-black bg-neutral-50 px-6 text-center">
         <p className="text-sm text-neutral-600">{error}</p>
       </div>
     );
@@ -112,6 +131,26 @@ export function SecureVideoPlayer({
   if (!playback) return <div className="aspect-video animate-pulse bg-neutral-100" />;
 
   const resumeAt = readSavedProgress(courseId, lessonId);
+
+  async function sendHeartbeat() {
+    try {
+      const idToken = await user?.getIdToken();
+      if (!idToken) return;
+      const res = await fetch("/api/mux/heartbeat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${idToken}` },
+        body: JSON.stringify({ courseId, lessonId, sessionId }),
+      });
+      const data = await res.json().catch(() => null);
+      if (data && data.allowed === false) {
+        playerRef.current?.pause();
+        setError("Too many devices are streaming this account right now.");
+      }
+    } catch {
+      // Best-effort — a missed heartbeat just means the session ages out
+      // slightly early elsewhere; not worth surfacing to the viewer.
+    }
+  }
 
   return (
     // Discourages casual right-click download attempts; determined users can
@@ -137,6 +176,10 @@ export function SecureVideoPlayer({
           if (current - lastSaveRef.current >= 5) {
             lastSaveRef.current = current;
             saveProgress(courseId, lessonId, current);
+          }
+          if ((current - lastHeartbeatRef.current) * 1000 >= HEARTBEAT_INTERVAL_MS) {
+            lastHeartbeatRef.current = current;
+            sendHeartbeat();
           }
         }}
         onEnded={() => clearProgress(courseId, lessonId)}

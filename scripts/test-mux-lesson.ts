@@ -18,6 +18,7 @@ const TEST_EMAIL = "claude-ux-test@example.com";
 async function main() {
   const { adminAuth, adminDb } = await import("../src/lib/firebase/admin");
   const { mux } = await import("../src/lib/mux/server");
+  const { writeLessonMuxData } = await import("../src/lib/mux/lesson-doc");
 
   console.log("Creating Mux asset...");
   const asset = await mux.video.assets.create({
@@ -50,10 +51,11 @@ async function main() {
     .doc(COURSE_ID)
     .collection("lessons")
     .doc(LESSON_ID)
-    .set(
-      { muxPlaybackId: playbackId, muxAssetId: ready.id, status: "ready" },
-      { merge: true }
-    );
+    .set({ status: "ready" }, { merge: true });
+  await writeLessonMuxData(adminDb, COURSE_ID, LESSON_ID, {
+    muxPlaybackId: playbackId,
+    muxAssetId: ready.id,
+  });
   console.log(`Lesson updated with playbackId: ${playbackId}`);
 
   const user = await adminAuth.getUserByEmail(TEST_EMAIL);

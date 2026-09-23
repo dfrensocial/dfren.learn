@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { adminAuth } from "@/lib/firebase/admin";
+import { adminAuth, adminDb } from "@/lib/firebase/admin";
+import { getClientIp, rateLimit } from "@/lib/rate-limit";
 
 const SESSION_EXPIRES_IN_MS = 60 * 60 * 24 * 5 * 1000; // 5 days
 
@@ -31,6 +32,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid origin" }, { status: 403 });
   }
 
+  const ip = getClientIp(req);
+  const { allowed, retryAfterSeconds } = rateLimit(`auth-session:${ip}`, {
+    limit: 15,
+    windowMs: 60_000,
+  });
+  if (!allowed) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again shortly." },
+      { status: 429, headers: { "Retry-After": String(retryAfterSeconds) } }
+    );
+  }
+
   const { idToken } = await req.json();
 
   const decoded = await adminAuth.verifyIdToken(idToken).catch(() => null);
@@ -41,6 +54,20 @@ export async function POST(req: NextRequest) {
   const sessionCookie = await adminAuth.createSessionCookie(idToken, {
     expiresIn: SESSION_EXPIRES_IN_MS,
   });
+
+  // Best-effort audit trail — no admin UI to view it yet, but gives a manual
+  // lookup path (Firebase console) if a shared/compromised account is ever
+  // reported. Never blocks the login on failure.
+  adminDb
+    .collection("users")
+    .doc(decoded.uid)
+    .collection("loginEvents")
+    .add({
+      at: new Date(),
+      ip,
+      userAgent: req.headers.get("user-agent") ?? "unknown",
+    })
+    .catch(() => {});
 
   const response = NextResponse.json({ ok: true });
   response.cookies.set("session", sessionCookie, {

@@ -29,6 +29,7 @@ async function main() {
 
   const { adminDb } = await import("../src/lib/firebase/admin");
   const { mux } = await import("../src/lib/mux/server");
+  const { writeLessonMuxData } = await import("../src/lib/mux/lesson-doc");
 
   console.log("Creating Mux direct upload...");
   const upload = await mux.video.uploads.create({
@@ -93,16 +94,12 @@ async function main() {
     .doc(courseId)
     .collection("lessons")
     .doc(lessonId)
-    .set(
-      {
-        title,
-        order: Number(orderStr),
-        muxPlaybackId: playbackId,
-        muxAssetId: asset.id,
-        status: "ready",
-      },
-      { merge: true }
-    );
+    .set({ title, order: Number(orderStr), status: "ready" }, { merge: true });
+
+  await writeLessonMuxData(adminDb, courseId, lessonId, {
+    muxPlaybackId: playbackId,
+    muxAssetId: asset.id,
+  });
 
   console.log(`Done. Lesson "${title}" (${lessonId}) is live with playbackId ${playbackId}.`);
 }

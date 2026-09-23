@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { mux } from "@/lib/mux/server";
 import { adminDb } from "@/lib/firebase/admin";
+import { writeLessonMuxData } from "@/lib/mux/lesson-doc";
 
 export async function POST(req: NextRequest) {
   const rawBody = await req.text();
@@ -25,10 +26,11 @@ export async function POST(req: NextRequest) {
         .doc(courseId)
         .collection("lessons")
         .doc(lessonId)
-        .set(
-          { muxPlaybackId: playbackId, muxAssetId: asset.id, status: "ready" },
-          { merge: true }
-        );
+        .set({ status: "ready" }, { merge: true });
+      await writeLessonMuxData(adminDb, courseId, lessonId, {
+        muxPlaybackId: playbackId,
+        muxAssetId: asset.id,
+      });
     }
   }
 
