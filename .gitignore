@@ -47,3 +47,6 @@ next-env.d.ts
 /*.mov
 /*.mkv
 /*.webm
+
+# review-only screenshots, not app content
+/watermark-previews/
