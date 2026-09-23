@@ -23,6 +23,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      // The className here is fully deterministic (static font-variable
+      // classes, no client-only branches) -- the recurring hydration
+      // mismatch on this exact tag is a browser extension injecting
+      // attributes into <html> before React hydrates, which is the case
+      // React's own docs point to suppressHydrationWarning for. It only
+      // silences a mismatch on this element's own attributes, not children,
+      // so a real hydration bug elsewhere in the tree still surfaces.
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
         <AuthProvider>{children}</AuthProvider>
