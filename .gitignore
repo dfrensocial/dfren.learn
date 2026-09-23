@@ -50,3 +50,10 @@ next-env.d.ts
 
 # review-only screenshots, not app content
 /watermark-previews/
+/invisible-watermark-previews/
+
+# throwaway test output from the watermark PoC, not the engine itself
+/scripts/watermark-poc/out/
+/scripts/watermark-poc/out-real/
+/scripts/watermark-poc/real-frame.png
+/scripts/watermark-poc/real-frame-cropped.png
