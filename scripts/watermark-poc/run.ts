@@ -65,8 +65,8 @@ async function main() {
     await sharp(pngPath).jpeg({ quality: 85 }).toFile(jpgPath);
     await makeRevealed(basePath, pngPath, revealedPath);
 
-    const decodedPng = await decode({ inputPath: pngPath, expectedPeriod: meta.bitsEmbedded });
-    const decodedJpg = await decode({ inputPath: jpgPath, expectedPeriod: meta.bitsEmbedded });
+    const decodedPng = await decode({ input: pngPath, expectedPeriod: meta.bitsEmbedded });
+    const decodedJpg = await decode({ input: jpgPath, expectedPeriod: meta.bitsEmbedded });
 
     console.log(`\n--- delta=${delta} (${meta.totalCells} cells, ${meta.bitsEmbedded} payload bits tiled) ---`);
     console.log("PNG decode:", decodedPng.text === payload ? `OK -> "${decodedPng.text}"` : `FAILED (got "${decodedPng.text}")`);
@@ -80,7 +80,7 @@ async function main() {
   const resizedPath = path.join(OUT, `encoded-delta${delta}-screenrecorded-sim.jpg`);
   await sharp(pngPath).resize(800, 450).resize(1280, 720).jpeg({ quality: 80 }).toFile(resizedPath);
   const expectedPeriod = 16 + payload.length * 8;
-  const decodedResized = await decode({ inputPath: resizedPath, expectedPeriod });
+  const decodedResized = await decode({ input: resizedPath, expectedPeriod });
   console.log(`\n--- delta=${delta}, downscale+upscale+JPEG80 (screen-recording simulation) ---`);
   console.log("Decode:", decodedResized.text === payload ? `OK -> "${decodedResized.text}"` : `FAILED (got "${decodedResized.text}")`);
 

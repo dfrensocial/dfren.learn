@@ -17,7 +17,7 @@ async function main() {
   }
 
   const expectedPeriod = payloadLenArg ? 16 + Number(payloadLenArg) * 8 : undefined;
-  const result = await decode({ inputPath: path.resolve(imagePath), expectedPeriod });
+  const result = await decode({ input: path.resolve(imagePath), expectedPeriod });
 
   if (result.text) {
     console.log(`Watermark found: "${result.text}"  (bit period ${result.period})`);

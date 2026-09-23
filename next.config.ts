@@ -30,7 +30,12 @@ const CSP = [
   "default-src 'self'",
   `script-src ${scriptSrc}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: https:",
+  // blob: is needed for client-side file-preview <img> tags (e.g. the
+  // watermark checker's upload preview) that read a local File via
+  // URL.createObjectURL -- it can only ever point at same-context objects
+  // this page itself created, not a remote resource, so it's not a
+  // meaningful CSP loosening.
+  "img-src 'self' data: blob: https:",
   "media-src 'self' blob: https:",
   "font-src 'self' data:",
   "connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.mux.com https://inferred.litix.io https://*.razorpay.com",

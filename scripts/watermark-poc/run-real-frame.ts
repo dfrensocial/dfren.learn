@@ -46,8 +46,8 @@ async function main() {
     await makeRevealed(basePath, pngPath, revealedPath);
 
     const expectedPeriod = 16 + payload.length * 8;
-    const decodedPng = await decode({ inputPath: pngPath, expectedPeriod });
-    const decodedJpg = await decode({ inputPath: jpgPath, expectedPeriod });
+    const decodedPng = await decode({ input: pngPath, expectedPeriod });
+    const decodedJpg = await decode({ input: jpgPath, expectedPeriod });
 
     console.log(`\n--- delta=${delta} (${meta.totalCells} cells) ---`);
     console.log("PNG decode:", decodedPng.text === payload ? `OK -> "${decodedPng.text}"` : `FAILED (got "${decodedPng.text}")`);
@@ -66,7 +66,7 @@ async function main() {
     .jpeg({ quality: 78 })
     .toFile(screenRecPath);
   const expectedPeriod = 16 + payload.length * 8;
-  const decodedScreenRec = await decode({ inputPath: screenRecPath, expectedPeriod });
+  const decodedScreenRec = await decode({ input: screenRecPath, expectedPeriod });
   console.log(`\n--- delta=${finalDelta}, downscale 65%+upscale+JPEG78 (screen-recording simulation) ---`);
   console.log("Decode:", decodedScreenRec.text === payload ? `OK -> "${decodedScreenRec.text}"` : `FAILED (got "${decodedScreenRec.text}")`);
 
