@@ -4,6 +4,7 @@ import { signMuxPlaybackToken } from "@/lib/mux/signing";
 import { lessonMuxDataRef } from "@/lib/mux/lesson-doc";
 import { checkAndRegisterSession } from "@/lib/session-limit";
 import { rateLimit } from "@/lib/rate-limit";
+import { issueWatermark } from "@/lib/watermark/issue";
 
 // Issues a short-lived, per-viewer signed token — never expose a raw playback ID to the client.
 export async function POST(req: NextRequest) {
@@ -68,5 +69,15 @@ export async function POST(req: NextRequest) {
   // this signed asset — same signed-token model as video/thumbnail, just a
   // different JWT audience ("s"). No new Mux feature/plan needed.
   const storyboardToken = signMuxPlaybackToken(playbackId, "storyboard");
-  return NextResponse.json({ playbackId, token, thumbnailToken, storyboardToken });
+
+  // Best-effort: a viewer should never be blocked from watching because the
+  // watermark bookkeeping write failed.
+  const watermarkId = await issueWatermark({
+    uid: decoded.uid,
+    email: decoded.email ?? "unknown",
+    courseId,
+    lessonId,
+  }).catch(() => null);
+
+  return NextResponse.json({ playbackId, token, thumbnailToken, storyboardToken, watermarkId });
 }

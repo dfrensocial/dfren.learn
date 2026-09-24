@@ -35,6 +35,10 @@ service cloud.firestore {
       }
     }
 
+    match /watermarks/{watermarkId} {
+      allow read, write: if false; // admin SDK (server) only — issued in playback-token, read by the watermark checker
+    }
+
     match /users/{userId} {
       allow read, write: if isOwner(userId);
 

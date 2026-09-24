@@ -12,12 +12,14 @@
 // unwatermarked reference is needed -- that's what makes it usable against
 // a leaked screenshot or screen-recording where we'll never have the
 // "clean" frame to diff against.
+//
+// This file is server-only (imports `sharp`, a native binary) and operates
+// on a whole image file/buffer. The live player instead paints the same
+// pattern onto a canvas overlay in real time -- see paint-overlay.ts, which
+// shares the bit-layout logic in shared.ts but not this file.
 
-import sharp from "sharp";
-
-const CELL_W = 16; // one bit cell = two 8x8 blocks side by side
-const CELL_H = 8;
-const BLOCK_W = CELL_W / 2;
+import sharp, { type Sharp } from "sharp";
+import { CELL_W, CELL_H, BLOCK_W, SYNC, windowValue, bitsForPayload, bitsToString, matchesSync, isPrintable, pickDirection } from "./shared";
 
 // Equal push across R/G/B (plain average brightness) -- matches what the
 // encoder actually writes, so decode reads back exactly what was pushed.
@@ -25,36 +27,6 @@ function weightedValue(data: Buffer, width: number, channels: number, x: number,
   const idx = (y * width + x) * channels;
   return (data[idx] + data[idx + 1] + data[idx + 2]) / 3;
 }
-
-// Raised-cosine bump: 0 at both ends of a `size`-wide span, 1 at the center.
-// Applying this in both x and y turns a flat rectangular push into a soft
-// blob that fades to nothing at every block boundary -- no more hard edges
-// for the eye to lock onto.
-function windowValue(localPos: number, size: number) {
-  return Math.sin((Math.PI * (localPos + 0.5)) / size) ** 2;
-}
-
-function stringToBits(str: string): number[] {
-  const bits: number[] = [];
-  for (const ch of Buffer.from(str, "utf8")) {
-    for (let i = 7; i >= 0; i--) bits.push((ch >> i) & 1);
-  }
-  return bits;
-}
-
-function bitsToString(bits: number[]): string {
-  const bytes: number[] = [];
-  for (let i = 0; i + 8 <= bits.length; i += 8) {
-    let byte = 0;
-    for (let b = 0; b < 8; b++) byte = (byte << 1) | bits[i + b];
-    bytes.push(byte);
-  }
-  return Buffer.from(bytes).toString("utf8");
-}
-
-// Wraps payload with a fixed 16-bit sync marker so the decoder can find
-// bit-alignment even if it doesn't know the payload length in advance.
-const SYNC = [1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0];
 
 // Human vision masks small brightness changes far better where the image
 // already has texture/edges than in a flat, dark region -- a uniform delta
@@ -93,17 +65,6 @@ function localMean(data: Buffer, width: number, channels: number, x0: number, y0
   return sum / n;
 }
 
-// A dark scene (or a bright one) breaks the naive "+delta / -delta" push:
-// on a near-black frame the "-delta" side just clips to 0, silently erasing
-// half of every bit's signal. Fix: each cell only pushes ONE of its two
-// halves, always in whichever direction has headroom (brighter if the cell
-// is dark, darker if it's bright) -- never both directions on content that
-// can't take it. The decoder recovers the sign by independently checking
-// which regime the cell is in, so it doesn't need to be told.
-function pickDirection(cellMean: number) {
-  return cellMean < 128 ? 1 : -1;
-}
-
 export async function encode({
   inputPath,
   outputPath,
@@ -122,7 +83,7 @@ export async function encode({
   const { data, info } = await sharp(inputPath).removeAlpha().raw().toBuffer({ resolveWithObject: true });
   const { width, height, channels } = info;
 
-  const bits = [...SYNC, ...stringToBits(payload)];
+  const bits = bitsForPayload(payload);
   const cellsX = Math.floor(width / CELL_W);
   const cellsY = Math.floor(height / CELL_H);
   const totalCells = cellsX * cellsY;
@@ -174,6 +135,18 @@ function clamp(v: number) {
   return v < 0 ? 0 : v > 255 ? 255 : v;
 }
 
+// Real screenshots are essentially never pixel-for-pixel the same size the
+// overlay was painted at -- a screenshot tool, a screen recording's own
+// encode step, an OS-level scaling quirk, or (in practice, the biggest
+// factor) an admin's crop of the video out of a larger screenshot not
+// landing on the exact video boundary all shift every cell boundary by a
+// fraction of a pixel that compounds across the frame. A single degree of
+// freedom (uniform scale) is cheap to search blindly, so decode tries a
+// range of rescales before giving up. +/-8% covers the slop actually
+// observed from a hand-cropped real screenshot in testing; going wider than
+// that starts trading meaningful accuracy for runtime with little payoff.
+const SCALE_SEARCH_RANGE = [0, -1, 1, -2, 2, -3, 3, -4, 4, -5, 5, -6, 6, -7, 7, -8, 8]; // percent, tried in this order
+
 export async function decode({
   input,
   expectedPeriod,
@@ -181,7 +154,29 @@ export async function decode({
   input: string | Buffer;
   expectedPeriod?: number;
 }): Promise<{ period: number | null; text: string | null }> {
-  const { data, info } = await sharp(input).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+  const base = sharp(input);
+  const meta = await base.metadata();
+  const width0 = meta.width ?? 0;
+  const height0 = meta.height ?? 0;
+
+  for (const pct of SCALE_SEARCH_RANGE) {
+    const scale = 1 + pct / 100;
+    const width = Math.round(width0 * scale);
+    const height = Math.round(height0 * scale);
+    if (width < CELL_W || height < CELL_H) continue;
+
+    const scaled = pct === 0 ? base.clone() : sharp(input).resize(width, height);
+    const hit = await decodeAtSize(scaled, expectedPeriod);
+    if (hit.text) return hit;
+  }
+  return { period: null, text: null };
+}
+
+async function decodeAtSize(
+  pipeline: Sharp,
+  expectedPeriod?: number
+): Promise<{ period: number | null; text: string | null }> {
+  const { data, info } = await pipeline.removeAlpha().raw().toBuffer({ resolveWithObject: true });
   const { width, height, channels } = info;
   const cellsX = Math.floor(width / CELL_W);
   const cellsY = Math.floor(height / CELL_H);
@@ -241,15 +236,6 @@ export async function decode({
     if (hit) return hit;
   }
   return { period: null, text: null };
-}
-
-function matchesSync(bits: number[]) {
-  for (let i = 0; i < SYNC.length; i++) if (bits[i] !== SYNC[i]) return false;
-  return true;
-}
-
-function isPrintable(str: string) {
-  return str.length > 0 && [...str].every((c) => c.charCodeAt(0) >= 32 && c.charCodeAt(0) < 127);
 }
 
 export { CELL_W, CELL_H };

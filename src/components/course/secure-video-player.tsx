@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import MuxPlayer from "@mux/mux-player-react";
 import type MuxPlayerElement from "@mux/mux-player";
 import { useAuth } from "@/lib/firebase/auth-context";
+import { paintWatermarkOverlay } from "@/lib/watermark/paint-overlay";
 
 // Playback speeds surfaced in the player's settings menu — useful for
 // students re-watching a dense lesson slower, or skimming a familiar one fast.
@@ -61,9 +62,12 @@ export function SecureVideoPlayer({
     token: string;
     thumbnailToken: string;
     storyboardToken: string;
+    watermarkId: string | null;
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const playerRef = useRef<MuxPlayerElement | null>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const lastSaveRef = useRef(0);
   const lastHeartbeatRef = useRef(0);
   // One random ID per player mount — reloading the page is a new "session"
@@ -121,6 +125,47 @@ export function SecureVideoPlayer({
     };
   }, [user, courseId, lessonId, sessionId]);
 
+  // Paints the invisible per-viewer watermark on a transparent canvas
+  // layered over the video (see paint-overlay.ts) -- sized to match the
+  // player's CSS-pixel dimensions 1:1 (deliberately NOT scaled by
+  // devicePixelRatio). A screenshot tool captures at CSS-pixel resolution,
+  // not the canvas's backing-store resolution -- painting at devicePixelRatio
+  // (e.g. 1.25x) made every cell boundary land at a fractional, misaligned
+  // position once downscaled back into the screenshot, which silently broke
+  // decoding entirely. Painting 1:1 with CSS pixels keeps cell boundaries
+  // exactly where a same-resolution capture will see them.
+  // Repaints on resize since the canvas backing store clears when resized.
+  // Known gap: fullscreen playback renders outside this DOM subtree (the
+  // Fullscreen API only shows elements inside the fullscreened element),
+  // so a fullscreen screen-recording currently escapes the watermark --
+  // needs the player's fullscreen trigger redirected to a wrapper that
+  // contains both the video and this canvas to close that gap.
+  useEffect(() => {
+    const watermarkId = playback?.watermarkId;
+    if (!watermarkId) return;
+    const canvas = canvasRef.current;
+    const wrapper = wrapperRef.current;
+    if (!canvas || !wrapper) return;
+
+    function repaint() {
+      if (!canvas || !wrapper) return;
+      const rect = wrapper.getBoundingClientRect();
+      const width = Math.round(rect.width);
+      const height = Math.round(rect.height);
+      if (width === 0 || height === 0) return;
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+      paintWatermarkOverlay(ctx, width, height, watermarkId!);
+    }
+
+    repaint();
+    const observer = new ResizeObserver(repaint);
+    observer.observe(wrapper);
+    return () => observer.disconnect();
+  }, [playback?.watermarkId]);
+
   if (error) {
     return (
       <div className="flex aspect-video items-center justify-center border border-black bg-neutral-50 px-6 text-center">
@@ -155,7 +200,7 @@ export function SecureVideoPlayer({
   return (
     // Discourages casual right-click download attempts; determined users can
     // still capture output — real protection is the signed, short-lived token.
-    <div onContextMenu={(e) => e.preventDefault()}>
+    <div ref={wrapperRef} className="relative" onContextMenu={(e) => e.preventDefault()}>
       <MuxPlayer
         ref={playerRef}
         playbackId={playback.playbackId}
@@ -184,6 +229,13 @@ export function SecureVideoPlayer({
         }}
         onEnded={() => clearProgress(courseId, lessonId)}
       />
+      {playback.watermarkId && (
+        <canvas
+          ref={canvasRef}
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-50 h-full w-full"
+        />
+      )}
     </div>
   );
 }
