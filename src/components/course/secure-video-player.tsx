@@ -65,6 +65,7 @@ export function SecureVideoPlayer({
     watermarkId: string | null;
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const playerRef = useRef<MuxPlayerElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -125,6 +126,29 @@ export function SecureVideoPlayer({
     };
   }, [user, courseId, lessonId, sessionId]);
 
+  // mux-player's built-in fullscreen button fullscreens the <mux-player>
+  // element itself -- but this canvas is a DOM sibling of it, not a child,
+  // and the Fullscreen API only renders elements INSIDE the fullscreened
+  // element. Left alone, that means fullscreen playback would escape the
+  // watermark entirely. Fix: whenever mux-player becomes the fullscreen
+  // element, immediately swap to fullscreening our own wrapper (which
+  // contains both the player and the canvas) instead.
+  useEffect(() => {
+    function handleFullscreenChange() {
+      const wrapper = wrapperRef.current;
+      const player = playerRef.current;
+      setIsFullscreen(document.fullscreenElement === wrapper);
+      if (document.fullscreenElement && document.fullscreenElement === player && wrapper) {
+        document
+          .exitFullscreen()
+          .then(() => wrapper.requestFullscreen())
+          .catch(() => {});
+      }
+    }
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
+  }, []);
+
   // Paints the invisible per-viewer watermark on a transparent canvas
   // layered over the video (see paint-overlay.ts) -- sized to match the
   // player's CSS-pixel dimensions 1:1 (deliberately NOT scaled by
@@ -134,12 +158,9 @@ export function SecureVideoPlayer({
   // position once downscaled back into the screenshot, which silently broke
   // decoding entirely. Painting 1:1 with CSS pixels keeps cell boundaries
   // exactly where a same-resolution capture will see them.
-  // Repaints on resize since the canvas backing store clears when resized.
-  // Known gap: fullscreen playback renders outside this DOM subtree (the
-  // Fullscreen API only shows elements inside the fullscreened element),
-  // so a fullscreen screen-recording currently escapes the watermark --
-  // needs the player's fullscreen trigger redirected to a wrapper that
-  // contains both the video and this canvas to close that gap.
+  // Repaints on resize since the canvas backing store clears when resized --
+  // this also covers the fullscreen transition above, since that's a resize
+  // of the wrapper.
   useEffect(() => {
     const watermarkId = playback?.watermarkId;
     if (!watermarkId) return;
@@ -200,7 +221,15 @@ export function SecureVideoPlayer({
   return (
     // Discourages casual right-click download attempts; determined users can
     // still capture output — real protection is the signed, short-lived token.
-    <div ref={wrapperRef} className="relative" onContextMenu={(e) => e.preventDefault()}>
+    // When this wrapper itself is the fullscreen element (see the
+    // fullscreenchange handler above), it fills the screen and centers the
+    // player -- letterboxing top/bottom or side-to-side is expected and
+    // correct when the video's own aspect ratio doesn't match the screen's.
+    <div
+      ref={wrapperRef}
+      className={isFullscreen ? "relative flex h-full w-full items-center justify-center bg-black" : "relative"}
+      onContextMenu={(e) => e.preventDefault()}
+    >
       <MuxPlayer
         ref={playerRef}
         playbackId={playback.playbackId}
@@ -212,7 +241,7 @@ export function SecureVideoPlayer({
         streamType="on-demand"
         startTime={resumeAt || undefined}
         playbackRates={PLAYBACK_RATES}
-        style={{ aspectRatio: "16/9", width: "100%" }}
+        style={isFullscreen ? { maxHeight: "100%", maxWidth: "100%" } : { aspectRatio: "16/9", width: "100%" }}
         onTimeUpdate={() => {
           const current = playerRef.current?.currentTime;
           if (current == null) return;
