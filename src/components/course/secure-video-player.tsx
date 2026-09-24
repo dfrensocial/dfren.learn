@@ -71,6 +71,7 @@ export function SecureVideoPlayer({
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const lastSaveRef = useRef(0);
   const lastHeartbeatRef = useRef(0);
+  const repaintRef = useRef<() => void>(() => {});
   // One random ID per player mount — reloading the page is a new "session"
   // (correct: this caps simultaneous playing streams, not devices over time).
   // useState's lazy initializer (not useRef's plain initial value) is the
@@ -153,10 +154,17 @@ export function SecureVideoPlayer({
   }, [wrapperId, playback]);
 
   // Tracks whether the wrapper is currently the fullscreen element, for the
-  // layout branch below.
+  // layout branch below. Also explicitly re-triggers the watermark repaint
+  // (see repaintRef below) right on this event -- observed live that the
+  // watermark can go missing entirely in fullscreen, most likely because
+  // the ResizeObserver-driven repaint reads the wrapper's size mid-
+  // transition (before the browser's fullscreen layout has settled), gets
+  // 0x0, and skips painting with nothing to trigger a retry. Double rAF
+  // waits for the transition's layout + paint to actually land first.
   useEffect(() => {
     function handleFullscreenChange() {
       setIsFullscreen(document.fullscreenElement === wrapperRef.current);
+      requestAnimationFrame(() => requestAnimationFrame(() => repaintRef.current()));
     }
     document.addEventListener("fullscreenchange", handleFullscreenChange);
     return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
@@ -172,8 +180,11 @@ export function SecureVideoPlayer({
   // decoding entirely. Painting 1:1 with CSS pixels keeps cell boundaries
   // exactly where a same-resolution capture will see them.
   // Repaints on resize since the canvas backing store clears when resized --
-  // this also covers the fullscreen transition above, since that's a resize
-  // of the wrapper.
+  // this also covers the fullscreen transition, since that's a resize of
+  // the wrapper (backed up by an explicit repaint on fullscreenchange
+  // itself -- see above). Retries a few times on a 0x0 read instead of
+  // silently giving up, since that read can race a layout transition
+  // (fullscreen entry/exit) settling.
   useEffect(() => {
     const watermarkId = playback?.watermarkId;
     if (!watermarkId) return;
@@ -181,12 +192,15 @@ export function SecureVideoPlayer({
     const wrapper = wrapperRef.current;
     if (!canvas || !wrapper) return;
 
-    function repaint() {
+    function repaint(retriesLeft = 4) {
       if (!canvas || !wrapper) return;
       const rect = wrapper.getBoundingClientRect();
       const width = Math.round(rect.width);
       const height = Math.round(rect.height);
-      if (width === 0 || height === 0) return;
+      if (width === 0 || height === 0) {
+        if (retriesLeft > 0) requestAnimationFrame(() => repaint(retriesLeft - 1));
+        return;
+      }
       canvas.width = width;
       canvas.height = height;
       const ctx = canvas.getContext("2d");
@@ -194,10 +208,14 @@ export function SecureVideoPlayer({
       paintWatermarkOverlay(ctx, width, height, watermarkId!);
     }
 
+    repaintRef.current = () => repaint();
     repaint();
-    const observer = new ResizeObserver(repaint);
+    const observer = new ResizeObserver(() => repaint());
     observer.observe(wrapper);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      repaintRef.current = () => {};
+    };
   }, [playback?.watermarkId]);
 
   if (error) {
