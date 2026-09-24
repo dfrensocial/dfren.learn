@@ -49,6 +49,24 @@ function clearProgress(courseId: string, lessonId: string) {
   }
 }
 
+// mux-player nests its controls several shadow roots deep (its own shadow
+// root, then a theme's, then media-chrome's control bar), and the
+// `--media-fullscreen-button-display` CSS custom property documented for
+// this doesn't actually inherit that far in practice (confirmed live: set
+// on the player element itself, but reads back empty at the button) --
+// direct DOM removal is what actually works, verified the same way.
+function findMuxFullscreenButton(root: Element): HTMLElement | null {
+  const shadow = (root as HTMLElement).shadowRoot;
+  if (!shadow) return null;
+  const direct = shadow.querySelector("media-fullscreen-button");
+  if (direct) return direct as HTMLElement;
+  for (const child of shadow.querySelectorAll("*")) {
+    const found = findMuxFullscreenButton(child);
+    if (found) return found;
+  }
+  return null;
+}
+
 export function SecureVideoPlayer({
   courseId,
   lessonId,
@@ -130,20 +148,15 @@ export function SecureVideoPlayer({
     };
   }, [user, courseId, lessonId, sessionId]);
 
-  // mux-player's built-in fullscreen button fullscreens the <mux-player>
-  // element itself by default -- but this canvas is a DOM sibling of it,
-  // not a child, and the Fullscreen API only renders elements INSIDE the
-  // fullscreened element. Left alone, that means fullscreen playback would
-  // escape the watermark entirely. Fix: mux-player supports a
-  // `fullscreenelement` attribute (an element id) that tells it which
-  // element to fullscreen instead of itself. mux-player-react's generic
-  // camelCase-to-attribute converter turns a `fullscreenElement` PROP into
-  // `fullscreen-element` (hyphenated) on the DOM, but the custom element's
-  // own attributeChangedCallback only listens for `fullscreenelement` (no
-  // hyphen) -- a mismatch in the wrapper library, confirmed by inspecting
-  // both mux-player-react's prop converter and mux-player's own constants.
-  // Setting the attribute directly on the element via the ref sidesteps
-  // that broken passthrough entirely.
+  // Belt-and-suspenders: also tells mux-player (via the id-referencing
+  // `fullscreenelement` attribute it supports -- note no hyphen, unlike the
+  // `fullscreen-element` mux-player-react's own prop converter would
+  // produce, which the custom element doesn't actually listen for) which
+  // element it should consider "fullscreen" for its own internal state
+  // (e.g. so mediaIsFullscreen / its icon stay accurate) and for any path
+  // that isn't the visible button, like a keyboard shortcut. The button
+  // itself is hidden and replaced below with one we control directly,
+  // since this attribute alone didn't reliably redirect an actual click.
   useEffect(() => {
     playerRef.current?.setAttribute("fullscreenelement", wrapperId);
     // `playback` is the dependency that actually matters here: MuxPlayer
@@ -152,6 +165,29 @@ export function SecureVideoPlayer({
     // one-time run (wrapperId never changes) fires before that, while
     // playerRef.current is still null, and never runs again.
   }, [wrapperId, playback]);
+
+  // Hides mux-player's own fullscreen button by finding and directly
+  // hiding it in its (multiply-nested) shadow DOM -- see
+  // findMuxFullscreenButton for why a CSS custom property didn't work.
+  // Retries briefly since the button's shadow subtree may not exist yet
+  // the instant MuxPlayer itself mounts.
+  useEffect(() => {
+    if (!playback) return;
+    let cancelled = false;
+    function tryHide(retriesLeft = 10) {
+      if (cancelled || !playerRef.current) return;
+      const btn = findMuxFullscreenButton(playerRef.current);
+      if (btn) {
+        btn.style.display = "none";
+      } else if (retriesLeft > 0) {
+        requestAnimationFrame(() => tryHide(retriesLeft - 1));
+      }
+    }
+    tryHide();
+    return () => {
+      cancelled = true;
+    };
+  }, [playback]);
 
   // Tracks whether the wrapper is currently the fullscreen element, for the
   // layout branch below. Also explicitly re-triggers the watermark repaint
@@ -297,6 +333,28 @@ export function SecureVideoPlayer({
           className="pointer-events-none absolute inset-0 z-50 h-full w-full"
         />
       )}
+      <button
+        type="button"
+        aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+        onClick={() => {
+          if (document.fullscreenElement) {
+            document.exitFullscreen().catch(() => {});
+          } else {
+            wrapperRef.current?.requestFullscreen().catch(() => {});
+          }
+        }}
+        className="absolute bottom-3 right-3 z-[60] flex h-8 w-8 items-center justify-center rounded bg-black/60 text-white hover:bg-black/80"
+      >
+        {isFullscreen ? (
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden>
+            <path d="M9 3H3v6h2V5h4V3zm6 0v2h4v4h2V3h-6zM5 15H3v6h6v-2H5v-4zm14 4h-4v2h6v-6h-2v4z" />
+          </svg>
+        ) : (
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden>
+            <path d="M3 3h6v2H5v4H3V3zm12 0h6v6h-2V5h-4V3zM3 15h2v4h4v2H3v-6zm16 4v-4h2v6h-6v-2h4z" />
+          </svg>
+        )}
+      </button>
     </div>
   );
 }
