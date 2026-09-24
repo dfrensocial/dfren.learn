@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import MuxPlayer from "@mux/mux-player-react";
 import type MuxPlayerElement from "@mux/mux-player";
 import { useAuth } from "@/lib/firebase/auth-context";
@@ -79,6 +79,9 @@ export function SecureVideoPlayer({
   const [sessionId] = useState<string>(() =>
     typeof crypto !== "undefined" ? crypto.randomUUID() : Math.random().toString(36)
   );
+  // Stable, SSR-safe id (unlike crypto.randomUUID()) so mux-player's
+  // `fullscreenElement` prop can point at the wrapper below by id.
+  const wrapperId = useId();
 
   useEffect(() => {
     if (!user) return;
@@ -127,23 +130,33 @@ export function SecureVideoPlayer({
   }, [user, courseId, lessonId, sessionId]);
 
   // mux-player's built-in fullscreen button fullscreens the <mux-player>
-  // element itself -- but this canvas is a DOM sibling of it, not a child,
-  // and the Fullscreen API only renders elements INSIDE the fullscreened
-  // element. Left alone, that means fullscreen playback would escape the
-  // watermark entirely. Fix: whenever mux-player becomes the fullscreen
-  // element, immediately swap to fullscreening our own wrapper (which
-  // contains both the player and the canvas) instead.
+  // element itself by default -- but this canvas is a DOM sibling of it,
+  // not a child, and the Fullscreen API only renders elements INSIDE the
+  // fullscreened element. Left alone, that means fullscreen playback would
+  // escape the watermark entirely. Fix: mux-player supports a
+  // `fullscreenelement` attribute (an element id) that tells it which
+  // element to fullscreen instead of itself. mux-player-react's generic
+  // camelCase-to-attribute converter turns a `fullscreenElement` PROP into
+  // `fullscreen-element` (hyphenated) on the DOM, but the custom element's
+  // own attributeChangedCallback only listens for `fullscreenelement` (no
+  // hyphen) -- a mismatch in the wrapper library, confirmed by inspecting
+  // both mux-player-react's prop converter and mux-player's own constants.
+  // Setting the attribute directly on the element via the ref sidesteps
+  // that broken passthrough entirely.
+  useEffect(() => {
+    playerRef.current?.setAttribute("fullscreenelement", wrapperId);
+    // `playback` is the dependency that actually matters here: MuxPlayer
+    // only renders (and playerRef.current only becomes non-null) once
+    // playback finishes loading -- without depending on it, this effect's
+    // one-time run (wrapperId never changes) fires before that, while
+    // playerRef.current is still null, and never runs again.
+  }, [wrapperId, playback]);
+
+  // Tracks whether the wrapper is currently the fullscreen element, for the
+  // layout branch below.
   useEffect(() => {
     function handleFullscreenChange() {
-      const wrapper = wrapperRef.current;
-      const player = playerRef.current;
-      setIsFullscreen(document.fullscreenElement === wrapper);
-      if (document.fullscreenElement && document.fullscreenElement === player && wrapper) {
-        document
-          .exitFullscreen()
-          .then(() => wrapper.requestFullscreen())
-          .catch(() => {});
-      }
+      setIsFullscreen(document.fullscreenElement === wrapperRef.current);
     }
     document.addEventListener("fullscreenchange", handleFullscreenChange);
     return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
@@ -226,6 +239,7 @@ export function SecureVideoPlayer({
     // player -- letterboxing top/bottom or side-to-side is expected and
     // correct when the video's own aspect ratio doesn't match the screen's.
     <div
+      id={wrapperId}
       ref={wrapperRef}
       className={isFullscreen ? "relative flex h-full w-full items-center justify-center bg-black" : "relative"}
       onContextMenu={(e) => e.preventDefault()}
