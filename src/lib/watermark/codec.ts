@@ -457,18 +457,26 @@ export async function decode({
     height: number,
     channels: number,
     assumedWidth = width,
-    assumedHeight = height
+    assumedHeight = height,
+    analysisFraction = ANALYSIS_FRACTION
   ) {
     // The watermark is only ever painted within a centered PATCH_FRACTION
     // patch (see paint-overlay.ts), so analyzing anything wider than that
-    // just dilutes the vote with unwatermarked border pixels. ANALYSIS_FRACTION
-    // must equal PATCH_FRACTION exactly -- a larger fraction here doesn't add
-    // tolerance for an imprecise box, it moves the assumed grid origin away
-    // from the real one (a bigger centered crop has a different top-left
-    // corner), which breaks alignment outright. Tolerance for an imprecise
-    // box comes from BOX_NUDGES/SIZE_NUDGES and the scale search instead.
-    const patchW = Math.round(assumedWidth * ANALYSIS_FRACTION);
-    const patchH = Math.round(assumedHeight * ANALYSIS_FRACTION);
+    // just dilutes the vote with unwatermarked border pixels. `analysisFraction`
+    // must equal PATCH_FRACTION exactly when the box we're given is the whole
+    // video frame -- a larger fraction here doesn't add tolerance for an
+    // imprecise box, it moves the assumed grid origin away from the real one
+    // (a bigger centered crop has a different top-left corner), which breaks
+    // alignment outright. Tolerance for an imprecise box-as-frame comes from
+    // BOX_NUDGES/SIZE_NUDGES and the scale search instead. The caller can
+    // also pass 1 here for the separate case where the box we're given IS
+    // already just the patch (e.g. someone hand-cropped tightly around the
+    // visible watermark pattern, not the whole video) -- confirmed live, a
+    // crop drawn that tight fails the frame-shaped 0.4 assumption completely
+    // since it re-crops to a fraction of an already-tiny box, but decodes
+    // fine when treated as the whole patch with no further cropping.
+    const patchW = Math.round(assumedWidth * analysisFraction);
+    const patchH = Math.round(assumedHeight * analysisFraction);
     if (Math.floor(patchW / CELL_W) < MIN_CELL_COLS || Math.floor(patchH / CELL_H) < MIN_CELL_ROWS) return null;
     const left = Math.round((assumedWidth - patchW) / 2);
     const top = Math.round((assumedHeight - patchH) / 2);
@@ -498,6 +506,15 @@ export async function decode({
 
   const direct = await searchScales(fullData, fullWidth, fullHeight, channels);
   if (direct) return direct;
+
+  // Second interpretation of the same input: maybe what we were handed
+  // isn't the whole video frame at all, but an already-tight manual crop
+  // drawn right around the visible watermark patch itself (the /watermark
+  // page's crop tool doesn't know PATCH_FRACTION -- a person just drags a
+  // box around whatever they can see). In that case there's no further
+  // centering to do; the given image already IS the patch.
+  const tightCrop = await searchScales(fullData, fullWidth, fullHeight, channels, fullWidth, fullHeight, 1);
+  if (tightCrop) return tightCrop;
 
   // Fallback: detect the video's boundary from the image content (see
   // detectContentBox) in case there's significant surrounding page chrome,
