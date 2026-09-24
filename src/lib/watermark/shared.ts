@@ -66,3 +66,13 @@ export function bitsForPayload(payload: string): number[] {
 // it's a fixed property of our own scheme, not something read off the file.
 export const WATERMARK_ID_LENGTH = 6;
 export const WATERMARK_EXPECTED_PERIOD = SYNC.length + WATERMARK_ID_LENGTH * 8;
+
+// The watermark is painted only within a centered patch this fraction of
+// the frame's width/height, not across the whole frame -- see the comment
+// on paintWatermarkOverlay for why (survives edge-cropped recordings, and
+// bounds how much a scale mismatch between painting and capture can drift
+// cell alignment, which is what real screenshots kept needing ever-finer
+// scale search precision to work around). 0.4 leaves a comfortable margin
+// against the frame edge while still giving plenty of cells (hundreds,
+// even in a small player) for the majority vote to stay reliable.
+export const PATCH_FRACTION = 0.4;

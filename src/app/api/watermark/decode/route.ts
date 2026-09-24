@@ -47,16 +47,34 @@ export async function POST(req: NextRequest) {
   // -- that's a fixed property of our scheme, not something to blind-guess,
   // so every scale candidate decode() tries can go straight to the single
   // right period instead of a slow 24-4096 sweep each time.
-  const result = await decode({ input: decodeInput, expectedPeriod: WATERMARK_EXPECTED_PERIOD }).catch(() => ({
-    period: null,
-    text: null,
-  }));
+  //
+  // The scale search now tries 100+ candidates (needed for real screenshots
+  // whose exact scale falls outside a narrower jitter band), which makes an
+  // accidental 16-bit sync-marker match a real, observed risk -- confirmed
+  // live, a scan returned a plausible-looking id that had never been
+  // issued. isValidCandidate rejects any hit that doesn't correspond to a
+  // real watermark, so the search keeps going past a false positive instead
+  // of confidently reporting the wrong person. The cache avoids looking the
+  // accepted id up in Firestore twice (once to validate, once for the
+  // response).
+  const lookupCache = new Map<string, Awaited<ReturnType<typeof lookupWatermark>>>();
+  async function isValidCandidate(text: string) {
+    const viewer = await lookupWatermark(text);
+    lookupCache.set(text, viewer);
+    return viewer !== null;
+  }
+
+  const result = await decode({
+    input: decodeInput,
+    expectedPeriod: WATERMARK_EXPECTED_PERIOD,
+    isValidCandidate,
+  }).catch(() => ({ period: null, text: null }));
 
   if (!result.text) {
     return NextResponse.json({ found: false });
   }
 
-  const viewer = await lookupWatermark(result.text);
+  const viewer = lookupCache.get(result.text) ?? (await lookupWatermark(result.text));
   return NextResponse.json({ found: true, watermarkId: result.text, viewer });
 }
 

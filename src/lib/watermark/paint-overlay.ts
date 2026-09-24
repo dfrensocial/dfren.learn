@@ -16,8 +16,20 @@
 // earlier real-frame testing, still stays subtle at a moderate delta; it
 // just doesn't get the extra invisibility the adaptive version has on very
 // bright scenes. Revisit with frame sampling once CORS is confirmed.
-import { CELL_W, CELL_H, BLOCK_W, windowValue, bitsForPayload } from "./shared";
+import { CELL_W, CELL_H, BLOCK_W, windowValue, bitsForPayload, PATCH_FRACTION } from "./shared";
 
+// The watermark lives only in a centered patch, not the whole frame --
+// two independent reasons landed on the same fix. (1) User requirement: a
+// recording that crops out the edges (common -- people don't always
+// capture the full screen) should still contain the watermark, which only
+// holds if it was never out at the edges to begin with. (2) A scale error
+// between how this was painted and how a screenshot was captured drifts
+// cell alignment in proportion to distance from the grid's origin -- a
+// fullscreen-width capture that needed far finer scale-search precision
+// than a small windowed one, confirmed directly, was the same problem in
+// disguise. Concentrating the grid near the center bounds that distance
+// regardless of how large the player itself is, which is what actually
+// fixes both.
 export function paintWatermarkOverlay(
   ctx: CanvasRenderingContext2D,
   width: number,
@@ -26,9 +38,14 @@ export function paintWatermarkOverlay(
   delta = 8
 ) {
   if (width <= 0 || height <= 0) return;
+  const patchWidth = Math.round(width * PATCH_FRACTION);
+  const patchHeight = Math.round(height * PATCH_FRACTION);
+  const patchLeft = Math.round((width - patchWidth) / 2);
+  const patchTop = Math.round((height - patchHeight) / 2);
+
   const bits = bitsForPayload(payload);
-  const cellsX = Math.floor(width / CELL_W);
-  const cellsY = Math.floor(height / CELL_H);
+  const cellsX = Math.floor(patchWidth / CELL_W);
+  const cellsY = Math.floor(patchHeight / CELL_H);
   if (cellsX === 0 || cellsY === 0) return;
 
   const imageData = ctx.createImageData(width, height);
@@ -38,8 +55,8 @@ export function paintWatermarkOverlay(
     for (let cx = 0; cx < cellsX; cx++) {
       const cellIndex = cy * cellsX + cx;
       const bit = bits[cellIndex % bits.length];
-      const x0 = cx * CELL_W;
-      const y0 = cy * CELL_H;
+      const x0 = patchLeft + cx * CELL_W;
+      const y0 = patchTop + cy * CELL_H;
 
       // bit=1 brightens the left half; bit=0 brightens the right half. The
       // other half is left fully transparent (untouched).

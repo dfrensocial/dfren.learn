@@ -34,7 +34,7 @@ async function makeRevealed(basePath: string, encodedPath: string, outPath: stri
 
 async function main() {
   const payload = "a91f7c"; // short id -> looked up server-side to the viewer, not the email itself
-  const deltas = [4, 8, 12, 16, 20, 24];
+  const deltas = [4, 8, 12, 16, 20, 24, 32, 40];
 
   for (const delta of deltas) {
     const pngPath = path.join(OUT, `encoded-delta${delta}.png`);

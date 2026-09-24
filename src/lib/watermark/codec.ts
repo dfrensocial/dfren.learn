@@ -19,7 +19,20 @@
 // shares the bit-layout logic in shared.ts but not this file.
 
 import sharp from "sharp";
-import { CELL_W, CELL_H, BLOCK_W, SYNC, windowValue, bitsForPayload, bitsToString, matchesSync, isPrintable, pickDirection } from "./shared";
+import { CELL_W, CELL_H, BLOCK_W, SYNC, windowValue, bitsForPayload, bitsToString, matchesSync, isPrintable, pickDirection, PATCH_FRACTION } from "./shared";
+
+// Must match the encoder's PATCH_FRACTION exactly, not just be "close" or
+// "a bit more generous" -- confirmed live, a larger analysis fraction broke
+// decoding completely, even with zero scale/crop uncertainty (raw canvas
+// pixels, no screenshot involved). The reason: a bigger centered crop has a
+// different top-left corner than the true painted patch, and cells are
+// counted from THAT corner -- so a "generous margin" doesn't add alignment
+// tolerance, it just moves the assumed grid origin away from the real one,
+// which our extremely tight per-cell tolerance (a few px out of a 16px
+// cell) can't absorb. Any margin for box-detection imprecision has to come
+// from elsewhere (the existing scale search, and small positional nudges),
+// not from mismatching this fraction.
+const ANALYSIS_FRACTION = PATCH_FRACTION;
 
 // Equal push across R/G/B (plain average brightness) -- matches what the
 // encoder actually writes, so decode reads back exactly what was pushed.
@@ -83,17 +96,27 @@ export async function encode({
   const { data, info } = await sharp(inputPath).removeAlpha().raw().toBuffer({ resolveWithObject: true });
   const { width, height, channels } = info;
 
+  // Embed only within a centered PATCH_FRACTION patch, matching
+  // paint-overlay.ts and what decode() now assumes -- see PATCH_FRACTION's
+  // definition in shared.ts. decode() reads phase 0 of its cell grid
+  // starting from the center-patch's own top-left corner, so encode() has to
+  // start counting cells from that same corner, not the full frame's.
+  const patchWidth = Math.round(width * PATCH_FRACTION);
+  const patchHeight = Math.round(height * PATCH_FRACTION);
+  const patchLeft = Math.round((width - patchWidth) / 2);
+  const patchTop = Math.round((height - patchHeight) / 2);
+
   const bits = bitsForPayload(payload);
-  const cellsX = Math.floor(width / CELL_W);
-  const cellsY = Math.floor(height / CELL_H);
+  const cellsX = Math.floor(patchWidth / CELL_W);
+  const cellsY = Math.floor(patchHeight / CELL_H);
   const totalCells = cellsX * cellsY;
 
   for (let cy = 0; cy < cellsY; cy++) {
     for (let cx = 0; cx < cellsX; cx++) {
       const cellIndex = cy * cellsX + cx;
       const bit = bits[cellIndex % bits.length];
-      const x0 = cx * CELL_W;
-      const y0 = cy * CELL_H;
+      const x0 = patchLeft + cx * CELL_W;
+      const y0 = patchTop + cy * CELL_H;
 
       const std = localStdDev(data, width, channels, x0, y0, CELL_W, CELL_H);
       const scale = Math.max(floorScale, Math.min(1, std / referenceStdDev));
@@ -220,20 +243,6 @@ function cropColumns(data: Buffer, width: number, height: number, channels: numb
   return out;
 }
 
-async function getResizedRaw(input: string | Buffer, scale: number) {
-  const base = sharp(input);
-  const meta = await base.metadata();
-  const width0 = meta.width ?? 0;
-  const height0 = meta.height ?? 0;
-  const width = Math.round(width0 * scale);
-  const height = Math.round(height0 * scale);
-  if (width < CELL_W || height < CELL_H) return null;
-
-  const pipeline = scale === 1 ? base : sharp(input).resize(width, height);
-  const { data, info } = await pipeline.removeAlpha().raw().toBuffer({ resolveWithObject: true });
-  return { data, width: info.width, height: info.height, channels: info.channels };
-}
-
 // Resizes an already-in-memory raw buffer (e.g. a column-cropped region)
 // rather than re-reading from the original file/buffer -- used by the
 // margin search, which crops BEFORE scaling (matching how a human -- or
@@ -273,18 +282,45 @@ async function resizeRawBuffer(data: Buffer, width: number, height: number, chan
 // Cheap to search because the real caller (the /watermark checker) always
 // knows the exact expected bit period for our own id format, so each
 // candidate is one fast check, not a blind 24-4096 period sweep.
-const FINE_JITTER_PCT = [0, -1, 1, -2, 2, -3, 3, -4, 4, -5, 5];
+//
+// A real fullscreen screenshot needed 0.81, not the exact 0.8 (1/1.25) --
+// jitter was only applied around 1.0, not around each DPR ratio too. Fixed
+// by jittering every base scale, not just 1.0 -- but 0.5% steps still
+// weren't fine enough (confirmed live: still failed). The reason is scale
+// tolerance shrinks with image width: a scale error compounds linearly with
+// distance from the cell grid's origin, so the same percentage error drifts
+// far more absolute pixels on a ~1920px-wide fullscreen capture than an
+// ~850px windowed one. Empirically the tolerance for THIS image was
+// somewhere inside a 2%-wide band but outside a 0.5%-wide one -- 0.1% steps
+// give an order of magnitude more margin without the range needing to be
+// any wider (the true value is always going to be close to a base scale;
+// what changed is how precisely "close" has to be).
+const JITTER_PCT = Array.from({ length: 41 }, (_, i) => Math.round((i - 20) * 0.1 * 10) / 10);
 const COMMON_DPR = [1.1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 3];
 // Only the SHRINK direction (1/dpr) is physically well-motivated: a
 // screenshot's physical-pixel resolution is always >= the CSS resolution
 // the overlay was painted at (dpr >= 1), never smaller, so there's no real
 // scenario needing the image grown by a full dpr factor -- and growing is
 // the expensive direction (a 2x upscale is 4x the pixel area to process,
-// 3x is 9x). Two mild upscale candidates are kept for capture tools that
+// 3x is 9x). One mild upscale base is kept for capture tools that
 // downsample below CSS resolution (thumbnailing, some sharing pipelines);
 // the large ones aren't worth the cost for a case that's rare in practice.
-const MILD_UPSCALE = [1.1, 1.25];
-const SCALE_CANDIDATES = [...FINE_JITTER_PCT.map((pct) => 1 + pct / 100), ...COMMON_DPR.map((dpr) => 1 / dpr), ...MILD_UPSCALE];
+const BASE_SCALES = [1, ...COMMON_DPR.map((dpr) => 1 / dpr), 1.1];
+function withJitter(bases: number[]): number[] {
+  const seen = new Set<number>();
+  const out: number[] = [];
+  for (const base of bases) {
+    for (const pct of JITTER_PCT) {
+      const scale = Math.round(base * (1 + pct / 100) * 10000) / 10000;
+      if (!seen.has(scale)) {
+        seen.add(scale);
+        out.push(scale);
+      }
+    }
+  }
+  return out;
+}
+const SCALE_CANDIDATES = withJitter(BASE_SCALES);
 
 // A crop that's off by even a handful of pixels breaks decoding completely
 // -- measured directly: shifting a known-good crop's left edge by +/-4px
@@ -358,6 +394,25 @@ const BOX_NUDGES = [
   [-2, 0],
   [0, 2],
   [0, -2],
+  [3, 0],
+  [-3, 0],
+  [0, 3],
+  [0, -3],
+  [4, 0],
+  [-4, 0],
+  [0, 4],
+  [0, -4],
+];
+// Small width/height corrections tried on top of BOX_NUDGES -- see the
+// comment where these are used. Kept short (a handful of values) since these
+// combine with the whole scale-candidate list on every attempt.
+const SIZE_NUDGES = [
+  [0, 4],
+  [0, -4],
+  [0, 8],
+  [0, -8],
+  [4, 0],
+  [-4, 0],
 ];
 const MIN_CELL_ROWS = 8;
 const MIN_CELL_COLS = 8;
@@ -365,53 +420,135 @@ const MIN_CELL_COLS = 8;
 export async function decode({
   input,
   expectedPeriod,
+  isValidCandidate,
 }: {
   input: string | Buffer;
   expectedPeriod?: number;
+  // The 16-bit sync marker alone has roughly a 1 in 65536 chance of
+  // matching pure noise -- negligible for a single attempt, but the scale
+  // search alone now tries ~100+ candidates (needed after a real fullscreen
+  // screenshot required a scale outside the old jitter band), which makes a
+  // spurious match a real, observed risk (confirmed live: got back a
+  // plausible-looking id that didn't correspond to any issued watermark).
+  // When given, a hit is only accepted once this confirms it's real (e.g.
+  // exists in the watermarks collection) -- otherwise the search keeps
+  // going past it instead of returning the first thing that merely looks
+  // like a valid bit pattern.
+  isValidCandidate?: (text: string) => Promise<boolean>;
 }): Promise<{ period: number | null; text: string | null }> {
-  // Cheap pass first: try the image as given (handles an already-tight
-  // crop, or a screenshot that's essentially just the video) across the
-  // full fine-scale list before paying for content-box detection below.
-  for (const scale of SCALE_CANDIDATES) {
-    const resized = await getResizedRaw(input, scale);
-    if (!resized) continue;
-    const { cellDiffs } = computeCellDiffs(resized.data, resized.width, resized.height, resized.channels);
-    const hit = voteBits(cellDiffs, expectedPeriod);
-    if (hit) return hit;
+  async function accept(hit: { period: number; text: string } | null) {
+    if (!hit) return null;
+    if (isValidCandidate && !(await isValidCandidate(hit.text))) return null;
+    return hit;
   }
 
-  // Fallback: detect the video's boundary from the image content (see
-  // detectContentBox) and search a small set of pixel nudges around it,
-  // crossed with the scale list. Crop first, at native resolution, THEN
-  // scale -- see resizeRawBuffer for why that order matters. The manual
-  // crop tool on the /watermark page covers cases this detection can't
-  // (e.g. the video isn't the visually darkest rectangle in the shot).
+  // `assumedWidth`/`assumedHeight` default to the buffer's own size, but can
+  // be given larger: a content-detected box can come up short on one edge
+  // (its bottom few rows genuinely cropped away, or just under-detected)
+  // while the patch itself -- comfortably inset by PATCH_FRACTION's margin --
+  // never touches those missing rows at all. Computing the patch's position
+  // from the box's TRUE total size while only ever reading pixels that
+  // actually exist recovers exactly that case, which growing the crop itself
+  // can't: there's nothing to grow into if those rows were really cropped
+  // off the source image, but the math doesn't need them to be there.
+  async function searchScales(
+    data: Buffer,
+    width: number,
+    height: number,
+    channels: number,
+    assumedWidth = width,
+    assumedHeight = height
+  ) {
+    // The watermark is only ever painted within a centered PATCH_FRACTION
+    // patch (see paint-overlay.ts), so analyzing anything wider than that
+    // just dilutes the vote with unwatermarked border pixels. ANALYSIS_FRACTION
+    // must equal PATCH_FRACTION exactly -- a larger fraction here doesn't add
+    // tolerance for an imprecise box, it moves the assumed grid origin away
+    // from the real one (a bigger centered crop has a different top-left
+    // corner), which breaks alignment outright. Tolerance for an imprecise
+    // box comes from BOX_NUDGES/SIZE_NUDGES and the scale search instead.
+    const patchW = Math.round(assumedWidth * ANALYSIS_FRACTION);
+    const patchH = Math.round(assumedHeight * ANALYSIS_FRACTION);
+    if (Math.floor(patchW / CELL_W) < MIN_CELL_COLS || Math.floor(patchH / CELL_H) < MIN_CELL_ROWS) return null;
+    const left = Math.round((assumedWidth - patchW) / 2);
+    const top = Math.round((assumedHeight - patchH) / 2);
+    // The patch must fall entirely within pixels we actually have -- if the
+    // assumed size is larger than the real buffer, an off-center patch could
+    // still land outside it even though it's inset from the assumed edges.
+    if (left < 0 || top < 0 || left + patchW > width || top + patchH > height) return null;
+    const colCropped = cropColumns(data, width, height, channels, left, patchW);
+    const rowBytes = patchW * channels;
+    const patch = colCropped.subarray(top * rowBytes, (top + patchH) * rowBytes);
+
+    for (const scale of SCALE_CANDIDATES) {
+      const resized = await resizeRawBuffer(patch, patchW, patchH, channels, scale);
+      if (!resized) continue;
+      const { cellDiffs } = computeCellDiffs(resized.data, resized.width, resized.height, resized.channels);
+      const hit = await accept(voteBits(cellDiffs, expectedPeriod));
+      if (hit) return hit;
+    }
+    return null;
+  }
+
+  // Cheap pass first: treat the image as given as the video box (handles an
+  // already-tight crop, an already-fullscreen capture, or a screenshot
+  // that's essentially just the video) and analyze its center.
   const { data: fullData, info: fullInfo } = await sharp(input).removeAlpha().raw().toBuffer({ resolveWithObject: true });
   const { width: fullWidth, height: fullHeight, channels } = fullInfo;
 
+  const direct = await searchScales(fullData, fullWidth, fullHeight, channels);
+  if (direct) return direct;
+
+  // Fallback: detect the video's boundary from the image content (see
+  // detectContentBox) in case there's significant surrounding page chrome,
+  // then analyze the center of THAT box instead of the whole image. A
+  // handful of pixel nudges around the detected boundary cover detection
+  // being slightly off; unlike the pre-patch version of this search, exact
+  // pixel precision here is a safety margin, not a requirement, since the
+  // center of a roughly-right box still comfortably contains the patch.
+  // The manual crop tool on the /watermark page covers cases detection
+  // can't (e.g. the video isn't the visually darkest rectangle in the shot).
   const box = detectContentBox(fullData, fullWidth, fullHeight, channels);
   if (!box) return { period: null, text: null };
 
-  for (const [dx, dy] of BOX_NUDGES) {
-    const left = box.left + dx;
-    const top = box.top + dy;
-    const croppedWidth = box.width;
-    const croppedHeight = box.height;
-    if (left < 0 || top < 0 || left + croppedWidth > fullWidth || top + croppedHeight > fullHeight) continue;
-    if (Math.floor(croppedWidth / CELL_W) < MIN_CELL_COLS || Math.floor(croppedHeight / CELL_H) < MIN_CELL_ROWS) continue;
-
+  // `assumedWidth`/`assumedHeight` (defaulting to the crop's own size) let a
+  // SIZE_NUDGE ask searchScales to center against a bigger hypothetical box
+  // than what's physically available at `left`/`top` -- see searchScales's
+  // comment for why that's the right fix for a box that came up short on one
+  // edge. Only the pixels that actually exist (clamped to the source image)
+  // are ever read; the assumed size only feeds the centering math.
+  async function tryBox(left: number, top: number, croppedWidth: number, croppedHeight: number, assumedWidth = croppedWidth, assumedHeight = croppedHeight) {
+    if (left < 0 || top < 0 || croppedWidth <= 0 || croppedHeight <= 0) return null;
+    if (left + croppedWidth > fullWidth || top + croppedHeight > fullHeight) return null;
     const colCropped = cropColumns(fullData, fullWidth, fullHeight, channels, left, croppedWidth);
     const rowBytes = croppedWidth * channels;
     const boxData = colCropped.subarray(top * rowBytes, (top + croppedHeight) * rowBytes);
-
-    for (const scale of SCALE_CANDIDATES) {
-      const resized = await resizeRawBuffer(boxData, croppedWidth, croppedHeight, channels, scale);
-      if (!resized) continue;
-      const { cellDiffs } = computeCellDiffs(resized.data, resized.width, resized.height, resized.channels);
-      const hit = voteBits(cellDiffs, expectedPeriod);
-      if (hit) return hit;
-    }
+    return searchScales(boxData, croppedWidth, croppedHeight, channels, assumedWidth, assumedHeight);
   }
+
+  if (process.env.WM_DEBUG) console.log("box:", box);
+  for (const [dx, dy] of BOX_NUDGES) {
+    const hit = await tryBox(box.left + dx, box.top + dy, box.width, box.height);
+    if (hit) return hit;
+  }
+
+  // Position nudges alone can't fix a box whose detected WIDTH/HEIGHT itself
+  // is off (not just shifted) -- a wrong total height throws off the
+  // half-way centering math even when the box's own top edge was measured
+  // correctly. SIZE_NUDGES covers that by centering against a slightly
+  // bigger/smaller assumed box while still only reading pixels available at
+  // the detected top-left -- a positive nudge doesn't require extra rows to
+  // physically exist, since the patch stays well inside PATCH_FRACTION's
+  // margin either way (searchScales rejects it if that's ever not true).
+  for (const [dw, dh] of SIZE_NUDGES) {
+    const assumedWidth = box.width + dw;
+    const assumedHeight = box.height + dh;
+    const availWidth = Math.min(box.width, fullWidth - box.left);
+    const availHeight = Math.min(box.height, fullHeight - box.top);
+    const hit = await tryBox(box.left, box.top, availWidth, availHeight, assumedWidth, assumedHeight);
+    if (hit) return hit;
+  }
+  if (process.env.WM_DEBUG) console.log("no hit for any box/size/scale combination");
   return { period: null, text: null };
 }
 
