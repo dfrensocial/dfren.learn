@@ -1,15 +1,21 @@
 import crypto from "node:crypto";
 import { adminDb } from "@/lib/firebase/admin";
+import { WATERMARK_ID_LENGTH } from "./shared";
 
 // Deterministic per (uid, courseId, lessonId) -- reloading the page or
 // resuming later issues the SAME id rather than a fresh one each time, so
 // the watermarks collection doesn't grow unbounded and a leak can still be
-// traced even if it's stitched together from multiple sessions. 6 hex chars
-// (24 bits) keeps the payload short, which matters more than uniqueness
-// margin here: the decoder gets more repeats of a shorter payload per
-// frame, which is what actually buys invisibility at low delta.
+// traced even if it's stitched together from multiple sessions. A short id
+// (WATERMARK_ID_LENGTH hex chars) keeps the payload short, which matters
+// more than uniqueness margin here: the decoder gets more repeats of a
+// shorter payload per frame, which is what actually buys invisibility at
+// low delta.
 export function watermarkIdFor(uid: string, courseId: string, lessonId: string): string {
-  return crypto.createHash("sha256").update(`${uid}:${courseId}:${lessonId}`).digest("hex").slice(0, 6);
+  return crypto
+    .createHash("sha256")
+    .update(`${uid}:${courseId}:${lessonId}`)
+    .digest("hex")
+    .slice(0, WATERMARK_ID_LENGTH);
 }
 
 export async function issueWatermark({

@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+import sharp from "sharp";
 import { decode } from "@/lib/watermark/codec";
 import { lookupWatermark } from "@/lib/watermark/lookup";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
+import { WATERMARK_EXPECTED_PERIOD } from "@/lib/watermark/shared";
 
 // TODO: gate this route to admins once auth is wired up (see /watermark
 // page) -- until then it's reachable by anyone with the URL, so it's kept
@@ -31,7 +33,24 @@ export async function POST(req: NextRequest) {
   }
 
   const buffer = Buffer.from(await file.arrayBuffer());
-  const result = await decode({ input: buffer }).catch(() => ({ period: null, text: null }));
+
+  // An admin-drawn crop box (see the /watermark page) around just the video
+  // -- most real screenshots include page chrome (controls, borders,
+  // surrounding text) the codec's cell grid was never painted under, which
+  // dilutes the vote enough to break decoding even though the watermark
+  // is genuinely there. Cropping server-side (not just relying on what the
+  // admin visually selected) means we decode the exact pixels they marked.
+  const cropInput = readCropRect(formData!);
+  const decodeInput = cropInput ? await applyCrop(buffer, cropInput) : buffer;
+
+  // Our own watermark ids are always WATERMARK_ID_LENGTH hex chars (issue.ts)
+  // -- that's a fixed property of our scheme, not something to blind-guess,
+  // so every scale candidate decode() tries can go straight to the single
+  // right period instead of a slow 24-4096 sweep each time.
+  const result = await decode({ input: decodeInput, expectedPeriod: WATERMARK_EXPECTED_PERIOD }).catch(() => ({
+    period: null,
+    text: null,
+  }));
 
   if (!result.text) {
     return NextResponse.json({ found: false });
@@ -39,4 +58,27 @@ export async function POST(req: NextRequest) {
 
   const viewer = await lookupWatermark(result.text);
   return NextResponse.json({ found: true, watermarkId: result.text, viewer });
+}
+
+function readCropRect(formData: FormData): { left: number; top: number; width: number; height: number } | null {
+  const left = Number(formData.get("cropLeft"));
+  const top = Number(formData.get("cropTop"));
+  const width = Number(formData.get("cropWidth"));
+  const height = Number(formData.get("cropHeight"));
+  if (![left, top, width, height].every((n) => Number.isFinite(n) && n >= 0) || width <= 0 || height <= 0) {
+    return null;
+  }
+  return { left, top, width, height };
+}
+
+async function applyCrop(
+  buffer: Buffer,
+  crop: { left: number; top: number; width: number; height: number }
+): Promise<Buffer> {
+  // A stale/out-of-range crop (e.g. rounding at the image edge) should fall
+  // back to decoding the whole image rather than erroring the request.
+  return sharp(buffer)
+    .extract(crop)
+    .toBuffer()
+    .catch(() => buffer);
 }

@@ -136,16 +136,32 @@ function clamp(v: number) {
 }
 
 // Real screenshots are essentially never pixel-for-pixel the same size the
-// overlay was painted at -- a screenshot tool, a screen recording's own
-// encode step, an OS-level scaling quirk, or (in practice, the biggest
-// factor) an admin's crop of the video out of a larger screenshot not
-// landing on the exact video boundary all shift every cell boundary by a
-// fraction of a pixel that compounds across the frame. A single degree of
-// freedom (uniform scale) is cheap to search blindly, so decode tries a
-// range of rescales before giving up. +/-8% covers the slop actually
-// observed from a hand-cropped real screenshot in testing; going wider than
-// that starts trading meaningful accuracy for runtime with little payoff.
-const SCALE_SEARCH_RANGE = [0, -1, 1, -2, 2, -3, 3, -4, 4, -5, 5, -6, 6, -7, 7, -8, 8]; // percent, tried in this order
+// overlay was painted at. Two distinct causes, both confirmed by testing
+// against real screenshots (not just synthetic resizes):
+//   1. Fine jitter from a capture tool's own resize/recompression step, or
+//      an admin's hand-drawn crop not landing exactly on the video edge --
+//      a few percent either way.
+//   2. devicePixelRatio: the overlay is painted at CSS-pixel resolution
+//      (see secure-video-player.tsx for why), but plenty of real
+//      screenshot tools -- especially OS-level ones (Windows/macOS
+//      screenshot, not a browser extension) -- capture at PHYSICAL pixel
+//      resolution instead. On a 125% Windows display (a very common
+//      default) that alone is a ~20% size mismatch, which is a completely
+//      different scale of error than capture-tool jitter and needs to be
+//      searched as discrete, physically-meaningful ratios (1/1.25, 1/1.5,
+//      1/2, ...) rather than a smooth percentage sweep -- a sweep fine
+//      enough to hit 0.8000 exactly by accident would need hundreds of
+//      steps.
+// Cheap to search because the real caller (the /watermark checker) always
+// knows the exact expected bit period for our own id format, so each
+// candidate is one fast check, not a blind 24-4096 period sweep.
+const FINE_JITTER_PCT = [0, -1, 1, -2, 2, -3, 3, -4, 4, -5, 5];
+const COMMON_DPR = [1.1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 3];
+const SCALE_CANDIDATES = [
+  ...FINE_JITTER_PCT.map((pct) => 1 + pct / 100),
+  ...COMMON_DPR.map((dpr) => 1 / dpr), // screenshot is physical pixels, overlay was CSS pixels -> shrink
+  ...COMMON_DPR, // the reverse case, for completeness
+];
 
 export async function decode({
   input,
@@ -159,13 +175,12 @@ export async function decode({
   const width0 = meta.width ?? 0;
   const height0 = meta.height ?? 0;
 
-  for (const pct of SCALE_SEARCH_RANGE) {
-    const scale = 1 + pct / 100;
+  for (const scale of SCALE_CANDIDATES) {
     const width = Math.round(width0 * scale);
     const height = Math.round(height0 * scale);
     if (width < CELL_W || height < CELL_H) continue;
 
-    const scaled = pct === 0 ? base.clone() : sharp(input).resize(width, height);
+    const scaled = scale === 1 ? base.clone() : sharp(input).resize(width, height);
     const hit = await decodeAtSize(scaled, expectedPeriod);
     if (hit.text) return hit;
   }

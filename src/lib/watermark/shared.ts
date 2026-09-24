@@ -60,3 +60,9 @@ export function pickDirection(cellMean: number) {
 export function bitsForPayload(payload: string): number[] {
   return [...SYNC, ...stringToBits(payload)];
 }
+
+// Our own watermark ids (issue.ts) are always this many hex characters, so
+// the checker never actually needs to blind-guess the payload length --
+// it's a fixed property of our own scheme, not something read off the file.
+export const WATERMARK_ID_LENGTH = 6;
+export const WATERMARK_EXPECTED_PERIOD = SYNC.length + WATERMARK_ID_LENGTH * 8;
