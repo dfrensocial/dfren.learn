@@ -9,7 +9,11 @@ import { getClientIp, rateLimit } from "@/lib/rate-limit";
 // before Razorpay exists — hard-disabled the moment real Razorpay keys are
 // configured, since it grants access with no payment verification at all.
 export async function POST(req: NextRequest) {
-  if (isRazorpayConfigured()) {
+  // Public deploys (Netlify) must never expose this just because Razorpay
+  // keys haven't been added yet — requires an explicit opt-in in production.
+  const testAllowed =
+    process.env.NODE_ENV !== "production" || process.env.ENABLE_TEST_PAYMENTS === "true";
+  if (!testAllowed || isRazorpayConfigured()) {
     return NextResponse.json({ error: "Test mode is disabled" }, { status: 404 });
   }
 
