@@ -1,5 +1,5 @@
 import { adminDb } from "@/lib/firebase/admin";
-import type { Firestore } from "firebase-admin/firestore";
+import type { Firestore, QueryDocumentSnapshot, DocumentData } from "firebase-admin/firestore";
 
 /**
  * Caps how many devices/tabs can be actively streaming under one account at
@@ -42,7 +42,7 @@ export async function checkAndRegisterSession({
   const snap = await ref.get();
   const now = Date.now();
 
-  const activeOthers = snap.docs.filter((doc) => {
+  const activeOthers = snap.docs.filter((doc: QueryDocumentSnapshot<DocumentData>) => {
     if (doc.id === sessionId) return false;
     const lastSeen = doc.data().lastSeen?.toMillis?.() ?? 0;
     return now - lastSeen < STALE_AFTER_MS;
