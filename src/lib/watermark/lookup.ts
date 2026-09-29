@@ -1,4 +1,5 @@
 import { adminDb } from "@/lib/firebase/admin";
+import type { Timestamp } from "firebase-admin/firestore";
 
 // Populated once real per-viewer watermarking is wired into the player (each
 // issued id gets written here, keyed by the id itself). Until then this
@@ -8,7 +9,7 @@ export type WatermarkRecord = {
   uid: string;
   courseId: string;
   lessonId: string;
-  issuedAt?: FirebaseFirestore.Timestamp;
+  issuedAt?: Timestamp;
 };
 
 export async function lookupWatermark(id: string): Promise<WatermarkRecord | null> {
