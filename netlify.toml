@@ -5,4 +5,10 @@
   publish = ".next"
 
 [build.environment]
-  NODE_VERSION = "20"
+  # firebase-admin lists @google-cloud/firestore as an OPTIONAL dependency,
+  # and that package itself requires Node >=22 -- on Node 20, npm silently
+  # skips installing it rather than erroring, so our code (which imports it
+  # unconditionally via firebase-admin/firestore) crashed at runtime with
+  # "Cannot find module '@google-cloud/firestore'". Node 22 satisfies its
+  # engines requirement, so npm actually installs it.
+  NODE_VERSION = "22"
