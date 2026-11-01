@@ -34,6 +34,19 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Course not found" }, { status: 404 });
   }
 
+  // A logged-in buyer who already owns the course would just be charged twice.
+  if (decoded) {
+    const owned = await adminDb
+      .collection("users")
+      .doc(decoded.uid)
+      .collection("enrollments")
+      .doc(courseId)
+      .get();
+    if (owned.exists) {
+      return NextResponse.json({ error: "You already have access to this course." }, { status: 409 });
+    }
+  }
+
   const order = await razorpay.orders.create({
     amount: priceInPaise,
     currency: "INR",
