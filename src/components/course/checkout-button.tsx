@@ -114,6 +114,10 @@ export function CheckoutButton({
         },
         body: JSON.stringify({ courseId, guestEmail: idToken ? undefined : email }),
       });
+      if (res.status === 409) {
+        setInfoMessage("You already have this course. Open it from your dashboard.");
+        return;
+      }
       if (!res.ok) throw new Error("create-order failed");
       const { order } = await res.json();
 
