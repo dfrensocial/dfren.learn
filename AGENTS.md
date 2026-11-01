@@ -13,8 +13,8 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 Course platform: landing page → guest checkout → protected video lessons. Currently sells one course (`geo-blueprint`), built so adding more later is cheap — see "Multi-course readiness" below.
 
 ## Tech Stack
-- **Next.js 15** (App Router, TypeScript, Tailwind, `src/` dir)
-- **Firebase**: Auth (email/password + Google), Firestore (courses/lessons/users/enrollments), Storage (thumbnails/assets)
+- **Next.js 16** (App Router, TypeScript, Tailwind, `src/` dir)
+- **Firebase**: Auth (email-link sign-in only), Firestore (courses/lessons/users/enrollments), Storage (thumbnails/assets)
 - **Mux**: video hosting/streaming. Assets created with `playback_policy: "signed"` — never `"public"`. Playback always goes through a short-lived signed token issued server-side (`/api/mux/playback-token`), never a raw playback ID shipped to the client.
 - **Razorpay**: payments, guest checkout (no signup required before paying — see "Checkout & accounts" below). Orders created server-side (`/api/razorpay/create-order`), verified via signature both at `/api/razorpay/verify` (client-triggered, right after payment) and the webhook (`/api/razorpay/webhook`, idempotent fallback).
 
@@ -23,15 +23,17 @@ Course platform: landing page → guest checkout → protected video lessons. Cu
 - `src/lib/firebase/admin.ts` — service-account SDK, server-only (API routes, RSCs). Never import into a client component.
 - `src/lib/mux/` — server SDK + signed-playback-token helper.
 - `src/lib/razorpay/` — server SDK, signature verification, and `grant-access.ts` (shared by `/api/razorpay/verify` and the webhook).
-- Auth: Firebase ID token (client) → exchanged for an httpOnly session cookie via `/api/auth/session` → `middleware.ts` gates `/dashboard/*` on cookie presence → server routes/RSCs do the real `adminAuth.verifySessionCookie` check.
+- Auth: sign-in is **email link only** (no passwords, no self-serve signup — `/signup` redirects to `/login`). Firebase ID token (client) → exchanged for an httpOnly session cookie via `/api/auth/session` → `middleware.ts` gates `/dashboard/*` on cookie *presence* only (UX redirect, not security). Real enforcement is per-request: API routes verify the Bearer ID token with `verifyIdToken(token, true)` (honours revocation) and Firestore rules gate direct reads. The session cookie is never verified server-side — dashboard pages are client-rendered.
+- Admin = verified email listed in `ADMIN_EMAILS` (server env, comma-separated; empty = nobody). `requireAdmin()` in `src/lib/admin-auth.ts` guards `/api/watermark/decode`.
 - Firestore layout: `courses/{courseId}`, `courses/{courseId}/lessons/{lessonId}`, `users/{uid}/enrollments/{courseId}`.
 - Course marketing copy + price live in `src/content/courses/{courseId}.ts` (typed `CourseContent`), not hardcoded in components — components take it as props. `scripts/seed-course.ts` reads the same file to write the Firestore `courses/{courseId}` doc (`npm run seed`). There's no admin UI; this script is the only way courses get created right now.
 
 ## Checkout & accounts
 - Guest checkout: an unauthenticated visitor is never redirected to sign up. `CheckoutButton` (`src/components/course/checkout-button.tsx`) captures just an email inline, and Razorpay's popup opens immediately — no confirm-order step.
 - Both guest and logged-in purchases are the same code path, keyed by **email**, not by whether an account already existed: `grantCourseAccess` (`src/lib/razorpay/grant-access.ts`) does `getUserByEmail` → create-if-missing → write the enrollment doc. Called from `/api/razorpay/verify` (signature-verified, client-triggered right after payment) and the webhook (idempotent fallback, same signature verification). Both are equally trustworthy — what's still banned is trusting an *unverified* "payment succeeded" message with no signature check.
-- First access for a guest is via a Firebase custom token (`adminAuth.createCustomToken`) returned by `/api/razorpay/verify` and consumed with `signInWithCustomToken` — no password or emailed link for the happy path.
-- Guest-created accounts have no password. Returning on a new device uses the "email me a sign-in link" flow on `/login` (`sendSignInLinkToEmail`/`signInWithEmailLink`, Firebase's own email delivery — no third-party email service).
+- The buyer types their own email, so it proves nothing about who they are. `grantCourseAccess` therefore returns `claimable` — true only for an account nobody has ever signed into (no provider, `metadata.lastSignInTime` null). Only then does `/api/razorpay/verify` return a custom token (`createCustomToken` → `signInWithCustomToken`) for instant first access. Any other account (returning customer, or someone paying with a stranger's email) gets `signInRequired` and the client sends an emailed sign-in link instead. **Never mint a token for a non-claimable account** — that is an account takeover.
+- Firebase's public password sign-up cannot be disabled, so an attacker can pre-register a victim's email with a password. `grantCourseAccess` strips the password provider and revokes sessions on any account with a password and an unverified email. Real accounts never have a password.
+- Returning on a new device uses "email me a sign-in link" on `/login` (`sendSignInLinkToEmail`/`signInWithEmailLink`, Firebase's own email delivery). `?redirect=` is sanitised by `safeRedirectPath` — keep using it.
 
 ## Multi-course readiness
 - Everything above (Firestore layout, `/dashboard`, `/dashboard/courses/[courseId]`, checkout) already works for N courses.
@@ -43,5 +45,6 @@ Course platform: landing page → guest checkout → protected video lessons. Cu
 - Never grant course access from an unverified client message — only from a signature-verified path (`/api/razorpay/verify` or the webhook), per "Checkout & accounts" above.
 - Every new Mux asset must set `playback_policy: "signed"` and pass `passthrough: "<courseId>:<lessonId>"` so the webhook can locate the Firestore doc to update.
 - Firestore security rules must deny direct client reads of `lessons.muxPlaybackId`/`muxAssetId` for non-enrolled users — playback IDs are only ever handed out via the signed API route.
+- `/api/test/simulate-payment` grants access with no payment: it needs `NODE_ENV !== "production"` or `ENABLE_TEST_PAYMENTS=true`, and is dead once Razorpay is configured. Never set `ENABLE_TEST_PAYMENTS` on the live site.
 - No `git push` — this repo is set up for the user to push manually. Tell them when a push is ready; do not run it yourself.
 

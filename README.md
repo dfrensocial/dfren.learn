@@ -3,7 +3,7 @@
 Course platform. Landing page → guest checkout → protected video lessons via Mux.
 
 ## Stack
-Next.js 15 (App Router, TS, Tailwind) · Firebase (Auth, Firestore) · Mux (signed video playback) · Razorpay (payments)
+Next.js 16 (App Router, TS, Tailwind) · Firebase (Auth, Firestore) · Mux (signed video playback) · Razorpay (payments)
 
 Architecture and rules: see [AGENTS.md](./AGENTS.md).
 
@@ -28,11 +28,11 @@ Architecture and rules: see [AGENTS.md](./AGENTS.md).
 4. Auto-generated English subtitles are now requested on every upload (`upload-lesson.ts`/`test-mux-lesson.ts`) — no extra setup, it's Mux's built-in speech-to-text and the tracks are served inside the same signed HLS manifest as the video, so the player's CC button just works once a track finishes processing (usually shortly after the asset itself goes `ready`).
 5. **Not set up yet — Mux Data (viewer engagement/QoE analytics):** needs a Mux Data **Environment Key**, which is separate from the Video API tokens above. Get one from the Mux dashboard → **Data** → **Environments** (safe to expose client-side — it's an analytics key, not a secret) and add it as `NEXT_PUBLIC_MUX_ENV_KEY`. Once that exists, pass `envKey={process.env.NEXT_PUBLIC_MUX_ENV_KEY}` and a `metadata={{ video_id: lessonId, video_title: ..., viewer_user_id: user.uid }}` prop to `MuxPlayer` in `secure-video-player.tsx` — that's the entire integration, mux-player-react handles the beaconing itself. Left undone here because it needs an env var only the account owner can create.
 
-### Razorpay — currently blocked on KYC (as of 2026-09-23)
+### Razorpay
 1. Create an account at razorpay.com.
-2. API Keys → generate → `RAZORPAY_KEY_ID` / `RAZORPAY_KEY_SECRET` (also set `NEXT_PUBLIC_RAZORPAY_KEY_ID` to the same key id). **Razorpay now requires account KYC/approval before generating *any* API key, including test mode** — there's nothing to do here until that clears, this isn't a config issue on our end.
+2. API Keys → generate → `RAZORPAY_KEY_ID` / `RAZORPAY_KEY_SECRET` (also set `NEXT_PUBLIC_RAZORPAY_KEY_ID` to the same key id). Live keys need Razorpay KYC/approval; test keys (`rzp_test_…`) work without it. Key id, key secret and webhook secret must all be set together — `isRazorpayConfigured()` needs all three.
 3. Webhooks → add `https://<your-domain>/api/razorpay/webhook`, subscribe to `payment.captured`, copy the secret into `RAZORPAY_WEBHOOK_SECRET`. **Razorpay validates that the webhook URL actually resolves** (unlike Mux, which accepts a not-yet-live placeholder domain) — so this step also needs a real deployed domain, which is another reason to deploy to Vercel before/independent of Razorpay approval.
-4. Until all three vars are set, the site runs in **test-payment mode** automatically (see below) — no code change needed when they're added.
+4. Until all three vars are set, local dev runs in **test-payment mode** (see below). In production the simulate endpoint stays off unless `ENABLE_TEST_PAYMENTS=true`, so a missing key shows a broken checkout instead of free access.
 
 ## Adding course content (no admin UI yet)
 
@@ -55,6 +55,23 @@ There's no admin dashboard — courses/lessons are managed with scripts against 
 
 Once real Razorpay keys are added, this flips to the real checkout automatically — nothing else to change.
 
+## Go-live checklist (production env + console settings)
+
+Env vars on the host (Netlify): everything in `.env.example`, plus:
+- `ADMIN_EMAILS` — your login email(s) for `/watermark`. Unset = nobody can use the checker.
+- Do **not** set `ENABLE_TEST_PAYMENTS`.
+- Use **live** Razorpay keys (`rzp_live_…`) for `RAZORPAY_KEY_ID`/`NEXT_PUBLIC_RAZORPAY_KEY_ID`/`RAZORPAY_KEY_SECRET`, and the dashboard-issued `RAZORPAY_WEBHOOK_SECRET`.
+
+Console settings that code can't do:
+- Firebase → Authentication → Settings → **Authorized domains**: add the production domain (email-link sign-in fails without it).
+- Firebase → Authentication → Sign-in method: Email/Password **and** Email link both enabled.
+- Deploy rules: `firebase deploy --only firestore:rules,storage` if `firestore.rules` changed.
+- Razorpay → Webhooks → `https://<domain>/api/razorpay/webhook`, event `payment.captured`.
+- Mux → Webhooks → `https://<domain>/api/mux/webhook`.
+- Make sure `support@dfrenlearn.com` (used in the footer and legal pages) is a real inbox.
+
+Known limits: the rate limiter is in-memory per serverless instance (best-effort only); `middleware.ts` still uses the deprecated name (works on Next 16, migrate with the `middleware-to-proxy` codemod later).
+
 ## What's scaffolded vs. what's still needed
 
 Done: guest checkout, login/signup (cross-linked, both work), session cookies, dashboard, secure video playback (verified end-to-end against a real Mux asset), Firestore rules (deployed), landing page content, test-payment mode.
@@ -62,8 +79,7 @@ Done: guest checkout, login/signup (cross-linked, both work), session cookies, d
 Still needed:
 - Real Razorpay keys (see above) — the only thing blocking real payments.
 - Firebase Storage isn't provisioned on the project yet (one-time manual step in the console: Storage → Get Started) — not urgent, nothing depends on it yet.
-- Real testimonials (currently placeholder quotes).
-- Legal pages (Terms, Privacy, Refund policy) — Razorpay requires these live on the site before approving the account for real payments.
+- Real testimonials — the section is hidden while `testimonials` is empty in the course content file.
 - Deploy target (Vercel recommended) + wiring the Mux/Razorpay webhook URLs to that domain.
 - `middleware.ts` uses Next's now-deprecated middleware convention (proxy is the replacement) — fine functionally, worth migrating later with `npx @next/codemod@canary middleware-to-proxy .`.
 

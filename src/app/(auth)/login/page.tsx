@@ -3,7 +3,6 @@
 import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
-  signInWithEmailAndPassword,
   sendSignInLinkToEmail,
   isSignInWithEmailLink,
   signInWithEmailLink,
@@ -11,6 +10,7 @@ import {
 import Link from "next/link";
 import { auth } from "@/lib/firebase/client";
 import { syncSessionCookie } from "@/lib/firebase/auth-context";
+import { safeRedirectPath } from "@/lib/safe-redirect";
 
 const EMAIL_LINK_STORAGE_KEY = "dfrenlearn:login-email";
 
@@ -26,7 +26,6 @@ function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [linkSent, setLinkSent] = useState(false);
@@ -45,7 +44,7 @@ function LoginForm() {
       const { user } = await signInWithEmailLink(auth, emailForLink, window.location.href);
       window.localStorage.removeItem(EMAIL_LINK_STORAGE_KEY);
       await syncSessionCookie(user);
-      router.push(searchParams.get("redirect") ?? "/dashboard");
+      router.push(safeRedirectPath(searchParams.get("redirect")));
     } catch {
       setError("That sign-in link is invalid or has expired.");
       setCompletingLink(false);
@@ -77,21 +76,6 @@ function LoginForm() {
     finishEmailLinkSignIn(confirmEmail);
   }
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError(null);
-    setSubmitting(true);
-    try {
-      const { user } = await signInWithEmailAndPassword(auth, email, password);
-      await syncSessionCookie(user);
-      router.push(searchParams.get("redirect") ?? "/dashboard");
-    } catch {
-      setError("Invalid email or password.");
-    } finally {
-      setSubmitting(false);
-    }
-  }
-
   async function handleSendLink() {
     if (!email) {
       setError("Enter your email first.");
@@ -102,7 +86,7 @@ function LoginForm() {
     try {
       const redirect = searchParams.get("redirect");
       const url = new URL("/login", window.location.origin);
-      if (redirect) url.searchParams.set("redirect", redirect);
+      if (redirect) url.searchParams.set("redirect", safeRedirectPath(redirect));
 
       await sendSignInLinkToEmail(auth, email, {
         url: url.toString(),
@@ -165,13 +149,22 @@ function LoginForm() {
 
       {linkSent ? (
         <p className="mt-6 text-sm text-neutral-600">
-          Check <span className="font-medium">{email}</span> for a link to log in
-          — this is how you sign in if you bought the course as a guest and
-          never set a password.
+          Check <span className="font-medium">{email}</span> for your sign-in
+          link. It can take a minute — look in spam if it doesn&apos;t show up.
         </p>
       ) : (
         <>
-          <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-3">
+          <p className="mt-2 text-sm text-neutral-600">
+            Enter the email you bought the course with and we&apos;ll send you a
+            one-click sign-in link. No password needed.
+          </p>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSendLink();
+            }}
+            className="mt-6 flex flex-col gap-3"
+          >
             <input
               type="email"
               required
@@ -180,52 +173,22 @@ function LoginForm() {
               onChange={(e) => setEmail(e.target.value)}
               className="border border-black px-3 py-2"
             />
-            <input
-              type="password"
-              required
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="border border-black px-3 py-2"
-            />
             {error && <p className="text-sm text-red-600">{error}</p>}
             <button
               type="submit"
               disabled={submitting}
               className="bg-black px-4 py-3 font-semibold text-white transition hover:bg-neutral-800 disabled:opacity-50"
             >
-              {submitting ? "Logging in..." : "Log in"}
+              {submitting ? "Sending..." : "Email me a sign-in link"}
             </button>
           </form>
 
-          <p className="mt-4 text-center text-sm text-neutral-500">
-            Bought the course as a guest and never set a password?
-          </p>
-          <button
-            onClick={handleSendLink}
-            disabled={submitting}
-            className="mt-1 block w-full text-center text-sm font-medium underline disabled:opacity-50"
-          >
-            Email me a sign-in link instead
-          </button>
-
           <p className="mt-6 text-center text-sm text-neutral-500">
             New here?{" "}
-            <Link
-              href={
-                searchParams.get("redirect")
-                  ? `/signup?redirect=${encodeURIComponent(searchParams.get("redirect")!)}`
-                  : "/signup"
-              }
-              className="font-medium underline"
-            >
-              Create an account
-            </Link>
-            , or just{" "}
             <Link href="/#pricing" className="font-medium underline">
-              buy the course
+              Buy the course
             </Link>{" "}
-            — that creates one for you automatically.
+            — that creates your account automatically.
           </p>
         </>
       )}

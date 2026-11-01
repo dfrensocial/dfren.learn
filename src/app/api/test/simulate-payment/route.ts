@@ -9,8 +9,8 @@ import { getClientIp, rateLimit } from "@/lib/rate-limit";
 // before Razorpay exists — hard-disabled the moment real Razorpay keys are
 // configured, since it grants access with no payment verification at all.
 export async function POST(req: NextRequest) {
-  // Public deploys (Netlify) must never expose this just because Razorpay
-  // keys haven't been added yet — requires an explicit opt-in in production.
+  // Public deploys must never expose this just because Razorpay keys haven't
+  // been added yet — production requires an explicit opt-in.
   const testAllowed =
     process.env.NODE_ENV !== "production" || process.env.ENABLE_TEST_PAYMENTS === "true";
   if (!testAllowed || isRazorpayConfigured()) {
@@ -40,15 +40,16 @@ export async function POST(req: NextRequest) {
 
   const authHeader = req.headers.get("authorization");
   const idToken = authHeader?.replace("Bearer ", "");
-  const isGuest = !idToken || !(await adminAuth.verifyIdToken(idToken).catch(() => null));
+  const caller = idToken ? await adminAuth.verifyIdToken(idToken).catch(() => null) : null;
 
-  const user = await grantCourseAccess({
+  const { user, claimable } = await grantCourseAccess({
     email,
     courseId,
     paymentId: `test-${Date.now()}`,
   });
 
-  const customToken = isGuest ? await adminAuth.createCustomToken(user.uid) : undefined;
+  const customToken = claimable ? await adminAuth.createCustomToken(user.uid) : undefined;
+  const signInRequired = !customToken && caller?.uid !== user.uid;
 
-  return NextResponse.json({ ok: true, customToken });
+  return NextResponse.json({ ok: true, customToken, signInRequired });
 }

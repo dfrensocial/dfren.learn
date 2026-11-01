@@ -42,6 +42,10 @@ function pruneIfNeeded(now: number) {
 
 /** Extracts a best-effort client IP from standard proxy headers. */
 export function getClientIp(req: Request): string {
+  // Set by Netlify's edge itself, so unlike x-forwarded-for a client can't
+  // pre-populate it to dodge the limiter.
+  const netlifyIp = req.headers.get("x-nf-client-connection-ip");
+  if (netlifyIp) return netlifyIp.trim();
   const forwardedFor = req.headers.get("x-forwarded-for");
   if (forwardedFor) {
     return forwardedFor.split(",")[0].trim();

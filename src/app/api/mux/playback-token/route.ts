@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
   }
 
-  const decoded = await adminAuth.verifyIdToken(idToken).catch(() => null);
+  const decoded = await adminAuth.verifyIdToken(idToken, true).catch(() => null);
   if (!decoded) {
     return NextResponse.json({ error: "Invalid session" }, { status: 401 });
   }

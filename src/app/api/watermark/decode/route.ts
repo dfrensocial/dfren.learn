@@ -4,10 +4,10 @@ import { decode } from "@/lib/watermark/codec";
 import { lookupWatermark } from "@/lib/watermark/lookup";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
 import { WATERMARK_EXPECTED_PERIOD } from "@/lib/watermark/shared";
+import { requireAdmin } from "@/lib/admin-auth";
 
-// TODO: gate this route to admins once auth is wired up (see /watermark
-// page) -- until then it's reachable by anyone with the URL, so it's kept
-// deliberately narrow: image-only, size-capped, and rate-limited.
+// Admin-only (see requireAdmin): the response includes the viewer's email.
+// Still image-only, size-capped, and rate-limited on top of that.
 const MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
 
 export async function POST(req: NextRequest) {
@@ -18,6 +18,11 @@ export async function POST(req: NextRequest) {
       { error: "Too many uploads. Try again later." },
       { status: 429, headers: { "Retry-After": String(retryAfterSeconds) } }
     );
+  }
+
+  const admin = await requireAdmin(req);
+  if (!admin) {
+    return NextResponse.json({ error: "Not authorized." }, { status: 403 });
   }
 
   const formData = await req.formData().catch(() => null);

@@ -5,6 +5,8 @@ export function Testimonials({
 }: {
   testimonials: CourseContent["testimonials"];
 }) {
+  if (testimonials.length === 0) return null;
+
   return (
     <section className="border-b border-black">
       <div className="mx-auto max-w-5xl px-6 py-16 sm:py-20">

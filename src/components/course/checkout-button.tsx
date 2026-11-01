@@ -3,7 +3,7 @@
 import Script from "next/script";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { signInWithCustomToken } from "firebase/auth";
+import { signInWithCustomToken, sendSignInLinkToEmail } from "firebase/auth";
 import { auth } from "@/lib/firebase/client";
 import { useAuth, syncSessionCookie } from "@/lib/firebase/auth-context";
 
@@ -16,6 +16,9 @@ declare global {
 // Auto-detects whether Razorpay is actually configured. Flips to the real
 // checkout the moment NEXT_PUBLIC_RAZORPAY_KEY_ID is set — no code change needed.
 const TEST_MODE = !process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
+
+// Same key the login page reads to finish an emailed-link sign-in.
+const EMAIL_LINK_STORAGE_KEY = "dfrenlearn:login-email";
 
 export function CheckoutButton({
   courseId,
@@ -31,6 +34,7 @@ export function CheckoutButton({
   const [loading, setLoading] = useState(false);
   const [showTestModal, setShowTestModal] = useState(false);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  const [infoMessage, setInfoMessage] = useState<string | null>(null);
   const firstModalButtonRef = useRef<HTMLButtonElement>(null);
 
   // Basic focus trap + Escape-to-close for the test-mode modal.
@@ -49,12 +53,32 @@ export function CheckoutButton({
     return user?.email ?? guestEmail.trim();
   }
 
-  async function completeSignIn(customToken: string | undefined) {
-    // Guest buyers get signed in immediately via the token the server just
-    // minted — no password/email-link step needed for first access.
-    if (customToken) {
-      const { user: signedInUser } = await signInWithCustomToken(auth, customToken);
+  async function completeSignIn(
+    result: { customToken?: string; signInRequired?: boolean },
+    email: string
+  ) {
+    // Brand-new buyers get signed in immediately via the token the server
+    // just minted — no password/email-link step needed for first access.
+    if (result.customToken) {
+      const { user: signedInUser } = await signInWithCustomToken(auth, result.customToken);
       await syncSessionCookie(signedInUser);
+    } else if (result.signInRequired) {
+      // The email already belongs to an account, so the server won't vouch
+      // for whoever typed it — they prove ownership through the inbox.
+      const url = new URL("/login", window.location.origin);
+      url.searchParams.set("redirect", `/dashboard/courses/${courseId}?purchased=1`);
+      try {
+        await sendSignInLinkToEmail(auth, email, { url: url.toString(), handleCodeInApp: true });
+        window.localStorage.setItem(EMAIL_LINK_STORAGE_KEY, email);
+        setInfoMessage(
+          `Payment received — you're enrolled. We emailed a sign-in link to ${email}; open it to start watching.`
+        );
+      } catch {
+        setInfoMessage(
+          `Payment received — you're enrolled. Go to the login page and request a sign-in link for ${email}.`
+        );
+      }
+      return;
     }
     router.push(`/dashboard/courses/${courseId}?purchased=1`);
   }
@@ -72,6 +96,7 @@ export function CheckoutButton({
     if (!email) return;
 
     setStatusMessage(null);
+    setInfoMessage(null);
 
     if (TEST_MODE) {
       setShowTestModal(true);
@@ -114,8 +139,7 @@ export function CheckoutButton({
               body: JSON.stringify({ ...response, courseId, email }),
             });
             if (!verifyRes.ok) throw new Error("verify failed");
-            const { customToken } = await verifyRes.json();
-            await completeSignIn(customToken);
+            await completeSignIn(await verifyRes.json(), email);
           } catch {
             setStatusMessage(
               "Payment succeeded but we couldn't confirm it — contact support with your payment ID."
@@ -149,8 +173,7 @@ export function CheckoutButton({
         body: JSON.stringify({ courseId, email: resolveEmail() }),
       });
       if (!res.ok) throw new Error("simulate-payment failed");
-      const { customToken } = await res.json();
-      await completeSignIn(customToken);
+      await completeSignIn(await res.json(), resolveEmail());
     } catch {
       setStatusMessage("Something went wrong simulating the payment. Please try again.");
     } finally {
@@ -189,6 +212,9 @@ export function CheckoutButton({
         )}
 
         {statusMessage && <p className="mb-3 text-sm text-red-600">{statusMessage}</p>}
+        {infoMessage && (
+          <p className="mb-3 border border-black bg-neutral-50 px-3 py-2 text-sm">{infoMessage}</p>
+        )}
 
         <button
           type="submit"
