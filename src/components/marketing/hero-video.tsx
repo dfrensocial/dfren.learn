@@ -29,7 +29,7 @@ export function HeroVideo() {
   }
 
   return (
-    <div className="relative mx-auto mt-14 aspect-video max-w-5xl overflow-hidden border border-black bg-black">
+    <div className="relative mx-auto mt-14 aspect-video max-w-5xl overflow-hidden rounded-2xl border border-black/10 bg-black shadow-[0_18px_40px_-14px_rgba(0,0,0,0.35)] transition duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_28px_56px_-16px_rgba(0,0,0,0.4)]">
       <video
         ref={ref}
         className="h-full w-full object-cover"
