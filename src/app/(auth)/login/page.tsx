@@ -29,11 +29,13 @@ function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [linkSent, setLinkSent] = useState(false);
-  // Lazy initial state (not a setState-in-effect) so we know synchronously,
-  // before the first paint, whether this load is completing an email-link sign-in.
-  const [completingLink, setCompletingLink] = useState(
-    () => typeof window !== "undefined" && isSignInWithEmailLink(auth, window.location.href)
-  );
+  // null until we've looked at the URL after mount. It can't be decided during
+  // render: the server has no window, so reading it there makes the server
+  // HTML (the form) disagree with the browser's first render ("Signing you
+  // in...") whenever the page is opened from an emailed link — a hydration
+  // mismatch. Both sides render the same blank shell until this resolves.
+  const [linkMode, setLinkMode] = useState<boolean | null>(null);
+  const completingLink = linkMode === true;
   // Set when there's no cached email for the link (different browser/device)
   // and we need to ask for it inline instead of a jarring window.prompt().
   const [needsEmailConfirm, setNeedsEmailConfirm] = useState(false);
@@ -47,10 +49,16 @@ function LoginForm() {
       router.push(safeRedirectPath(searchParams.get("redirect")));
     } catch {
       setError("That sign-in link is invalid or has expired.");
-      setCompletingLink(false);
+      setLinkMode(false);
       setNeedsEmailConfirm(false);
     }
   }
+
+  useEffect(() => {
+    // Deferred to a microtask so the setState runs from a callback, not
+    // directly in the effect body.
+    Promise.resolve().then(() => setLinkMode(isSignInWithEmailLink(auth, window.location.href)));
+  }, []);
 
   // Guest-checkout accounts have no password — this completes the sign-in
   // when the user arrives here from the emailed link.
@@ -99,6 +107,10 @@ function LoginForm() {
     } finally {
       setSubmitting(false);
     }
+  }
+
+  if (linkMode === null) {
+    return <main className="min-h-screen w-full bg-white" />;
   }
 
   if (completingLink && needsEmailConfirm) {
