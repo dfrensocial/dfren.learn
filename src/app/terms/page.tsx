@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalPage } from "@/components/legal/legal-page";
+import { LEGAL } from "@/content/legal";
 
 export const metadata: Metadata = { title: "Terms of service — dfrenLearn" };
 
@@ -10,6 +11,9 @@ export default function TermsPage() {
       <section>
         <h2>What you&apos;re buying</h2>
         <p>
+          These terms are between you and {LEGAL.entity} (&ldquo;we&rdquo;), which runs dfrenLearn.
+        </p>
+        <p className="mt-2">
           A single-user licence to stream the course videos on dfrenLearn for as long as the course is offered
           on the platform (&ldquo;lifetime access&rdquo;), including updates we publish to it. The licence is
           personal and non-transferable. You get access, not ownership, of the content.

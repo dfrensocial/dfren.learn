@@ -10,6 +10,9 @@ export default function PrivacyPage() {
     <LegalPage title="Privacy policy">
       <section>
         <h2>What we collect</h2>
+        <p>
+          {LEGAL.entity} runs dfrenLearn and is responsible for the data described here.
+        </p>
         <ul>
           <li>
             <strong>Your email address</strong>, given at checkout. It&apos;s your account identifier and where

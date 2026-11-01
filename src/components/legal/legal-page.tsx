@@ -17,7 +17,9 @@ export function LegalPage({
       </header>
       <article className="mx-auto max-w-2xl px-6 py-12 text-sm leading-relaxed text-neutral-800">
         <h1 className="text-3xl font-bold tracking-tight text-black">{title}</h1>
-        <p className="mt-2 text-neutral-500">Last updated {LEGAL.updated}</p>
+        <p className="mt-2 text-neutral-500">
+          dfrenLearn is operated by {LEGAL.entity}. Last updated {LEGAL.updated}.
+        </p>
         <div className="mt-8 space-y-8 [&_h2]:mb-2 [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:text-black [&_li]:ml-5 [&_li]:list-disc [&_ul]:mt-2 [&_ul]:space-y-1">
           {children}
         </div>

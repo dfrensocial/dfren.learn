@@ -2,6 +2,8 @@
 // pricing/guarantee copy and the policies can't drift apart.
 export const LEGAL = {
   brand: "dfrenLearn",
+  // Registered business name on the Razorpay account — keep identical to it.
+  entity: "DFREN Marketing Agency",
   contactEmail: "support@dfrenlearn.com",
   refundWindowDays: 7,
   // Date of the last substantive edit to any of the three policies.
