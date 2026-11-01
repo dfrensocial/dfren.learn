@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { CourseContent } from "@/content/courses/geo-blueprint";
+import { HeroVideo } from "@/components/marketing/hero-video";
 
 export function Hero({ hero }: { hero: CourseContent["hero"] }) {
   return (
@@ -25,12 +26,7 @@ export function Hero({ hero }: { hero: CourseContent["hero"] }) {
           <p className="text-xs text-neutral-500">{hero.ctaNote}</p>
         </div>
 
-        {/* Placeholder for sales/intro video — swap for a Mux player once recorded */}
-        <div className="mx-auto mt-14 flex aspect-video max-w-3xl items-center justify-center border border-black bg-neutral-100">
-          <span className="text-sm font-medium text-neutral-400">
-            Intro video placeholder — 16:9
-          </span>
-        </div>
+        <HeroVideo />
       </div>
     </section>
   );
