@@ -1,10 +1,14 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import MuxPlayer from "@mux/mux-player-react";
 import type MuxPlayerElement from "@mux/mux-player";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase/client";
 import { useAuth } from "@/lib/firebase/auth-context";
 import { paintWatermarkOverlay } from "@/lib/watermark/paint-overlay";
+import { ChapterList } from "@/components/course/chapter-list";
+import type { Chapter, CourseProgress } from "@/types/course";
 
 // Playback speeds surfaced in the player's settings menu — useful for
 // students re-watching a dense lesson slower, or skimming a familiar one fast.
@@ -70,9 +74,14 @@ function findMuxFullscreenButton(root: Element): HTMLElement | null {
 export function SecureVideoPlayer({
   courseId,
   lessonId,
+  chapters = [],
+  sidebar,
 }: {
   courseId: string;
   lessonId: string;
+  chapters?: Chapter[];
+  /** Extra panels (e.g. downloads) shown under the chapter list, beside the video. */
+  sidebar?: ReactNode;
 }) {
   const { user } = useAuth();
   const [playback, setPlayback] = useState<{
@@ -84,11 +93,15 @@ export function SecureVideoPlayer({
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [activeChapter, setActiveChapter] = useState(0);
+  // Where to resume, from the server-side progress record (follows the
+  // student across devices); falls back to this device's localStorage copy.
+  const [serverStart, setServerStart] = useState<number | null>(null);
   const playerRef = useRef<MuxPlayerElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const lastSaveRef = useRef(0);
-  const lastHeartbeatRef = useRef(0);
+  const lastHeartbeatRef = useRef(0); // wall-clock ms, not media time — seeking must not stall it
   const repaintRef = useRef<() => void>(() => {});
   // One random ID per player mount — reloading the page is a new "session"
   // (correct: this caps simultaneous playing streams, not devices over time).
@@ -116,6 +129,10 @@ export function SecureVideoPlayer({
 
       try {
         const idToken = await user.getIdToken();
+        // Resume point; any failure just means "start from the local copy".
+        const progressPromise = getDoc(doc(db, "users", user.uid, "progress", courseId))
+          .then((snap) => (snap.data() as CourseProgress | undefined)?.lessons?.[lessonId])
+          .catch(() => undefined);
         const res = await fetch("/api/mux/playback-token", {
           method: "POST",
           headers: {
@@ -137,7 +154,12 @@ export function SecureVideoPlayer({
         }
 
         const data = await res.json();
-        if (!cancelled) setPlayback(data);
+        const saved = await progressPromise;
+        if (!cancelled) {
+          // A finished lesson restarts from the top instead of resuming at the very end.
+          setServerStart(saved && !saved.completed && saved.position > 5 ? saved.position : 0);
+          setPlayback(data);
+        }
       } catch {
         if (!cancelled) setError("Couldn't load this lesson. Please try again.");
       }
@@ -263,16 +285,35 @@ export function SecureVideoPlayer({
   }
   if (!playback) return <div className="aspect-video animate-pulse bg-neutral-100" />;
 
-  const resumeAt = readSavedProgress(courseId, lessonId);
+  // Server-side position wins (it follows the student across devices); this
+  // device's localStorage copy covers the case where the server has nothing.
+  const resumeAt = serverStart && serverStart > 5 ? serverStart : readSavedProgress(courseId, lessonId);
 
+  function seekToChapter(startSeconds: number) {
+    const player = playerRef.current;
+    if (!player) return;
+    player.currentTime = startSeconds;
+    player.play().catch(() => {});
+  }
+
+  // Doubles as the progress report: the same request keeps the stream-cap
+  // session alive and records where the student is (see heartbeat route).
   async function sendHeartbeat() {
+    lastHeartbeatRef.current = Date.now();
     try {
       const idToken = await user?.getIdToken();
       if (!idToken) return;
+      const player = playerRef.current;
       const res = await fetch("/api/mux/heartbeat", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${idToken}` },
-        body: JSON.stringify({ courseId, lessonId, sessionId }),
+        body: JSON.stringify({
+          courseId,
+          lessonId,
+          sessionId,
+          position: player?.currentTime,
+          duration: player?.duration,
+        }),
       });
       const data = await res.json().catch(() => null);
       if (data && data.allowed === false) {
@@ -286,12 +327,18 @@ export function SecureVideoPlayer({
   }
 
   return (
-    // Discourages casual right-click download attempts; determined users can
-    // still capture output — real protection is the signed, short-lived token.
-    // When this wrapper itself is the fullscreen element (see the
-    // fullscreenchange handler above), it fills the screen and centers the
-    // player -- letterboxing top/bottom or side-to-side is expected and
-    // correct when the video's own aspect ratio doesn't match the screen's.
+    <div
+      className={`grid gap-6 lg:items-start ${
+        chapters.length > 0 || sidebar ? "lg:grid-cols-[minmax(0,1fr)_340px]" : ""
+      }`}
+    >
+    {/* Discourages casual right-click download attempts; determined users can
+        still capture output — real protection is the signed, short-lived token.
+        When this wrapper itself is the fullscreen element (see the
+        fullscreenchange handler above), it fills the screen and centers the
+        player -- letterboxing top/bottom or side-to-side is expected and
+        correct when the video's own aspect ratio doesn't match the screen's.
+        The chapter list sits outside it on purpose: it must not go fullscreen. */}
     <div
       id={wrapperId}
       ref={wrapperRef}
@@ -310,21 +357,45 @@ export function SecureVideoPlayer({
         startTime={resumeAt || undefined}
         playbackRates={PLAYBACK_RATES}
         style={isFullscreen ? { maxHeight: "100%", maxWidth: "100%" } : { aspectRatio: "16/9", width: "100%" }}
+        onLoadedMetadata={() => {
+          const player = playerRef.current;
+          if (!player || chapters.length === 0 || player.chapters.length > 0) return;
+          // Puts the chapter ticks on the timeline and chapter names in the
+          // seek tooltip. Each chapter ends where the next begins.
+          player.addChapters(
+            chapters.map((c, i) => ({
+              startTime: c.start,
+              endTime: chapters[i + 1]?.start ?? Math.max(player.duration || c.start + 1, c.start + 1),
+              value: c.title,
+            }))
+          );
+        }}
+        onPause={() => {
+          // Pin the exact stopping point (progress is otherwise sampled every 20s).
+          if (Date.now() - lastHeartbeatRef.current > 2000) sendHeartbeat();
+        }}
         onTimeUpdate={() => {
           const current = playerRef.current?.currentTime;
           if (current == null) return;
+          if (chapters.length > 0) {
+            let idx = 0;
+            for (let i = 0; i < chapters.length; i++) if (chapters[i].start <= current) idx = i;
+            setActiveChapter((prev) => (prev === idx ? prev : idx));
+          }
           // Throttle localStorage writes to roughly once every 5s of playback
           // instead of on every timeupdate tick (which fires several times/sec).
           if (current - lastSaveRef.current >= 5) {
             lastSaveRef.current = current;
             saveProgress(courseId, lessonId, current);
           }
-          if ((current - lastHeartbeatRef.current) * 1000 >= HEARTBEAT_INTERVAL_MS) {
-            lastHeartbeatRef.current = current;
+          if (Date.now() - lastHeartbeatRef.current >= HEARTBEAT_INTERVAL_MS) {
             sendHeartbeat();
           }
         }}
-        onEnded={() => clearProgress(courseId, lessonId)}
+        onEnded={() => {
+          clearProgress(courseId, lessonId);
+          sendHeartbeat();
+        }}
       />
       {playback.watermarkId && (
         <canvas
@@ -355,6 +426,15 @@ export function SecureVideoPlayer({
           </svg>
         )}
       </button>
+    </div>
+    {(chapters.length > 0 || sidebar) && (
+      <aside className="space-y-6">
+        {chapters.length > 0 && (
+          <ChapterList chapters={chapters} activeIndex={activeChapter} onSelect={seekToChapter} />
+        )}
+        {sidebar}
+      </aside>
+    )}
     </div>
   );
 }

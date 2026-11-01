@@ -57,3 +57,7 @@ next-env.d.ts
 /scripts/watermark-poc/out-real/
 /scripts/watermark-poc/real-frame.png
 /scripts/watermark-poc/real-frame-cropped.png
+
+# Course source material (served from private storage, never committed)
+*.pptx
+*.docx

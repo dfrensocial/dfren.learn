@@ -35,6 +35,18 @@ service cloud.firestore {
       }
     }
 
+    // Downloadable course materials. The metadata doc is readable by enrolled
+    // students (for the list); the file bytes live in a sibling subdoc that no
+    // client can ever read — they're only served through /api/resources.
+    match /courses/{courseId}/resources/{resourceId} {
+      allow read: if isEnrolled(courseId);
+      allow write: if false; // admin SDK (scripts/upload-resource.ts) only
+
+      match /file/{doc} {
+        allow read, write: if false;
+      }
+    }
+
     match /watermarks/{watermarkId} {
       allow read, write: if false; // admin SDK (server) only — issued in playback-token, read by the watermark checker
     }
@@ -49,6 +61,16 @@ service cloud.firestore {
 
       match /activeSessions/{sessionId} {
         allow read, write: if false; // admin SDK (server) only — concurrent-stream tracking
+      }
+
+      // Watch progress — written by /api/mux/heartbeat (admin SDK) only.
+      match /progress/{courseId} {
+        allow read: if isOwner(userId);
+        allow write: if false;
+      }
+
+      match /downloads/{eventId} {
+        allow read, write: if false; // admin SDK (server) only — audit trail
       }
 
       match /loginEvents/{eventId} {
