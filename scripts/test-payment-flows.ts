@@ -47,7 +47,7 @@ async function call(path: string, body: unknown, headers: Record<string, string>
     },
     body: raw ? (body as string) : JSON.stringify(body),
   });
-  let json: Record<string, any> = {};
+  let json: Record<string, unknown> & { order?: { id: string; amount: number; notes?: { email?: string; courseId?: string } }; customToken?: string; signInRequired?: boolean; ignored?: boolean } = {};
   try {
     json = await res.json();
   } catch {}
@@ -82,8 +82,8 @@ async function exchange(customToken: string) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ token: customToken, returnSecureToken: true }),
   });
-  const j: any = await res.json();
-  return res.ok ? (j.idToken as string) : null;
+  const j = (await res.json()) as { idToken?: string };
+  return res.ok ? (j.idToken ?? null) : null;
 }
 
 async function main() {
@@ -142,7 +142,7 @@ async function main() {
 
   console.log("\n— flow 3: guest pays using a returning customer's email (takeover attempt) —");
   const victimEmail = newEmail("victim");
-  const victim = await signedInUser(victimEmail);
+  await signedInUser(victimEmail);
   r = await createOrder(victimEmail);
   r = await verify(r.json.order.id);
   check("access granted to the payer's email, but NO token for the victim's account", r.status === 200 && !r.json.customToken && r.json.signInRequired === true, r);
