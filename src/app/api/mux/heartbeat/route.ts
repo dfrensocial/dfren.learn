@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { adminAuth } from "@/lib/firebase/admin";
+import { adminAuth, adminDb } from "@/lib/firebase/admin";
 import { checkAndRegisterSession } from "@/lib/session-limit";
 
 // Called periodically while a lesson is actually playing (see
@@ -22,6 +22,18 @@ export async function POST(req: NextRequest) {
   const { courseId, lessonId, sessionId } = await req.json();
   if (!courseId || !lessonId || !sessionId) {
     return NextResponse.json({ error: "Missing courseId, lessonId, or sessionId" }, { status: 400 });
+  }
+
+  // Without this any signed-in account could write session docs for a course
+  // it never bought.
+  const enrollment = await adminDb
+    .collection("users")
+    .doc(decoded.uid)
+    .collection("enrollments")
+    .doc(courseId)
+    .get();
+  if (!enrollment.exists) {
+    return NextResponse.json({ error: "Not enrolled in this course" }, { status: 403 });
   }
 
   const { allowed } = await checkAndRegisterSession({ uid: decoded.uid, sessionId, courseId, lessonId });

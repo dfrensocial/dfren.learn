@@ -1,14 +1,16 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Link from "next/link";
+import { useAuth } from "@/lib/firebase/auth-context";
 
 // Internal tool: upload a screenshot/frame grab from a suspicious clip and
 // recover the invisible forensic watermark id, plus whichever viewer it was
 // issued to (once real issuance is wired into the player -- until then
 // "found" but with no viewer record is expected).
 //
-// TODO: gate this route to admins. It's unauthenticated for now -- see
-// src/app/api/watermark/decode/route.ts for the matching TODO.
+// Admin-only: the page itself is harmless, but the decode API it calls
+// (src/app/api/watermark/decode/route.ts) checks ADMIN_EMAILS server-side.
 type Result =
   | { found: false }
   | { found: true; watermarkId: string; viewer: { email: string; courseId: string; lessonId: string } | null };
@@ -16,6 +18,7 @@ type Result =
 type DragRect = { x: number; y: number; w: number; h: number };
 
 export default function WatermarkCheckPage() {
+  const { user, loading } = useAuth();
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -105,7 +108,12 @@ export default function WatermarkCheckPage() {
         body.append("cropWidth", String(crop.width));
         body.append("cropHeight", String(crop.height));
       }
-      const res = await fetch("/api/watermark/decode", { method: "POST", body });
+      const idToken = await user?.getIdToken();
+      const res = await fetch("/api/watermark/decode", {
+        method: "POST",
+        headers: idToken ? { Authorization: `Bearer ${idToken}` } : {},
+        body,
+      });
       const data = await res.json();
       if (!res.ok) {
         setError(data?.error ?? "Something went wrong.");
@@ -117,6 +125,20 @@ export default function WatermarkCheckPage() {
     } finally {
       setSubmitting(false);
     }
+  }
+
+  if (!loading && !user) {
+    return (
+      <main className="flex min-h-screen w-full flex-col items-center justify-center bg-white px-6 text-black">
+        <p className="text-sm text-neutral-600">
+          Admins only.{" "}
+          <Link href="/login?redirect=/watermark" className="font-medium underline">
+            Log in
+          </Link>{" "}
+          to continue.
+        </p>
+      </main>
+    );
   }
 
   return (

@@ -1,5 +1,5 @@
 import { adminDb } from "@/lib/firebase/admin";
-import type { Firestore, QueryDocumentSnapshot, DocumentData } from "firebase-admin/firestore";
+import type { Firestore } from "firebase-admin/firestore";
 
 /**
  * Caps how many devices/tabs can be actively streaming under one account at
@@ -15,13 +15,13 @@ import type { Firestore, QueryDocumentSnapshot, DocumentData } from "firebase-ad
  * session, which is correct: we're capping simultaneous *playing* streams,
  * not counting devices over time). It's kept "active" by a heartbeat while
  * playing; sessions with no heartbeat in STALE_AFTER_MS are ignored, so this
- * self-heals without needing a cleanup job. Doc count grows unboundedly over
- * the life of the app since stale sessions are never deleted, only ignored —
- * fine at today's scale, worth revisiting (e.g. a Firestore TTL policy on
- * `lastSeen`) if this collection ever gets large enough to matter.
+ * self-heals without needing a cleanup job. Sessions long dead are deleted
+ * opportunistically as part of the same transaction, so the collection stays
+ * small without a scheduled job.
  */
 const MAX_CONCURRENT_STREAMS = 2;
 const STALE_AFTER_MS = 45_000;
+const PURGE_AFTER_MS = 24 * 60 * 60_000;
 
 function sessionsRef(db: Firestore, uid: string) {
   return db.collection("users").doc(uid).collection("activeSessions");
@@ -39,27 +39,25 @@ export async function checkAndRegisterSession({
   lessonId: string;
 }): Promise<{ allowed: boolean }> {
   const ref = sessionsRef(adminDb, uid);
-  const snap = await ref.get();
-  const now = Date.now();
 
-  const activeOthers = snap.docs.filter((doc: QueryDocumentSnapshot<DocumentData>) => {
-    if (doc.id === sessionId) return false;
-    const lastSeen = doc.data().lastSeen?.toMillis?.() ?? 0;
-    return now - lastSeen < STALE_AFTER_MS;
+  // Transaction, not read-then-write: otherwise N parallel requests all read
+  // "1 active session" before any of them writes, and every one is allowed.
+  return adminDb.runTransaction(async (tx) => {
+    const snap = await tx.get(ref);
+    const now = Date.now();
+    let activeOthers = 0;
+
+    for (const doc of snap.docs) {
+      const lastSeen = doc.data().lastSeen?.toMillis?.() ?? 0;
+      const age = now - lastSeen;
+      if (age >= PURGE_AFTER_MS) tx.delete(doc.ref);
+      if (doc.id === sessionId || age >= STALE_AFTER_MS) continue;
+      activeOthers++;
+    }
+
+    if (activeOthers >= MAX_CONCURRENT_STREAMS) return { allowed: false };
+
+    tx.set(ref.doc(sessionId), { courseId, lessonId, lastSeen: new Date() }, { merge: true });
+    return { allowed: true };
   });
-
-  if (activeOthers.length >= MAX_CONCURRENT_STREAMS) {
-    return { allowed: false };
-  }
-
-  await ref.doc(sessionId).set(
-    {
-      courseId,
-      lessonId,
-      lastSeen: new Date(),
-    },
-    { merge: true }
-  );
-
-  return { allowed: true };
 }

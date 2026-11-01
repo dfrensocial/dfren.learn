@@ -57,6 +57,11 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    // Self-serve password sign-up was removed: accounts are created by
+    // checkout and entered via emailed link (see grant-access.ts).
+    return [{ source: "/signup", destination: "/login", permanent: false }];
+  },
   async headers() {
     return [
       {

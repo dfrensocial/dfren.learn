@@ -44,9 +44,12 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { idToken } = await req.json();
+  const body = await req.json().catch(() => null);
+  const idToken = typeof body?.idToken === "string" ? body.idToken : "";
 
-  const decoded = await adminAuth.verifyIdToken(idToken).catch(() => null);
+  // checkRevoked: grantCourseAccess revokes sessions held by an email-squatter
+  // account, so a revoked token must not be exchangeable for a fresh cookie.
+  const decoded = idToken ? await adminAuth.verifyIdToken(idToken, true).catch(() => null) : null;
   if (!decoded) {
     return NextResponse.json({ error: "Invalid ID token" }, { status: 401 });
   }

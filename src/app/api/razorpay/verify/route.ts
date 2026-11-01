@@ -54,13 +54,18 @@ export async function POST(req: NextRequest) {
 
   const authHeader = req.headers.get("authorization");
   const idToken = authHeader?.replace("Bearer ", "");
-  const isGuest = !idToken || !(await adminAuth.verifyIdToken(idToken).catch(() => null));
+  const caller = idToken ? await adminAuth.verifyIdToken(idToken).catch(() => null) : null;
 
-  const user = await grantCourseAccess({ email, courseId, paymentId });
+  const { user, claimable } = await grantCourseAccess({ email, courseId, paymentId });
 
-  // Guests aren't signed in yet — hand back a token the client can use to
-  // sign in immediately, no password or emailed link needed for first access.
-  const customToken = isGuest ? await adminAuth.createCustomToken(user.uid) : undefined;
+  // A sign-in token is only handed out for a brand-new, never-signed-in
+  // account (see grantCourseAccess) — the email here was typed by whoever
+  // paid, so for any other account it proves nothing about who they are.
+  const customToken = claimable ? await adminAuth.createCustomToken(user.uid) : undefined;
 
-  return NextResponse.json({ ok: true, customToken });
+  // Paid, enrolled, but not signed in and can't be auto-signed-in: the client
+  // sends an emailed sign-in link to prove they own the address.
+  const signInRequired = !customToken && caller?.uid !== user.uid;
+
+  return NextResponse.json({ ok: true, customToken, signInRequired });
 }

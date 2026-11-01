@@ -114,26 +114,9 @@ export const geoBlueprintCourse: CourseContent = {
     bio: "Before writing a single slide of this course, Sai and the AiVirex team spent time researching GEO properly — papers, testing, real iteration — because most tools marketed as “AI visibility scanners” turned out to be a URL wrapped in a ChatGPT prompt, giving a different score every time you ran it. That research became Litmus, a GEO audit tool that scores a site against a fixed, repeatable rubric instead of guessing — and this course teaches the same six-pillar framework it's built on, plus how to charge for it.",
     linkedinUrl: "https://www.linkedin.com/in/sai-anirudh-415001168/",
   },
-  testimonials: [
-    {
-      quote:
-        "[Placeholder] Within a month of applying Module 3 we started showing up as a cited source in Perplexity for our category's main queries.",
-      name: "Name Surname",
-      role: "Role, Company",
-    },
-    {
-      quote:
-        "[Placeholder] Finally a course that skips the theory and gives an actual checklist. Rolled it out on our blog in a weekend.",
-      name: "Name Surname",
-      role: "Role, Company",
-    },
-    {
-      quote:
-        "[Placeholder] The technical GEO module alone paid for the course — our engineering team had this wrong for a year.",
-      name: "Name Surname",
-      role: "Role, Company",
-    },
-  ],
+  // Left empty on purpose: the Testimonials section renders nothing until
+  // there are real student quotes here. Don't ship made-up ones.
+  testimonials: [],
   pricing: {
     productLabel: "The GEO Blueprint",
     priceInPaise: 49900,
