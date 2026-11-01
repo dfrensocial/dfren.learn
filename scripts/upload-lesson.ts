@@ -54,9 +54,18 @@ async function main() {
 
   if (!upload.url) throw new Error("Mux did not return an upload URL");
 
-  console.log(`Uploading ${filePath}...`);
-  const fileBuffer = fs.readFileSync(filePath);
-  const putRes = await fetch(upload.url, { method: "PUT", body: fileBuffer });
+  // Streamed, not readFileSync: full-length lesson files are routinely over
+  // 2 GB, which Node refuses to load into a single Buffer.
+  const { size } = fs.statSync(filePath);
+  console.log(`Uploading ${filePath} (${(size / 1024 ** 3).toFixed(2)} GB)...`);
+  const { Readable } = await import("stream");
+  const putRes = await fetch(upload.url, {
+    method: "PUT",
+    headers: { "Content-Length": String(size) },
+    body: Readable.toWeb(fs.createReadStream(filePath)) as unknown as BodyInit,
+    // Required by Node's fetch when the body is a stream.
+    duplex: "half",
+  } as RequestInit);
   if (!putRes.ok) {
     throw new Error(`Upload PUT failed: ${putRes.status} ${await putRes.text()}`);
   }
