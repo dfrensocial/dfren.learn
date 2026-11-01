@@ -112,8 +112,8 @@ async function main() {
   check("unknown course -> 404", r.status === 404, r);
   const guestEmail = newEmail("guest");
   r = await createOrder(guestEmail);
-  const orderA = r.json.order;
-  check("guest order created with server-set notes and course price", r.status === 200 && orderA?.amount === 49900 && orderA?.notes?.email === guestEmail && orderA?.notes?.courseId === COURSE, r);
+  const orderA = r.json.order!;
+  check("guest order created with server-set notes and course price", r.status === 200 && orderA.amount === 49900 && orderA.notes?.email === guestEmail && orderA.notes?.courseId === COURSE, r);
 
   console.log("\n— verify: bad input —");
   r = await call("/api/razorpay/verify", { razorpay_order_id: orderA.id });
@@ -144,7 +144,7 @@ async function main() {
   const victimEmail = newEmail("victim");
   await signedInUser(victimEmail);
   r = await createOrder(victimEmail);
-  r = await verify(r.json.order.id);
+  r = await verify(r.json.order!.id);
   check("access granted to the payer's email, but NO token for the victim's account", r.status === 200 && !r.json.customToken && r.json.signInRequired === true, r);
   check("victim enrolled (they own it)", (await enrollment(victimEmail)).data !== null);
 
@@ -153,7 +153,7 @@ async function main() {
   const logged = await signedInUser(loggedEmail);
   r = await createOrder(undefined, logged.idToken);
   check("order uses the account email, not a typed one", r.status === 200 && r.json.order?.notes?.email === loggedEmail, r);
-  const orderL = r.json.order;
+  const orderL = r.json.order!;
   r = await verify(orderL.id, undefined, logged.idToken);
   check("verify ok, goes straight to the course (no token, no email link)", r.status === 200 && !r.json.customToken && !r.json.signInRequired, r);
   check("enrolled", (await enrollment(loggedEmail)).data !== null);
@@ -164,7 +164,7 @@ async function main() {
   const squatEmail = newEmail("squat");
   const squat = await adminAuth.createUser({ email: squatEmail, password: "Squatter-pass-1", emailVerified: false });
   r = await createOrder(squatEmail);
-  r = await verify(r.json.order.id);
+  r = await verify(r.json.order!.id);
   check("no token; sign-in link required", r.status === 200 && !r.json.customToken && r.json.signInRequired === true, r);
   const after = await adminAuth.getUser(squat.uid);
   check("password provider stripped", !after.providerData.some((p) => p.providerId === "password"), after.providerData);
@@ -173,7 +173,7 @@ async function main() {
   console.log("\n— flow 6: buyer closes the tab; only the webhook arrives —");
   const whEmail = newEmail("webhook");
   r = await createOrder(whEmail);
-  const orderW = r.json.order;
+  const orderW = r.json.order!;
   const payW = fakePaymentId();
   const evW = capturedEvent(payW, orderW.id);
   r = await webhook(evW, null);
@@ -195,7 +195,7 @@ async function main() {
   console.log("\n— flow 8: webhook edge cases —");
   const forgeEmail = newEmail("forge");
   r = await createOrder(forgeEmail);
-  const orderF = r.json.order;
+  const orderF = r.json.order!;
   r = await webhook(capturedEvent(fakePaymentId(), orderF.id, { courseId: "other-course", email: "attacker2@example.com" }));
   check("forged payment.notes ignored; order notes win", (await enrollment(forgeEmail)).data !== null && (await adminAuth.getUserByEmail("attacker2@example.com").catch(() => null)) === null, r);
   r = await webhook(capturedEvent(fakePaymentId(), undefined, { courseId: COURSE, email: newEmail("noorder") }));
