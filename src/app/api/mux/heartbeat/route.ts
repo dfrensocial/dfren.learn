@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid session" }, { status: 401 });
   }
 
-  const { courseId, lessonId, sessionId } = await req.json();
+  const { courseId, lessonId, sessionId, position, duration } = await req.json();
   if (!courseId || !lessonId || !sessionId) {
     return NextResponse.json({ error: "Missing courseId, lessonId, or sessionId" }, { status: 400 });
   }
@@ -37,5 +37,34 @@ export async function POST(req: NextRequest) {
   }
 
   const { allowed } = await checkAndRegisterSession({ uid: decoded.uid, sessionId, courseId, lessonId });
+
+  // The same call carries watch progress, so the dashboard can show
+  // "continue watching" and % watched without a second request. Best-effort:
+  // a bad or missing position never affects the stream-cap answer above.
+  if (allowed && Number.isFinite(position) && Number.isFinite(duration) && duration > 0) {
+    const pos = Math.max(0, Math.min(position, duration));
+    await adminDb
+      .collection("users")
+      .doc(decoded.uid)
+      .collection("progress")
+      .doc(courseId)
+      .set(
+        {
+          lastLessonId: lessonId,
+          updatedAt: new Date(),
+          lessons: {
+            [lessonId]: {
+              position: Math.floor(pos),
+              duration: Math.floor(duration),
+              // Sticky: once finished it stays finished, even if they rewatch the start.
+              ...(pos / duration >= 0.95 ? { completed: true } : {}),
+            },
+          },
+        },
+        { merge: true }
+      )
+      .catch(() => {});
+  }
+
   return NextResponse.json({ allowed });
 }

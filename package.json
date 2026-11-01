@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "eslint",
     "seed": "tsx scripts/seed-course.ts",
-    "upload-lesson": "tsx scripts/upload-lesson.ts"
+    "upload-lesson": "tsx scripts/upload-lesson.ts",
+    "set-chapters": "tsx scripts/set-chapters.ts",
+    "cleanup-test-data": "tsx scripts/cleanup-test-data.ts",
+    "upload-resource": "tsx scripts/upload-resource.ts"
   },
   "dependencies": {
     "@mux/mux-node": "^15.2.0",

@@ -1,12 +1,14 @@
 "use client";
 
 import { Suspense, useEffect, useState } from "react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { doc, getDoc, collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "@/lib/firebase/client";
 import { useAuth } from "@/lib/firebase/auth-context";
 import { SecureVideoPlayer } from "@/components/course/secure-video-player";
 import { CheckoutButton } from "@/components/course/checkout-button";
+import { ResourceList } from "@/components/course/resource-list";
 import type { Course, Lesson } from "@/types/course";
 
 function LockIcon() {
@@ -137,8 +139,11 @@ function CourseView({ params }: { params: Promise<{ courseId: string }> }) {
         </div>
       )}
 
-      <h1 className="text-2xl font-bold tracking-tight">{course.title}</h1>
-      <p className="mt-1 text-neutral-600">{course.description}</p>
+      <Link href="/dashboard" className="text-sm text-neutral-500 hover:text-black hover:underline">
+        ← My courses
+      </Link>
+      <h1 className="mt-3 text-2xl font-bold tracking-tight">{course.title}</h1>
+      <p className="mt-1 max-w-3xl text-neutral-600">{course.description}</p>
 
       {!enrolled && (
         <div className="mt-6 max-w-xs">
@@ -153,7 +158,19 @@ function CourseView({ params }: { params: Promise<{ courseId: string }> }) {
               Now playing: {activeLesson.title}
             </p>
           )}
-          <SecureVideoPlayer courseId={courseId} lessonId={activeLessonId} />
+          <SecureVideoPlayer
+            courseId={courseId}
+            lessonId={activeLessonId}
+            chapters={activeLesson?.chapters}
+            sidebar={<ResourceList courseId={courseId} />}
+          />
+        </div>
+      )}
+
+      {/* No lesson to attach the sidebar to yet — still let them download. */}
+      {enrolled && !activeLessonId && (
+        <div className="mt-6 max-w-md">
+          <ResourceList courseId={courseId} />
         </div>
       )}
 
@@ -162,7 +179,7 @@ function CourseView({ params }: { params: Promise<{ courseId: string }> }) {
       )}
 
       {lessons.length > 0 && (
-        <ol className="mt-6 divide-y divide-black border border-black">
+        <ol className="mt-6 max-w-4xl divide-y divide-black border border-black">
           {lessons.map((lesson, i) => {
             const isActive = enrolled && lesson.id === activeLessonId;
             return (
