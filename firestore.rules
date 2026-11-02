@@ -73,6 +73,10 @@ service cloud.firestore {
         allow read, write: if false; // admin SDK (server) only — audit trail
       }
 
+      match /legalAcceptances/{versionId} {
+        allow read, write: if false; // admin SDK (server) only — proof of which Terms/Privacy version was accepted
+      }
+
       match /loginEvents/{eventId} {
         allow read, write: if false; // admin SDK (server) only — manual audit trail
       }

@@ -13,8 +13,10 @@ import { auth } from "@/lib/firebase/client";
 import { syncSessionCookie, refreshSessionCookie, useAuth } from "@/lib/firebase/auth-context";
 import { safeRedirectPath } from "@/lib/safe-redirect";
 import { track } from "@/lib/analytics";
-
-const EMAIL_LINK_STORAGE_KEY = "dfrenlearn:login-email";
+import { AcceptTerms } from "@/components/legal/accept-terms";
+import { PrivacySettingsLink } from "@/components/consent/privacy-settings-link";
+import { addAcceptanceParams, adoptAcceptanceFromParams, hasAcceptedCurrent, recordAcceptance } from "@/lib/legal-acceptance";
+import { LOGIN_EMAIL_KEY as EMAIL_LINK_STORAGE_KEY, forgetLoginEmail, purgeStaleLoginEmail, rememberLoginEmail } from "@/lib/login-email";
 
 // Politeness + abuse brake: one sign-in email per browser per minute. Kept in
 // localStorage so a page refresh doesn't reset it. (Firebase enforces its own
@@ -29,6 +31,18 @@ function secondsUntilResend(): number {
     return Math.max(0, Math.ceil((sentAt + RESEND_COOLDOWN_SECONDS * 1000 - Date.now()) / 1000));
   } catch {
     return 0;
+  }
+}
+
+// The one-time sign-in code in the address bar must not stay there (history,
+// analytics). Keeps the redirect target.
+function stripSignInParams() {
+  try {
+    const url = new URL(window.location.href);
+    for (const k of ["oobCode", "apiKey", "mode", "lang", "continueUrl", "tv", "pv", "ta"]) url.searchParams.delete(k);
+    window.history.replaceState(window.history.state, "", url.pathname + url.search + url.hash);
+  } catch {
+    // ignore
   }
 }
 
@@ -49,6 +63,8 @@ function LoginForm() {
   const [submitting, setSubmitting] = useState(false);
   const [linkSent, setLinkSent] = useState(false);
   const [cooldownLeft, setCooldownLeft] = useState(0);
+  // The required "18+, agree to Terms, read the Privacy Policy" box (unticked unless already ticked for these versions).
+  const [accepted, setAccepted] = useState(false);
   // null until we've looked at the URL after mount. It can't be decided during
   // render: the server has no window, so reading it there makes the server
   // HTML (the form) disagree with the browser's first render ("Signing you
@@ -64,11 +80,17 @@ function LoginForm() {
   async function finishEmailLinkSignIn(emailForLink: string) {
     try {
       const { user } = await signInWithEmailLink(auth, emailForLink, window.location.href);
-      window.localStorage.removeItem(EMAIL_LINK_STORAGE_KEY);
+      // The link is verified: if it was opened on another device than the one
+      // that asked for it, carry over what was agreed there (before the session
+      // call below, which records it on the account).
+      adoptAcceptanceFromParams(searchParams);
+      forgetLoginEmail();
+      stripSignInParams();
       await syncSessionCookie(user);
       track("login", { method: "email_link" });
       router.push(safeRedirectPath(searchParams.get("redirect")));
     } catch {
+      stripSignInParams();
       track("login_link_invalid");
       setError("That sign-in link is invalid or has expired.");
       setLinkMode(false);
@@ -79,7 +101,11 @@ function LoginForm() {
   useEffect(() => {
     // Deferred to a microtask so the setState runs from a callback, not
     // directly in the effect body.
-    Promise.resolve().then(() => setLinkMode(isSignInWithEmailLink(auth, window.location.href)));
+    Promise.resolve().then(() => {
+      purgeStaleLoginEmail();
+      setAccepted(hasAcceptedCurrent());
+      setLinkMode(isSignInWithEmailLink(auth, window.location.href));
+    });
   }, []);
 
   // Already signed in (Firebase keeps the login in the browser much longer than
@@ -142,18 +168,24 @@ function LoginForm() {
       setError(`Please wait ${wait}s before requesting another link.`);
       return;
     }
+    if (!accepted) {
+      setError("Please tick the box to agree to the Terms and Privacy Policy.");
+      return;
+    }
     setError(null);
     setSubmitting(true);
     try {
+      recordAcceptance();
       const redirect = searchParams.get("redirect");
       const url = new URL("/login", window.location.origin);
       if (redirect) url.searchParams.set("redirect", safeRedirectPath(redirect));
+      addAcceptanceParams(url);
 
       await sendSignInLinkToEmail(auth, email, {
         url: url.toString(),
         handleCodeInApp: true,
       });
-      window.localStorage.setItem(EMAIL_LINK_STORAGE_KEY, email);
+      rememberLoginEmail(email);
       window.localStorage.setItem(LINK_SENT_AT_KEY, String(Date.now()));
       setCooldownLeft(RESEND_COOLDOWN_SECONDS);
       setLinkSent(true);
@@ -236,7 +268,7 @@ function LoginForm() {
       {linkSent ? (
         <div className="mt-6 text-sm text-neutral-600">
           <p>
-            Check <span className="font-medium">{email}</span> for your sign-in
+            Check <span className="font-medium" data-clarity-mask="true">{email}</span> for your sign-in
             link. It can take a minute — look in spam if it doesn&apos;t show up.
           </p>
           {error && <p className="mt-3 text-red-600">{error}</p>}
@@ -283,10 +315,11 @@ function LoginForm() {
               onChange={(e) => setEmail(e.target.value)}
               className="border border-black px-3 py-2"
             />
+            <AcceptTerms id="login-accept" checked={accepted} onChange={setAccepted} />
             {error && <p className="text-sm text-red-600">{error}</p>}
             <button
               type="submit"
-              disabled={submitting || cooldownLeft > 0}
+              disabled={submitting || cooldownLeft > 0 || !accepted}
               className="bg-black px-4 py-3 font-semibold text-white transition hover:bg-neutral-800 disabled:opacity-50"
             >
               {submitting ? "Sending..." : cooldownLeft > 0 ? `Wait ${cooldownLeft}s` : "Email me a sign-in link"}
@@ -299,6 +332,9 @@ function LoginForm() {
               Buy the course
             </Link>{" "}
             — that creates your account automatically.
+          </p>
+          <p className="mt-3 text-center text-xs text-neutral-400">
+            <PrivacySettingsLink className="underline hover:text-neutral-600" />
           </p>
         </>
       )}

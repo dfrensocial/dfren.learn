@@ -113,30 +113,40 @@ export async function recordOrderCreated(o: {
   uid?: string;
   amount: number;
   currency: string;
+  /** The visitor allowed analytics: only then are source / device / location kept with the order. */
+  analytics: boolean;
+  /** What they agreed to at checkout (Terms + Privacy Policy versions). */
+  legal: { termsVersion: string; privacyVersion: string; acceptedAt: string };
   attribution?: unknown;
   ga?: unknown;
   userAgent: string | null;
   headers: Headers;
 }): Promise<void> {
-  const geo = parseGeo(o.headers);
+  const geo = o.analytics ? parseGeo(o.headers) : {};
   await col()
     .doc(o.orderId)
     .create(
       compact({
         orderId: o.orderId,
         courseId: o.courseId,
-        email: o.email,
+        email: o.email.trim().toLowerCase(),
         uid: o.uid,
         amount: o.amount,
         currency: o.currency,
         status: "created",
         createdAt: new Date(),
         updatedAt: new Date(),
-        attribution: sanitizeAttribution(o.attribution),
-        ga: sanitizeGa(o.ga),
-        device: parseDevice(o.userAgent),
-        country: geo.country,
-        region: geo.region,
+        legal: o.legal,
+        // Optional extras: kept only when the visitor said yes to analytics.
+        ...(o.analytics
+          ? {
+              attribution: sanitizeAttribution(o.attribution),
+              ga: sanitizeGa(o.ga),
+              device: parseDevice(o.userAgent),
+              country: geo.country,
+              region: geo.region,
+            }
+          : {}),
       })
     )
     .catch((err) => {

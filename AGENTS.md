@@ -40,6 +40,13 @@ Course platform: landing page → guest checkout → protected video lessons. Cu
 - What's still single-course-specific: the marketing page lives at `/` and renders exactly one `CourseContent` object; `/dashboard` redirects straight to the one course when there's only one (falls back to a real list once there's more than one).
 - Adding course #2: add `src/content/courses/{slug}.ts`, re-run `npm run seed` (or extend it), and give it its own route reusing the existing marketing section components — at that point turn `/` into a catalog and move this course's page to `/courses/geo-blueprint`. Don't build the catalog page before there's a second course.
 
+## Privacy & consent (DPDP Act 2023 / India-first; see `src/app/privacy/page.tsx`)
+- Two OPTIONAL purposes, both off until the visitor says yes (`src/lib/consent.ts`, banner in `src/components/consent/`): **analytics** (GA4 via Firebase, first-touch attribution in localStorage, GA ids / source / device / country on orders, Mux Data, server-side GA4 events) and **replay** (Microsoft Clarity). Undecided, expired (6 months), or a GPC/Do Not Track signal = off. Never gate service features on them.
+- Anything new that sets a cookie, uses browser storage for non-essential purposes, loads a third-party script, or sends data to a third party MUST: (a) check `analyticsConsented()` / `replayConsented()`, (b) be removed on withdrawal (see `onConsentChange` in `src/lib/analytics.ts`), (c) be listed in the privacy policy tables. Bump `LEGAL.consentVersion` if the purposes change (re-asks everyone) and `LEGAL.privacyVersion`/`termsVersion` when the documents change materially.
+- Login and checkout require the "18+, agree to Terms, read Privacy Policy" box (`AcceptTerms`). It covers necessary processing only, never analytics. `/api/razorpay/create-order` refuses orders without a current acceptance.
+- No personal data (email, name, uid) to GA4 or Clarity; never call Clarity `identify`. Put `data-clarity-mask="true"` on any element that shows an email or name. Razorpay's script loads only when someone clicks to pay. Mux Data stays `disableCookies`, and `disableTracking` unless analytics is allowed.
+- Erasure requests: `scripts/erase-user.ts <email> [--confirm]` (dry run by default). Contact/grievance details live only in `src/content/legal.ts`.
+
 ## Rules
 - Never expose `RAZORPAY_KEY_SECRET`, `FIREBASE_PRIVATE_KEY`, `MUX_TOKEN_SECRET`, or `MUX_SIGNING_KEY_PRIVATE` to the client — server-only env vars, no `NEXT_PUBLIC_` prefix.
 - Never grant course access from an unverified client message — only from a signature-verified path (`/api/razorpay/verify` or the webhook), per "Checkout & accounts" above.

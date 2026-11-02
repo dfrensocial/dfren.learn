@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LEGAL } from "@/content/legal";
+import { PrivacySettingsLink } from "@/components/consent/privacy-settings-link";
 
 export function MarketingFooter() {
   return (
@@ -10,6 +11,7 @@ export function MarketingFooter() {
           <Link href="/terms" className="hover:text-white">Terms</Link>
           <Link href="/privacy" className="hover:text-white">Privacy</Link>
           <Link href="/refund-policy" className="hover:text-white">Refunds</Link>
+          <PrivacySettingsLink className="hover:text-white" />
         </nav>
         <span>Contact: {LEGAL.contactEmail}</span>
       </div>

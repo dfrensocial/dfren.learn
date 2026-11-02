@@ -6,6 +6,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase/client";
 import { clearSessionCookie, useAuth } from "@/lib/firebase/auth-context";
 import { LEGAL } from "@/content/legal";
+import { PrivacySettingsLink } from "@/components/consent/privacy-settings-link";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -50,6 +51,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </div>
       </header>
       <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-10">{children}</main>
+      <footer className="border-t border-neutral-200 px-6 py-4 text-xs text-neutral-500">
+        <div className="mx-auto flex max-w-6xl flex-wrap gap-x-5 gap-y-1">
+          <Link href="/terms" className="hover:text-black">Terms</Link>
+          <Link href="/privacy" className="hover:text-black">Privacy</Link>
+          <Link href="/refund-policy" className="hover:text-black">Refunds</Link>
+          <PrivacySettingsLink className="hover:text-black" />
+        </div>
+      </footer>
     </div>
   );
 }

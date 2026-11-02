@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { AuthProvider } from "@/lib/firebase/auth-context";
 import { PageViewTracker } from "@/components/analytics/page-view-tracker";
+import { ConsentBanner } from "@/components/consent/consent-banner";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <AuthProvider>
           <PageViewTracker />
           {children}
+          <ConsentBanner />
         </AuthProvider>
       </body>
     </html>

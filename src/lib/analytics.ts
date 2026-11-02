@@ -1,56 +1,55 @@
 "use client";
 
-import { getFirebaseAnalytics } from "@/lib/firebase/client";
+import { getFirebaseAnalytics, peekFirebaseAnalytics } from "@/lib/firebase/client";
+import { CONSENT_EVENT, CONSENT_KEY, analyticsConsented, currentChoices, replayConsented } from "@/lib/consent";
+import { clearAttribution } from "@/lib/attribution";
 
 // ---------------------------------------------------------------------------
-// Consent. The cookie banner (to be added last) calls setAnalyticsConsent().
-// Until it ships, REQUIRE_EXPLICIT_CONSENT stays false and analytics runs by
-// default (the privacy policy discloses it). Flipping that one constant to
-// true makes every event -- GA4 and Clarity -- wait for an explicit "Accept".
+// Consent. Nothing in this file runs for a visitor who hasn't said yes:
+//   analytics -> GA4 events, GA ids on orders
+//   replay    -> Microsoft Clarity
+// The choices live in consent.ts (banner + "Privacy settings" write them).
+// When someone withdraws, collection stops straight away and the cookies and
+// stored attribution we can reach on their device are removed.
 // ---------------------------------------------------------------------------
-const REQUIRE_EXPLICIT_CONSENT = false;
-const CONSENT_KEY = "dfrenlearn:analytics-consent"; // "granted" | "denied"
 
-export function setAnalyticsConsent(granted: boolean) {
-  try {
-    window.localStorage.setItem(CONSENT_KEY, granted ? "granted" : "denied");
-  } catch {
-    // Storage unavailable: treated as "no choice made".
-  }
-  // Clarity may already be running (e.g. consent withdrawn later): tell it.
-  void applyClarityConsent();
-}
-
-function browserOptedOut(): boolean {
-  const nav = navigator as Navigator & { globalPrivacyControl?: boolean };
-  // Honour the browser-level signals people set to say "don't track me".
-  return nav.globalPrivacyControl === true || navigator.doNotTrack === "1";
-}
-
-export function analyticsAllowed(): boolean {
-  if (typeof window === "undefined" || browserOptedOut()) return false;
-  let choice: string | null = null;
-  try {
-    choice = window.localStorage.getItem(CONSENT_KEY);
-  } catch {
-    // ignore
-  }
-  if (choice === "denied") return false;
-  return REQUIRE_EXPLICIT_CONSENT ? choice === "granted" : true;
-}
+export const analyticsAllowed = analyticsConsented;
+export const replayAllowed = replayConsented;
 
 const IS_DEV = process.env.NODE_ENV !== "production";
 
+// Owner/admin tools never send anything: /admin, /watermark, and the sign-in
+// callback URL (its query string holds a one-time sign-in code).
+const EXCLUDED_PATHS = ["/admin", "/watermark"];
+const onExcludedPath = () =>
+  EXCLUDED_PATHS.some((p) => window.location.pathname.startsWith(p)) ||
+  /[?&](oobCode|apiKey)=/.test(window.location.search);
+
+/** Deletes cookies we can reach (first-party) whose names match, on every parent domain they may sit on. */
+function deleteCookies(match: RegExp) {
+  try {
+    const host = window.location.hostname;
+    const parts = host.split(".");
+    const domains = [undefined, host, ...parts.slice(1, -1).map((_, i) => "." + parts.slice(i + 1).join("."))];
+    for (const pair of document.cookie.split("; ")) {
+      const name = pair.split("=")[0];
+      if (!name || !match.test(name)) continue;
+      for (const d of domains) {
+        document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${d ? `; domain=${d}` : ""}`;
+      }
+    }
+  } catch {
+    // best effort
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Microsoft Clarity (session replays + heatmaps). Public project id; override
-// with NEXT_PUBLIC_CLARITY_PROJECT_ID if it ever changes. Never runs on the
-// admin tools, and in dev only when explicitly enabled so local testing
-// doesn't land in the real project.
+// with NEXT_PUBLIC_CLARITY_PROJECT_ID if it ever changes. In dev only when
+// explicitly enabled so local testing doesn't land in the real project.
+// Never identifies the visitor: no account id, email or name is sent to it.
 // ---------------------------------------------------------------------------
 const CLARITY_PROJECT_ID = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID || "z7b92h65ey";
-// Owner/admin tools: never sent to GA4 or recorded by Clarity.
-const EXCLUDED_PATHS = ["/admin", "/watermark"];
-const onExcludedPath = () => EXCLUDED_PATHS.some((p) => window.location.pathname.startsWith(p));
 // A few high-signal moments become named Clarity events, so recordings can be
 // filtered ("show me sessions where payment_failed happened").
 const CLARITY_EVENTS = new Set([
@@ -70,12 +69,12 @@ type ClarityApi = typeof import("@microsoft/clarity").default;
 let clarityPromise: Promise<ClarityApi | null> | null = null;
 
 function clarityWanted(): boolean {
-  if (typeof window === "undefined" || !analyticsAllowed()) return false;
+  if (typeof window === "undefined" || !replayAllowed()) return false;
   if (IS_DEV && process.env.NEXT_PUBLIC_CLARITY_IN_DEV !== "true") return false;
   return !onExcludedPath();
 }
 
-/** Starts Clarity once (if allowed). Safe to call repeatedly. */
+/** Starts Clarity once (if the visitor allowed recordings). Safe to call repeatedly. */
 export function initClarity(): Promise<ClarityApi | null> {
   if (!clarityWanted()) return Promise.resolve(null);
   if (!clarityPromise) {
@@ -94,9 +93,11 @@ async function applyClarityConsent() {
   if (!clarityPromise) return;
   const clarity = await clarityPromise;
   if (!clarity) return;
-  const granted = analyticsAllowed();
+  const granted = replayAllowed();
   try {
-    clarity.consentV2({ ad_Storage: granted ? "granted" : "denied", analytics_Storage: granted ? "granted" : "denied" });
+    // Analytics storage only -- no advertising storage, ever.
+    clarity.consentV2({ ad_Storage: "denied", analytics_Storage: granted ? "granted" : "denied" });
+    clarity.consent(granted);
   } catch {
     // ignore
   }
@@ -112,28 +113,88 @@ export async function clarityTag(key: string, value: string) {
   }
 }
 
-/** Links Clarity sessions of one signed-in person together via their opaque Firebase uid (Clarity hashes it). */
-export async function clarityIdentify(uid: string) {
-  const clarity = await initClarity();
+// ---------------------------------------------------------------------------
+// React to the visitor changing their mind.
+// ---------------------------------------------------------------------------
+let applied = { analytics: false, replay: false };
+
+async function setGoogleEnabled(enabled: boolean) {
+  const pending = peekFirebaseAnalytics();
+  if (!pending) return;
   try {
-    clarity?.identify(uid);
+    const analytics = await pending;
+    if (!analytics) return;
+    const { setAnalyticsCollectionEnabled, setConsent } = await import("firebase/analytics");
+    setAnalyticsCollectionEnabled(analytics, enabled);
+    setConsent({ analytics_storage: enabled ? "granted" : "denied" });
   } catch {
     // ignore
   }
 }
 
 /**
+ * Removes everything analytics may have left on this device. Safe to run any
+ * time analytics is off -- it also cleans up after visitors from before the
+ * consent banner existed, who had these set by default.
+ */
+function purgeAnalyticsLeftovers() {
+  clearAttribution();
+  deleteCookies(/^_ga(_.*)?$/);
+  try {
+    if (indexedDB.databases) {
+      // The id Google Analytics keeps. (Only deleted if it exists.)
+      void indexedDB
+        .databases()
+        .then((dbs) => {
+          if (dbs.some((d) => d.name === "firebase-installations-database")) {
+            indexedDB.deleteDatabase("firebase-installations-database");
+          }
+        })
+        .catch(() => {});
+    }
+  } catch {
+    // ignore
+  }
+}
+
+function purgeReplayLeftovers() {
+  deleteCookies(/^(_clck|_clsk|CLID|ANONCHK|MR|MUID|SM)$/);
+}
+
+function onConsentChange() {
+  const now = currentChoices();
+  if (applied.analytics && !now.analytics) void setGoogleEnabled(false);
+  else if (!applied.analytics && now.analytics) void setGoogleEnabled(true);
+  if (!now.analytics) purgeAnalyticsLeftovers();
+  if (applied.replay !== now.replay) void applyClarityConsent();
+  if (!now.replay) purgeReplayLeftovers();
+  applied = now;
+}
+
+if (typeof window !== "undefined") {
+  applied = currentChoices();
+  window.addEventListener(CONSENT_EVENT, onConsentChange);
+  // The choice was changed in another tab: stop here too, straight away.
+  window.addEventListener("storage", (e) => {
+    if (e.key === CONSENT_KEY || e.key === null) onConsentChange();
+  });
+  if (!applied.analytics) purgeAnalyticsLeftovers();
+  if (!applied.replay) purgeReplayLeftovers();
+}
+
+/**
  * Sends an event to GA4 (via Firebase) and, for key moments, Clarity. Never
- * throws and never blocks the UI. Events must NOT carry personal data (no
- * emails, names or payment details): only ids, counts and the course price.
+ * throws and never blocks the UI. Does nothing for visitors who haven't opted
+ * in. Events must NOT carry personal data (no emails, names or payment
+ * details): only ids, counts and the course price.
  *
  * Outside production, GA events are flagged debug_mode so they show in GA4's
  * DebugView but stay out of the real reports.
  */
 export async function track(name: string, params: Record<string, unknown> = {}): Promise<void> {
   try {
-    if (!analyticsAllowed() || onExcludedPath()) return;
-    if (CLARITY_EVENTS.has(name)) {
+    if (typeof window === "undefined" || onExcludedPath()) return;
+    if (CLARITY_EVENTS.has(name) && replayAllowed()) {
       void initClarity().then((c) => {
         try {
           c?.event(name);
@@ -142,10 +203,14 @@ export async function track(name: string, params: Record<string, unknown> = {}):
         }
       });
     }
+    if (!analyticsAllowed()) return;
     const analytics = await getFirebaseAnalytics();
     if (!analytics) return;
     const { logEvent } = await import("firebase/analytics");
-    logEvent(analytics, name, IS_DEV ? { ...params, debug_mode: true } : params);
+    // page_location is pinned to origin + path so a query string (one-time
+    // sign-in codes, redirect targets) never reaches Google.
+    const base = { page_location: window.location.origin + window.location.pathname, ...params };
+    logEvent(analytics, name, IS_DEV ? { ...base, debug_mode: true } : base);
   } catch {
     // Analytics must never break the page (ad blockers, offline, etc.).
   }

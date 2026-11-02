@@ -4,6 +4,8 @@ import { createContext, useContext, useEffect, useState, ReactNode } from "react
 import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { auth } from "./client";
 import { MAX_LOGIN_AGE_SECONDS } from "@/lib/session-policy";
+import { getAcceptance } from "@/lib/legal-acceptance";
+import { purgeStaleLoginEmail } from "@/lib/login-email";
 
 interface AuthContextValue {
   user: User | null;
@@ -20,6 +22,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    purgeStaleLoginEmail(); // a pending sign-in email never outlives 24h on this device
     return onAuthStateChanged(auth, (firebaseUser) => {
       // Absolute login lifetime: the browser login itself never expires, so
       // enforce the cap here too (the server enforces it independently).
@@ -54,7 +57,7 @@ export async function syncSessionCookie(user: User) {
   await fetch("/api/auth/session", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ idToken }),
+    body: JSON.stringify({ idToken, legal: getAcceptance() }),
   });
 }
 
@@ -70,7 +73,7 @@ export async function refreshSessionCookie(user: User): Promise<boolean> {
     const res = await fetch("/api/auth/session", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ idToken }),
+      body: JSON.stringify({ idToken, legal: getAcceptance() }),
     });
     if (res.ok) window.localStorage.setItem(SESSION_SYNCED_KEY, String(Date.now()));
     return res.ok;
