@@ -8,10 +8,26 @@ import { signInWithCustomToken, sendSignInLinkToEmail } from "firebase/auth";
 import { auth } from "@/lib/firebase/client";
 import { useAuth, syncSessionCookie } from "@/lib/firebase/auth-context";
 import { useEnrollment } from "@/lib/firebase/use-enrollment";
+import { clarityTag, courseItem, getGaIds, track } from "@/lib/analytics";
+import { getAttribution } from "@/lib/attribution";
+
+// What Razorpay's checkout reports when a payment attempt fails (no card data).
+interface RazorpayFailure {
+  error?: {
+    code?: string;
+    description?: string;
+    reason?: string;
+    step?: string;
+    source?: string;
+  };
+}
 
 declare global {
   interface Window {
-    Razorpay: new (options: Record<string, unknown>) => { open: () => void };
+    Razorpay: new (options: Record<string, unknown>) => {
+      open: () => void;
+      on: (event: "payment.failed", handler: (response: RazorpayFailure) => void) => void;
+    };
   }
 }
 
@@ -92,6 +108,7 @@ export function CheckoutButton({
     // Guest checkout: capture an email inline instead of forcing signup first.
     if (!user && !showEmailField) {
       setShowEmailField(true);
+      track("checkout_email_prompt");
       return;
     }
 
@@ -115,7 +132,9 @@ export function CheckoutButton({
           "Content-Type": "application/json",
           ...(idToken ? { Authorization: `Bearer ${idToken}` } : {}),
         },
-        body: JSON.stringify({ courseId, guestEmail: idToken ? undefined : email }),
+        // attribution = where this visitor first/last came from (marketing
+        // params + referrer host only); the server stores it on the order.
+        body: JSON.stringify({ courseId, guestEmail: idToken ? undefined : email, attribution: getAttribution(), ga: getGaIds() }),
       });
       if (res.status === 409) {
         setInfoMessage("You already have this course. Open it from your dashboard.");
@@ -123,6 +142,10 @@ export function CheckoutButton({
       }
       if (!res.ok) throw new Error("create-order failed");
       const { order } = await res.json();
+      const value = order.amount / 100;
+      const items = [courseItem(courseId, courseTitle, value)];
+      const openedAt = Date.now();
+      track("begin_checkout", { currency: order.currency, value, items, is_logged_in: Boolean(user) });
 
       const razorpay = new window.Razorpay({
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
@@ -146,20 +169,52 @@ export function CheckoutButton({
               body: JSON.stringify({ ...response, courseId, email }),
             });
             if (!verifyRes.ok) throw new Error("verify failed");
+            // transaction_id is Razorpay's order id (not personal data); GA4
+            // dedupes purchases on it.
+            track("purchase", {
+              transaction_id: response.razorpay_order_id,
+              currency: order.currency,
+              value,
+              items,
+              seconds_to_pay: Math.round((Date.now() - openedAt) / 1000),
+            });
+            void clarityTag("buyer", "yes");
             await completeSignIn(await verifyRes.json(), email);
           } catch {
+            track("checkout_error", { stage: "verify" });
             setStatusMessage(
               "Payment succeeded but we couldn't confirm it — contact support with your payment ID."
             );
           }
         },
         modal: {
-          ondismiss: () => setStatusMessage("Checkout cancelled."),
+          ondismiss: () => {
+            // How long they sat in the payment window before leaving: a few
+            // seconds = bounced at the price; minutes = got stuck paying.
+            track("checkout_dismissed", { value, seconds_open: Math.round((Date.now() - openedAt) / 1000) });
+            setStatusMessage("Checkout cancelled.");
+          },
         },
         prefill: { email },
       });
+      // Razorpay tells us *why* an attempt failed (cancelled at the bank page,
+      // card declined, UPI timeout...). The server webhook records the same
+      // thing authoritatively; this puts it in GA4/Clarity next to the session.
+      razorpay.on("payment.failed", (response) => {
+        const e = response?.error ?? {};
+        track("payment_failed", {
+          error_code: e.code?.slice(0, 60),
+          error_reason: e.reason?.slice(0, 60),
+          error_step: e.step?.slice(0, 60),
+          error_source: e.source?.slice(0, 40),
+          error_description: e.description?.slice(0, 100),
+          value,
+        });
+        void clarityTag("payment_failed", e.reason?.slice(0, 40) || "yes");
+      });
       razorpay.open();
     } catch {
+      track("checkout_error", { stage: "create_order" });
       setStatusMessage("Couldn't start checkout. Please try again.");
     } finally {
       setLoading(false);
@@ -220,6 +275,7 @@ export function CheckoutButton({
             <input
               id="guest-email"
               type="email"
+              data-clarity-mask="true"
               required
               autoFocus
               placeholder="Your email"

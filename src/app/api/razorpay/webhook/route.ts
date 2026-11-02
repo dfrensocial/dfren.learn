@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { razorpay, verifyRazorpayWebhookSignature } from "@/lib/razorpay/server";
 import { grantCourseAccess } from "@/lib/razorpay/grant-access";
 import { isValidPublishedCourse } from "@/lib/razorpay/validate-course";
+import { recordWebhookEvent } from "@/lib/orders";
+import { reportPurchaseToGa4, reportRefundToGa4 } from "@/lib/ga4-server";
 
 // Razorpay signs the raw request body, so it must be read as text, not parsed as JSON first.
 // This is the idempotent fallback for /api/razorpay/verify — it covers a browser
@@ -15,6 +17,14 @@ export async function POST(req: NextRequest) {
   }
 
   const event = JSON.parse(rawBody);
+
+  // Business ledger: failures (with Razorpay's reason), authorizations,
+  // captures with method/fee, refunds, disputes. Best-effort and first, so
+  // even an event the access logic below ignores is still recorded; a ledger
+  // problem can never change the response or block granting access.
+  await recordWebhookEvent(event.event, event.payload ?? {}).catch((err) =>
+    console.error("[orders] could not record webhook event", event.event, err)
+  );
 
   if (event.event === "payment.captured") {
     const payment = event.payload.payment.entity;
@@ -43,6 +53,20 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid course" }, { status: 400 });
     }
     await grantCourseAccess({ email, courseId, paymentId: payment.id });
+
+    // Server-side GA4 `purchase` (counts even if the buyer closed the tab or
+    // blocks analytics scripts). After access is granted, best-effort, once.
+    await reportPurchaseToGa4(payment.order_id).catch((err) =>
+      console.error("[ga4] could not send purchase", payment.order_id, err)
+    );
+  } else if (event.event === "refund.processed") {
+    const refund = event.payload?.refund?.entity;
+    const orderId = event.payload?.payment?.entity?.order_id;
+    if (orderId && refund?.id) {
+      await reportRefundToGa4(orderId, String(refund.id), Number(refund.amount)).catch((err) =>
+        console.error("[ga4] could not send refund", orderId, err)
+      );
+    }
   }
 
   return NextResponse.json({ received: true });

@@ -184,7 +184,7 @@ export default function DashboardPage() {
         <dl className="mt-4 divide-y divide-black border border-black text-sm">
           <div className="flex flex-col gap-1 px-5 py-3 sm:flex-row sm:justify-between">
             <dt className="text-neutral-500">Signed in as</dt>
-            <dd className="font-medium">{user?.email}</dd>
+            <dd data-clarity-mask="true" className="font-medium">{user?.email}</dd>
           </div>
           {items.map(({ course, paymentId }) =>
             paymentId ? (

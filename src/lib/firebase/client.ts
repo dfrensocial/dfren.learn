@@ -3,7 +3,7 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { isSupported, getAnalytics, type Analytics } from "firebase/analytics";
+import { isSupported, initializeAnalytics, type Analytics } from "firebase/analytics";
 
 export const isFirebaseConfigured = Boolean(process.env.NEXT_PUBLIC_FIREBASE_API_KEY);
 
@@ -29,10 +29,15 @@ export const db = getFirestore(app);
 // resolved lazily rather than at module load.
 let analyticsPromise: Promise<Analytics | null> | null = null;
 export function getFirebaseAnalytics() {
-  if (typeof window === "undefined" || !isFirebaseConfigured) return Promise.resolve(null);
+  if (typeof window === "undefined" || !isFirebaseConfigured || !firebaseConfig.measurementId) {
+    return Promise.resolve(null);
+  }
   if (!analyticsPromise) {
+    // send_page_view is off because PageViewTracker sends page_view itself --
+    // on first load AND on every client-side navigation. Leaving the SDK's
+    // automatic one on would double-count the first page.
     analyticsPromise = isSupported().then((supported) =>
-      supported ? getAnalytics(app) : null
+      supported ? initializeAnalytics(app, { config: { send_page_view: false } }) : null
     );
   }
   return analyticsPromise;

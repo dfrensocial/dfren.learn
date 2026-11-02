@@ -5,6 +5,7 @@ import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "@/lib/firebase/client";
 import { useAuth } from "@/lib/firebase/auth-context";
 import type { Resource } from "@/types/course";
+import { track } from "@/lib/analytics";
 
 function formatSize(bytes: number) {
   return bytes >= 1024 * 1024 ? `${(bytes / (1024 * 1024)).toFixed(1)} MB` : `${Math.max(1, Math.round(bytes / 1024))} KB`;
@@ -56,6 +57,7 @@ export function ResourceList({ courseId }: { courseId: string }) {
             <a
               href={`/api/resources/${courseId}/${r.id}`}
               download={r.filename}
+              onClick={() => track("resource_download", { course_id: courseId, resource_id: r.id })}
               className="flex items-start gap-3 px-4 py-3 transition-colors hover:bg-neutral-50"
             >
               <svg aria-hidden viewBox="0 0 20 20" className="mt-0.5 h-4 w-4 flex-shrink-0 fill-none stroke-current stroke-[1.5]">

@@ -1,4 +1,5 @@
 import { CheckoutButton } from "@/components/course/checkout-button";
+import { TrackOnView } from "@/components/analytics/track-on-view";
 import type { CourseContent } from "@/content/courses/geo-blueprint";
 
 export function Pricing({
@@ -17,6 +18,16 @@ export function Pricing({
           One price. Lifetime access.
         </h2>
 
+        <TrackOnView
+          event="view_item"
+          params={{
+            currency: "INR",
+            value: pricing.priceInPaise / 100,
+            items: [
+              { item_id: courseId, item_name: pricing.productLabel, price: pricing.priceInPaise / 100, quantity: 1 },
+            ],
+          }}
+        >
         <div className="mt-10 border border-black p-8">
           <p className="text-sm uppercase tracking-wide text-neutral-500">
             {pricing.productLabel}
@@ -40,6 +51,7 @@ export function Pricing({
             Secure checkout via Razorpay.
           </p>
         </div>
+        </TrackOnView>
       </div>
     </section>
   );

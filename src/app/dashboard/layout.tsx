@@ -42,7 +42,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </nav>
           </div>
           <div className="flex items-center gap-4 text-sm">
-            {user?.email && <span className="hidden text-neutral-500 sm:inline">{user.email}</span>}
+            {user?.email && <span data-clarity-mask="true" className="hidden text-neutral-500 sm:inline">{user.email}</span>}
             <button onClick={handleLogout} className="font-medium underline">
               Log out
             </button>

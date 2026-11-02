@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase/client";
 import { clearSessionCookie, useAuth } from "@/lib/firebase/auth-context";
+import { track } from "@/lib/analytics";
 
 /** Signed-in state for the public pages' headers. Renders nothing until auth resolves. */
 export function useAccountActions() {
@@ -54,6 +55,7 @@ export function AccountLinks({ showEnroll = false }: { showEnroll?: boolean }) {
       {showEnroll && (
         <Link
           href="/#pricing"
+          onClick={() => track("cta_click", { cta_location: "header", cta_label: "enroll" })}
           className="rounded-full bg-black px-5 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
         >
           Enroll now
