@@ -8,7 +8,7 @@ import { signInWithCustomToken, sendSignInLinkToEmail } from "firebase/auth";
 import { auth } from "@/lib/firebase/client";
 import { useAuth, syncSessionCookie } from "@/lib/firebase/auth-context";
 import { useEnrollment } from "@/lib/firebase/use-enrollment";
-import { clarityTag, courseItem, track } from "@/lib/analytics";
+import { clarityTag, courseItem, getGaIds, track } from "@/lib/analytics";
 import { getAttribution } from "@/lib/attribution";
 
 // What Razorpay's checkout reports when a payment attempt fails (no card data).
@@ -134,7 +134,7 @@ export function CheckoutButton({
         },
         // attribution = where this visitor first/last came from (marketing
         // params + referrer host only); the server stores it on the order.
-        body: JSON.stringify({ courseId, guestEmail: idToken ? undefined : email, attribution: getAttribution() }),
+        body: JSON.stringify({ courseId, guestEmail: idToken ? undefined : email, attribution: getAttribution(), ga: getGaIds() }),
       });
       if (res.status === 409) {
         setInfoMessage("You already have this course. Open it from your dashboard.");

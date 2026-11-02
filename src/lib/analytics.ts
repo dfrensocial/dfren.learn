@@ -151,6 +151,35 @@ export async function track(name: string, params: Record<string, unknown> = {}):
   }
 }
 
+/**
+ * The visitor's GA4 client/session ids, read from GA's own first-party cookies.
+ * Sent with the order so the server can attach the purchase to the right GA
+ * session. Returns undefined when analytics is off or GA never ran (blocked,
+ * opted out): then nothing is sent server-side either.
+ */
+export function getGaIds(): { clientId: string; sessionId?: string } | undefined {
+  try {
+    if (!analyticsAllowed() || onExcludedPath()) return undefined;
+    const cookies = Object.fromEntries(
+      document.cookie.split("; ").map((c) => {
+        const i = c.indexOf("=");
+        return [c.slice(0, i), c.slice(i + 1)];
+      })
+    );
+    // _ga = GA1.<n>.<random>.<firstVisitTs>
+    const m = /^GA\d\.\d+\.(\d+)\.(\d+)$/.exec(cookies["_ga"] ?? "");
+    if (!m) return undefined;
+    const clientId = `${m[1]}.${m[2]}`;
+    // _ga_<ID> = GS2.1.s<sessionTs>$o... (newer) or GS1.1.<sessionTs>.<n>... (older)
+    const stream = process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID?.replace(/^G-/, "") ?? "9F466RVWND";
+    const raw = cookies[`_ga_${stream}`] ?? "";
+    const s = /^GS2\.\d+\.s(\d+)/.exec(raw) ?? /^GS1\.\d+\.(\d+)\./.exec(raw);
+    return { clientId, sessionId: s?.[1] };
+  } catch {
+    return undefined;
+  }
+}
+
 /** GA4 ecommerce item for the course. Price is in rupees. */
 export function courseItem(courseId: string, courseTitle: string, priceInRupees: number) {
   return { item_id: courseId, item_name: courseTitle, price: priceInRupees, quantity: 1 };

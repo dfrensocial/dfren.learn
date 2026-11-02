@@ -69,6 +69,19 @@ export function sanitizeAttribution(input: unknown): { first?: Touch; last?: Tou
   return Object.keys(out).length ? out : undefined;
 }
 
+/**
+ * GA4 client/session ids from the buyer's own _ga cookies, used to attach the
+ * server-side purchase to their GA session. Untrusted: strict format only.
+ */
+export function sanitizeGa(input: unknown): { clientId: string; sessionId?: string } | undefined {
+  if (!input || typeof input !== "object") return undefined;
+  const g = input as Json;
+  const clientId = typeof g.clientId === "string" && /^\d{1,12}\.\d{1,12}$/.test(g.clientId) ? g.clientId : undefined;
+  if (!clientId) return undefined;
+  const sessionId = typeof g.sessionId === "string" && /^\d{6,12}$/.test(g.sessionId) ? g.sessionId : undefined;
+  return compact({ clientId, sessionId });
+}
+
 // --- Request context (server-derived, not trusted from the client) ---
 
 export function parseDevice(userAgent: string | null): "mobile" | "tablet" | "desktop" | "bot" {
@@ -101,6 +114,7 @@ export async function recordOrderCreated(o: {
   amount: number;
   currency: string;
   attribution?: unknown;
+  ga?: unknown;
   userAgent: string | null;
   headers: Headers;
 }): Promise<void> {
@@ -119,6 +133,7 @@ export async function recordOrderCreated(o: {
         createdAt: new Date(),
         updatedAt: new Date(),
         attribution: sanitizeAttribution(o.attribution),
+        ga: sanitizeGa(o.ga),
         device: parseDevice(o.userAgent),
         country: geo.country,
         region: geo.region,

@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
   const idToken = authHeader?.replace("Bearer ", "");
   const decoded = idToken ? await adminAuth.verifyIdToken(idToken).catch(() => null) : null;
 
-  const { courseId, guestEmail, attribution } = await req.json();
+  const { courseId, guestEmail, attribution, ga } = await req.json();
   const email = decoded?.email ?? guestEmail;
 
   if (!courseId || !email) {
@@ -64,6 +64,7 @@ export async function POST(req: NextRequest) {
     amount: Number(order.amount),
     currency: order.currency,
     attribution,
+    ga,
     userAgent: req.headers.get("user-agent"),
     headers: req.headers,
   }).catch((err) => console.error("[orders] could not record created order", order.id, err));
