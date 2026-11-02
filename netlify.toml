@@ -25,3 +25,10 @@
   # value appears in the built output or tracked files.)
   SECRETS_SCAN_OMIT_PATHS = ".netlify/.next/cache/**"
   SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_FIREBASE_API_KEY,NEXT_PUBLIC_FIREBASE_APP_ID,NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,NEXT_PUBLIC_FIREBASE_PROJECT_ID,NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,NEXT_PUBLIC_RAZORPAY_KEY_ID,RAZORPAY_KEY_ID,FIREBASE_PROJECT_ID"
+
+  # NODE_VERSION above only controls the *build*. The deployed function runs on
+  # AWS Lambda's own runtime, which must also be new enough for require(esm):
+  # firebase-admin -> jwks-rsa@4 require()s jose@6 (ESM-only), which needs
+  # Node >= 20.19 / 22.12. On an older Lambda runtime every route that imports
+  # firebase-admin crashes at load with ERR_REQUIRE_ESM (500, empty body).
+  AWS_LAMBDA_JS_RUNTIME = "nodejs22.x"
