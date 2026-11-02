@@ -1,8 +1,8 @@
-import Link from "next/link";
 import type { CourseContent } from "@/content/courses/geo-blueprint";
+import { CourseCta } from "@/components/marketing/course-cta";
 import { HeroVideo } from "@/components/marketing/hero-video";
 
-export function Hero({ hero }: { hero: CourseContent["hero"] }) {
+export function Hero({ hero, courseId }: { hero: CourseContent["hero"]; courseId: string }) {
   return (
     <section className="border-b border-black">
       <div className="mx-auto max-w-5xl px-6 py-16 sm:py-24">
@@ -17,12 +17,11 @@ export function Hero({ hero }: { hero: CourseContent["hero"] }) {
         </p>
 
         <div className="mt-8 flex flex-col items-center gap-3">
-          <Link
-            href="#pricing"
+          <CourseCta
+            courseId={courseId}
+            label={hero.ctaLabel}
             className="rounded-full bg-black px-8 py-4 text-base font-semibold text-white transition hover:bg-neutral-800"
-          >
-            {hero.ctaLabel}
-          </Link>
+          />
           <p className="text-xs text-neutral-500">{hero.ctaNote}</p>
         </div>
 

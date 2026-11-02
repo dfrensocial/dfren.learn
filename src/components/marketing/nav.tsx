@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { AccountLinks, useAccountActions } from "./account-links";
 
 export function MarketingNav() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { user, loading, logout } = useAccountActions();
 
   return (
     <header className="sticky top-0 z-50 border-b border-black bg-white">
@@ -19,15 +21,7 @@ export function MarketingNav() {
           <Link href="#faq" className="hidden sm:inline hover:underline">
             FAQ
           </Link>
-          <Link href="/login" className="hidden sm:inline hover:underline">
-            Log in
-          </Link>
-          <Link
-            href="#pricing"
-            className="rounded-full bg-black px-5 py-2 text-white transition hover:bg-neutral-800"
-          >
-            Enroll now
-          </Link>
+          <AccountLinks showEnroll />
           <button
             type="button"
             onClick={() => setMenuOpen((open) => !open)}
@@ -69,13 +63,26 @@ export function MarketingNav() {
           >
             FAQ
           </Link>
-          <Link
-            href="/login"
-            onClick={() => setMenuOpen(false)}
-            className="px-6 py-4 text-sm font-medium"
-          >
-            Log in
-          </Link>
+          {!loading && user ? (
+            <button
+              type="button"
+              onClick={() => {
+                setMenuOpen(false);
+                logout();
+              }}
+              className="px-6 py-4 text-left text-sm font-medium"
+            >
+              Log out
+            </button>
+          ) : (
+            <Link
+              href="/login"
+              onClick={() => setMenuOpen(false)}
+              className="px-6 py-4 text-sm font-medium"
+            >
+              Log in
+            </Link>
+          )}
         </div>
       )}
     </header>

@@ -6,10 +6,11 @@ import {
   sendSignInLinkToEmail,
   isSignInWithEmailLink,
   signInWithEmailLink,
+  signOut,
 } from "firebase/auth";
 import Link from "next/link";
 import { auth } from "@/lib/firebase/client";
-import { syncSessionCookie } from "@/lib/firebase/auth-context";
+import { syncSessionCookie, refreshSessionCookie, useAuth } from "@/lib/firebase/auth-context";
 import { safeRedirectPath } from "@/lib/safe-redirect";
 
 const EMAIL_LINK_STORAGE_KEY = "dfrenlearn:login-email";
@@ -25,6 +26,7 @@ export default function LoginPage() {
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { user: signedInUser, loading: authLoading } = useAuth();
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -59,6 +61,24 @@ function LoginForm() {
     // directly in the effect body.
     Promise.resolve().then(() => setLinkMode(isSignInWithEmailLink(auth, window.location.href)));
   }, []);
+
+  // Already signed in (Firebase keeps the login in the browser much longer than
+  // our 5-day server cookie): re-issue the cookie and carry on, instead of
+  // making the user request another emailed link. If the server refuses (e.g.
+  // the session was revoked) drop the stale login so the form works normally.
+  useEffect(() => {
+    if (authLoading || !signedInUser || linkMode !== false) return;
+    let cancelled = false;
+    refreshSessionCookie(signedInUser).then(async (ok) => {
+      if (cancelled) return;
+      if (ok) router.replace(safeRedirectPath(searchParams.get("redirect")));
+      else await signOut(auth).catch(() => {});
+    });
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authLoading, signedInUser, linkMode]);
 
   // Guest-checkout accounts have no password — this completes the sign-in
   // when the user arrives here from the emailed link.
@@ -109,8 +129,18 @@ function LoginForm() {
     }
   }
 
-  if (linkMode === null) {
+  if (linkMode === null || authLoading) {
     return <main className="min-h-screen w-full bg-white" />;
+  }
+
+  // Already signed in: the effect above is re-issuing the session cookie and
+  // redirecting. Don't flash the form meanwhile.
+  if (signedInUser && linkMode === false) {
+    return (
+      <main className="flex min-h-screen w-full items-center justify-center bg-white px-6 text-black">
+        <p className="text-neutral-600">Signing you in...</p>
+      </main>
+    );
   }
 
   if (completingLink && needsEmailConfirm) {
