@@ -11,7 +11,9 @@
     "upload-lesson": "tsx scripts/upload-lesson.ts",
     "set-chapters": "tsx scripts/set-chapters.ts",
     "cleanup-test-data": "tsx scripts/cleanup-test-data.ts",
-    "upload-resource": "tsx scripts/upload-resource.ts"
+    "upload-resource": "tsx scripts/upload-resource.ts",
+    "policy:check": "tsx scripts/policy-check.ts",
+    "policy:stamp": "tsx scripts/policy-check.ts --stamp"
   },
   "dependencies": {
     "@microsoft/clarity": "^1.0.2",

@@ -333,7 +333,7 @@ export function CheckoutButton({
           <p data-clarity-mask="true" className="mb-3 border border-black bg-neutral-50 px-3 py-2 text-sm">{infoMessage}</p>
         )}
 
-        <AcceptTerms id="checkout-accept" checked={accepted} onChange={setAccepted} className="mb-3" />
+        <AcceptTerms id="checkout-accept" checked={accepted} onChange={setAccepted} className="mb-3" refunds />
 
         <button
           type="submit"

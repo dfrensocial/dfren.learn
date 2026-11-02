@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { adminAuth, adminDb } from "@/lib/firebase/admin";
 import { rateLimit } from "@/lib/rate-limit";
 import { loginIsTooOld } from "@/lib/session-policy";
+import { hasCurrentAcceptance, POLICY_UPDATE_REQUIRED } from "@/lib/legal-acceptance-server";
 
 // Serves a course file to an enrolled student. This is a plain GET so the
 // browser can download it from an ordinary link — which can't carry a Bearer
@@ -38,6 +39,9 @@ export async function GET(
     .get();
   if (!enrollment.exists) {
     return NextResponse.json({ error: "Not enrolled in this course." }, { status: 403 });
+  }
+  if (!(await hasCurrentAcceptance(decoded.uid))) {
+    return NextResponse.json(POLICY_UPDATE_REQUIRED, { status: 403 });
   }
 
   const resourceRef = adminDb.collection("courses").doc(courseId).collection("resources").doc(resourceId);

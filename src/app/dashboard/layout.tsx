@@ -7,6 +7,7 @@ import { auth } from "@/lib/firebase/client";
 import { clearSessionCookie, useAuth } from "@/lib/firebase/auth-context";
 import { LEGAL } from "@/content/legal";
 import { PrivacySettingsLink } from "@/components/consent/privacy-settings-link";
+import { PolicyUpdateDialog, usePolicyGate } from "@/components/legal/policy-gate";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -21,8 +22,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   const onCourses = pathname === "/dashboard" || pathname.startsWith("/dashboard/courses");
 
+  // Updated Terms/Privacy: nothing but the dialog is usable until accepted.
+  const gate = usePolicyGate(user);
+  const gated = !!user && gate.status !== "ok";
+
   return (
-    <div className="flex min-h-screen flex-col bg-white text-black">
+    <>
+    <div inert={gate.status === "needed" && !!user} className="flex min-h-screen flex-col bg-white text-black">
       <header className="border-b border-black">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
           <div className="flex items-center gap-8">
@@ -50,7 +56,20 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           </div>
         </div>
       </header>
-      <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-10">{children}</main>
+      <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-10">
+        {!gated ? (
+          children
+        ) : gate.status === "error" ? (
+          <p className="text-sm text-neutral-600">
+            Couldn&apos;t check your account.{" "}
+            <button type="button" onClick={gate.retry} className="underline">
+              Try again
+            </button>
+          </p>
+        ) : (
+          <p className="text-sm text-neutral-500">Loading…</p>
+        )}
+      </main>
       <footer className="border-t border-neutral-200 px-6 py-4 text-xs text-neutral-500">
         <div className="mx-auto flex max-w-6xl flex-wrap gap-x-5 gap-y-1">
           <Link href="/terms" className="hover:text-black">Terms</Link>
@@ -60,5 +79,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </div>
       </footer>
     </div>
+    {user && gate.status === "needed" && (
+      <PolicyUpdateDialog user={user} onAccepted={gate.accepted} onLogout={handleLogout} />
+    )}
+    </>
   );
 }

@@ -385,11 +385,11 @@ export default function PrivacyPage() {
           Protection Act, 2023, and we offer the same choices to every visitor.
         </p>
         <p className="mt-2">
-          Deleting your account ends your access. See the{" "}
+          Deleting your account ends your access, and it doesn&apos;t entitle you to a refund. See the{" "}
           <Link href="/refund-policy" className="underline">
-            refund policy
-          </Link>{" "}
-          first if you&apos;re within the guarantee window.
+            cancellation and refund policy
+          </Link>
+          .
         </p>
       </section>
 

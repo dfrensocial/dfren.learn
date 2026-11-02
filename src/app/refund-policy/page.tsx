@@ -1,43 +1,90 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { LegalPage } from "@/components/legal/legal-page";
 import { LEGAL } from "@/content/legal";
 
-export const metadata: Metadata = { title: "Refund policy — dfrenLearn" };
+export const metadata: Metadata = { title: "Cancellation and refund policy — dfrenLearn" };
 
 export default function RefundPolicyPage() {
   return (
-    <LegalPage title="Refund policy">
+    <LegalPage title="Cancellation and refund policy">
       <section>
-        <h2>{LEGAL.refundWindowDays}-day money-back guarantee</h2>
+        <h2>The short version</h2>
         <p>
-          If The GEO Blueprint isn&apos;t what you expected, email us within {LEGAL.refundWindowDays} days of
-          your purchase and we&apos;ll refund the full amount. The guarantee is simple: watch Module 1, and if
-          it isn&apos;t clearly the most practical GEO material you&apos;ve seen, you get your money back.
+          The course is a digital product. You get access the moment your payment is confirmed, and you can
+          watch and download it straight away. So <strong>payments are not refundable and orders can&apos;t be
+          cancelled once paid</strong>, including if you change your mind, haven&apos;t watched it, or don&apos;t
+          find it useful. The only exceptions are the two below.
         </p>
       </section>
+
       <section>
-        <h2>How to request a refund</h2>
+        <h2>When we do refund</h2>
         <ul>
           <li>
-            Email <a className="underline" href={`mailto:${LEGAL.contactEmail}`}>{LEGAL.contactEmail}</a> from
-            the address you used at checkout, or include your payment ID.
+            <strong>You were charged extra.</strong> If you were charged more than the price shown (for example a
+            duplicate payment for the same order), we refund the extra amount.
           </li>
-          <li>We confirm the request, then refund to the original payment method through Razorpay.</li>
           <li>
-            Refunds typically reach your account within 5–7 business days of approval. Your bank&apos;s own
-            processing time is outside our control.
+            <strong>You paid but can&apos;t get access, and we can&apos;t fix it.</strong> If you tell us you
+            can&apos;t access the course and we haven&apos;t been able to fix it within {LEGAL.accessFixDays} days
+            of your email, we refund what you paid for it.
+          </li>
+        </ul>
+        <p className="mt-2">
+          We always try to fix access first, because that&apos;s what you bought. If we refund the whole payment,
+          your access to the course ends.
+        </p>
+      </section>
+
+      <section>
+        <h2>How to ask</h2>
+        <ul>
+          <li>
+            Email{" "}
+            <a className="underline" href={`mailto:${LEGAL.contactEmail}`}>
+              {LEGAL.contactEmail}
+            </a>{" "}
+            from the address you used at checkout, and include your payment ID if you have it.
+          </li>
+          <li>
+            We reply within {LEGAL.grievanceAckHours} hours and settle the matter within {LEGAL.grievanceResolveDays}{" "}
+            days.
+          </li>
+          <li>An approved refund goes back to the original payment method through Razorpay.</li>
+          <li>
+            It usually reaches your account in 5–7 business days. Your bank&apos;s own processing time is outside
+            our control.
           </li>
         </ul>
       </section>
+
       <section>
-        <h2>After a refund</h2>
-        <p>Access to the course is removed once a refund is issued.</p>
-      </section>
-      <section>
-        <h2>After {LEGAL.refundWindowDays} days</h2>
+        <h2>No refund when access is withdrawn</h2>
         <p>
-          Requests made after the window are at our discretion. The exception is if you were charged but never
-          got access to the course — contact us and we&apos;ll fix that or refund you, whenever it happened.
+          If we end your access because you broke the{" "}
+          <Link href="/terms" className="underline">
+            terms
+          </Link>{" "}
+          (for example sharing your account, or recording, leaking or reselling the course), you don&apos;t get a
+          refund. Deleting your account at your own request also doesn&apos;t entitle you to one.
+        </p>
+      </section>
+
+      <section>
+        <h2>Disputes with your bank</h2>
+        <p>
+          Please write to us first. It&apos;s faster than a card dispute. If a payment is disputed with your bank,
+          we may pause access to the course while the dispute is open, and we&apos;ll send the bank our records of
+          the order, your acceptance of the terms, and how the course was accessed.
+        </p>
+      </section>
+
+      <section>
+        <h2>Your legal rights</h2>
+        <p>
+          Nothing here takes away any right you have under Indian consumer law, including the right to approach a
+          Consumer Commission.
         </p>
       </section>
     </LegalPage>
