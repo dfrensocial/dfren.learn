@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { adminAuth, adminDb } from "@/lib/firebase/admin";
-import { signMuxPlaybackToken } from "@/lib/mux/signing";
+import { signMuxPlaybackToken, DEFAULT_TOKEN_TTL_SECONDS } from "@/lib/mux/signing";
+import { getPlaybackRestrictionId } from "@/lib/mux/restriction";
 import { lessonMuxDataRef } from "@/lib/mux/lesson-doc";
 import { checkAndRegisterSession } from "@/lib/session-limit";
 import { rateLimit } from "@/lib/rate-limit";
+import { loginIsTooOld } from "@/lib/session-policy";
+import { sessionExpiredResponse } from "@/lib/session-expired-response";
 import { issueWatermark } from "@/lib/watermark/issue";
 
 // Issues a short-lived, per-viewer signed token — never expose a raw playback ID to the client.
@@ -18,6 +21,7 @@ export async function POST(req: NextRequest) {
   if (!decoded) {
     return NextResponse.json({ error: "Invalid session" }, { status: 401 });
   }
+  if (loginIsTooOld(decoded.auth_time)) return sessionExpiredResponse();
 
   // Per-account (not per-IP — sharing routes through different IPs) cap on
   // how many tokens one account can pull in an hour. Generous: normal use is
@@ -63,7 +67,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Lesson has no video" }, { status: 404 });
   }
 
-  const token = signMuxPlaybackToken(playbackId, "video");
+  // Domain lock applies to the video stream itself; thumbnails/storyboards
+  // are low-value and stay unrestricted so previews never break.
+  const restrictionId = await getPlaybackRestrictionId();
+  const token = signMuxPlaybackToken(playbackId, "video", DEFAULT_TOKEN_TTL_SECONDS, restrictionId);
   const thumbnailToken = signMuxPlaybackToken(playbackId, "thumbnail");
   // Storyboard token unlocks the scrub-preview thumbnails (storyboard.vtt) for
   // this signed asset — same signed-token model as video/thumbnail, just a
@@ -79,5 +86,8 @@ export async function POST(req: NextRequest) {
     lessonId,
   }).catch(() => null);
 
-  return NextResponse.json({ playbackId, token, thumbnailToken, storyboardToken, watermarkId });
+  // expiresAt lets the player renew the token before it lapses.
+  const expiresAt = Date.now() + DEFAULT_TOKEN_TTL_SECONDS * 1000;
+
+  return NextResponse.json({ playbackId, token, thumbnailToken, storyboardToken, watermarkId, expiresAt });
 }

@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useId, useRef, useState, type ReactNode } from "react";
 import MuxPlayer from "@mux/mux-player-react";
 import type MuxPlayerElement from "@mux/mux-player";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase/client";
-import { useAuth } from "@/lib/firebase/auth-context";
+import { endExpiredSession, useAuth } from "@/lib/firebase/auth-context";
 import { paintWatermarkOverlay } from "@/lib/watermark/paint-overlay";
 import { ChapterList } from "@/components/course/chapter-list";
 import type { Chapter, CourseProgress } from "@/types/course";
@@ -17,6 +17,13 @@ const PLAYBACK_RATES = [0.75, 1, 1.25, 1.5, 1.75, 2];
 // How often to ping /api/mux/heartbeat while actually playing, so this
 // session keeps counting as "active" for the concurrent-stream cap.
 const HEARTBEAT_INTERVAL_MS = 20_000;
+
+// Playback tokens are renewed this long before they expire, so a long sitting
+// or a long pause never hits a rejected token.
+const TOKEN_REFRESH_LEAD_MS = 10 * 60_000;
+// After a playback error we re-request a token and reload the source, but never
+// more than this many times in a row (reset once playback actually starts).
+const MAX_ERROR_RECOVERIES = 3;
 
 // Resume-from-last-position is purely a per-viewer convenience: it reads and
 // writes localStorage on the viewer's own device only, never sent to a server
@@ -59,16 +66,39 @@ function clearProgress(courseId: string, lessonId: string) {
 // this doesn't actually inherit that far in practice (confirmed live: set
 // on the player element itself, but reads back empty at the button) --
 // direct DOM removal is what actually works, verified the same way.
-function findMuxFullscreenButton(root: Element): HTMLElement | null {
+function findMuxControl(root: Element, selector: string): HTMLElement | null {
   const shadow = (root as HTMLElement).shadowRoot;
   if (!shadow) return null;
-  const direct = shadow.querySelector("media-fullscreen-button");
+  const direct = shadow.querySelector(selector);
   if (direct) return direct as HTMLElement;
   for (const child of shadow.querySelectorAll("*")) {
-    const found = findMuxFullscreenButton(child);
+    const found = findMuxControl(child, selector);
     if (found) return found;
   }
   return null;
+}
+
+// Picture-in-Picture and casting/AirPlay play the video outside the page,
+// which drops the canvas watermark layered over it. mux-player does NOT pass
+// these attributes from its own element down to the real <video> (confirmed in
+// a live browser), so they must be set on the native element itself. Doing so
+// also makes the player's own PiP/cast buttons disappear. Safe to call
+// repeatedly -- e.g. after the source reloads on a token refresh.
+function lockOutOfPip(player: MuxPlayerElement | null) {
+  const video = player?.media?.nativeEl as HTMLVideoElement | undefined;
+  if (!video) return;
+  video.disablePictureInPicture = true;
+  video.disableRemotePlayback = true;
+  video.setAttribute("x-webkit-airplay", "deny");
+}
+
+// The server says this login has outlived its allowed lifetime: sign out and
+// send the viewer to the email sign-in, coming back to this lesson afterwards.
+async function sendToLoginExpired() {
+  await endExpiredSession();
+  // Deliberate full page load: resets all client-side auth state after sign-out.
+  // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+  window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
 }
 
 export function SecureVideoPlayer({
@@ -90,7 +120,15 @@ export function SecureVideoPlayer({
     thumbnailToken: string;
     storyboardToken: string;
     watermarkId: string | null;
+    expiresAt?: number;
   } | null>(null);
+  // Set only when the token was renewed mid-session: carry on from the same
+  // spot (and keep playing if it was playing) instead of the saved position.
+  const [resumeAfterRefresh, setResumeAfterRefresh] = useState<{ at: number; autoplay: boolean } | null>(null);
+  // Bumped to rebuild the player from scratch after a playback error: a player
+  // that has already failed (e.g. on a rejected token) does not restart just
+  // because it is handed a new token (confirmed in a live browser).
+  const [playerKey, setPlayerKey] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [activeChapter, setActiveChapter] = useState(0);
@@ -103,6 +141,8 @@ export function SecureVideoPlayer({
   const lastSaveRef = useRef(0);
   const lastHeartbeatRef = useRef(0); // wall-clock ms, not media time — seeking must not stall it
   const repaintRef = useRef<() => void>(() => {});
+  const refreshingRef = useRef(false);
+  const errorRecoveriesRef = useRef(0);
   // One random ID per player mount — reloading the page is a new "session"
   // (correct: this caps simultaneous playing streams, not devices over time).
   // useState's lazy initializer (not useRef's plain initial value) is the
@@ -145,6 +185,10 @@ export function SecureVideoPlayer({
         if (!res.ok) {
           if (cancelled) return;
           const body = await res.json().catch(() => null);
+          if (res.status === 401 && body?.code === "session-expired") {
+            await sendToLoginExpired();
+            return;
+          }
           setError(
             res.status === 429
               ? (body?.error ?? "Too many devices are streaming this account right now.")
@@ -170,6 +214,66 @@ export function SecureVideoPlayer({
     };
   }, [user, courseId, lessonId, sessionId]);
 
+  // Fetches a fresh playback token and swaps it in without losing the
+  // viewer's place. Used on a timer before expiry, when the tab wakes up, and
+  // to recover from a rejected token. A failure is silent: the old token may
+  // still be valid, and the next trigger simply tries again.
+  const refreshPlayback = useCallback(async (remount = false) => {
+    if (!user || refreshingRef.current) return;
+    refreshingRef.current = true;
+    try {
+      const player = playerRef.current;
+      const position = player?.currentTime ?? 0;
+      const wasPlaying = player ? !player.paused && !player.ended : false;
+      const idToken = await user.getIdToken();
+      const res = await fetch("/api/mux/playback-token", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${idToken}` },
+        body: JSON.stringify({ courseId, lessonId, sessionId }),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        if (res.status === 401 && body?.code === "session-expired") await sendToLoginExpired();
+        return;
+      }
+      const data = await res.json();
+      setResumeAfterRefresh({ at: position, autoplay: wasPlaying });
+      if (remount) setPlayerKey((k) => k + 1);
+      setPlayback(data);
+    } catch {
+      // See above.
+    } finally {
+      refreshingRef.current = false;
+    }
+  }, [user, courseId, lessonId, sessionId]);
+
+  const expiresAt = playback?.expiresAt;
+  useEffect(() => {
+    if (!expiresAt) return;
+    const timer = window.setTimeout(
+      () => refreshPlayback(),
+      Math.max(expiresAt - Date.now() - TOKEN_REFRESH_LEAD_MS, 0)
+    );
+    // Timers are throttled/suspended in background tabs and during sleep, so
+    // also check as soon as the tab is visible again.
+    function onVisible() {
+      if (document.visibilityState === "visible" && expiresAt! - Date.now() < TOKEN_REFRESH_LEAD_MS) {
+        refreshPlayback();
+      }
+    }
+    document.addEventListener("visibilitychange", onVisible);
+    return () => {
+      window.clearTimeout(timer);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+  }, [expiresAt, refreshPlayback]);
+
+  // Picture-in-Picture and casting/AirPlay would pull the video out of the
+  // page, taking the canvas watermark with it. See lockOutOfPip.
+  useEffect(() => {
+    lockOutOfPip(playerRef.current);
+  }, [playback]);
+
   // Belt-and-suspenders: also tells mux-player (via the id-referencing
   // `fullscreenelement` attribute it supports -- note no hyphen, unlike the
   // `fullscreen-element` mux-player-react's own prop converter would
@@ -188,22 +292,24 @@ export function SecureVideoPlayer({
     // playerRef.current is still null, and never runs again.
   }, [wrapperId, playback]);
 
-  // Hides mux-player's own fullscreen button by finding and directly
-  // hiding it in its (multiply-nested) shadow DOM -- see
-  // findMuxFullscreenButton for why a CSS custom property didn't work.
-  // Retries briefly since the button's shadow subtree may not exist yet
-  // the instant MuxPlayer itself mounts.
+  // Hides mux-player's own fullscreen and Picture-in-Picture buttons by
+  // finding and directly hiding them in its (multiply-nested) shadow DOM --
+  // see findMuxControl for why a CSS custom property didn't work. (We
+  // provide our own fullscreen button, and PiP would take the video, and its
+  // watermark overlay, out of the page.) Retries briefly since the button's
+  // shadow subtree may not exist yet the instant MuxPlayer itself mounts.
   useEffect(() => {
     if (!playback) return;
     let cancelled = false;
-    function tryHide(retriesLeft = 10) {
+    function tryHide(retriesLeft = 20) {
       if (cancelled || !playerRef.current) return;
-      const btn = findMuxFullscreenButton(playerRef.current);
-      if (btn) {
-        btn.style.display = "none";
-      } else if (retriesLeft > 0) {
-        requestAnimationFrame(() => tryHide(retriesLeft - 1));
+      let missing = false;
+      for (const selector of ["media-fullscreen-button", "media-pip-button"]) {
+        const btn = findMuxControl(playerRef.current, selector);
+        if (btn) btn.style.display = "none";
+        else missing = true;
       }
+      if (missing && retriesLeft > 0) requestAnimationFrame(() => tryHide(retriesLeft - 1));
     }
     tryHide();
     return () => {
@@ -287,7 +393,11 @@ export function SecureVideoPlayer({
 
   // Server-side position wins (it follows the student across devices); this
   // device's localStorage copy covers the case where the server has nothing.
-  const resumeAt = serverStart && serverStart > 5 ? serverStart : readSavedProgress(courseId, lessonId);
+  const resumeAt = resumeAfterRefresh && resumeAfterRefresh.at > 5
+    ? resumeAfterRefresh.at
+    : serverStart && serverStart > 5
+      ? serverStart
+      : readSavedProgress(courseId, lessonId);
 
   function seekToChapter(startSeconds: number) {
     const player = playerRef.current;
@@ -316,6 +426,11 @@ export function SecureVideoPlayer({
         }),
       });
       const data = await res.json().catch(() => null);
+      if (res.status === 401 && data?.code === "session-expired") {
+        playerRef.current?.pause();
+        await sendToLoginExpired();
+        return;
+      }
       if (data && data.allowed === false) {
         playerRef.current?.pause();
         setError("Too many devices are streaming this account right now.");
@@ -346,6 +461,7 @@ export function SecureVideoPlayer({
       onContextMenu={(e) => e.preventDefault()}
     >
       <MuxPlayer
+        key={playerKey}
         ref={playerRef}
         playbackId={playback.playbackId}
         tokens={{
@@ -355,10 +471,23 @@ export function SecureVideoPlayer({
         }}
         streamType="on-demand"
         startTime={resumeAt || undefined}
+        autoPlay={resumeAfterRefresh?.autoplay || undefined}
+        disablePictureInPicture
+        onPlaying={() => {
+          errorRecoveriesRef.current = 0;
+        }}
+        onError={() => {
+          // Most often an expired/rejected token (or a dropped connection):
+          // get a fresh token and reload at the same spot, a few times at most.
+          if (refreshingRef.current || errorRecoveriesRef.current >= MAX_ERROR_RECOVERIES) return;
+          errorRecoveriesRef.current += 1;
+          refreshPlayback(true);
+        }}
         playbackRates={PLAYBACK_RATES}
         style={isFullscreen ? { maxHeight: "100%", maxWidth: "100%" } : { aspectRatio: "16/9", width: "100%" }}
         onLoadedMetadata={() => {
           const player = playerRef.current;
+          lockOutOfPip(player);
           if (!player || chapters.length === 0 || player.chapters.length > 0) return;
           // Puts the chapter ticks on the timeline and chapter names in the
           // seek tooltip. Each chapter ends where the next begins.

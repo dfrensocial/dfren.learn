@@ -32,3 +32,17 @@
   # Node >= 20.19 / 22.12. On an older Lambda runtime every route that imports
   # firebase-admin crashes at load with ERR_REQUIRE_ESM (500, empty body).
   AWS_LAMBDA_JS_RUNTIME = "nodejs22.x"
+
+# Static marketing assets. Next's own /_next/static/* is already immutable; these
+# live in /public, which otherwise revalidates on every visit. A day of cache
+# (plus a week of serve-stale while refreshing) means repeat visitors don't
+# re-request the hero video/images, while a replaced file still shows up soon.
+[[headers]]
+  for = "/video/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"

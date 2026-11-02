@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { adminAuth, adminDb } from "@/lib/firebase/admin";
 import { checkAndRegisterSession } from "@/lib/session-limit";
+import { loginIsTooOld } from "@/lib/session-policy";
+import { sessionExpiredResponse } from "@/lib/session-expired-response";
 
 // Called periodically while a lesson is actually playing (see
 // secure-video-player.tsx) so this session counts as "active" for the
@@ -18,6 +20,7 @@ export async function POST(req: NextRequest) {
   if (!decoded) {
     return NextResponse.json({ error: "Invalid session" }, { status: 401 });
   }
+  if (loginIsTooOld(decoded.auth_time)) return sessionExpiredResponse();
 
   const { courseId, lessonId, sessionId, position, duration } = await req.json();
   if (!courseId || !lessonId || !sessionId) {

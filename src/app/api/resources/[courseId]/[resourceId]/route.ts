@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { adminAuth, adminDb } from "@/lib/firebase/admin";
 import { rateLimit } from "@/lib/rate-limit";
+import { loginIsTooOld } from "@/lib/session-policy";
 
 // Serves a course file to an enrolled student. This is a plain GET so the
 // browser can download it from an ordinary link — which can't carry a Bearer
@@ -17,7 +18,7 @@ export async function GET(
 
   const cookie = req.cookies.get("session")?.value;
   const decoded = cookie ? await adminAuth.verifySessionCookie(cookie, true).catch(() => null) : null;
-  if (!decoded) {
+  if (!decoded || loginIsTooOld(decoded.auth_time)) {
     return NextResponse.json({ error: "Please log in to download this file." }, { status: 401 });
   }
 

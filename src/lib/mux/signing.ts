@@ -14,16 +14,17 @@ const AUDIENCE_CODE: Record<PlaybackTokenType, string> = {
  * the playback ID alone is not enough to stream the asset (assets must be
  * created with playback_policy: "signed").
  */
-// 2 hours — down from the original 4h default. Kept above the course's own
-// ~1.5h runtime (with room for pausing/rewatching in one sitting) rather than
-// cut further, since the player doesn't currently refresh the token mid-play;
-// going shorter than a single viewing session would need that refresh added.
-const DEFAULT_TOKEN_TTL_SECONDS = 60 * 60 * 2;
+// 2 hours: comfortably above the ~1.5h lesson. The player refreshes the token
+// itself before it expires (and recovers if one is rejected), so a long pause
+// or a very long sitting doesn't break playback.
+export const DEFAULT_TOKEN_TTL_SECONDS = 60 * 60 * 2;
 
 export function signMuxPlaybackToken(
   playbackId: string,
   type: PlaybackTokenType = "video",
-  expiresInSeconds = DEFAULT_TOKEN_TTL_SECONDS
+  expiresInSeconds = DEFAULT_TOKEN_TTL_SECONDS,
+  // Mux playback restriction (domain lock) to enforce for this token.
+  restrictionId?: string
 ): string {
   const keyId = process.env.MUX_SIGNING_KEY_ID;
   const privateKey = process.env.MUX_SIGNING_KEY_PRIVATE?.replace(/\\n/g, "\n");
@@ -36,6 +37,7 @@ export function signMuxPlaybackToken(
     {
       sub: playbackId,
       aud: AUDIENCE_CODE[type],
+      ...(restrictionId ? { playback_restriction_id: restrictionId } : {}),
     },
     Buffer.from(privateKey, "base64").toString("utf-8"),
     {
