@@ -3,6 +3,7 @@ import { adminAuth, adminDb } from "@/lib/firebase/admin";
 import { razorpay } from "@/lib/razorpay/server";
 import { getClientIp, rateLimit } from "@/lib/rate-limit";
 import { recordOrderCreated } from "@/lib/orders";
+import { parseAcceptance } from "@/lib/legal-acceptance-server";
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req);
@@ -21,11 +22,21 @@ export async function POST(req: NextRequest) {
   const idToken = authHeader?.replace("Bearer ", "");
   const decoded = idToken ? await adminAuth.verifyIdToken(idToken).catch(() => null) : null;
 
-  const { courseId, guestEmail, attribution, ga } = await req.json();
+  const { courseId, guestEmail, attribution, ga, terms, analytics } = await req.json();
   const email = decoded?.email ?? guestEmail;
 
   if (!courseId || !email) {
     return NextResponse.json({ error: "Missing courseId or email" }, { status: 400 });
+  }
+
+  // Buying requires agreeing to the current Terms + Privacy Policy (and being
+  // 18+). The checkout box sends what was agreed; no agreement, no order.
+  const accepted = parseAcceptance(terms);
+  if (!accepted) {
+    return NextResponse.json(
+      { error: "Please agree to the Terms and Privacy Policy to continue." },
+      { status: 400 }
+    );
   }
 
   const courseSnap = await adminDb.collection("courses").doc(courseId).get();
@@ -63,6 +74,8 @@ export async function POST(req: NextRequest) {
     uid: decoded?.uid,
     amount: Number(order.amount),
     currency: order.currency,
+    analytics: analytics === true,
+    legal: accepted,
     attribution,
     ga,
     userAgent: req.headers.get("user-agent"),

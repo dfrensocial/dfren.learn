@@ -1,6 +1,5 @@
 "use client";
 
-import Script from "next/script";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -8,8 +7,11 @@ import { signInWithCustomToken, sendSignInLinkToEmail } from "firebase/auth";
 import { auth } from "@/lib/firebase/client";
 import { useAuth, syncSessionCookie } from "@/lib/firebase/auth-context";
 import { useEnrollment } from "@/lib/firebase/use-enrollment";
-import { clarityTag, courseItem, getGaIds, track } from "@/lib/analytics";
+import { analyticsAllowed, clarityTag, courseItem, getGaIds, track } from "@/lib/analytics";
 import { getAttribution } from "@/lib/attribution";
+import { AcceptTerms } from "@/components/legal/accept-terms";
+import { addAcceptanceParams, hasAcceptedCurrent, recordAcceptance } from "@/lib/legal-acceptance";
+import { rememberLoginEmail } from "@/lib/login-email";
 
 // What Razorpay's checkout reports when a payment attempt fails (no card data).
 interface RazorpayFailure {
@@ -35,8 +37,27 @@ declare global {
 // checkout the moment NEXT_PUBLIC_RAZORPAY_KEY_ID is set — no code change needed.
 const TEST_MODE = !process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
 
-// Same key the login page reads to finish an emailed-link sign-in.
-const EMAIL_LINK_STORAGE_KEY = "dfrenlearn:login-email";
+// Razorpay's script is fetched only when someone actually starts to pay, so
+// Razorpay (an independent company) sees nothing from visitors who just browse.
+let razorpayScript: Promise<void> | null = null;
+function loadRazorpay(): Promise<void> {
+  if (typeof window !== "undefined" && window.Razorpay) return Promise.resolve();
+  if (!razorpayScript) {
+    razorpayScript = new Promise<void>((resolve, reject) => {
+      const el = document.createElement("script");
+      el.src = "https://checkout.razorpay.com/v1/checkout.js";
+      el.async = true;
+      el.onload = () => resolve();
+      el.onerror = () => {
+        razorpayScript = null; // allow a retry
+        el.remove();
+        reject(new Error("razorpay script failed to load"));
+      };
+      document.head.appendChild(el);
+    });
+  }
+  return razorpayScript;
+}
 
 export function CheckoutButton({
   courseId,
@@ -55,6 +76,11 @@ export function CheckoutButton({
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [infoMessage, setInfoMessage] = useState<string | null>(null);
   const firstModalButtonRef = useRef<HTMLButtonElement>(null);
+  // The required "18+, agree to Terms, read the Privacy Policy" box.
+  const [accepted, setAccepted] = useState(false);
+  useEffect(() => {
+    Promise.resolve().then(() => setAccepted(hasAcceptedCurrent()));
+  }, []);
 
   // Basic focus trap + Escape-to-close for the test-mode modal.
   useEffect(() => {
@@ -86,9 +112,10 @@ export function CheckoutButton({
       // for whoever typed it — they prove ownership through the inbox.
       const url = new URL("/login", window.location.origin);
       url.searchParams.set("redirect", `/dashboard/courses/${courseId}?purchased=1`);
+      addAcceptanceParams(url);
       try {
         await sendSignInLinkToEmail(auth, email, { url: url.toString(), handleCodeInApp: true });
-        window.localStorage.setItem(EMAIL_LINK_STORAGE_KEY, email);
+        rememberLoginEmail(email);
         setInfoMessage(
           `Payment received — you're enrolled. We emailed a sign-in link to ${email}; open it to start watching.`
         );
@@ -118,6 +145,12 @@ export function CheckoutButton({
     setStatusMessage(null);
     setInfoMessage(null);
 
+    if (!accepted) {
+      setStatusMessage("Please tick the box to agree to the Terms and Privacy Policy before paying.");
+      return;
+    }
+    const terms = recordAcceptance();
+
     if (TEST_MODE) {
       setShowTestModal(true);
       return;
@@ -126,15 +159,28 @@ export function CheckoutButton({
     setLoading(true);
     try {
       const idToken = await user?.getIdToken();
+      // Load Razorpay first: if it is blocked or slow we stop before creating an order nobody can pay.
+      await Promise.race([
+        loadRazorpay(),
+        new Promise<never>((_, reject) => setTimeout(() => reject(new Error("razorpay load timeout")), 10_000)),
+      ]);
       const res = await fetch("/api/razorpay/create-order", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           ...(idToken ? { Authorization: `Bearer ${idToken}` } : {}),
         },
-        // attribution = where this visitor first/last came from (marketing
-        // params + referrer host only); the server stores it on the order.
-        body: JSON.stringify({ courseId, guestEmail: idToken ? undefined : email, attribution: getAttribution(), ga: getGaIds() }),
+        // terms = what they just agreed to (the server refuses to create the
+        // order without it). attribution / ga are sent only if they allowed
+        // analytics; the server saves nothing optional otherwise.
+        body: JSON.stringify({
+          courseId,
+          guestEmail: idToken ? undefined : email,
+          terms,
+          analytics: analyticsAllowed(),
+          attribution: getAttribution(),
+          ga: getGaIds(),
+        }),
       });
       if (res.status === 409) {
         setInfoMessage("You already have this course. Open it from your dashboard.");
@@ -262,10 +308,6 @@ export function CheckoutButton({
 
   return (
     <div>
-      {!TEST_MODE && (
-        <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
-      )}
-
       <form onSubmit={handleCheckout}>
         {showEmailField && !user && (
           <div className="mb-3">
@@ -288,8 +330,10 @@ export function CheckoutButton({
 
         {statusMessage && <p className="mb-3 text-sm text-red-600">{statusMessage}</p>}
         {infoMessage && (
-          <p className="mb-3 border border-black bg-neutral-50 px-3 py-2 text-sm">{infoMessage}</p>
+          <p data-clarity-mask="true" className="mb-3 border border-black bg-neutral-50 px-3 py-2 text-sm">{infoMessage}</p>
         )}
+
+        <AcceptTerms id="checkout-accept" checked={accepted} onChange={setAccepted} className="mb-3" />
 
         <button
           type="submit"

@@ -2,9 +2,9 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { track, initClarity, clarityTag, clarityIdentify } from "@/lib/analytics";
-import { captureAttribution } from "@/lib/attribution";
-import { useAuth } from "@/lib/firebase/auth-context";
+import { track, initClarity, clarityTag } from "@/lib/analytics";
+import { captureAttribution, getAttribution } from "@/lib/attribution";
+import { useConsent } from "@/lib/consent";
 
 // Module-level so they survive React re-running effects (StrictMode does this
 // in dev) without sending the same thing twice.
@@ -12,41 +12,52 @@ let lastTrackedPath: string | null = null;
 let attributionCaptured = false;
 
 /**
- * - Captures first/last-touch attribution once per full page load.
- * - Starts Clarity and tags the session with its traffic source.
- * - Sends a page_view on first load and on every client-side navigation (the
- *   Firebase SDK only counts the initial load by itself). Path only: query
- *   strings can carry redirect targets and "purchased" flags that don't
- *   belong in analytics.
- * - Links Clarity sessions of a signed-in person by their opaque uid.
+ * Everything here waits for the visitor's choice (see consent.ts):
+ * - analytics yes: remembers where they came from (first/last touch) and sends
+ *   a page_view on first load and on every client-side navigation. Path only:
+ *   query strings can carry redirect targets and one-time codes.
+ * - recordings yes: starts Clarity and tags the session with its traffic
+ *   source when we know it. Clarity is never given an account id or email.
+ * - no / undecided: does nothing at all.
  */
 export function PageViewTracker() {
   const pathname = usePathname();
-  const { user } = useAuth();
+  const { analytics, replay } = useConsent();
 
   useEffect(() => {
-    if (attributionCaptured) return;
-    attributionCaptured = true;
-    const touch = captureAttribution();
+    if (!analytics) {
+      // Withdrawn (or never given): allow a fresh start if they opt in later.
+      attributionCaptured = false;
+      lastTrackedPath = null;
+      return;
+    }
+    if (!attributionCaptured) {
+      attributionCaptured = true;
+      captureAttribution();
+    }
+  }, [analytics]);
+
+  useEffect(() => {
+    if (!replay) return;
     void initClarity();
-    void clarityTag("source", touch.source);
-    void clarityTag("medium", touch.medium);
-    if (touch.campaign) void clarityTag("campaign", touch.campaign);
-  }, []);
+    const touch = getAttribution().last;
+    if (touch) {
+      void clarityTag("source", touch.source);
+      void clarityTag("medium", touch.medium);
+      if (touch.campaign) void clarityTag("campaign", touch.campaign);
+    }
+    // pathname: a visit that began on an excluded URL (sign-in callback) starts recording once it moves on
+  }, [replay, analytics, pathname]);
 
   useEffect(() => {
-    if (user) void clarityIdentify(user.uid);
-  }, [user]);
-
-  useEffect(() => {
-    if (pathname === lastTrackedPath) return;
+    if (!analytics || pathname === lastTrackedPath) return;
     lastTrackedPath = pathname;
     track("page_view", {
       page_path: pathname,
       page_location: window.location.origin + pathname,
       page_title: document.title,
     });
-  }, [pathname]);
+  }, [pathname, analytics]);
 
   return null;
 }

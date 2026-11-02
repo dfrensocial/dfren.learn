@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { LEGAL } from "@/content/legal";
 import { AccountLinks } from "@/components/marketing/account-links";
+import { PrivacySettingsLink } from "@/components/consent/privacy-settings-link";
 
 export function LegalPage({
   title,
@@ -35,6 +36,12 @@ export function LegalPage({
             {LEGAL.contactEmail}
           </a>
           .
+        </p>
+        <p className="mt-3 text-xs text-neutral-500">
+          <Link href="/terms" className="underline">Terms</Link> ·{" "}
+          <Link href="/privacy" className="underline">Privacy</Link> ·{" "}
+          <Link href="/refund-policy" className="underline">Refunds</Link> ·{" "}
+          <PrivacySettingsLink />
         </p>
       </article>
     </main>

@@ -7,6 +7,11 @@
 //
 // Holds marketing parameters and a referrer *host* only: no email, no full
 // URLs with query strings, nothing personal.
+//
+// OPTIONAL: only stored (and only attached to an order) when the visitor has
+// said yes to analytics. Withdrawing deletes it from the device.
+
+import { analyticsConsented } from "@/lib/consent";
 
 export type Touch = {
   source: string; // e.g. google, instagram, newsletter, direct
@@ -103,8 +108,19 @@ function write(key: string, value: Touch) {
   }
 }
 
-/** Call once per full page load. First touch is set once; last touch follows any non-direct visit. */
-export function captureAttribution(): Touch {
+/** Removes everything this module stored on the device (consent withdrawn). */
+export function clearAttribution() {
+  try {
+    for (const k of [FIRST_KEY, LAST_KEY, VISITS_KEY]) window.localStorage.removeItem(k);
+    window.sessionStorage.removeItem(SESSION_FLAG);
+  } catch {
+    // ignore
+  }
+}
+
+/** Call once per full page load. First touch is set once; last touch follows any non-direct visit. No-op without analytics consent. */
+export function captureAttribution(): Touch | undefined {
+  if (!analyticsConsented()) return undefined;
   const current = classifyVisit(window.location.href, document.referrer, window.location.hostname);
   if (!read(FIRST_KEY)) write(FIRST_KEY, current);
   if (current.source !== "direct" || !read(LAST_KEY)) write(LAST_KEY, current);
@@ -120,6 +136,7 @@ export function captureAttribution(): Touch {
 }
 
 export function getAttribution(): Attribution {
+  if (!analyticsConsented()) return { visits: 0 };
   let visits = 0;
   try {
     visits = Number(window.localStorage.getItem(VISITS_KEY) ?? 0) || 0;

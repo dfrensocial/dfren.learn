@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useId, useRef, useState, type ReactNode } from "react";
 import MuxPlayer from "@mux/mux-player-react";
+import { analyticsConsented, useConsent } from "@/lib/consent";
 import type MuxPlayerElement from "@mux/mux-player";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase/client";
@@ -26,10 +27,12 @@ const TOKEN_REFRESH_LEAD_MS = 10 * 60_000;
 // more than this many times in a row (reset once playback actually starts).
 const MAX_ERROR_RECOVERIES = 3;
 
-// Resume-from-last-position is purely a per-viewer convenience: it reads and
-// writes localStorage on the viewer's own device only, never sent to a server
-// or shared between viewers, and never used to decide access — enrollment
-// checks stay entirely server-side via the playback-token route.
+// Resume-from-last-position is a per-viewer convenience kept in localStorage
+// on the viewer's own device. (A copy of the position is also saved to their
+// account by the heartbeat route, so the dashboard can show progress and
+// resume on another device -- the privacy policy says so.) It is never used
+// to decide access: enrollment checks stay entirely server-side via the
+// playback-token route.
 function progressKey(courseId: string, lessonId: string) {
   return `mux-progress:${courseId}:${lessonId}`;
 }
@@ -137,6 +140,10 @@ export function SecureVideoPlayer({
   // student across devices); falls back to this device's localStorage copy.
   const [serverStart, setServerStart] = useState<number | null>(null);
   const playerRef = useRef<MuxPlayerElement | null>(null);
+  const consent = useConsent();
+  // Fixed at mount: turning Mux Data ON mid-lesson would reload the video, so a
+  // late "accept" waits for the next lesson. Withdrawing still switches it off.
+  const [analyticsAtMount] = useState(() => analyticsConsented());
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const lastSaveRef = useRef(0);
@@ -484,6 +491,10 @@ export function SecureVideoPlayer({
         startTime={resumeAt || undefined}
         autoPlay={resumeAfterRefresh?.autoplay || undefined}
         disablePictureInPicture
+        // Mux Data (playback-quality analytics) sets a cookie and reports to Mux:
+        // optional, so it is off unless the visitor allowed analytics. The cookie is never used.
+        disableCookies
+        disableTracking={!(analyticsAtMount && consent.analytics)}
         onPlaying={() => {
           errorRecoveriesRef.current = 0;
         }}

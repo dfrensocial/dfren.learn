@@ -20,6 +20,18 @@ export default function TermsPage() {
         </p>
       </section>
       <section>
+        <h2>Who can use dfrenLearn</h2>
+        <p>
+          You must be 18 or older. When you tick the box at sign-in or before paying, you confirm that, agree
+          to these terms, and confirm you&apos;ve read the{" "}
+          <Link href="/privacy" className="underline">
+            privacy policy
+          </Link>
+          . That box doesn&apos;t switch on analytics or session recordings. Those are separate, optional and
+          off until you say yes.
+        </p>
+      </section>
+      <section>
         <h2>Your account</h2>
         <p>
           Your account is created from the email you give at checkout and you sign in with a link sent to that

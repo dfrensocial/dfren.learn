@@ -68,7 +68,7 @@ Console settings that code can't do:
 - Deploy rules: `firebase deploy --only firestore:rules,storage` if `firestore.rules` changed.
 - Razorpay → Webhooks → `https://<domain>/api/razorpay/webhook`, event `payment.captured`.
 - Mux → Webhooks → `https://<domain>/api/mux/webhook`.
-- Make sure `support@dfrenlearn.com` (used in the footer and legal pages) is a real inbox.
+- Make sure the contact/grievance inbox in `src/content/legal.ts` (`dfrensocial@gmail.com`; used in the footer, legal pages and dashboard) is monitored: privacy requests must be acknowledged within 48h and resolved within 30 days.
 
 Known limits: the rate limiter is in-memory per serverless instance (best-effort only); `middleware.ts` still uses the deprecated name (works on Next 16, migrate with the `middleware-to-proxy` codemod later).
 

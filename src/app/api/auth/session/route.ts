@@ -3,6 +3,7 @@ import { adminAuth, adminDb } from "@/lib/firebase/admin";
 import { getClientIp, rateLimit } from "@/lib/rate-limit";
 import { loginIsTooOld } from "@/lib/session-policy";
 import { sessionExpiredResponse } from "@/lib/session-expired-response";
+import { parseAcceptance } from "@/lib/legal-acceptance-server";
 
 const SESSION_EXPIRES_IN_MS = 60 * 60 * 24 * 5 * 1000; // 5 days
 
@@ -62,6 +63,24 @@ export async function POST(req: NextRequest) {
     expiresIn: SESSION_EXPIRES_IN_MS,
   });
 
+  // Proof of what this person agreed to (Terms + Privacy Policy, 18+): written
+  // once per version, from the box they ticked at login / checkout.
+  // Stored in a server-only subcollection (browsers can't edit it), one
+  // immutable doc per version pair: create() simply fails if it exists. The
+  // wait is capped so this can never stall a login.
+  const accepted = parseAcceptance(body?.legal);
+  if (accepted) {
+    const ref = adminDb
+      .collection("users")
+      .doc(decoded.uid)
+      .collection("legalAcceptances")
+      .doc(`${accepted.termsVersion}_${accepted.privacyVersion}`);
+    await Promise.race([
+      ref.create({ ...accepted, recordedAt: new Date() }).catch(() => {}),
+      new Promise((resolve) => setTimeout(resolve, 1500)),
+    ]);
+  }
+
   // Best-effort audit trail — no admin UI to view it yet, but gives a manual
   // lookup path (Firebase console) if a shared/compromised account is ever
   // reported. Never blocks the login on failure.
@@ -73,6 +92,8 @@ export async function POST(req: NextRequest) {
       at: new Date(),
       ip,
       userAgent: req.headers.get("user-agent") ?? "unknown",
+      // Security log: lets a Firestore TTL policy on this field clear old entries.
+      expireAt: new Date(Date.now() + 366 * 24 * 60 * 60 * 1000),
     })
     .catch(() => {});
 
