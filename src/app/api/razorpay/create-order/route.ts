@@ -79,6 +79,7 @@ export async function POST(req: NextRequest) {
     attribution,
     ga,
     userAgent: req.headers.get("user-agent"),
+    ip,
     headers: req.headers,
   }).catch((err) => console.error("[orders] could not record created order", order.id, err));
 

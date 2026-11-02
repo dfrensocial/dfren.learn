@@ -97,7 +97,7 @@ export function ConsentBanner() {
             <button
               type="button"
               onClick={() => decide(true, true)}
-              className="border border-black bg-black px-4 py-2.5 font-semibold text-white transition hover:bg-neutral-800"
+              className="border border-black bg-white px-4 py-2.5 font-semibold transition hover:bg-neutral-100"
             >
               Accept
             </button>
@@ -152,10 +152,10 @@ export function ConsentBanner() {
           <div className="mt-4 grid grid-cols-2 gap-2">
             <button
               type="button"
-              onClick={() => decide(analytics, replay)}
-              className="border border-black bg-black px-4 py-2.5 font-semibold text-white transition hover:bg-neutral-800"
+              onClick={() => decide(false, false)}
+              className="border border-black bg-white px-4 py-2.5 font-semibold transition hover:bg-neutral-100"
             >
-              Save choices
+              Decline all
             </button>
             <button
               type="button"
@@ -165,10 +165,14 @@ export function ConsentBanner() {
               Accept all
             </button>
           </div>
+          <button
+            type="button"
+            onClick={() => decide(analytics, replay)}
+            className="mt-2 w-full border border-black bg-white px-4 py-2.5 font-semibold transition hover:bg-neutral-100"
+          >
+            Save my choices
+          </button>
           <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-neutral-600">
-            <button type="button" onClick={() => decide(false, false)} className="underline">
-              Decline all
-            </button>
             {opened ? (
               <button
                 type="button"

@@ -57,6 +57,11 @@ export async function POST(req: NextRequest) {
   if (!(await hasCurrentAcceptance(decoded.uid))) {
     return NextResponse.json(POLICY_UPDATE_REQUIRED, { status: 403 });
   }
+  // First time this buyer opened the course: evidence the product was delivered
+  // and used (payment disputes). Written once; never blocks playback.
+  if (!enrollment.data()?.firstAccessAt) {
+    enrollment.ref.update({ firstAccessAt: new Date() }).catch(() => {});
+  }
 
   const { allowed } = await checkAndRegisterSession({ uid: decoded.uid, sessionId, courseId, lessonId });
   if (!allowed) {

@@ -24,6 +24,10 @@ export function Hero({ hero, courseId }: { hero: CourseContent["hero"]; courseId
             className="rounded-full bg-black px-8 py-4 text-base font-semibold text-white transition hover:bg-neutral-800"
           />
           <p className="text-xs text-neutral-500">{hero.ctaNote}</p>
+          <p className="max-w-md text-center text-[11px] leading-snug text-neutral-400">
+            Results vary. We don&apos;t promise any ranking, citation or income. The revenue models are methods, not
+            promised earnings.
+          </p>
         </div>
 
         <HeroVideo />

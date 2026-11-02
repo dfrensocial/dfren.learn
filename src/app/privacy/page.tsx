@@ -80,8 +80,10 @@ export default function PrivacyPage() {
           </li>
           <li>
             <strong>Security records.</strong> Your IP address and browser details each time a sign-in session
-            is issued or refreshed (roughly every 12 hours of use), plus which lesson is streaming from which
-            session. We use these to enforce the 2-stream limit, spot account sharing and investigate abuse.
+            is issued or refreshed (roughly every 12 hours of use), when you place an order, and when you download
+            a file, plus which lesson is streaming from which session and when you first opened the course. We use
+            these to enforce the 2-stream limit, spot account sharing, investigate abuse and answer payment
+            disputes.
           </li>
           <li>
             <strong>Proof you agreed.</strong> The version of the Terms and Privacy Policy you accepted, and
@@ -93,10 +95,8 @@ export default function PrivacyPage() {
             pending (we delete it after 24 hours), and your resume position.
           </li>
           <li>
-            <strong>Reaching out about a stuck payment.</strong> If a payment fails or you leave mid-checkout,
-            we may email you once to help. That&apos;s support, not marketing. Reply &ldquo;stop&rdquo; and we
-            won&apos;t write again. We send no marketing email without a separate yes from you. Today we send
-            sign-in links and support replies only.
+            <strong>Email from us.</strong> Today we send sign-in links and replies to messages you send us. We
+            send no marketing email without a separate yes from you.
           </li>
         </ul>
       </section>

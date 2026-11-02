@@ -12,9 +12,18 @@ export default function RefundPolicyPage() {
         <h2>The short version</h2>
         <p>
           The course is a digital product. You get access the moment your payment is confirmed, and you can
-          watch and download it straight away. So <strong>payments are not refundable and orders can&apos;t be
+          watch it and download the course materials straight away. So <strong>payments are not refundable and orders can&apos;t be
           cancelled once paid</strong>, including if you change your mind, haven&apos;t watched it, or don&apos;t
           find it useful. The only exceptions are the two below.
+        </p>
+      </section>
+
+      <section>
+        <h2>Delivery</h2>
+        <p>
+          Nothing is shipped. Right after payment you&apos;re signed in and the course appears in your dashboard at{" "}
+          {LEGAL.website}. We can also email you a sign-in link whenever you need one, so you can open the course
+          on any device.
         </p>
       </section>
 
@@ -45,7 +54,8 @@ export default function RefundPolicyPage() {
             <a className="underline" href={`mailto:${LEGAL.contactEmail}`}>
               {LEGAL.contactEmail}
             </a>{" "}
-            from the address you used at checkout, and include your payment ID if you have it.
+            from the address you used at checkout, and include your payment ID if you have it. The day we receive
+            your email is the day the {LEGAL.accessFixDays} days start.
           </li>
           <li>
             We reply within {LEGAL.grievanceAckHours} hours and settle the matter within {LEGAL.grievanceResolveDays}{" "}
@@ -57,6 +67,15 @@ export default function RefundPolicyPage() {
             our control.
           </li>
         </ul>
+      </section>
+
+      <section>
+        <h2>If your payment failed but money left your account</h2>
+        <p>
+          When a payment fails after your bank has debited you, the money normally goes back to you automatically
+          within about 5–7 working days. If it hasn&apos;t come back after that, email us with the payment details
+          and we&apos;ll help sort it out.
+        </p>
       </section>
 
       <section>

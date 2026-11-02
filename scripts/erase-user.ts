@@ -117,6 +117,7 @@ async function main() {
       attribution: FieldValue.delete(),
       ga: FieldValue.delete(),
       ga4PurchaseSentAt: FieldValue.delete(),
+      evidence: FieldValue.delete(),
       device: FieldValue.delete(),
       country: FieldValue.delete(),
       region: FieldValue.delete(),

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { adminAuth, adminDb } from "@/lib/firebase/admin";
-import { rateLimit } from "@/lib/rate-limit";
+import { getClientIp, rateLimit } from "@/lib/rate-limit";
 import { loginIsTooOld } from "@/lib/session-policy";
 import { hasCurrentAcceptance, POLICY_UPDATE_REQUIRED } from "@/lib/legal-acceptance-server";
 
@@ -57,7 +57,13 @@ export async function GET(
     .collection("users")
     .doc(decoded.uid)
     .collection("downloads")
-    .add({ courseId, resourceId, at: new Date() })
+    .add({
+      courseId,
+      resourceId,
+      at: new Date(),
+      ip: getClientIp(req),
+      userAgent: (req.headers.get("user-agent") ?? "unknown").slice(0, 300),
+    })
     .catch(() => {});
 
   return new NextResponse(new Uint8Array(bytes), {
