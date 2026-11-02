@@ -40,7 +40,7 @@ export default function PrivacyPage() {
       <section>
         <h2>Who we are</h2>
         <p>
-          {LEGAL.entity}, {LEGAL.address}. We run dfrenLearn at {LEGAL.website} and decide why and how your
+          {LEGAL.entity}, {LEGAL.entityType}, {LEGAL.address}. We run dfrenLearn at {LEGAL.website} and decide why and how your
           data is used. In law that makes us the data fiduciary. You can reach us at{" "}
           <a className="underline" href={`mailto:${LEGAL.contactEmail}`}>
             {LEGAL.contactEmail}

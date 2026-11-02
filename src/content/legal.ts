@@ -4,8 +4,9 @@ export const LEGAL = {
   brand: "dfrenLearn",
   website: "learn.dfren.in",
   // Registered business name on the Razorpay account — keep identical to it.
-  // (Legal form suffix, e.g. LLP / Pvt Ltd, still to be confirmed by the owner.)
   entity: "DFREN Marketing Agency",
+  // Confirmed from the Razorpay business details (brand name: Dfren).
+  entityType: "a partnership firm",
   address: "7/16, Lutheran Church St, Kadaperi, Tambaram, Tamil Nadu 600045, India",
   // One inbox for support, privacy requests and grievances.
   contactEmail: "dfrensocial@gmail.com",
