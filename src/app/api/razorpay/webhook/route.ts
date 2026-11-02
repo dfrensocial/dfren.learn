@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { razorpay, verifyRazorpayWebhookSignature } from "@/lib/razorpay/server";
 import { grantCourseAccess } from "@/lib/razorpay/grant-access";
 import { isValidPublishedCourse } from "@/lib/razorpay/validate-course";
+import { recordWebhookEvent } from "@/lib/orders";
 
 // Razorpay signs the raw request body, so it must be read as text, not parsed as JSON first.
 // This is the idempotent fallback for /api/razorpay/verify — it covers a browser
@@ -15,6 +16,14 @@ export async function POST(req: NextRequest) {
   }
 
   const event = JSON.parse(rawBody);
+
+  // Business ledger: failures (with Razorpay's reason), authorizations,
+  // captures with method/fee, refunds, disputes. Best-effort and first, so
+  // even an event the access logic below ignores is still recorded; a ledger
+  // problem can never change the response or block granting access.
+  await recordWebhookEvent(event.event, event.payload ?? {}).catch((err) =>
+    console.error("[orders] could not record webhook event", event.event, err)
+  );
 
   if (event.event === "payment.captured") {
     const payment = event.payload.payment.entity;

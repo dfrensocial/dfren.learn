@@ -4,6 +4,7 @@ import { razorpay, verifyRazorpayPaymentSignature } from "@/lib/razorpay/server"
 import { grantCourseAccess } from "@/lib/razorpay/grant-access";
 import { isValidPublishedCourse } from "@/lib/razorpay/validate-course";
 import { getClientIp, rateLimit } from "@/lib/rate-limit";
+import { recordPaid } from "@/lib/orders";
 
 // Called by the client right after Razorpay's checkout handler fires. The
 // signature check only proves orderId+paymentId are a genuine pair from
@@ -57,6 +58,15 @@ export async function POST(req: NextRequest) {
   const caller = idToken ? await adminAuth.verifyIdToken(idToken).catch(() => null) : null;
 
   const { user, claimable } = await grantCourseAccess({ email, courseId, paymentId });
+
+  // Business ledger (best-effort; never affects the buyer's access).
+  await recordPaid(orderId, paymentId, "verify", {
+    courseId,
+    email,
+    amount: Number(order?.amount),
+    currency: order?.currency,
+    createdAt: order?.created_at ? new Date(Number(order.created_at) * 1000) : undefined,
+  }).catch((err) => console.error("[orders] could not record paid order", orderId, err));
 
   // A sign-in token is only handed out for a brand-new, never-signed-in
   // account (see grantCourseAccess) — the email here was typed by whoever

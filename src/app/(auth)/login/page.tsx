@@ -197,6 +197,7 @@ function LoginForm() {
           <form onSubmit={handleConfirmEmailSubmit} className="mt-6 flex flex-col gap-3">
             <input
               type="email"
+              data-clarity-mask="true"
               required
               autoFocus
               placeholder="Email"
@@ -275,6 +276,7 @@ function LoginForm() {
           >
             <input
               type="email"
+              data-clarity-mask="true"
               required
               placeholder="Email"
               value={email}
