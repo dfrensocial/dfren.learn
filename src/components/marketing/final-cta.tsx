@@ -10,6 +10,7 @@ export function FinalCTA({ courseId }: { courseId: string }) {
         <CourseCta
           courseId={courseId}
           label="Enroll in the GEO Course"
+          location="final"
           className="mt-8 inline-block rounded-full bg-white px-8 py-4 font-semibold text-black transition hover:bg-neutral-200"
         />
       </div>

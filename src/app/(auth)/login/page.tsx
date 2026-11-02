@@ -12,6 +12,7 @@ import Link from "next/link";
 import { auth } from "@/lib/firebase/client";
 import { syncSessionCookie, refreshSessionCookie, useAuth } from "@/lib/firebase/auth-context";
 import { safeRedirectPath } from "@/lib/safe-redirect";
+import { track } from "@/lib/analytics";
 
 const EMAIL_LINK_STORAGE_KEY = "dfrenlearn:login-email";
 
@@ -65,8 +66,10 @@ function LoginForm() {
       const { user } = await signInWithEmailLink(auth, emailForLink, window.location.href);
       window.localStorage.removeItem(EMAIL_LINK_STORAGE_KEY);
       await syncSessionCookie(user);
+      track("login", { method: "email_link" });
       router.push(safeRedirectPath(searchParams.get("redirect")));
     } catch {
+      track("login_link_invalid");
       setError("That sign-in link is invalid or has expired.");
       setLinkMode(false);
       setNeedsEmailConfirm(false);
@@ -154,6 +157,7 @@ function LoginForm() {
       window.localStorage.setItem(LINK_SENT_AT_KEY, String(Date.now()));
       setCooldownLeft(RESEND_COOLDOWN_SECONDS);
       setLinkSent(true);
+      track("login_link_requested");
     } catch (err) {
       const code = (err as { code?: string } | null)?.code ?? "";
       setError(

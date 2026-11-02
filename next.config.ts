@@ -23,6 +23,8 @@ const scriptSrc = [
   "'unsafe-inline'",
   "https://checkout.razorpay.com",
   "https://*.razorpay.com",
+  // Google Analytics (GA4 via Firebase) loads gtag.js from here.
+  "https://www.googletagmanager.com",
   ...(process.env.NODE_ENV !== "production" ? ["'unsafe-eval'"] : []),
 ].join(" ");
 
@@ -38,7 +40,7 @@ const CSP = [
   "img-src 'self' data: blob: https:",
   "media-src 'self' blob: https:",
   "font-src 'self' data:",
-  "connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.mux.com https://inferred.litix.io https://*.razorpay.com",
+  "connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.mux.com https://inferred.litix.io https://*.razorpay.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com",
   "frame-src https://api.razorpay.com https://checkout.razorpay.com https://razorpay.com https://rzp.io",
   "form-action 'self' https://razorpay.com https://rzp.io https://*.razorpay.com",
   "frame-ancestors 'none'",

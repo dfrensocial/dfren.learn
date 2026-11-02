@@ -8,6 +8,7 @@ import { signInWithCustomToken, sendSignInLinkToEmail } from "firebase/auth";
 import { auth } from "@/lib/firebase/client";
 import { useAuth, syncSessionCookie } from "@/lib/firebase/auth-context";
 import { useEnrollment } from "@/lib/firebase/use-enrollment";
+import { courseItem, track } from "@/lib/analytics";
 
 declare global {
   interface Window {
@@ -123,6 +124,9 @@ export function CheckoutButton({
       }
       if (!res.ok) throw new Error("create-order failed");
       const { order } = await res.json();
+      const value = order.amount / 100;
+      const items = [courseItem(courseId, courseTitle, value)];
+      track("begin_checkout", { currency: order.currency, value, items });
 
       const razorpay = new window.Razorpay({
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
@@ -146,20 +150,33 @@ export function CheckoutButton({
               body: JSON.stringify({ ...response, courseId, email }),
             });
             if (!verifyRes.ok) throw new Error("verify failed");
+            // transaction_id is Razorpay's order id (not personal data); GA4
+            // dedupes purchases on it.
+            track("purchase", {
+              transaction_id: response.razorpay_order_id,
+              currency: order.currency,
+              value,
+              items,
+            });
             await completeSignIn(await verifyRes.json(), email);
           } catch {
+            track("checkout_error", { stage: "verify" });
             setStatusMessage(
               "Payment succeeded but we couldn't confirm it — contact support with your payment ID."
             );
           }
         },
         modal: {
-          ondismiss: () => setStatusMessage("Checkout cancelled."),
+          ondismiss: () => {
+            track("checkout_dismissed", { value });
+            setStatusMessage("Checkout cancelled.");
+          },
         },
         prefill: { email },
       });
       razorpay.open();
     } catch {
+      track("checkout_error", { stage: "create_order" });
       setStatusMessage("Couldn't start checkout. Please try again.");
     } finally {
       setLoading(false);

@@ -20,6 +20,7 @@ export function Hero({ hero, courseId }: { hero: CourseContent["hero"]; courseId
           <CourseCta
             courseId={courseId}
             label={hero.ctaLabel}
+            location="hero"
             className="rounded-full bg-black px-8 py-4 text-base font-semibold text-white transition hover:bg-neutral-800"
           />
           <p className="text-xs text-neutral-500">{hero.ctaNote}</p>

@@ -6,6 +6,7 @@ import type MuxPlayerElement from "@mux/mux-player";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase/client";
 import { endExpiredSession, useAuth } from "@/lib/firebase/auth-context";
+import { track } from "@/lib/analytics";
 import { paintWatermarkOverlay } from "@/lib/watermark/paint-overlay";
 import { ChapterList } from "@/components/course/chapter-list";
 import type { Chapter, CourseProgress } from "@/types/course";
@@ -142,6 +143,16 @@ export function SecureVideoPlayer({
   const lastHeartbeatRef = useRef(0); // wall-clock ms, not media time — seeking must not stall it
   const repaintRef = useRef<() => void>(() => {});
   const refreshingRef = useRef(false);
+  // Which lesson events have already fired for this lesson (each fires once),
+  // and the last playhead position, so a seek past a milestone isn't counted
+  // as having watched it.
+  const lessonEventsRef = useRef<{
+    lessonId: string;
+    started: boolean;
+    marks: Set<number>;
+    lastTime: number;
+    watched: number; // seconds actually played (continuous playback only)
+  }>({ lessonId, started: false, marks: new Set(), lastTime: 0, watched: 0 });
   const errorRecoveriesRef = useRef(0);
   // One random ID per player mount — reloading the page is a new "session"
   // (correct: this caps simultaneous playing streams, not devices over time).
@@ -499,6 +510,13 @@ export function SecureVideoPlayer({
             }))
           );
         }}
+        onPlay={() => {
+          const ev = lessonEventsRef.current;
+          if (ev.lessonId !== lessonId) Object.assign(ev, { lessonId, started: false, marks: new Set(), lastTime: 0, watched: 0 });
+          if (ev.started) return;
+          ev.started = true;
+          track("lesson_start", { course_id: courseId, lesson_id: lessonId });
+        }}
         onPause={() => {
           // Pin the exact stopping point (progress is otherwise sampled every 20s).
           if (Date.now() - lastHeartbeatRef.current > 2000) sendHeartbeat();
@@ -506,6 +524,25 @@ export function SecureVideoPlayer({
         onTimeUpdate={() => {
           const current = playerRef.current?.currentTime;
           if (current == null) return;
+          {
+            // 25/50/75% milestones, counted only on continuous playback.
+            const ev = lessonEventsRef.current;
+            const duration = playerRef.current?.duration;
+            const continuous = current >= ev.lastTime && current - ev.lastTime < 3;
+            if (continuous) ev.watched += current - ev.lastTime;
+            ev.lastTime = current;
+            if (continuous && duration && Number.isFinite(duration)) {
+              for (const mark of [25, 50, 75]) {
+                // Credit a milestone only while the playhead is passing through it
+                // (within 15s after it), never because the viewer seeked beyond it.
+                const markTime = (duration * mark) / 100;
+                if (current >= markTime && current < markTime + 15 && !ev.marks.has(mark)) {
+                  ev.marks.add(mark);
+                  track("lesson_progress", { course_id: courseId, lesson_id: lessonId, percent: mark });
+                }
+              }
+            }
+          }
           if (chapters.length > 0) {
             let idx = 0;
             for (let i = 0; i < chapters.length; i++) if (chapters[i].start <= current) idx = i;
@@ -522,6 +559,13 @@ export function SecureVideoPlayer({
           }
         }}
         onEnded={() => {
+          // "Complete" means the lesson was really watched (>= 80% of its runtime
+          // played), not just that the viewer scrubbed to the end.
+          const ev = lessonEventsRef.current;
+          const duration = playerRef.current?.duration;
+          if (duration && ev.watched >= duration * 0.8) {
+            track("lesson_complete", { course_id: courseId, lesson_id: lessonId });
+          }
           clearProgress(courseId, lessonId);
           sendHeartbeat();
         }}
