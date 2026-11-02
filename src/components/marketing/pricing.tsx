@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { CheckoutButton } from "@/components/course/checkout-button";
 import { TrackOnView } from "@/components/analytics/track-on-view";
 import type { CourseContent } from "@/content/courses/geo-blueprint";
@@ -48,7 +49,11 @@ export function Pricing({
             <CheckoutButton courseId={courseId} courseTitle={pricing.productLabel} />
           </div>
           <p className="mt-3 text-xs text-neutral-500">
-            Secure checkout via Razorpay.
+            Secure checkout via Razorpay. Instant digital access, so payments are non-refundable except as in the{" "}
+            <Link href="/refund-policy" className="underline">
+              refund policy
+            </Link>
+            .
           </p>
         </div>
         </TrackOnView>

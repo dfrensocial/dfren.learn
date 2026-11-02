@@ -8,7 +8,6 @@ import { Bonus } from "@/components/marketing/bonus";
 import { Instructor } from "@/components/marketing/instructor";
 import { Testimonials } from "@/components/marketing/testimonials";
 import { Pricing } from "@/components/marketing/pricing";
-import { Guarantee } from "@/components/marketing/guarantee";
 import { FAQ } from "@/components/marketing/faq";
 import { FinalCTA } from "@/components/marketing/final-cta";
 import { MarketingFooter } from "@/components/marketing/footer";
@@ -44,7 +43,6 @@ export default function LandingPage() {
       <Instructor instructor={course.instructor} />
       <Testimonials testimonials={course.testimonials} />
       <Pricing courseId={course.id} pricing={course.pricing} />
-      <Guarantee />
       <FAQ />
       <FinalCTA courseId={course.id} />
       <MarketingFooter />

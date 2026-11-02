@@ -20,8 +20,8 @@ const FAQS = [
     a: "Lifetime, including future updates as the AI search landscape changes.",
   },
   {
-    q: "What if I'm not happy with the course?",
-    a: "Full refund within 7 days, no questions asked — see the guarantee above.",
+    q: "Can I get a refund?",
+    a: "The course is a digital product with instant access, so payments aren't refundable. We do refund an extra charge, or a payment where you can't get access and we can't fix it within 30 days. Details are in the cancellation and refund policy linked in the footer.",
   },
   {
     q: "How is the course delivered?",

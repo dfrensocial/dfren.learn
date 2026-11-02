@@ -8,6 +8,7 @@ import { rateLimit } from "@/lib/rate-limit";
 import { loginIsTooOld } from "@/lib/session-policy";
 import { sessionExpiredResponse } from "@/lib/session-expired-response";
 import { issueWatermark } from "@/lib/watermark/issue";
+import { hasCurrentAcceptance, POLICY_UPDATE_REQUIRED } from "@/lib/legal-acceptance-server";
 
 // Issues a short-lived, per-viewer signed token — never expose a raw playback ID to the client.
 export async function POST(req: NextRequest) {
@@ -51,6 +52,15 @@ export async function POST(req: NextRequest) {
 
   if (!enrollment.exists) {
     return NextResponse.json({ error: "Not enrolled in this course" }, { status: 403 });
+  }
+  // Updated Terms/Privacy not accepted yet: no new playback until they are.
+  if (!(await hasCurrentAcceptance(decoded.uid))) {
+    return NextResponse.json(POLICY_UPDATE_REQUIRED, { status: 403 });
+  }
+  // First time this buyer opened the course: evidence the product was delivered
+  // and used (payment disputes). Written once; never blocks playback.
+  if (!enrollment.data()?.firstAccessAt) {
+    enrollment.ref.update({ firstAccessAt: new Date() }).catch(() => {});
   }
 
   const { allowed } = await checkAndRegisterSession({ uid: decoded.uid, sessionId, courseId, lessonId });

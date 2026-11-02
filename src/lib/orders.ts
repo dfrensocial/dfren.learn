@@ -120,6 +120,8 @@ export async function recordOrderCreated(o: {
   attribution?: unknown;
   ga?: unknown;
   userAgent: string | null;
+  /** Caller's IP: kept with the order as dispute evidence (listed under "Security records" in the privacy policy). */
+  ip?: string;
   headers: Headers;
 }): Promise<void> {
   const geo = o.analytics ? parseGeo(o.headers) : {};
@@ -137,6 +139,9 @@ export async function recordOrderCreated(o: {
         createdAt: new Date(),
         updatedAt: new Date(),
         legal: o.legal,
+        // Evidence for a payment dispute: who placed the order and from what. Needed to give
+        // the service, so not tied to the analytics choice.
+        evidence: o.ip ? { ip: o.ip, userAgent: (o.userAgent ?? "unknown").slice(0, 300) } : undefined,
         // Optional extras: kept only when the visitor said yes to analytics.
         ...(o.analytics
           ? {

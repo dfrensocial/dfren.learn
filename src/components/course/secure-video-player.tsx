@@ -210,7 +210,9 @@ export function SecureVideoPlayer({
           setError(
             res.status === 429
               ? (body?.error ?? "Too many devices are streaming this account right now.")
-              : "You don't have access to this lesson."
+              : body?.code === "policy-update-required"
+                ? "We've updated our policies. Reload the page to review and accept them."
+                : "You don't have access to this lesson."
           );
           return;
         }

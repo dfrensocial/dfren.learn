@@ -12,11 +12,14 @@ export function AcceptTerms({
   checked,
   onChange,
   className = "",
+  refunds = false,
 }: {
   id: string;
   checked: boolean;
   onChange: (checked: boolean) => void;
   className?: string;
+  /** At checkout: also point at the no-refund rule, so it is stated before payment. */
+  refunds?: boolean;
 }) {
   return (
     <label htmlFor={id} className={`flex cursor-pointer items-start gap-2 text-left text-xs leading-relaxed text-neutral-700 ${className}`}>
@@ -37,6 +40,17 @@ export function AcceptTerms({
           Privacy Policy
         </Link>
         .
+        {refunds && (
+          <>
+            {" "}
+            I understand this is a digital course with instant access and that payments are non-refundable except
+            as set out in the{" "}
+            <Link href="/refund-policy" target="_blank" className="underline">
+              Refund Policy
+            </Link>
+            .
+          </>
+        )}
       </span>
     </label>
   );
