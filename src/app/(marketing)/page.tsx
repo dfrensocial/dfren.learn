@@ -36,7 +36,7 @@ export default function LandingPage() {
   return (
     <main className="min-h-screen bg-white text-black">
       <MarketingNav />
-      <Hero hero={course.hero} />
+      <Hero hero={course.hero} courseId={course.id} />
       <StatsBar stats={course.stats} />
       <Problem />
       <Curriculum curriculum={course.curriculum} />
@@ -46,7 +46,7 @@ export default function LandingPage() {
       <Pricing courseId={course.id} pricing={course.pricing} />
       <Guarantee />
       <FAQ />
-      <FinalCTA />
+      <FinalCTA courseId={course.id} />
       <MarketingFooter />
     </main>
   );

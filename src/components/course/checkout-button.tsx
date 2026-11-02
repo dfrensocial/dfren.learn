@@ -2,10 +2,12 @@
 
 import Script from "next/script";
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signInWithCustomToken, sendSignInLinkToEmail } from "firebase/auth";
 import { auth } from "@/lib/firebase/client";
 import { useAuth, syncSessionCookie } from "@/lib/firebase/auth-context";
+import { useEnrollment } from "@/lib/firebase/use-enrollment";
 
 declare global {
   interface Window {
@@ -28,6 +30,7 @@ export function CheckoutButton({
   courseTitle: string;
 }) {
   const { user } = useAuth();
+  const { enrolled } = useEnrollment(courseId);
   const router = useRouter();
   const [guestEmail, setGuestEmail] = useState("");
   const [showEmailField, setShowEmailField] = useState(false);
@@ -188,6 +191,18 @@ export function CheckoutButton({
   function handleSimulateFailure() {
     setShowTestModal(false);
     setStatusMessage("Payment failed. Please try again.");
+  }
+
+  // Already owns it: no second purchase, just a way in.
+  if (enrolled) {
+    return (
+      <Link
+        href={`/dashboard/courses/${courseId}`}
+        className="block w-full bg-black px-6 py-3 text-center font-semibold text-white transition hover:bg-neutral-800"
+      >
+        You own this course — continue learning
+      </Link>
+    );
   }
 
   return (
