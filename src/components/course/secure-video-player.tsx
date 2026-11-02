@@ -5,7 +5,7 @@ import MuxPlayer from "@mux/mux-player-react";
 import type MuxPlayerElement from "@mux/mux-player";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase/client";
-import { useAuth } from "@/lib/firebase/auth-context";
+import { endExpiredSession, useAuth } from "@/lib/firebase/auth-context";
 import { paintWatermarkOverlay } from "@/lib/watermark/paint-overlay";
 import { ChapterList } from "@/components/course/chapter-list";
 import type { Chapter, CourseProgress } from "@/types/course";
@@ -92,6 +92,15 @@ function lockOutOfPip(player: MuxPlayerElement | null) {
   video.setAttribute("x-webkit-airplay", "deny");
 }
 
+// The server says this login has outlived its allowed lifetime: sign out and
+// send the viewer to the email sign-in, coming back to this lesson afterwards.
+async function sendToLoginExpired() {
+  await endExpiredSession();
+  // Deliberate full page load: resets all client-side auth state after sign-out.
+  // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+  window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+}
+
 export function SecureVideoPlayer({
   courseId,
   lessonId,
@@ -176,6 +185,10 @@ export function SecureVideoPlayer({
         if (!res.ok) {
           if (cancelled) return;
           const body = await res.json().catch(() => null);
+          if (res.status === 401 && body?.code === "session-expired") {
+            await sendToLoginExpired();
+            return;
+          }
           setError(
             res.status === 429
               ? (body?.error ?? "Too many devices are streaming this account right now.")
@@ -218,7 +231,11 @@ export function SecureVideoPlayer({
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${idToken}` },
         body: JSON.stringify({ courseId, lessonId, sessionId }),
       });
-      if (!res.ok) return;
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        if (res.status === 401 && body?.code === "session-expired") await sendToLoginExpired();
+        return;
+      }
       const data = await res.json();
       setResumeAfterRefresh({ at: position, autoplay: wasPlaying });
       if (remount) setPlayerKey((k) => k + 1);
@@ -409,6 +426,11 @@ export function SecureVideoPlayer({
         }),
       });
       const data = await res.json().catch(() => null);
+      if (res.status === 401 && data?.code === "session-expired") {
+        playerRef.current?.pause();
+        await sendToLoginExpired();
+        return;
+      }
       if (data && data.allowed === false) {
         playerRef.current?.pause();
         setError("Too many devices are streaming this account right now.");

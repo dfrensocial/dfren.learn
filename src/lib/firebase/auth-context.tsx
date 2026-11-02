@@ -1,8 +1,9 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import { onAuthStateChanged, User } from "firebase/auth";
+import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { auth } from "./client";
+import { MAX_LOGIN_AGE_SECONDS } from "@/lib/session-policy";
 
 interface AuthContextValue {
   user: User | null;
@@ -20,6 +21,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     return onAuthStateChanged(auth, (firebaseUser) => {
+      // Absolute login lifetime: the browser login itself never expires, so
+      // enforce the cap here too (the server enforces it independently).
+      const lastSignIn = Date.parse(firebaseUser?.metadata.lastSignInTime ?? "");
+      if (Number.isFinite(lastSignIn) && Date.now() - lastSignIn > MAX_LOGIN_AGE_SECONDS * 1000) {
+        setUser(null);
+        setLoading(false);
+        void endExpiredSession();
+        return;
+      }
       setUser(firebaseUser);
       setLoading(false);
       if (firebaseUser) {
@@ -67,6 +77,12 @@ export async function refreshSessionCookie(user: User): Promise<boolean> {
   } catch {
     return false;
   }
+}
+
+/** The login outlived its allowed lifetime: drop both the cookie and the Firebase login. */
+export async function endExpiredSession() {
+  await clearSessionCookie().catch(() => {});
+  await signOut(auth).catch(() => {});
 }
 
 export async function clearSessionCookie() {

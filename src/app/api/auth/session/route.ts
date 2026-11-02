@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { adminAuth, adminDb } from "@/lib/firebase/admin";
 import { getClientIp, rateLimit } from "@/lib/rate-limit";
+import { loginIsTooOld } from "@/lib/session-policy";
+import { sessionExpiredResponse } from "@/lib/session-expired-response";
 
 const SESSION_EXPIRES_IN_MS = 60 * 60 * 24 * 5 * 1000; // 5 days
 
@@ -53,6 +55,8 @@ export async function POST(req: NextRequest) {
   if (!decoded) {
     return NextResponse.json({ error: "Invalid ID token" }, { status: 401 });
   }
+  // Re-minting the cookie must not extend a login past its absolute lifetime.
+  if (loginIsTooOld(decoded.auth_time)) return sessionExpiredResponse();
 
   const sessionCookie = await adminAuth.createSessionCookie(idToken, {
     expiresIn: SESSION_EXPIRES_IN_MS,

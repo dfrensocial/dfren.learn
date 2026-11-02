@@ -5,6 +5,8 @@ import { getPlaybackRestrictionId } from "@/lib/mux/restriction";
 import { lessonMuxDataRef } from "@/lib/mux/lesson-doc";
 import { checkAndRegisterSession } from "@/lib/session-limit";
 import { rateLimit } from "@/lib/rate-limit";
+import { loginIsTooOld } from "@/lib/session-policy";
+import { sessionExpiredResponse } from "@/lib/session-expired-response";
 import { issueWatermark } from "@/lib/watermark/issue";
 
 // Issues a short-lived, per-viewer signed token — never expose a raw playback ID to the client.
@@ -19,6 +21,7 @@ export async function POST(req: NextRequest) {
   if (!decoded) {
     return NextResponse.json({ error: "Invalid session" }, { status: 401 });
   }
+  if (loginIsTooOld(decoded.auth_time)) return sessionExpiredResponse();
 
   // Per-account (not per-IP — sharing routes through different IPs) cap on
   // how many tokens one account can pull in an hour. Generous: normal use is

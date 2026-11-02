@@ -15,6 +15,22 @@ import { safeRedirectPath } from "@/lib/safe-redirect";
 
 const EMAIL_LINK_STORAGE_KEY = "dfrenlearn:login-email";
 
+// Politeness + abuse brake: one sign-in email per browser per minute. Kept in
+// localStorage so a page refresh doesn't reset it. (Firebase enforces its own
+// server-side limits too; this just stops accidental double-sends and
+// hammering from the UI.)
+const LINK_SENT_AT_KEY = "dfrenlearn:link-sent-at";
+const RESEND_COOLDOWN_SECONDS = 60;
+
+function secondsUntilResend(): number {
+  try {
+    const sentAt = Number(window.localStorage.getItem(LINK_SENT_AT_KEY) ?? 0);
+    return Math.max(0, Math.ceil((sentAt + RESEND_COOLDOWN_SECONDS * 1000 - Date.now()) / 1000));
+  } catch {
+    return 0;
+  }
+}
+
 export default function LoginPage() {
   return (
     <Suspense>
@@ -31,6 +47,7 @@ function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [linkSent, setLinkSent] = useState(false);
+  const [cooldownLeft, setCooldownLeft] = useState(0);
   // null until we've looked at the URL after mount. It can't be decided during
   // render: the server has no window, so reading it there makes the server
   // HTML (the form) disagree with the browser's first render ("Signing you
@@ -104,9 +121,22 @@ function LoginForm() {
     finishEmailLinkSignIn(confirmEmail);
   }
 
+  // Counts the resend cooldown down; also picks it up again after a refresh.
+  useEffect(() => {
+    const tick = () => setCooldownLeft(secondsUntilResend());
+    Promise.resolve().then(tick);
+    const id = window.setInterval(tick, 1000);
+    return () => window.clearInterval(id);
+  }, []);
+
   async function handleSendLink() {
     if (!email) {
       setError("Enter your email first.");
+      return;
+    }
+    const wait = secondsUntilResend();
+    if (wait > 0) {
+      setError(`Please wait ${wait}s before requesting another link.`);
       return;
     }
     setError(null);
@@ -121,9 +151,18 @@ function LoginForm() {
         handleCodeInApp: true,
       });
       window.localStorage.setItem(EMAIL_LINK_STORAGE_KEY, email);
+      window.localStorage.setItem(LINK_SENT_AT_KEY, String(Date.now()));
+      setCooldownLeft(RESEND_COOLDOWN_SECONDS);
       setLinkSent(true);
-    } catch {
-      setError("Couldn't send a sign-in link to that address.");
+    } catch (err) {
+      const code = (err as { code?: string } | null)?.code ?? "";
+      setError(
+        code === "auth/too-many-requests" || code === "auth/quota-exceeded"
+          ? "Too many sign-in requests right now. Please wait a few minutes and try again."
+          : code === "auth/invalid-email"
+            ? "That doesn't look like a valid email address."
+            : "Couldn't send a sign-in link to that address."
+      );
     } finally {
       setSubmitting(false);
     }
@@ -190,10 +229,33 @@ function LoginForm() {
       <h1 className="text-2xl font-bold tracking-tight">Log in</h1>
 
       {linkSent ? (
-        <p className="mt-6 text-sm text-neutral-600">
-          Check <span className="font-medium">{email}</span> for your sign-in
-          link. It can take a minute — look in spam if it doesn&apos;t show up.
-        </p>
+        <div className="mt-6 text-sm text-neutral-600">
+          <p>
+            Check <span className="font-medium">{email}</span> for your sign-in
+            link. It can take a minute — look in spam if it doesn&apos;t show up.
+          </p>
+          {error && <p className="mt-3 text-red-600">{error}</p>}
+          <div className="mt-4 flex items-center gap-4">
+            <button
+              type="button"
+              onClick={handleSendLink}
+              disabled={submitting || cooldownLeft > 0}
+              className="font-medium text-black underline disabled:text-neutral-400 disabled:no-underline"
+            >
+              {submitting ? "Sending..." : cooldownLeft > 0 ? `Resend in ${cooldownLeft}s` : "Resend link"}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setLinkSent(false);
+                setError(null);
+              }}
+              className="font-medium text-black underline"
+            >
+              Use a different email
+            </button>
+          </div>
+        </div>
       ) : (
         <>
           <p className="mt-2 text-sm text-neutral-600">
@@ -218,10 +280,10 @@ function LoginForm() {
             {error && <p className="text-sm text-red-600">{error}</p>}
             <button
               type="submit"
-              disabled={submitting}
+              disabled={submitting || cooldownLeft > 0}
               className="bg-black px-4 py-3 font-semibold text-white transition hover:bg-neutral-800 disabled:opacity-50"
             >
-              {submitting ? "Sending..." : "Email me a sign-in link"}
+              {submitting ? "Sending..." : cooldownLeft > 0 ? `Wait ${cooldownLeft}s` : "Email me a sign-in link"}
             </button>
           </form>
 
