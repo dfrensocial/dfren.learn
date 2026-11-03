@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   title: "GEO guides for learners in India | dfrenLearn blog",
   description: "Plain guides on learning GEO, AI SEO and AEO in India: courses compared by price, what the research says, and what to charge.",
   alternates: { canonical: "https://learn.dfren.in/blog" },
+  openGraph: { title: "GEO guides for learners in India", description: "Plain guides on learning GEO, AI SEO and AEO in India.", url: "https://learn.dfren.in/blog", type: "website", siteName: "dfrenLearn", images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "The GEO Blueprint: a 1.5-hour GEO course by dfrenLearn" }] },
+  twitter: { card: "summary_large_image", images: ["/opengraph-image"] },
 };
 
 export default function BlogIndex() {

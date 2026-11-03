@@ -29,7 +29,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       siteName: "dfrenLearn",
       publishedTime: post.date,
       modifiedTime: post.updated,
+      images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "The GEO Blueprint: a 1.5-hour GEO course by dfrenLearn" }],
     },
+    twitter: { card: "summary_large_image", title: post.seoTitle, description: post.description, images: ["/opengraph-image"] },
   };
 }
 

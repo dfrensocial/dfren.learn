@@ -12,7 +12,7 @@ export function MarketingNav() {
     <header className="sticky top-0 z-50 border-b border-black bg-white">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
         <Link href="/" className="text-lg font-bold tracking-tight">
-          dfren<span className="text-neutral-400">Learn</span>
+          dfren<span className="text-neutral-500">Learn</span>
         </Link>
         <nav className="flex items-center gap-6 text-sm font-medium">
           <Link href="#curriculum" className="hidden sm:inline hover:underline">

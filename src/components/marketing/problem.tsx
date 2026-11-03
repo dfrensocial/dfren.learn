@@ -32,7 +32,25 @@ export function Problem() {
             2 billion monthly users
           </a>{" "}
           by July 2025. GEO, or generative engine optimization, is the work of making your site easy for these
-          assistants to find, understand and recommend.
+          assistants to find, understand and recommend. The term comes from a{" "}
+          <a
+            href="https://arxiv.org/abs/2311.09735"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            2023 research paper
+          </a>
+          , and in a{" "}
+          <a
+            href="https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            Pew Research study
+          </a>{" "}
+          US users clicked a result in 8% of visits with an AI summary, against 15% without.
         </p>
         <div className="mt-10 grid gap-6 sm:grid-cols-2">
           {PAIN_POINTS.map((point) => (

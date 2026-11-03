@@ -18,7 +18,7 @@ export function Curriculum({
         <ol className="mt-10 divide-y divide-black border border-black">
           {curriculum.modules.map((module, i) => (
             <li key={module.title} className="flex gap-4 p-5 sm:gap-6 sm:p-6">
-              <span className="text-2xl font-bold text-neutral-300">
+              <span className="text-2xl font-bold text-neutral-500">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <div>

@@ -2,7 +2,8 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { LEGAL } from "@/content/legal";
 
-const FAQS: { q: string; a: ReactNode }[] = [
+// `text` is the plain-text answer used for FAQPage structured data when `a` is JSX.
+const FAQS: { q: string; a: ReactNode; text?: string }[] = [
   {
     q: "What is GEO?",
     a: "GEO, or generative engine optimization, is the work of structuring a website and its content so AI assistants like ChatGPT, Gemini and Claude can find it, understand it and recommend it. SEO aims to get you ranked. GEO aims to get you named in the answer.",
@@ -21,6 +22,7 @@ const FAQS: { q: string; a: ReactNode }[] = [
   },
   {
     q: "What is Litmus?",
+    text: "Litmus is a GEO audit tool built by the same team as the course (litmus.aivirex.in). The course uses it in a live demo to score a real website against all 6 pillars with a fixed rubric, instead of the shifting scores you get from asking a chatbot.",
     a: (
       <>
         Litmus is a GEO audit tool built by the same team as the course (
@@ -46,6 +48,7 @@ const FAQS: { q: string; a: ReactNode }[] = [
   },
   {
     q: "Can I get a refund?",
+    text: `The course is a digital product with instant access, so payments aren't refundable for a change of mind. We do refund an extra charge, or a payment where you can't get access and we can't fix it within ${LEGAL.accessFixDays} days. Details are in the refund policy.`,
     a: (
       <>
         The course is a digital product with instant access, so payments aren&apos;t refundable for a change of mind. We
@@ -64,6 +67,10 @@ const FAQS: { q: string; a: ReactNode }[] = [
   },
 ];
 
+export function faqForSchema() {
+  return FAQS.map((item) => ({ q: item.q, a: typeof item.a === "string" ? item.a : (item.text ?? "") }));
+}
+
 export function FAQ() {
   return (
     <section id="faq" className="scroll-mt-16">
@@ -76,7 +83,7 @@ export function FAQ() {
             <details key={item.q} className="group p-5">
               <summary className="flex cursor-pointer list-none items-center justify-between font-semibold">
                 {item.q}
-                <span className="ml-4 text-neutral-400 group-open:rotate-45 transition-transform">
+                <span className="ml-4 text-neutral-600 group-open:rotate-45 transition-transform">
                   +
                 </span>
               </summary>

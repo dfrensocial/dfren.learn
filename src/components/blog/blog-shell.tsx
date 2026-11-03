@@ -9,7 +9,7 @@ export function BlogShell({ children }: { children: React.ReactNode }) {
       <header className="border-b border-black px-6 py-4">
         <div className="mx-auto flex max-w-5xl items-center justify-between">
           <Link href="/" className="text-lg font-bold tracking-tight">
-            dfren<span className="text-neutral-400">Learn</span>
+            dfren<span className="text-neutral-500">Learn</span>
           </Link>
           <nav className="flex items-center gap-6 text-sm font-medium">
             <Link href="/blog" className="hover:underline">

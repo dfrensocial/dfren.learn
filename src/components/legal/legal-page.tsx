@@ -15,7 +15,7 @@ export function LegalPage({
       <header className="border-b border-black px-6 py-4">
         <div className="mx-auto flex max-w-5xl items-center justify-between">
           <Link href="/" className="text-lg font-bold tracking-tight">
-            dfren<span className="text-neutral-400">Learn</span>
+            dfren<span className="text-neutral-500">Learn</span>
           </Link>
           <nav className="flex items-center gap-6">
             <AccountLinks showEnroll />
@@ -25,7 +25,8 @@ export function LegalPage({
       <article className="mx-auto max-w-2xl px-6 py-12 text-sm leading-relaxed text-neutral-800">
         <h1 className="text-3xl font-bold tracking-tight text-black">{title}</h1>
         <p className="mt-2 text-neutral-500">
-          dfrenLearn is operated by {LEGAL.entity}. Last updated {LEGAL.updated}.
+          dfrenLearn is operated by {LEGAL.entity}. Last updated{" "}
+          <time dateTime={LEGAL.updatedISO}>{LEGAL.updated}</time>.
         </p>
         <div className="mt-8 space-y-8 [&_h2]:mb-2 [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:text-black [&_li]:ml-5 [&_li]:list-disc [&_ul]:mt-2 [&_ul]:space-y-1">
           {children}
