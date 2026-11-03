@@ -4,8 +4,9 @@ seoTitle: Learn ChatGPT and AI tools in Tamil: free courses (2026)
 description: Free and paid ways to learn ChatGPT and AI tools in Tamil, from Entri's free courses to a 4-hour Udemy course, and the next step after: GEO. Checked 3 Nov 2026.
 date: 2026-11-03
 updated: 2026-11-03
-author: K Sai Anirudh
-authorRole: Founder, AiVirex Innovations
+author: dfrenLearn Team
+authorRole: Research and writing, Dfren
+authorUrl: https://dfren.in
 tag: Learn in Tamil
 related: how-to-learn-geo-in-tamil, geo-course-in-tamil, tamil-vs-english-geo-course
 ---

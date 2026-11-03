@@ -4,8 +4,9 @@ seoTitle: GEO retainer pricing in India: ₹35,000 to ₹3,50,000
 description: Published GEO retainers in India run from ₹35,000 to ₹3,50,000 a month. See what each tier includes, where sources disagree and how to check a quote.
 date: 2026-11-03
 updated: 2026-11-03
-author: K Sai Anirudh
-authorRole: Founder, AiVirex Innovations
+author: dfrenLearn Team
+authorRole: Research and writing, Dfren
+authorUrl: https://dfren.in
 tag: Pricing
 related: how-much-geo-audit, geo-earnings-india, make-money-with-ai-geo-2026
 ---

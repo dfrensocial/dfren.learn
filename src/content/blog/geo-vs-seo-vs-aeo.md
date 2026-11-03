@@ -4,8 +4,9 @@ seoTitle: GEO vs SEO vs AEO vs AI SEO: the difference explained (2026)
 description: GEO, SEO, AEO and AI SEO overlap a lot. Plain definitions, what really changed, and which one to learn first, with sources and India search data.
 date: 2026-11-03
 updated: 2026-11-03
-author: K Sai Anirudh
-authorRole: Founder, AiVirex Innovations
+author: AiVirex Team
+authorRole: Research and writing, AiVirex Innovations
+authorUrl: https://aivirex.in
 tag: Terms
 related: ai-seo-or-geo-term, is-geo-rebranded-seo, where-can-i-learn-geo
 ---

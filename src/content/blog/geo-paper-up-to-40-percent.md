@@ -4,8 +4,9 @@ seoTitle: GEO research paper: what "up to 40%" really means
 description: The 2023 paper behind GEO tested 9 methods on 10,000 queries. Here is what it found, what it didn't test and which 3 changes did best.
 date: 2026-11-03
 updated: 2026-11-03
-author: K Sai Anirudh
-authorRole: Founder, AiVirex Innovations
+author: AiVirex Team
+authorRole: Research and writing, AiVirex Innovations
+authorUrl: https://aivirex.in
 tag: Research
 related: is-geo-rebranded-seo, learn-geo-30-days, geo-vs-seo-vs-aeo
 ---

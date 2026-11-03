@@ -44,74 +44,74 @@ export const geoBlueprintCourse: CourseContent = {
   title: "The GEO Blueprint",
   hero: {
     kicker: "The GEO Blueprint",
-    headline: "Get your business recommended by ChatGPT, Gemini, and Claude",
+    headline: "Learn how to get your business recommended by ChatGPT, Gemini and Claude",
     subheadline:
-      "A practical course on Generative Engine Optimization — how it actually works, and how to turn it into income. 1.5 hours, no fluff, built around a real audit tool and two working revenue models.",
-    ctaLabel: "Enroll now — lifetime access",
-    ctaNote: "One-time payment. No subscription.",
+      "A 1.5-hour GEO course: how AI assistants pick their answers, the 6 pillars to fix on a website, a live audit, and two ways to charge for the work.",
+    ctaLabel: "Get the course for ₹499",
+    ctaNote: "One-time payment, no subscription. Taught mostly in Tamil, with English terms mixed in.",
   },
   stats: [
-    { value: "1.5 hrs", label: "runtime, no filler" },
-    { value: "6", label: "GEO pillars covered" },
-    { value: "2", label: "revenue models" },
-    { value: "Lifetime", label: "access & updates" },
+    { value: "1.5 hrs", label: "of video, no filler" },
+    { value: "6", label: "GEO pillars" },
+    { value: "2", label: "ways to charge for GEO work" },
+    { value: "₹499", label: "one time" },
   ],
   curriculum: {
-    heading: "What's inside",
+    heading: "What you learn in 1.5 hours",
     subheading:
-      "One 1.5-hour sitting, in the order you actually need it — foundation first, the 6 pillars second, monetization last.",
+      "Six short modules in the order you need them: how AI answers work, what to fix on a site, then how to use it for clients.",
     modules: [
       {
-        title: "1 — How AI Actually Picks the Next Word",
+        title: "1. How AI picks its next word",
         description:
-          "The plain-terms mental model of how a transformer predicts an answer — no equations, just what every GEO tactic is actually influencing.",
+          "A plain-language look at how a model like ChatGPT predicts an answer, with no equations. Every GEO tactic is an attempt to influence this one process.",
       },
       {
-        title: "2 — SEO vs GEO: What Changed and Why",
+        title: "2. SEO vs GEO: what changed",
         description:
-          "Google Search → Voice → AI Search. Where SEO and GEO overlap, where they diverge, and why ranking well doesn't guarantee an AI citation.",
+          "From Google search to voice to AI assistants. Where SEO and GEO overlap, where they differ, and why ranking well on Google doesn't guarantee an AI recommendation.",
       },
       {
-        title: "3 — The 6 Pillars of GEO",
+        title: "3. The 6 pillars of GEO",
         description:
-          "Technical Optimization, Answer-First Content, Citation Authority, AI Comprehension, Content Freshness, and Content Depth — plus the quick win for each.",
+          "Technical optimization, answer-first content, citation authority, AI comprehension, content freshness and content depth, each with a quick win you can apply the same day.",
       },
       {
-        title: "4 — Why Manual Audits Don't Work (and the Fix)",
+        title: "4. Why manual audits don't work, and a live audit",
         description:
-          "Why asking ChatGPT to grade your site gives a different score every time, and a live demo of Litmus running a fixed, repeatable 6-pillar audit.",
+          "Why asking ChatGPT to grade your site gives a different score every time, and a live demo of Litmus scoring a real website against all 6 pillars with a fixed rubric.",
       },
       {
-        title: "5 — Two Ways to Turn GEO Into Revenue",
+        title: "5. Two ways to turn GEO into income",
         description:
-          "Charging to fix what an audit finds, and charging on an ongoing basis for content — both laid out as a step-by-step client workflow.",
+          "Charging to fix what an audit finds, and charging monthly for content. Both are laid out as a step-by-step workflow you can run with a client.",
       },
       {
-        title: "6 — Client Onboarding & Proving It Worked",
+        title: "6. Onboarding a client and proving the work",
         description:
-          "Setting up tracking before you start, setting timeline expectations, and turning a before/after into the case study that wins your next client.",
+          "Setting up tracking before you start, setting honest timeline expectations, and turning a before-and-after into the case study that helps you win the next client.",
       },
     ],
   },
   bonus: {
-    heading: "Comes with the material, not just the video",
+    heading: "Also included: the working files",
     items: [
       {
         title: "Client research questionnaire",
         description:
-          "The exact set of questions to send a client before writing a single word — becomes your source of truth for their content.",
+          "The questions to send a client before you write a word for them. Their answers become the source of truth for everything you publish.",
       },
       {
         title: "Claude Code prompt pack",
         description:
-          "Ready-to-use prompts for brand voice, competitive research, and blog writing — the same prompts used to turn client answers into published content.",
+          "Ready-to-use prompts for brand voice, competitor research and blog writing, so you aren't starting from a blank page on every client.",
       },
     ],
   },
   instructor: {
     name: "K Sai Anirudh",
     title: "Founder, AiVirex Innovations",
-    bio: "Before writing a single slide of this course, Sai and the AiVirex team spent time researching GEO properly — papers, testing, real iteration — because most tools marketed as “AI visibility scanners” turned out to be a URL wrapped in a ChatGPT prompt, giving a different score every time you ran it. That research became Litmus, a GEO audit tool that scores a site against a fixed, repeatable rubric instead of guessing — and this course teaches the same six-pillar framework it's built on, plus how to charge for it.",
+    bio: "Before writing this course, Sai and the AiVirex team spent time on GEO research: papers, testing and a lot of iteration. They found that many “AI visibility” tools simply wrap a URL in a ChatGPT prompt, so the score changes every time you run it. That work became Litmus, an audit tool that scores a site against a fixed rubric. The course teaches the same six-pillar framework, and how to charge for it.",
     linkedinUrl: "https://www.linkedin.com/in/sai-anirudh-415001168/",
   },
   // Left empty on purpose: the Testimonials section renders nothing until
@@ -121,10 +121,10 @@ export const geoBlueprintCourse: CourseContent = {
     productLabel: "The GEO Blueprint",
     priceInPaise: 49900,
     includes: [
-      "1.5 hours of video — the 6 GEO pillars, no filler",
+      "1.5 hours of video: the 6 GEO pillars, a live audit and 2 ways to charge for the work",
       "The GEO quick-win checklist from the course",
-      "Client research questionnaire + Claude Code prompt pack",
-      "Lifetime access, including future updates",
+      "Client research questionnaire and Claude Code prompt pack",
+      "Access for as long as the course is offered, with updates included",
     ],
   },
 };

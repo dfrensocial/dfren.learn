@@ -16,7 +16,7 @@ export function Pricing({
     <section id="pricing" className="border-b border-black scroll-mt-16">
       <div className="mx-auto max-w-md px-6 py-16 text-center sm:py-20">
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          One price. Lifetime access.
+          One price. No subscription.
         </h2>
 
         <TrackOnView

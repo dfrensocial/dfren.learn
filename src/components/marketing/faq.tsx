@@ -1,31 +1,66 @@
-const FAQS = [
+import type { ReactNode } from "react";
+import Link from "next/link";
+import { LEGAL } from "@/content/legal";
+
+const FAQS: { q: string; a: ReactNode }[] = [
   {
-    q: "Do I need existing SEO experience?",
-    a: "No. The course starts from how a language model actually predicts an answer, then builds up to the 6 GEO pillars — no prior SEO background assumed.",
+    q: "What is GEO?",
+    a: "GEO, or generative engine optimization, is the work of structuring a website and its content so AI assistants like ChatGPT, Gemini and Claude can find it, understand it and recommend it. SEO aims to get you ranked. GEO aims to get you named in the answer.",
+  },
+  {
+    q: "Who is this course for?",
+    a: "Business owners who want their own site to show up in AI answers, and marketers, freelancers and agencies who want to offer GEO audits and content to clients. You don't need to know SEO first. It starts from how an AI model produces an answer and builds up to the 6 pillars.",
+  },
+  {
+    q: "Will this get my business recommended by ChatGPT?",
+    a: "We can't promise that, and no one honestly can. AI answers change from one run to the next, and content has to be published, crawled and cited before it can show up, which takes weeks to a few months. The course teaches what to fix and how to measure it. The result depends on your site and your market.",
   },
   {
     q: "Is this just SEO with a new name?",
-    a: "No. SEO and GEO share fundamentals — content quality, structure, authority — but SEO chases rank position and clicks while GEO chases citation and recommendation. The course covers exactly where they overlap and where they diverge.",
+    a: "Partly overlapping, not identical. Content quality, structure, authority and a healthy site matter for both. SEO chases rank position and clicks. GEO chases being cited and recommended inside an answer, and strong SEO alone doesn't guarantee that. The course covers where they overlap and where they differ.",
   },
   {
     q: "What is Litmus?",
-    a: "A GEO audit tool built by the same team, used in the course's live demo. It scores a site against a fixed, repeatable rubric across all 6 pillars instead of the inconsistent scores you get from asking a chatbot directly.",
+    a: (
+      <>
+        Litmus is a GEO audit tool built by the same team as the course (
+        <a href="https://litmus.aivirex.in" target="_blank" rel="noopener noreferrer" className="underline">
+          litmus.aivirex.in
+        </a>
+        ). The course uses it in a live demo to score a real website against all 6 pillars with a fixed rubric, instead
+        of the shifting scores you get from asking a chatbot.
+      </>
+    ),
   },
   {
-    q: "Is this a theory course or does it cover making money from it?",
-    a: "Both — the second half covers two concrete revenue models: charging to fix what a GEO audit finds, and charging an ongoing retainer for content, including how to onboard and set expectations with a client.",
+    q: "Does it cover making money from GEO?",
+    a: "Yes. The second half covers two ways to charge for GEO: fixing what an audit finds, and an ongoing monthly fee for content. It also covers client onboarding and setting honest expectations. These are methods, not promised earnings.",
+  },
+  {
+    q: "What language is the course in?",
+    a: "Mostly Tamil, with English terms mixed in, since words like schema, citation and audit are used in English anyway.",
   },
   {
     q: "How long do I have access?",
-    a: "Lifetime, including future updates as the AI search landscape changes.",
+    a: "For as long as the course is offered on dfrenLearn, with updates included. The exact wording is in the Terms linked in the footer.",
   },
   {
     q: "Can I get a refund?",
-    a: "The course is a digital product with instant access, so payments aren't refundable. We do refund an extra charge, or a payment where you can't get access and we can't fix it within 30 days. Details are in the cancellation and refund policy linked in the footer.",
+    a: (
+      <>
+        The course is a digital product with instant access, so payments aren&apos;t refundable for a change of mind. We
+        do refund an extra charge, or a payment where you can&apos;t get access and we can&apos;t fix it within {LEGAL.accessFixDays} days.
+        Details are in the{" "}
+        <Link href="/refund-policy" className="underline">
+          refund policy
+        </Link>
+        .
+      </>
+    ),
   },
   {
     q: "How is the course delivered?",
-    a: "Streamed directly on this site, accessible from your dashboard after checkout.",
+    a: "You stream it on this site from your dashboard after checkout. No app to install.",
   },
 ];
 

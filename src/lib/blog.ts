@@ -16,6 +16,7 @@ export type Post = {
   updated: string;
   author: string;
   authorRole: string;
+  authorUrl: string;
   tag: string;
   related: string[];
   html: string; // article body up to "Sources"
@@ -61,6 +62,7 @@ function load(file: string): Post {
     updated: meta.updated ?? meta.date ?? "",
     author: meta.author ?? "",
     authorRole: meta.authorRole ?? "",
+    authorUrl: meta.authorUrl ?? "",
     tag: meta.tag ?? "",
     related: (meta.related ?? "").split(",").map((s) => s.trim()).filter(Boolean),
     html: render(main),

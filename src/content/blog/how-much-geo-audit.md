@@ -4,8 +4,9 @@ seoTitle: How much to charge for a GEO audit in India (₹, 2026)
 description: Published GEO audit prices run from about ₹47,358 ($500) to ₹8,00,000. See who publishes which number, why they differ and how to price a first audit.
 date: 2026-11-03
 updated: 2026-11-03
-author: K Sai Anirudh
-authorRole: Founder, AiVirex Innovations
+author: Litmus Team
+authorRole: Research and writing, Litmus by AiVirex
+authorUrl: https://litmus.aivirex.in
 tag: Pricing
 related: geo-retainer-pricing-india, geo-earnings-india, learn-geo-30-days
 ---

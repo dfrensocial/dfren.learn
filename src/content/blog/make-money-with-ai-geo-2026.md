@@ -4,8 +4,9 @@ seoTitle: Make money with AI in 2026: learn GEO, then sell it
 description: One real way to earn with AI is helping local businesses get named by AI assistants. What the work is, what sellers charge, what's unknown and a 90-day plan.
 date: 2026-11-03
 updated: 2026-11-03
-author: K Sai Anirudh
-authorRole: Founder, AiVirex Innovations
+author: dfrenLearn Team
+authorRole: Research and writing, Dfren
+authorUrl: https://dfren.in
 tag: Making money
 related: geo-earnings-india, how-much-geo-audit, learn-geo-30-days
 ---

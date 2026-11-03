@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { BlogShell } from "@/components/blog/blog-shell";
 import { ArticleCta } from "@/components/blog/article-cta";
 import { formatDate, getAllPosts, getPost } from "@/lib/blog";
-import { geoBlueprintCourse } from "@/content/courses/geo-blueprint";
 
 export const dynamicParams = false;
 
@@ -49,7 +48,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     description: post.description,
     datePublished: post.date,
     dateModified: post.updated,
-    author: { "@type": "Person", name: post.author, jobTitle: post.authorRole, sameAs: [geoBlueprintCourse.instructor.linkedinUrl] },
+    author: { "@type": "Organization", name: post.author, ...(post.authorUrl ? { url: post.authorUrl } : {}) },
     publisher: { "@type": "Organization", name: "dfrenLearn", url: "https://learn.dfren.in" },
     mainEntityOfPage: `https://learn.dfren.in/blog/${post.slug}`,
   };
@@ -68,9 +67,13 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           <h1 className="mt-2 text-3xl font-bold leading-tight tracking-tight sm:text-4xl">{post.title}</h1>
           <p className="mt-4 text-sm text-neutral-600">
             By{" "}
-            <a href={geoBlueprintCourse.instructor.linkedinUrl} target="_blank" rel="noopener noreferrer" className="font-medium text-black underline underline-offset-2">
-              {post.author}
-            </a>
+            {post.authorUrl ? (
+              <a href={post.authorUrl} target="_blank" rel="noopener noreferrer" className="font-medium text-black underline underline-offset-2">
+                {post.author}
+              </a>
+            ) : (
+              <span className="font-medium text-black">{post.author}</span>
+            )}
             , {post.authorRole} · Published {formatDate(post.date)} · Updated {formatDate(post.updated)} ·{" "}
             {Math.max(1, Math.round(post.words / 220))} min read
           </p>

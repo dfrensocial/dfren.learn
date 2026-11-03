@@ -11,10 +11,11 @@ export function ArticleCta() {
   return (
     <aside className="my-12 border border-black p-6">
       <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">The GEO Blueprint</p>
-      <h2 className="mt-2 text-xl font-bold tracking-tight">Learn the method in about 1.5 hours</h2>
+      <h2 className="mt-2 text-xl font-bold tracking-tight">Get the course and learn the full GEO method for your site</h2>
       <p className="mt-3 text-sm leading-relaxed text-neutral-700">
-        {geoBlueprintCourse.curriculum.modules.length} short modules on how AI assistants pick answers, the 6 pillars of GEO and how to run an
-        audit. It comes with a client questionnaire and a prompt pack. It is taught mostly in Tamil, with English terms mixed in.
+        {geoBlueprintCourse.curriculum.modules.length} short modules, about 1.5 hours: how AI assistants pick answers, the 6 pillars of GEO to fix on your site, a live audit
+        and how to track the results. It also comes with a client questionnaire and a prompt pack. It is taught mostly in
+        Tamil, with English terms mixed in.
       </p>
       <p className="mt-3 text-sm font-medium">₹{price.toLocaleString("en-IN")}, one time. No subscription.</p>
       <div className="mt-5 flex flex-wrap items-center gap-4 text-sm">

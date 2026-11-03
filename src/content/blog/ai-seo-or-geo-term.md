@@ -4,8 +4,9 @@ seoTitle: AI SEO or GEO: which term do Indians search? (2026 data)
 description: In India, AI SEO and AEO are searched about 13 times more than generative engine optimization. Real Google Trends numbers and what to put on your page.
 date: 2026-11-03
 updated: 2026-11-03
-author: K Sai Anirudh
-authorRole: Founder, AiVirex Innovations
+author: AiVirex Team
+authorRole: Research and writing, AiVirex Innovations
+authorUrl: https://aivirex.in
 tag: Terms
 related: geo-vs-seo-vs-aeo, is-geo-rebranded-seo, where-can-i-learn-geo
 ---

@@ -4,8 +4,9 @@ seoTitle: GEO freelancer earnings in India: what data exists (2026)
 description: There's no independent data on GEO earnings in India. Here are the nearest numbers: SEO salaries, small-business fees and agency prices, with their limits.
 date: 2026-11-03
 updated: 2026-11-03
-author: K Sai Anirudh
-authorRole: Founder, AiVirex Innovations
+author: dfrenLearn Team
+authorRole: Research and writing, Dfren
+authorUrl: https://dfren.in
 tag: Pricing
 related: geo-retainer-pricing-india, how-much-geo-audit, make-money-with-ai-geo-2026
 ---

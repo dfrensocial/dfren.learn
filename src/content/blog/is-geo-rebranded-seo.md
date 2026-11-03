@@ -4,8 +4,9 @@ seoTitle: Is GEO just rebranded SEO? Mostly, with 3 real changes
 description: Critics say GEO is recycled SEO. We check what's the same, what's new (clicks, AI answers, new platforms) and what no one has proven, with sources.
 date: 2026-11-03
 updated: 2026-11-03
-author: K Sai Anirudh
-authorRole: Founder, AiVirex Innovations
+author: AiVirex Team
+authorRole: Research and writing, AiVirex Innovations
+authorUrl: https://aivirex.in
 tag: Terms
 related: geo-vs-seo-vs-aeo, ai-seo-or-geo-term, free-vs-paid-geo-course
 ---
