@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
 import Link from "next/link";
 import { LegalPage } from "@/components/legal/legal-page";
 import { LEGAL } from "@/content/legal";
@@ -9,11 +10,11 @@ export const metadata: Metadata = {
   description:
     "dfrenLearn is run by DFREN Marketing Agency in Tambaram, Chennai. It publishes The GEO Blueprint, a 1.5-hour GEO course by AiVirex Innovations, and plain guides on GEO.",
   alternates: { canonical: "/about" },
-  openGraph: { url: "https://learn.dfren.in/about", type: "website", images: [{ url: "/opengraph-image", width: 1200, height: 630 }] },
+  openGraph: { url: `${SITE_URL}/about`, type: "website", images: [{ url: "/opengraph-image", width: 1200, height: 630 }] },
   twitter: { card: "summary_large_image", images: ["/opengraph-image"] },
 };
 
-const SITE = "https://learn.dfren.in";
+const SITE = SITE_URL;
 
 export default function AboutPage() {
   const jsonLd = {
@@ -37,8 +38,8 @@ export default function AboutPage() {
           <Link href="/" className="underline">
             The GEO Blueprint
           </Link>
-          , and publishes plain guides on GEO, or generative engine optimization: how to make a website easy for
-          assistants like ChatGPT, Gemini and Claude to find, understand and recommend.
+          . It also publishes plain guides on GEO, or generative engine optimization. GEO means making a website easy
+          for assistants like ChatGPT, Gemini and Claude to find, understand and recommend.
         </p>
       </section>
       <section>
@@ -63,6 +64,53 @@ export default function AboutPage() {
         </ul>
         <p className="mt-2">
           It has no certificate and no student reviews yet, and we make no promise of rankings, mentions or income.
+        </p>
+      </section>
+      <section>
+        <h2>Why GEO matters</h2>
+        <p>
+          More people now ask an AI assistant for a recommendation before they open a website. India has about 100 million
+          weekly ChatGPT users, according to a{" "}
+          <a
+            href="https://www.techcrunch.com/2026/02/15/india-has-100m-weekly-active-chatgpt-users-sam-altman-says/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            February 2026 TechCrunch report
+          </a>
+          . Google&apos;s AI Overviews reached{" "}
+          <a
+            href="https://techcrunch.com/2025/07/23/googles-ai-overviews-have-2b-monthly-users-ai-mode-100m-in-the-us-and-india"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            2 billion monthly users
+          </a>{" "}
+          by July 2025. A business that these assistants cannot find or describe correctly may never be named. GEO is the
+          work of fixing that.
+        </p>
+      </section>
+      <section>
+        <h2>Who the course is for</h2>
+        <ul>
+          <li>Business owners who want their own site to show up in AI answers.</li>
+          <li>Marketers, freelancers and agencies who want to offer GEO audits or content to clients.</li>
+          <li>Tamil speakers who want to learn in the language they think in.</li>
+        </ul>
+        <p className="mt-2">You do not need to know SEO first. The course starts from how an AI model writes an answer.</p>
+      </section>
+      <section>
+        <h2>How we write our guides</h2>
+        <p>
+          Every guide links its sources and says where the evidence is thin. We mark opinion as opinion, and we say that we
+          sell a course. We do not promise rankings, mentions or income, because nobody can. The research behind the term
+          GEO is a{" "}
+          <a href="https://arxiv.org/abs/2311.09735" target="_blank" rel="noopener noreferrer" className="underline">
+            2023 paper
+          </a>{" "}
+          from Indian and US researchers, and our guides also cite Google, OpenAI and Pew Research.
         </p>
       </section>
       <section>

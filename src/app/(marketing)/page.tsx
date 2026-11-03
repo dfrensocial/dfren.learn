@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
 import { MarketingNav } from "@/components/marketing/nav";
 import { Hero } from "@/components/marketing/hero";
 import { StatsBar } from "@/components/marketing/stats-bar";
 import { Problem } from "@/components/marketing/problem";
 import { Curriculum } from "@/components/marketing/curriculum";
+import { AtAGlance } from "@/components/marketing/at-a-glance";
 import { Bonus } from "@/components/marketing/bonus";
 import { Instructor } from "@/components/marketing/instructor";
 import { Testimonials } from "@/components/marketing/testimonials";
@@ -28,7 +30,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "dfrenLearn",
     locale: "en_IN",
-    url: "https://learn.dfren.in",
+    url: SITE_URL,
     images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "The GEO Blueprint: a 1.5-hour GEO course by dfrenLearn" }],
   },
   twitter: {
@@ -39,7 +41,7 @@ export const metadata: Metadata = {
   },
 };
 
-const SITE = "https://learn.dfren.in";
+const SITE = SITE_URL;
 
 // Structured data for the home page: who we are, the course and its price, and the
 // FAQ. Everything here is also visible on the page; no ratings or reviews are
@@ -50,32 +52,17 @@ function homeJsonLd() {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Organization",
-        "@id": `${SITE}/#organization`,
-        name: LEGAL.entity,
-        alternateName: ["Dfren", "dfrenLearn", "Dfren Learn"],
+        "@type": "WebPage",
+        "@id": `${SITE}/#webpage`,
         url: SITE,
-        logo: { "@type": "ImageObject", url: `${SITE}/apple-icon`, width: 180, height: 180 },
-        description: "DFREN Marketing Agency (brand: Dfren) runs dfrenLearn, which publishes The GEO Blueprint course and guides on generative engine optimization.",
-        knowsAbout: ["Generative engine optimization", "Answer engine optimization", "AI search visibility"],
-        email: LEGAL.contactEmail,
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: "7/16, Lutheran Church St, Kadaperi, Tambaram",
-          addressRegion: "Tamil Nadu",
-          postalCode: "600045",
-          addressCountry: "IN",
-        },
-        sameAs: ["https://dfren.in", "https://aivirex.in", "https://litmus.aivirex.in"],
-      },
-      {
-        "@type": "WebSite",
-        "@id": `${SITE}/#website`,
-        url: SITE,
-        name: "dfrenLearn",
-        alternateName: ["Dfren Learn", "The GEO Blueprint by dfrenLearn"],
+        name: PAGE_TITLE,
+        description: PAGE_DESCRIPTION,
         inLanguage: "en-IN",
+        isPartOf: { "@id": `${SITE}/#website` },
+        about: { "@id": `${SITE}/#course` },
         publisher: { "@id": `${SITE}/#organization` },
+        datePublished: LEGAL.publishedISO,
+        dateModified: LEGAL.siteUpdatedISO,
       },
       {
         "@type": "Course",
@@ -86,7 +73,8 @@ function homeJsonLd() {
         url: SITE,
         inLanguage: ["ta", "en"],
         provider: { "@id": `${SITE}/#organization` },
-        author: { "@type": "Person", name: course.instructor.name, jobTitle: course.instructor.title, sameAs: [course.instructor.linkedinUrl] },
+        author: { "@id": `${SITE}/#instructor` },
+        datePublished: LEGAL.publishedISO,
         dateModified: LEGAL.siteUpdatedISO,
         timeRequired: "PT1H30M",
         hasCourseInstance: { "@type": "CourseInstance", courseMode: "online", courseWorkload: "PT1H30M" },
@@ -121,6 +109,7 @@ export default function LandingPage() {
       <StatsBar stats={course.stats} />
       <Problem />
       <Curriculum curriculum={course.curriculum} />
+      <AtAGlance pricing={course.pricing} />
       <Bonus bonus={course.bonus} />
       <Instructor instructor={course.instructor} />
       <Testimonials testimonials={course.testimonials} />

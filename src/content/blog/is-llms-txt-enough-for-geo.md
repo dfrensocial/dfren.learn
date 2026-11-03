@@ -1,5 +1,5 @@
 ---
-title: Is adding llms.txt enough for GEO and AEO? What it does and doesn't do
+title: llms.txt vs real GEO: is llms.txt enough for AI visibility in 2026?
 seoTitle: Is llms.txt enough for GEO and AEO? What it does and doesn't do
 description: No. Google says llms.txt neither helps nor harms Google Search, and a study of 300,000 domains found no link to AI citations. What to do instead.
 date: 2026-11-03
@@ -11,7 +11,7 @@ tag: Technical guides
 related: geo-vs-seo-vs-aeo, is-geo-rebranded-seo, learn-geo-30-days
 ---
 
-# Is adding llms.txt enough for GEO and AEO? What it does and doesn't do
+# llms.txt vs real GEO: is llms.txt enough for AI visibility in 2026?
 
 No. Adding an llms.txt file isn't a GEO or AEO strategy. Google's own guide says Google Search ignores these files, so they neither help nor harm your visibility there. Evidence for other AI tools is thin, and none of the big AI companies we checked has said it reads the file. It's harmless to add if you want one. Just don't count on it.
 
@@ -104,6 +104,13 @@ Make sure crawlers can reach your pages, then rewrite your top pages so each sec
 ## Sources
 
 Checked 3 November 2026.
+
+**Key facts**
+
+- llms.txt was proposed on 3 September 2024 by Jeremy Howard ([llmstxt.org](https://llmstxt.org/)).
+- 10.13% of about 300,000 domains had an llms.txt file, with no measurable link to AI citations ([SE Ranking via Search Engine Journal](https://www.searchenginejournal.com/llms-txt-shows-no-clear-effect-on-ai-citations-based-on-300k-domains/561542/), 20 November 2025).
+- On one site over about 20 days, Google, Anthropic and OpenAI crawlers fetched robots.txt 1,150 times and llms.txt 4 times ([dejan.ai](https://dejan.ai/blog/crawler-census-robots-llms-okf/), August 2026).
+- Google's guide says Google Search ignores llms.txt ([Google, added 15 May 2026](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)).
 
 - [llmstxt.org: the llms.txt proposal](https://llmstxt.org/)
 - [Google Search Central: AI optimization guide](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)

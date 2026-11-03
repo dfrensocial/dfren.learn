@@ -41,7 +41,7 @@ export function Problem() {
           >
             2023 research paper
           </a>
-          , and in a{" "}
+          . In a{" "}
           <a
             href="https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/"
             target="_blank"
@@ -49,8 +49,8 @@ export function Problem() {
             className="underline"
           >
             Pew Research study
-          </a>{" "}
-          US users clicked a result in 8% of visits with an AI summary, against 15% without.
+          </a>
+          , US users clicked a result in 8% of visits with an AI summary. Without one, they clicked in 15%.
         </p>
         <div className="mt-10 grid gap-6 sm:grid-cols-2">
           {PAIN_POINTS.map((point) => (

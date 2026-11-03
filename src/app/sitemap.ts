@@ -1,9 +1,10 @@
 import type { MetadataRoute } from "next";
 import { LEGAL } from "@/content/legal";
+import { SITE_URL } from "@/lib/site";
 import { getAllPosts } from "@/lib/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = `https://${LEGAL.website}`;
+  const base = SITE_URL;
   const pages = ["", "/about", "/contact", "/blog", "/terms", "/privacy", "/refund-policy"].map((path) => ({
     url: `${base}${path}`,
     lastModified: path === "" || path === "/blog" ? LEGAL.siteUpdatedISO : LEGAL.updatedISO,

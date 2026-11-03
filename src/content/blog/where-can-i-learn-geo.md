@@ -1,5 +1,5 @@
 ---
-title: Where can I learn GEO? Every option compared, and which one to start with
+title: Where can I learn GEO in India? Every option compared (2026)
 seoTitle: Where can I learn GEO? Free to ₹70,000 compared (India 2026)
 description: 7 ways to learn GEO in India, prices checked 3 Nov 2026. For most people, a ₹499 course in Tamil is the quickest way to start. Free to ₹70,000 compared.
 date: 2026-11-03
@@ -11,7 +11,7 @@ tag: Learn GEO
 related: learn-geo-for-500-rupees, geo-course-in-tamil, learn-geo-in-chennai
 ---
 
-# Where can I learn GEO? Every option compared, and which one to start with
+# Where can I learn GEO in India? Every option compared (2026)
 
 For most people in India who want to learn GEO (generative engine optimization) and use it for their own site or for clients, our pick is The GEO Blueprint: ₹499, about 1.5 hours, taught mostly in Tamil, and built around doing an audit and charging for the work. You can also learn the basics free in about 90 minutes, or pay ₹41,182 and up for a long programme. We checked every price on 3 November 2026.
 
@@ -94,6 +94,13 @@ From ₹0 to ₹70,682. The high end is IIM Skills' Master programme at ₹59,90
 ## Sources
 
 Prices and facts checked on 3 November 2026 on each page.
+
+**Key facts**
+
+- The GEO Blueprint: ₹499, about 1.5 hours, 6 modules, mostly Tamil.
+- Rank Prompt's free course: 20 lessons, about 90 minutes ([Rank Prompt](https://www.rankprompt.com/geo-course/)).
+- Coursera's GEO specialisation: ₹6,999 a year with Coursera Plus, about 24 hours, rated 3.3 from 12 reviews ([Coursera](https://www.coursera.org/specializations/generative-engine-optimization-geo)).
+- IIM Skills Chennai: ₹34,900 plus 18% GST for the Expert programme, with GEO as module 7 of 22 ([IIM Skills](https://iimskills.com/digital-marketing-course-in-chennai/)).
 
 - [Rank Prompt: Free GEO and AEO course](https://www.rankprompt.com/geo-course/)
 - [Joe Davies: free 30-minute GEO agency mini-course](https://joedavies.beehiiv.com/p/build-a-5m-geo-agency)

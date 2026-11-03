@@ -6,15 +6,15 @@ import { LEGAL } from "@/content/legal";
 const FAQS: { q: string; a: ReactNode; text?: string }[] = [
   {
     q: "What is GEO?",
-    a: "GEO, or generative engine optimization, is the work of structuring a website and its content so AI assistants like ChatGPT, Gemini and Claude can find it, understand it and recommend it. SEO aims to get you ranked. GEO aims to get you named in the answer.",
+    a: "GEO, or generative engine optimization, means structuring a website so AI assistants can find it, understand it and recommend it. Assistants include ChatGPT, Gemini and Claude. SEO aims to get you ranked. GEO aims to get you named in the answer.",
   },
   {
     q: "Who is this course for?",
-    a: "Business owners who want their own site to show up in AI answers, and marketers, freelancers and agencies who want to offer GEO audits and content to clients. You don't need to know SEO first. It starts from how an AI model produces an answer and builds up to the 6 pillars.",
+    a: "Business owners who want their own site to show up in AI answers. Also marketers, freelancers and agencies who want to offer GEO audits and content to clients. You don't need to know SEO first. It starts from how an AI model produces an answer and builds up to the 6 pillars.",
   },
   {
     q: "Will this get my business recommended by ChatGPT?",
-    a: "We can't promise that, and no one honestly can. AI answers change from one run to the next, and content has to be published, crawled and cited before it can show up, which takes weeks to a few months. The course teaches what to fix and how to measure it. The result depends on your site and your market.",
+    a: "We can't promise that, and no one honestly can. AI answers change from one run to the next. Content must be published, crawled and cited before it can show up. That takes weeks to a few months. The course teaches what to fix and how to measure it. The result depends on your site and your market.",
   },
   {
     q: "Is this just SEO with a new name?",
@@ -22,15 +22,15 @@ const FAQS: { q: string; a: ReactNode; text?: string }[] = [
   },
   {
     q: "What is Litmus?",
-    text: "Litmus is a GEO audit tool built by the same team as the course (litmus.aivirex.in). The course uses it in a live demo to score a real website against all 6 pillars with a fixed rubric, instead of the shifting scores you get from asking a chatbot.",
+    text: "Litmus is a GEO audit tool built by the same team as the course (litmus.aivirex.in). The course uses it in a live demo. It scores a real website on all 6 pillars with a fixed rubric, instead of the shifting scores you get from a chatbot.",
     a: (
       <>
         Litmus is a GEO audit tool built by the same team as the course (
         <a href="https://litmus.aivirex.in" target="_blank" rel="noopener noreferrer" className="underline">
           litmus.aivirex.in
         </a>
-        ). The course uses it in a live demo to score a real website against all 6 pillars with a fixed rubric, instead
-        of the shifting scores you get from asking a chatbot.
+        ). The course uses it in a live demo. It scores a real website on all 6 pillars with a fixed rubric, instead of
+        the shifting scores you get from a chatbot.
       </>
     ),
   },

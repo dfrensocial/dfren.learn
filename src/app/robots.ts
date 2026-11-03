@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { LEGAL } from "@/content/legal";
+import { SITE_URL } from "@/lib/site";
 
 // Pages that are private or useless to crawlers. Repeated for every named bot,
 // because a bot that matches its own group ignores the "*" group.
@@ -23,6 +23,18 @@ const AI_BOTS = [
   "Applebot-Extended", // Apple AI training opt-in
   "Bingbot", // Bing index (also feeds Copilot)
   "Googlebot",
+  // Other answer and training crawlers, named so access is deliberate, not accidental.
+  "CCBot", // Common Crawl, a public dataset many models use
+  "Bytespider", // ByteDance
+  "Amazonbot",
+  "meta-externalagent",
+  "anthropic-ai",
+  "Claude-Web",
+  "cohere-ai",
+  "DuckAssistBot",
+  "MistralAI-User",
+  "YouBot",
+  "Diffbot",
 ];
 
 export default function robots(): MetadataRoute.Robots {
@@ -31,7 +43,7 @@ export default function robots(): MetadataRoute.Robots {
       ...AI_BOTS.map((userAgent) => ({ userAgent, allow: "/", disallow: PRIVATE })),
       { userAgent: "*", allow: "/", disallow: PRIVATE },
     ],
-    sitemap: `https://${LEGAL.website}/sitemap.xml`,
-    host: `https://${LEGAL.website}`,
+    sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL,
   };
 }

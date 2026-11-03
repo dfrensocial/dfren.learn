@@ -62,6 +62,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  productionBrowserSourceMaps: true,
   async redirects() {
     // Self-serve password sign-up was removed: accounts are created by
     // checkout and entered via emailed link (see grant-access.ts).

@@ -39,7 +39,7 @@ export function HeroVideo() {
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
         aria-label="Short promo: people now ask AI instead of searching, so learn GEO to get recommended"

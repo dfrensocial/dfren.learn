@@ -46,7 +46,7 @@ export const geoBlueprintCourse: CourseContent = {
     kicker: "The GEO Blueprint by dfrenLearn",
     headline: "Learn how to get your business recommended by ChatGPT, Gemini and Claude",
     subheadline:
-      "A 1.5-hour GEO course: how AI assistants pick their answers, the 6 pillars to fix on a website, a live audit, and two ways to charge for the work.",
+      "A 1.5-hour GEO course. See how AI assistants pick their answers. Learn the 6 pillars, watch a live audit and find two ways to charge for the work.",
     ctaLabel: "Get the course for ₹499",
     ctaNote: "One-time payment, no subscription. Taught mostly in Tamil, with English terms mixed in.",
   },
@@ -59,7 +59,7 @@ export const geoBlueprintCourse: CourseContent = {
   curriculum: {
     heading: "What you learn in 1.5 hours",
     subheading:
-      "Six short modules in the order you need them: how AI answers work, what to fix on a site, then how to use it for clients.",
+      "Six short modules, in the order you need them. First how AI answers work, then what to fix on a site, then how to use it for clients.",
     modules: [
       {
         title: "1. How AI picks its next word",
@@ -79,7 +79,7 @@ export const geoBlueprintCourse: CourseContent = {
       {
         title: "4. Why manual audits don't work, and a live audit",
         description:
-          "Why asking ChatGPT to grade your site gives a different score every time, and a live demo of Litmus scoring a real website against all 6 pillars with a fixed rubric.",
+          "Why asking ChatGPT to grade your site gives a different score every time. Then a live demo of Litmus scoring a real website on all 6 pillars with a fixed rubric.",
       },
       {
         title: "5. Two ways to turn GEO into income",

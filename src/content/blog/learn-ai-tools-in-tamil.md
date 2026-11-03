@@ -1,5 +1,5 @@
 ---
-title: Learn ChatGPT and AI tools in Tamil: free courses and where GEO fits
+title: Learn ChatGPT and AI tools in Tamil: free courses compared (2026)
 seoTitle: Learn ChatGPT and AI tools in Tamil: free courses (2026)
 description: Free and paid ways to learn ChatGPT and AI tools in Tamil, from Entri's free courses to a 4-hour Udemy course, and the next step after: GEO. Checked 3 Nov 2026.
 date: 2026-11-03
@@ -11,7 +11,7 @@ tag: Learn in Tamil
 related: how-to-learn-geo-in-tamil, geo-course-in-tamil, tamil-vs-english-geo-course
 ---
 
-# Learn ChatGPT and AI tools in Tamil: free courses and where GEO fits
+# Learn ChatGPT and AI tools in Tamil: free courses compared (2026)
 
 You can learn ChatGPT and other AI tools in Tamil for free. Entri has a free ChatGPT course in Tamil with 8 videos, a free prompt engineering course and a free AI tools master class. Paid options start with a 4-hour Udemy course. Once you can use these tools, GEO is the next step: how AI assistants pick which businesses to recommend.
 
@@ -69,6 +69,13 @@ We can only report what search results showed: a 4-hour GenAI course with about 
 ## Sources
 
 Checked 3 November 2026. "Reported" items come from search results.
+
+**Key facts**
+
+- Entri's free ChatGPT course in Tamil has 8 videos: 7 on ChatGPT and 1 on Gemini ([Entri](https://entri.app/explore/free-coding-courses/chatgpt-course-in-tamil/)).
+- Entri also lists a free prompt engineering course and an AI and Cloud Tools master class in Tamil ([Entri](https://entri.app/explore/free-coding-courses/ai-and-cloud-tools-master-class-in-tamil/)).
+- A Udemy listing for GenAI Specialist in Tamil shows about 4 hours 12 minutes (seen in search results on 3 November 2026).
+- India has about 100 million weekly ChatGPT users ([TechCrunch, 15 February 2026](https://www.techcrunch.com/2026/02/15/india-has-100m-weekly-active-chatgpt-users-sam-altman-says/)).
 
 - [Entri: Free ChatGPT course in Tamil](https://entri.app/explore/free-coding-courses/chatgpt-course-in-tamil/)
 - [Entri: Free prompt engineering course in Tamil](https://entri.app/explore/free-coding-courses/prompt-engineering-course-in-tamil/) (reported)

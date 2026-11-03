@@ -1,5 +1,5 @@
 ---
-title: Is GEO just rebranded SEO? Mostly yes, with 3 real changes
+title: GEO vs SEO in 2026: is GEO just rebranded SEO? An honest answer
 seoTitle: Is GEO just rebranded SEO? Mostly, with 3 real changes
 description: Critics say GEO is recycled SEO. We check what's the same, what's new (clicks, AI answers, new platforms) and what no one has proven, with sources.
 date: 2026-11-03
@@ -11,7 +11,7 @@ tag: Terms
 related: geo-vs-seo-vs-aeo, ai-seo-or-geo-term, free-vs-paid-geo-course
 ---
 
-# Is GEO just rebranded SEO? Mostly yes, with 3 real changes
+# GEO vs SEO in 2026: is GEO just rebranded SEO? An honest answer
 
 Mostly, yes. The basics of GEO are the basics of good SEO: clear pages, specific facts, trustworthy sources. What's genuinely new is where people read answers. AI summaries now sit above Google results, assistants have their own large audiences, and success is measured in mentions, not only clicks. No one has shown that GEO tricks give a typical, repeatable gain.
 
@@ -74,6 +74,13 @@ We found no evidence of that. Gartner forecast a 25% fall in traditional search 
 ## Sources
 
 Checked 3 November 2026.
+
+**Key facts**
+
+- Google's guide says optimizing for its generative AI features is "still SEO" ([Google, May 2026](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)).
+- Ahrefs found 76% of AI Overview citations came from Google's top 10 in July 2025 and about 38% in March 2026 ([Ahrefs](https://ahrefs.com/blog/ai-overview-citations-top-10/)).
+- The GEO paper reported gains of up to about 40% in its own test from adding sources, quotations and statistics ([arXiv 2311.09735](https://arxiv.org/abs/2311.09735)).
+- AI chatbots sent 0.28% of web traffic in March 2026 in Ahrefs' tracker ([Ahrefs](https://ahrefs.com/blog/ai-chatbot-traffic/)).
 
 - [Dejan: GEO to SEO](https://dejan.ai/blog/geo-to-seo/) (reported from a snippet)
 - [BrightonSEO 2026: "Your ranking socks: 95% of GEO is recycled SEO"](https://brightonseo.com/events/san-diego-2026/talks/your-ranking-socks-95-of-geo-is-recycled-seo-heres-the-5-that-makes-it-rocks) (title and summary only)

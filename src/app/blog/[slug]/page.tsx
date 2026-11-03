@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BlogShell } from "@/components/blog/blog-shell";
@@ -15,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const post = getPost(slug);
   if (!post) return {};
-  const url = `https://learn.dfren.in/blog/${post.slug}`;
+  const url = `${SITE_URL}/blog/${post.slug}`;
   return {
     title: post.seoTitle,
     description: post.description,
@@ -51,18 +52,18 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     datePublished: post.date,
     dateModified: post.updated,
     author: { "@type": "Organization", name: post.author, ...(post.authorUrl ? { url: post.authorUrl } : {}) },
-    publisher: { "@type": "Organization", name: "dfrenLearn", url: "https://learn.dfren.in" },
-    mainEntityOfPage: `https://learn.dfren.in/blog/${post.slug}`,
-    image: "https://learn.dfren.in/opengraph-image",
+    publisher: { "@type": "Organization", name: "dfrenLearn", url: SITE_URL },
+    mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
+    image: `${SITE_URL}/opengraph-image`,
     inLanguage: "en-IN",
   };
   const breadcrumbs = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "dfrenLearn", item: "https://learn.dfren.in" },
-      { "@type": "ListItem", position: 2, name: "Blog", item: "https://learn.dfren.in/blog" },
-      { "@type": "ListItem", position: 3, name: post.title, item: `https://learn.dfren.in/blog/${post.slug}` },
+      { "@type": "ListItem", position: 1, name: "dfrenLearn", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/blog` },
+      { "@type": "ListItem", position: 3, name: post.title, item: `${SITE_URL}/blog/${post.slug}` },
     ],
   };
 

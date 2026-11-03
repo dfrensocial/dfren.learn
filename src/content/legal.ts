@@ -22,6 +22,7 @@ export const LEGAL = {
   // Date of the last substantive edit to any of the three policies.
   updated: "4 November 2026",
   updatedISO: "2026-11-04",
+  publishedISO: "2026-11-02",
   // Public marketing pages (home, blog) were last revised on this date.
   siteUpdatedISO: "2026-11-04",
   // BUMP THESE whenever the Terms, the Refund policy (it is part of the Terms) or
