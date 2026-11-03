@@ -43,7 +43,7 @@ export const geoBlueprintCourse: CourseContent = {
   id: "geo-blueprint",
   title: "The GEO Blueprint",
   hero: {
-    kicker: "The GEO Blueprint",
+    kicker: "The GEO Blueprint by dfrenLearn",
     headline: "Learn how to get your business recommended by ChatGPT, Gemini and Claude",
     subheadline:
       "A 1.5-hour GEO course: how AI assistants pick their answers, the 6 pillars to fix on a website, a live audit, and two ways to charge for the work.",

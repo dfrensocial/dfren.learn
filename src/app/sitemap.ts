@@ -4,7 +4,7 @@ import { getAllPosts } from "@/lib/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = `https://${LEGAL.website}`;
-  const pages = ["", "/blog", "/terms", "/privacy", "/refund-policy"].map((path) => ({
+  const pages = ["", "/about", "/contact", "/blog", "/terms", "/privacy", "/refund-policy"].map((path) => ({
     url: `${base}${path}`,
     lastModified: path === "" || path === "/blog" ? LEGAL.siteUpdatedISO : LEGAL.updatedISO,
     changeFrequency: (path === "" || path === "/blog" ? "monthly" : "yearly") as "monthly" | "yearly",

@@ -53,12 +53,24 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     author: { "@type": "Organization", name: post.author, ...(post.authorUrl ? { url: post.authorUrl } : {}) },
     publisher: { "@type": "Organization", name: "dfrenLearn", url: "https://learn.dfren.in" },
     mainEntityOfPage: `https://learn.dfren.in/blog/${post.slug}`,
+    image: "https://learn.dfren.in/opengraph-image",
+    inLanguage: "en-IN",
+  };
+  const breadcrumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "dfrenLearn", item: "https://learn.dfren.in" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://learn.dfren.in/blog" },
+      { "@type": "ListItem", position: 3, name: post.title, item: `https://learn.dfren.in/blog/${post.slug}` },
+    ],
   };
 
   return (
     <BlogShell>
       <main className="mx-auto max-w-3xl px-6 py-12">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
         <p className="text-sm">
           <Link href="/blog" className="text-neutral-500 hover:text-black hover:underline">
             ← All guides

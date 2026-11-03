@@ -14,12 +14,12 @@ import { MarketingFooter } from "@/components/marketing/footer";
 import { geoBlueprintCourse } from "@/content/courses/geo-blueprint";
 import { LEGAL } from "@/content/legal";
 
-const PAGE_TITLE = "GEO course for ₹499: The GEO Blueprint";
+const PAGE_TITLE = "The GEO Blueprint by dfrenLearn: GEO and AEO course, ₹499";
 const PAGE_DESCRIPTION =
-  "A 1.5-hour GEO course: how AI assistants pick answers, the 6 pillars to fix on a site, a live audit and 2 ways to charge for the work. ₹499 one time, mostly in Tamil.";
+  "The GEO Blueprint by dfrenLearn: a 1.5-hour GEO and AEO course on how AI assistants pick answers, the 6 pillars, a live audit and 2 ways to charge for it. ₹499, mostly in Tamil.";
 
 export const metadata: Metadata = {
-  title: { absolute: `${PAGE_TITLE} | dfrenLearn` },
+  title: { absolute: PAGE_TITLE },
   description: PAGE_DESCRIPTION,
   alternates: { canonical: "/" },
   openGraph: {
@@ -53,8 +53,11 @@ function homeJsonLd() {
         "@type": "Organization",
         "@id": `${SITE}/#organization`,
         name: LEGAL.entity,
-        alternateName: ["Dfren", "dfrenLearn"],
+        alternateName: ["Dfren", "dfrenLearn", "Dfren Learn"],
         url: SITE,
+        logo: { "@type": "ImageObject", url: `${SITE}/apple-icon`, width: 180, height: 180 },
+        description: "DFREN Marketing Agency (brand: Dfren) runs dfrenLearn, which publishes The GEO Blueprint course and guides on generative engine optimization.",
+        knowsAbout: ["Generative engine optimization", "Answer engine optimization", "AI search visibility"],
         email: LEGAL.contactEmail,
         address: {
           "@type": "PostalAddress",
@@ -70,6 +73,7 @@ function homeJsonLd() {
         "@id": `${SITE}/#website`,
         url: SITE,
         name: "dfrenLearn",
+        alternateName: ["Dfren Learn", "The GEO Blueprint by dfrenLearn"],
         inLanguage: "en-IN",
         publisher: { "@id": `${SITE}/#organization` },
       },
@@ -77,6 +81,7 @@ function homeJsonLd() {
         "@type": "Course",
         "@id": `${SITE}/#course`,
         name: course.title,
+        alternateName: ["GEO Blueprint", "The GEO Blueprint by dfrenLearn"],
         description: PAGE_DESCRIPTION,
         url: SITE,
         inLanguage: ["ta", "en"],

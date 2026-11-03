@@ -13,7 +13,9 @@ export function MarketingFooter() {
           </a>
         </span>
         <nav className="flex flex-wrap justify-center gap-x-5 gap-y-1">
+          <Link href="/about" className="hover:text-white">About</Link>
           <Link href="/blog" className="hover:text-white">Blog</Link>
+          <Link href="/contact" className="hover:text-white">Contact</Link>
           <Link href="/terms" className="hover:text-white">Terms</Link>
           <Link href="/privacy" className="hover:text-white">Privacy</Link>
           <Link href="/refund-policy" className="hover:text-white">Refunds</Link>

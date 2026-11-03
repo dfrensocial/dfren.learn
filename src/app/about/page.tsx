@@ -1,0 +1,103 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { LegalPage } from "@/components/legal/legal-page";
+import { LEGAL } from "@/content/legal";
+import { geoBlueprintCourse } from "@/content/courses/geo-blueprint";
+
+export const metadata: Metadata = {
+  title: "About dfrenLearn and The GEO Blueprint | dfrenLearn",
+  description:
+    "dfrenLearn is run by DFREN Marketing Agency in Tambaram, Chennai. It publishes The GEO Blueprint, a 1.5-hour GEO course by AiVirex Innovations, and plain guides on GEO.",
+  alternates: { canonical: "/about" },
+  openGraph: { url: "https://learn.dfren.in/about", type: "website", images: [{ url: "/opengraph-image", width: 1200, height: 630 }] },
+  twitter: { card: "summary_large_image", images: ["/opengraph-image"] },
+};
+
+const SITE = "https://learn.dfren.in";
+
+export default function AboutPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    url: `${SITE}/about`,
+    name: "About dfrenLearn and The GEO Blueprint",
+    dateModified: LEGAL.siteUpdatedISO,
+    about: { "@id": `${SITE}/#organization` },
+    isPartOf: { "@id": `${SITE}/#website` },
+  };
+  const price = (geoBlueprintCourse.pricing.priceInPaise / 100).toLocaleString("en-IN");
+
+  return (
+    <LegalPage title="About dfrenLearn">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <section>
+        <h2>What dfrenLearn is</h2>
+        <p>
+          dfrenLearn (also written Dfren Learn) is a learning site at {LEGAL.website}. It sells one course today,{" "}
+          <Link href="/" className="underline">
+            The GEO Blueprint
+          </Link>
+          , and publishes plain guides on GEO, or generative engine optimization: how to make a website easy for
+          assistants like ChatGPT, Gemini and Claude to find, understand and recommend.
+        </p>
+      </section>
+      <section>
+        <h2>Who runs it</h2>
+        <p>
+          dfrenLearn is operated by {LEGAL.entity} (brand name: Dfren), {LEGAL.entityType} based in Tambaram, Chennai,
+          Tamil Nadu. The course and the Litmus audit tool are made by AiVirex Innovations, a technology studio at{" "}
+          <a href="https://aivirex.in" target="_blank" rel="noopener noreferrer" className="underline">
+            aivirex.in
+          </a>
+          . The course is taught by {geoBlueprintCourse.instructor.name}, {geoBlueprintCourse.instructor.title}.
+        </p>
+      </section>
+      <section>
+        <h2>The GEO Blueprint in short</h2>
+        <ul>
+          <li>About 1.5 hours of video in 6 modules.</li>
+          <li>Covers how AI picks answers, the 6 pillars of GEO, a live audit, and two ways to charge for GEO work.</li>
+          <li>Comes with a client research questionnaire, a Claude Code prompt pack and a quick-win checklist.</li>
+          <li>₹{price} one time. Taught mostly in Tamil, with English terms mixed in.</li>
+          <li>Access for as long as the course is offered on dfrenLearn, with updates included.</li>
+        </ul>
+        <p className="mt-2">
+          It has no certificate and no student reviews yet, and we make no promise of rankings, mentions or income.
+        </p>
+      </section>
+      <section>
+        <h2>Our guides</h2>
+        <p>
+          The{" "}
+          <Link href="/blog" className="underline">
+            blog
+          </Link>{" "}
+          has guides on where to learn GEO, what GEO costs in India, how AI assistants choose businesses, how to audit a
+          site and how to track results. Each guide links its sources and says where the evidence is thin.
+        </p>
+      </section>
+      <section>
+        <h2>Contact and policies</h2>
+        <p>
+          See the{" "}
+          <Link href="/contact" className="underline">
+            contact page
+          </Link>
+          , the{" "}
+          <Link href="/terms" className="underline">
+            terms
+          </Link>
+          , the{" "}
+          <Link href="/privacy" className="underline">
+            privacy policy
+          </Link>{" "}
+          and the{" "}
+          <Link href="/refund-policy" className="underline">
+            refund policy
+          </Link>
+          .
+        </p>
+      </section>
+    </LegalPage>
+  );
+}
