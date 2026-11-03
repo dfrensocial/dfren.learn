@@ -1,10 +1,17 @@
 import type { MetadataRoute } from "next";
 import { LEGAL } from "@/content/legal";
+import { getAllPosts } from "@/lib/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = `https://${LEGAL.website}`;
-  return ["", "/terms", "/privacy", "/refund-policy"].map((path) => ({
+  const pages = ["", "/blog", "/terms", "/privacy", "/refund-policy"].map((path) => ({
     url: `${base}${path}`,
-    changeFrequency: path ? "yearly" : "monthly",
+    changeFrequency: (path === "" || path === "/blog" ? "monthly" : "yearly") as "monthly" | "yearly",
   }));
+  const posts = getAllPosts().map((p) => ({
+    url: `${base}/blog/${p.slug}`,
+    lastModified: p.updated,
+    changeFrequency: "monthly" as const,
+  }));
+  return [...pages, ...posts];
 }

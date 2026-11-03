@@ -8,6 +8,7 @@ export function MarketingFooter() {
       <div className="mx-auto flex max-w-5xl flex-col items-center gap-3 px-6 py-8 text-xs sm:flex-row sm:justify-between">
         <span>© {new Date().getFullYear()} dfrenLearn, operated by {LEGAL.entity}.</span>
         <nav className="flex flex-wrap justify-center gap-x-5 gap-y-1">
+          <Link href="/blog" className="hover:text-white">Blog</Link>
           <Link href="/terms" className="hover:text-white">Terms</Link>
           <Link href="/privacy" className="hover:text-white">Privacy</Link>
           <Link href="/refund-policy" className="hover:text-white">Refunds</Link>
