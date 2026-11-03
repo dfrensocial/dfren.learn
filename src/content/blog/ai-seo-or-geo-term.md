@@ -61,7 +61,7 @@ India has about [100 million weekly ChatGPT users](https://www.techcrunch.com/20
 
 ## Where The GEO Blueprint fits
 
-The course uses the GEO name, the term from the research paper and from many practitioners. Our data says customers search for AI SEO. The course teaches the same 6-pillar method under any name, in about 1.5 hours, and costs ₹499. If you're writing for clients, use their word.
+Start small. The GEO Blueprint is ₹499 and about 1.5 hours, taught mostly in Tamil with English terms mixed in. It covers the 6 pillars of GEO, a live audit demo and 2 ways to charge for the work, so it's a strong first step. If you find it useful and want more depth later, bigger programmes are there. It has no student reviews yet. Learning in Tamil? See [is there a GEO course in Tamil](/blog/geo-course-in-tamil).
 
 ## Questions, answered
 

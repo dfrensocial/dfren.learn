@@ -14,7 +14,7 @@ export function ArticleCta() {
       <h2 className="mt-2 text-xl font-bold tracking-tight">Learn the method in about 1.5 hours</h2>
       <p className="mt-3 text-sm leading-relaxed text-neutral-700">
         {geoBlueprintCourse.curriculum.modules.length} short modules on how AI assistants pick answers, the 6 pillars of GEO and how to run an
-        audit. It comes with a client questionnaire and a prompt pack. It is taught in a mix of Tamil and English.
+        audit. It comes with a client questionnaire and a prompt pack. It is taught mostly in Tamil, with English terms mixed in.
       </p>
       <p className="mt-3 text-sm font-medium">₹{price.toLocaleString("en-IN")}, one time. No subscription.</p>
       <div className="mt-5 flex flex-wrap items-center gap-4 text-sm">

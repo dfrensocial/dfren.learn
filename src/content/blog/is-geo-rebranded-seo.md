@@ -54,7 +54,7 @@ If the answer to 1 is yes and to 2 is no, a few hours of GEO work is reasonable.
 
 ## Where The GEO Blueprint fits
 
-It teaches the shared basics plus the GEO-specific checks in about 1.5 hours, for ₹499. It doesn't promise rankings, citations or income, and nothing can. If you only want to test whether GEO matters, a [free course](/blog/free-vs-paid-geo-course) is a fine first step.
+Start small. The GEO Blueprint is ₹499 and about 1.5 hours, taught mostly in Tamil with English terms mixed in. It covers the 6 pillars of GEO, a live audit demo and 2 ways to charge for the work, so it's a strong first step. If you find it useful and want more depth later, bigger programmes are there. It has no student reviews yet. Learning in Tamil? See [is there a GEO course in Tamil](/blog/geo-course-in-tamil).
 
 ## Questions, answered
 
