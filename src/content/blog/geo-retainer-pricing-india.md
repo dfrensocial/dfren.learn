@@ -8,7 +8,7 @@ author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
 tag: Pricing
-related: how-much-geo-audit, geo-freelancer-earnings-india-2026, make-money-with-ai-geo-2026
+related: how-much-geo-audit, geo-freelancer-earnings-india-2027, make-money-with-ai-geo-2027
 ---
 
 # GEO retainer pricing in India: what agencies publish, in rupees

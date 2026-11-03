@@ -1,6 +1,6 @@
 ---
 title: What can GEO work be worth in India? Prices, salaries and the maths
-seoTitle: GEO freelancer earnings in India: prices and the maths (2026)
+seoTitle: GEO freelancer earnings in India: prices and the maths (2027)
 description: GEO is a service you can offer to businesses. See what sellers charge in India, what SEO jobs pay, and how to work out what it could be worth to you.
 date: 2026-11-03
 updated: 2026-11-03
@@ -8,7 +8,7 @@ author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
 tag: Pricing
-related: geo-retainer-pricing-india, how-much-geo-audit, make-money-with-ai-geo-2026
+related: geo-retainer-pricing-india, how-much-geo-audit, make-money-with-ai-geo-2027
 ---
 
 # What can GEO work be worth in India? Prices, salaries and the maths

@@ -1,5 +1,5 @@
 ---
-title: llms.txt vs real GEO: is llms.txt enough for AI visibility in 2026?
+title: llms.txt vs real GEO: is llms.txt enough for AI visibility in 2027?
 seoTitle: Is llms.txt enough for GEO and AEO? What it does and doesn't do
 description: No. Google says llms.txt neither helps nor harms Google Search, and a study of 300,000 domains found no link to AI citations. What to do instead.
 date: 2026-11-03
@@ -8,10 +8,10 @@ author: Litmus Team
 authorRole: Research and writing, Litmus by AiVirex
 authorUrl: https://litmus.aivirex.in
 tag: Technical guides
-related: geo-vs-seo-vs-aeo, is-geo-just-rebranded-seo-vs-2026, learn-geo-30-days
+related: geo-vs-seo-vs-aeo, is-geo-just-rebranded-seo-vs-2027, learn-geo-30-days
 ---
 
-# llms.txt vs real GEO: is llms.txt enough for AI visibility in 2026?
+# llms.txt vs real GEO: is llms.txt enough for AI visibility in 2027?
 
 No. Adding an llms.txt file isn't a GEO or AEO strategy. Google's own guide says Google Search ignores these files, so they neither help nor harm your visibility there. Evidence for other AI tools is thin, and none of the big AI companies we checked has said it reads the file. It's harmless to add if you want one. Just don't count on it.
 
@@ -64,7 +64,7 @@ The public course page for The GEO Blueprint names 6 pillars. Here they are in p
 
 Structured data is a minor item. Google's guide says there's no special schema.org markup you need for its AI features, though it's still worth using for other search features.
 
-For evidence on content changes, the one controlled study we know of is the GEO paper. It found that adding statistics, quotations and cited sources lifted visibility in its tests, and keyword stuffing didn't. We unpack it in [what "up to 40%" really means](/blog/geo-paper-up-to-40-percent). It's a lab result, not a promise. For the terms, see [GEO vs SEO vs AEO](/blog/geo-vs-seo-vs-aeo) and [is GEO just rebranded SEO](/blog/is-geo-just-rebranded-seo-vs-2026).
+For evidence on content changes, the one controlled study we know of is the GEO paper. It found that adding statistics, quotations and cited sources lifted visibility in its tests, and keyword stuffing didn't. We unpack it in [what "up to 40%" really means](/blog/geo-paper-up-to-40-percent). It's a lab result, not a promise. For the terms, see [GEO vs SEO vs AEO](/blog/geo-vs-seo-vs-aeo) and [is GEO just rebranded SEO](/blog/is-geo-just-rebranded-seo-vs-2027).
 
 ## How do you check your own site?
 

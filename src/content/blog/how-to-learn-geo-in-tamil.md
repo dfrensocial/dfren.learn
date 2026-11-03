@@ -1,6 +1,6 @@
 ---
 title: How to learn GEO in Tamil: a 4-week plan for beginners
-seoTitle: How to learn GEO in Tamil: a 4-week beginner plan (2026)
+seoTitle: How to learn GEO in Tamil: a 4-week beginner plan (2027)
 description: A 4-week plan to learn GEO in Tamil using free Entri courses, a ₹499 Tamil course and one free English lesson on pricing. Checked 3 November 2026.
 date: 2026-11-03
 updated: 2026-11-03
@@ -8,7 +8,7 @@ author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
 tag: Learn in Tamil
-related: geo-course-in-tamil-free-and-paid-2026, tamil-vs-english-geo-course, learn-ai-tools-in-tamil-free-courses-2026
+related: geo-course-in-tamil-free-and-paid-2027, tamil-vs-english-geo-course, learn-ai-tools-in-tamil-free-courses-2027
 ---
 
 # How to learn GEO in Tamil: a 4-week plan for beginners

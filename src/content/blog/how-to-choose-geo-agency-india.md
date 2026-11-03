@@ -1,6 +1,6 @@
 ---
 title: How to choose a GEO agency in India: a buyer's checklist
-seoTitle: How to choose a GEO agency in India: buyer's checklist (2026)
+seoTitle: How to choose a GEO agency in India: buyer's checklist (2027)
 description: Questions to ask a GEO agency, red flags to watch, what published Indian prices look like and how to judge a proposal. A checklist for business owners.
 date: 2026-11-04
 updated: 2026-11-04
@@ -8,7 +8,7 @@ author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
 tag: India and local
-related: geo-retainer-pricing-india, geo-proposal-without-promising-rankings, geo-checklist-2026
+related: geo-retainer-pricing-india, geo-proposal-without-promising-rankings, geo-checklist-2027
 ---
 
 # How to choose a GEO agency in India: a buyer's checklist
@@ -45,7 +45,7 @@ Published figures are from sellers:
 - upGrowth Digital's [benchmark page](https://upgrowth.in/geo-aeo-pricing-benchmark-india-2026/) says mid-market GEO retainers in India run ₹75,000 to ₹3,50,000 a month, and one-time audits ₹1,50,000 to ₹8,00,000.
 - A [Redefine ROI](https://www.theatdb.com/news/redefine-roi-launches-generative-engine-optimization-geo-service-to-help-brands-get-cited-by-chatgpt-google-ai) launch notice reports a service starting at ₹35,000 a month.
 
-We found no independent survey of what Indian businesses actually pay. See [GEO retainer pricing in India](/blog/geo-retainer-pricing-india) and [what GEO work can be worth](/blog/geo-freelancer-earnings-india-2026).
+We found no independent survey of what Indian businesses actually pay. See [GEO retainer pricing in India](/blog/geo-retainer-pricing-india) and [what GEO work can be worth](/blog/geo-freelancer-earnings-india-2027).
 
 ## Can you do it yourself first?
 

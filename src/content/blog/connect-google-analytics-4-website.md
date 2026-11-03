@@ -1,6 +1,6 @@
 ---
 title: How to connect Google Analytics 4 to your website (step by step)
-seoTitle: How to connect Google Analytics 4 to your website (2026 guide)
+seoTitle: How to connect Google Analytics 4 to your website (2027 guide)
 description: Create a GA4 property and web data stream, copy the Measurement ID, install the Google tag, then check Realtime. Steps from Google's own help pages.
 date: 2026-11-03
 updated: 2026-11-03

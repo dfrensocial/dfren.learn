@@ -1,6 +1,6 @@
 ---
 title: How to learn GEO in 30 days: a beginner plan for India
-seoTitle: How to learn GEO in 30 days: a beginner plan (India 2026)
+seoTitle: How to learn GEO in 30 days: a beginner plan (India 2027)
 description: A week-by-week plan to learn GEO in 30 days using a free course, a ₹499 course and one real website, with the research findings to apply. Checked 3 Nov 2026.
 date: 2026-11-03
 updated: 2026-11-03
@@ -8,7 +8,7 @@ author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
 tag: Learn GEO
-related: where-can-i-learn-geo-in-india-2026, how-to-learn-geo-in-tamil, learn-geo-for-500-rupees
+related: where-can-i-learn-geo-in-india-2027, how-to-learn-geo-in-tamil, learn-geo-for-500-rupees
 ---
 
 # How to learn GEO in 30 days: a beginner plan for India

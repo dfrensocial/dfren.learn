@@ -8,7 +8,7 @@ author: AiVirex Team
 authorRole: Research and writing, AiVirex Innovations
 authorUrl: https://aivirex.in
 tag: Audits and measurement
-related: what-to-track-before-geo-client, document-geo-before-and-after, geo-checklist-2026
+related: what-to-track-before-geo-client, document-geo-before-and-after, geo-checklist-2027
 ---
 
 # How long does GEO take to show results? What is known and what isn't
@@ -52,7 +52,7 @@ This is our practice, from our course material:
 
 ## What can slow results down?
 
-Blocked crawlers, unindexed pages, thin pages with no facts, and no mentions on other sites. Fixing the basics first is the fastest honest route. See the [GEO checklist](/blog/geo-checklist-2026).
+Blocked crawlers, unindexed pages, thin pages with no facts, and no mentions on other sites. Fixing the basics first is the fastest honest route. See the [GEO checklist](/blog/geo-checklist-2027).
 
 ## Where The GEO Blueprint fits
 

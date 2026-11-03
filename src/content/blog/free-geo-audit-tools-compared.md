@@ -1,6 +1,6 @@
 ---
 title: Free GEO audit tools compared: what each one actually checks
-seoTitle: Free GEO audit tools compared (2026): what each checks
+seoTitle: Free GEO audit tools compared (2027): what each checks
 description: Juma, HubSpot's AI Search Grader, Litmus and a manual method compared on what they check, price and limits. Why different tools give different scores.
 date: 2026-11-04
 updated: 2026-11-04
@@ -8,7 +8,7 @@ author: Litmus Team
 authorRole: Research and writing, Litmus by AiVirex
 authorUrl: https://litmus.aivirex.in
 tag: Audits and measurement
-related: how-to-run-a-geo-audit, geo-checklist-2026, why-chatgpt-gives-different-website-score
+related: how-to-run-a-geo-audit, geo-checklist-2027, why-chatgpt-gives-different-website-score
 ---
 
 # Free GEO audit tools compared: what each one actually checks

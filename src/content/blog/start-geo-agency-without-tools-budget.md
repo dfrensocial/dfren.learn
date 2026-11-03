@@ -74,7 +74,7 @@ GA4, Search Console and a spreadsheet. Add a free audit tool and Bing Webmaster 
 Not at the start. A solo freelancer can run the first audits.
 
 ### How many clients do I need?
-No source tells you. Work from your own costs and rates. See [what GEO work can be worth](/blog/geo-freelancer-earnings-india-2026).
+No source tells you. Work from your own costs and rates. See [what GEO work can be worth](/blog/geo-freelancer-earnings-india-2027).
 
 ## Sources
 

@@ -1,6 +1,6 @@
 ---
 title: How to sell GEO services to your existing SEO clients (without overpromising)
-seoTitle: How to sell GEO to your existing SEO clients (India, 2026)
+seoTitle: How to sell GEO to your existing SEO clients (India, 2027)
 description: A practical way to offer GEO as an add-on to SEO clients: what to say, what evidence to show, what to offer first and what never to promise.
 date: 2026-11-04
 updated: 2026-11-04

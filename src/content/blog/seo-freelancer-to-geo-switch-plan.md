@@ -38,7 +38,7 @@ All three are vendors. The lesson for you: ranking helps and isn't enough, so ch
 | Testing what assistants say | [Free prompt method](/blog/know-if-ai-recommends-your-business), [setup guide](/blog/test-prompts-chatgpt-gemini-perplexity) |
 | Appearance rate, not position | [Why answers vary](/blog/why-chatgpt-answers-differ-every-time) |
 | Crawler access for AI bots | [OpenAI](https://developers.openai.com/api/docs/bots), [Anthropic](https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler) and [Perplexity](https://docs.perplexity.ai/guides/bots) bot pages |
-| Off-site mentions and listings | [GEO checklist](/blog/geo-checklist-2026) |
+| Off-site mentions and listings | [GEO checklist](/blog/geo-checklist-2027) |
 | AI referral tracking | [GA4 guide](/blog/see-if-chatgpt-sends-visitors-to-your-site) |
 | Selling without promises | [Proposals](/blog/geo-proposal-without-promising-rankings) |
 

@@ -8,7 +8,7 @@ author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
 tag: Learn GEO
-related: where-can-i-learn-geo-in-india-2026, geo-course-in-tamil-free-and-paid-2026, geo-courses-by-price
+related: where-can-i-learn-geo-in-india-2027, geo-course-in-tamil-free-and-paid-2027, geo-courses-by-price
 ---
 
 # AI SEO and GEO courses in India: what to look for before you pay

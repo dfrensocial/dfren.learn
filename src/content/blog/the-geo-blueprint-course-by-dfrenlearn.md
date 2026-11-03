@@ -8,14 +8,14 @@ author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
 tag: The course
-related: where-can-i-learn-geo-in-india-2026, learn-geo-for-500-rupees, geo-course-vs-youtube
+related: where-can-i-learn-geo-in-india-2027, learn-geo-for-500-rupees, geo-course-vs-youtube
 ---
 
 # The GEO Blueprint by dfrenLearn: what's inside, who it's for and what it costs
 
 The GEO Blueprint is a short practical course on generative engine optimization (GEO) from dfrenLearn, run by DFREN Marketing Agency in Chennai. It has 6 modules and about 1.5 hours of video, costs ₹499 one time and is taught mostly in Tamil with English terms mixed in. It covers how AI assistants pick answers, the 6 pillars of GEO, a live audit and two ways to charge for GEO work. It has no certificate and no student reviews yet.
 
-We make this course, so this page is our own description. For an outside comparison with other courses, read [where to learn GEO](/blog/where-can-i-learn-geo-in-india-2026).
+We make this course, so this page is our own description. For an outside comparison with other courses, read [where to learn GEO](/blog/where-can-i-learn-geo-in-india-2027).
 
 ## Who made it?
 

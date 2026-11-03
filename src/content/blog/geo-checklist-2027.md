@@ -1,6 +1,6 @@
 ---
-title: GEO checklist 2026: what to fix first on your website
-seoTitle: GEO checklist 2026: 12 things to fix first on your website
+title: GEO checklist 2027: what to fix first on your website
+seoTitle: GEO checklist 2027: 12 things to fix first on your website
 description: A 12-point GEO checklist ordered by priority: crawler access, answer-first pages, proof, listings, freshness and tracking. Each item is tied to a source.
 date: 2026-11-04
 updated: 2026-11-04
@@ -11,7 +11,7 @@ tag: Getting recommended
 related: how-to-run-a-geo-audit, geo-small-business-zero-budget, get-recommended-by-chatgpt
 ---
 
-# GEO checklist 2026: what to fix first on your website
+# GEO checklist 2027: what to fix first on your website
 
 Fix these 12 things in order: let crawlers in, make key pages indexable, put the answer in the first two lines, add facts and sources, add a short FAQ, keep your business details identical everywhere, complete your Google Business Profile, get listed and reviewed, show dates and refresh pages, add structured data if it matches the page, set up tracking, then re-check. Items 1 to 3 matter most, because nothing else works if bots can't read your pages.
 
@@ -45,7 +45,7 @@ We make an audit tool and teach a course on this, so we have a stake. We've tied
 
 ## What you can skip
 
-- **llms.txt.** Google's guide says Google Search ignores it. See [is llms.txt enough?](/blog/llms-txt-vs-geo-is-it-enough-2026)
+- **llms.txt.** Google's guide says Google Search ignores it. See [is llms.txt enough?](/blog/llms-txt-vs-geo-is-it-enough-2027)
 - **Rewriting every page.** Start with your top three.
 - **Keyword stuffing for AI.** The paper found it did no better than doing nothing.
 

@@ -41,7 +41,7 @@ Many "AI visibility" tools work by wrapping your URL in a prompt and sending it 
 
 ## How do you audit repeatably?
 
-1. **Use a written rubric.** List the checks and what passes or fails. Our [GEO checklist](/blog/geo-checklist-2026) is one.
+1. **Use a written rubric.** List the checks and what passes or fails. Our [GEO checklist](/blog/geo-checklist-2027) is one.
 2. **Prefer rule-based checks for site properties.** Crawler access, indexing, dates, structure and consistent names can be checked by rules. Litmus's page says its scans are rule-based with no LLM calls, and that the same input gives the same score.
 3. **Use AI for what only AI can show: what it says about you.** Run each question several times and count appearances. See our [free method](/blog/know-if-ai-recommends-your-business).
 4. **Record dates and settings.** Tools and models change.

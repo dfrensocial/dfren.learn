@@ -1,6 +1,6 @@
 ---
 title: An AEO blueprint: a 7-step plan to get your content used as the answer
-seoTitle: AEO blueprint: a 7-step answer engine optimization plan (2026)
+seoTitle: AEO blueprint: a 7-step answer engine optimization plan (2027)
 description: A plain 7-step AEO blueprint: pick real questions, answer first, structure pages, check access, build mentions, track and refresh. Each step tied to a source.
 date: 2026-11-04
 updated: 2026-11-04
@@ -8,7 +8,7 @@ author: AiVirex Team
 authorRole: Research and writing, AiVirex Innovations
 authorUrl: https://aivirex.in
 tag: Getting recommended
-related: what-is-aeo, geo-checklist-2026, what-is-geo-in-plain-words
+related: what-is-aeo, geo-checklist-2027, what-is-geo-in-plain-words
 ---
 
 # An AEO blueprint: a 7-step plan to get your content used as the answer

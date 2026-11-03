@@ -1,6 +1,6 @@
 ---
 title: How to get your business recommended by ChatGPT: 7 steps that are backed by evidence
-seoTitle: How to get your business recommended by ChatGPT (7 steps, 2026)
+seoTitle: How to get your business recommended by ChatGPT (7 steps, 2027)
 description: Seven steps to make your business easier for ChatGPT to find and name, from letting OAI-SearchBot in to reviews and fresh pages. What's proven and what isn't.
 date: 2026-11-03
 updated: 2026-11-03

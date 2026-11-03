@@ -1,6 +1,6 @@
 ---
 title: How to run a GEO audit, step by step (for your own site or a client's)
-seoTitle: How to run a GEO audit step by step (2026 guide)
+seoTitle: How to run a GEO audit step by step (2027 guide)
 description: A step-by-step GEO audit: record a baseline, check crawler access, review pages, test AI answers and write a prioritised fix list. Tools and limits included.
 date: 2026-11-04
 updated: 2026-11-04
@@ -8,7 +8,7 @@ author: Litmus Team
 authorRole: Research and writing, Litmus by AiVirex
 authorUrl: https://litmus.aivirex.in
 tag: Audits and measurement
-related: geo-checklist-2026, free-geo-audit-tools-compared, how-much-geo-audit
+related: geo-checklist-2027, free-geo-audit-tools-compared, how-much-geo-audit
 ---
 
 # How to run a GEO audit, step by step (for your own site or a client's)

@@ -1,6 +1,6 @@
 ---
 title: GEO for Chennai and Tamil Nadu businesses: what to do and what the data says
-seoTitle: GEO for Chennai and Tamil Nadu businesses (2026 guide)
+seoTitle: GEO for Chennai and Tamil Nadu businesses (2027 guide)
 description: How a Chennai or Tamil Nadu business can get found by AI assistants. Local facts, Tamil language support in AI tools and a short plan, with sources.
 date: 2026-11-03
 updated: 2026-11-03
@@ -8,7 +8,7 @@ author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
 tag: India and local
-related: geo-small-business-zero-budget, get-recommended-by-chatgpt, learn-geo-in-chennai-fees-2026
+related: geo-small-business-zero-budget, get-recommended-by-chatgpt, learn-geo-in-chennai-fees-2027
 ---
 
 # GEO for Chennai and Tamil Nadu businesses: what to do and what the data says

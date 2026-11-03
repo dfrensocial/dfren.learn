@@ -1,6 +1,6 @@
 ---
 title: Where to learn GEO in Chennai: institutes, fees and online options
-seoTitle: Where to learn GEO in Chennai: fees and options (2026)
+seoTitle: Where to learn GEO in Chennai: fees and options (2027)
 description: Learn GEO from Chennai: our pick is a ₹499 online course mostly in Tamil. IIM Skills is ₹34,900 plus GST, local SEO courses from ₹9,000. Checked 3 Nov 2026.
 date: 2026-11-03
 updated: 2026-11-03
@@ -8,7 +8,7 @@ author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
 tag: Chennai
-related: where-can-i-learn-geo-in-india-2026, geo-course-in-tamil-free-and-paid-2026, geo-courses-by-price
+related: where-can-i-learn-geo-in-india-2027, geo-course-in-tamil-free-and-paid-2027, geo-courses-by-price
 ---
 
 # Where to learn GEO in Chennai: institutes, fees and online options
