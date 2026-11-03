@@ -21,6 +21,9 @@ export function MarketingNav() {
           <Link href="#faq" className="hidden sm:inline hover:underline">
             FAQ
           </Link>
+          <Link href="/blog" className="hidden sm:inline hover:underline">
+            Blog
+          </Link>
           <AccountLinks showEnroll />
           <button
             type="button"
@@ -62,6 +65,13 @@ export function MarketingNav() {
             className="border-b border-black px-6 py-4 text-sm font-medium"
           >
             FAQ
+          </Link>
+          <Link
+            href="/blog"
+            onClick={() => setMenuOpen(false)}
+            className="border-b border-black px-6 py-4 text-sm font-medium"
+          >
+            Blog
           </Link>
           {loading ? null : user ? (
             <button
