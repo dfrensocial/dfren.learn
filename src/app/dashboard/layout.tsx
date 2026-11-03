@@ -1,24 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { signOut } from "firebase/auth";
-import { auth } from "@/lib/firebase/client";
-import { clearSessionCookie, useAuth } from "@/lib/firebase/auth-context";
+import { usePathname } from "next/navigation";
+import { useAuth } from "@/lib/firebase/auth-context";
+import { useLogout } from "@/lib/use-logout";
 import { LEGAL } from "@/content/legal";
 import { PrivacySettingsLink } from "@/components/consent/privacy-settings-link";
 import { PolicyUpdateDialog, usePolicyGate } from "@/components/legal/policy-gate";
+import { PageLoader } from "@/components/ui/page-loader";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
   const pathname = usePathname();
   const { user } = useAuth();
-
-  async function handleLogout() {
-    await clearSessionCookie();
-    await signOut(auth);
-    router.push("/");
-  }
+  const handleLogout = useLogout();
 
   const onCourses = pathname === "/dashboard" || pathname.startsWith("/dashboard/courses");
 
@@ -32,7 +26,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <header className="border-b border-black">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
           <div className="flex items-center gap-8">
-            <Link href="/dashboard" className="text-lg font-bold tracking-tight">
+            <Link href="/" className="text-lg font-bold tracking-tight" aria-label="dfrenLearn home">
               dfren<span className="text-neutral-400">Learn</span>
             </Link>
             <nav className="flex items-center gap-5 text-sm">
@@ -66,8 +60,20 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               Try again
             </button>
           </p>
-        ) : (
-          <p className="text-sm text-neutral-500">Loading…</p>
+        ) : gate.status === "needed" ? null : (
+          <PageLoader
+            label="Checking your account…"
+            hint="Just a moment."
+            slowAfterMs={8000}
+            slowContent={
+              <>
+                Taking longer than usual.{" "}
+                <button type="button" onClick={gate.retry} className="underline">
+                  Try again
+                </button>
+              </>
+            }
+          />
         )}
       </main>
       <footer className="border-t border-neutral-200 px-6 py-4 text-xs text-neutral-500">

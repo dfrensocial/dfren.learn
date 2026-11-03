@@ -12,6 +12,8 @@ import { getAttribution } from "@/lib/attribution";
 import { AcceptTerms } from "@/components/legal/accept-terms";
 import { addAcceptanceParams, hasAcceptedCurrent, recordAcceptance } from "@/lib/legal-acceptance";
 import { rememberLoginEmail } from "@/lib/login-email";
+import { BusyOverlay } from "@/components/ui/busy-overlay";
+import { ButtonLabel } from "@/components/ui/spinner";
 
 // What Razorpay's checkout reports when a payment attempt fails (no card data).
 interface RazorpayFailure {
@@ -75,12 +77,22 @@ export function CheckoutButton({
   const [showTestModal, setShowTestModal] = useState(false);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [infoMessage, setInfoMessage] = useState<string | null>(null);
+  // After the payment goes through: confirming it with the server and signing the buyer in
+  // takes a few seconds, during which the page must not look idle or clickable.
+  const [finalizing, setFinalizing] = useState(false);
   const firstModalButtonRef = useRef<HTMLButtonElement>(null);
   // The required "18+, agree to Terms, read the Privacy Policy" box.
   const [accepted, setAccepted] = useState(false);
   useEffect(() => {
     Promise.resolve().then(() => setAccepted(hasAcceptedCurrent()));
   }, []);
+
+  // Never leave the "finishing up" screen up forever if the navigation never happens.
+  useEffect(() => {
+    if (!finalizing) return;
+    const id = window.setTimeout(() => setFinalizing(false), 25_000);
+    return () => window.clearTimeout(id);
+  }, [finalizing]);
 
   // Basic focus trap + Escape-to-close for the test-mode modal.
   useEffect(() => {
@@ -124,6 +136,7 @@ export function CheckoutButton({
           `Payment received — you're enrolled. Go to the login page and request a sign-in link for ${email}.`
         );
       }
+      setFinalizing(false);
       return;
     }
     router.push(`/dashboard/courses/${courseId}?purchased=1`);
@@ -205,6 +218,7 @@ export function CheckoutButton({
           razorpay_payment_id: string;
           razorpay_signature: string;
         }) => {
+          setFinalizing(true);
           try {
             const verifyRes = await fetch("/api/razorpay/verify", {
               method: "POST",
@@ -227,6 +241,7 @@ export function CheckoutButton({
             void clarityTag("buyer", "yes");
             await completeSignIn(await verifyRes.json(), email);
           } catch {
+            setFinalizing(false);
             track("checkout_error", { stage: "verify" });
             setStatusMessage(
               "Payment succeeded but we couldn't confirm it — contact support with your payment ID."
@@ -281,8 +296,10 @@ export function CheckoutButton({
         body: JSON.stringify({ courseId, email: resolveEmail() }),
       });
       if (!res.ok) throw new Error("simulate-payment failed");
+      setFinalizing(true);
       await completeSignIn(await res.json(), resolveEmail());
     } catch {
+      setFinalizing(false);
       setStatusMessage("Something went wrong simulating the payment. Please try again.");
     } finally {
       setLoading(false);
@@ -294,20 +311,31 @@ export function CheckoutButton({
     setStatusMessage("Payment failed. Please try again.");
   }
 
+  const overlay = finalizing ? (
+    <BusyOverlay
+      label="Payment received. Setting up your access…"
+      hint="This takes a few seconds. Please don't close this page."
+    />
+  ) : null;
+
   // Already owns it: no second purchase, just a way in.
   if (enrolled) {
     return (
-      <Link
+      <>
+        {overlay}
+        <Link
         href={`/dashboard/courses/${courseId}`}
         className="block w-full bg-black px-6 py-3 text-center font-semibold text-white transition hover:bg-neutral-800"
       >
         You own this course — continue learning
-      </Link>
+        </Link>
+      </>
     );
   }
 
   return (
     <div>
+      {overlay}
       <form onSubmit={handleCheckout}>
         {showEmailField && !user && (
           <div className="mb-3">
@@ -340,7 +368,7 @@ export function CheckoutButton({
           disabled={loading}
           className="w-full bg-black px-6 py-3 font-semibold text-white transition hover:bg-neutral-800 disabled:opacity-50"
         >
-          {loading ? "Preparing checkout..." : "Enroll now"}
+          <ButtonLabel busy={loading}>{loading ? "Preparing checkout…" : "Enroll now"}</ButtonLabel>
         </button>
       </form>
 

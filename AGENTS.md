@@ -49,6 +49,10 @@ Course platform: landing page → guest checkout → protected video lessons. Cu
 - Refunds: none for change of mind (digital product, instant access). Only an extra charge, or access we can't fix within `LEGAL.accessFixDays` of the buyer's email. No "guarantee" or "money-back" copy anywhere. Refunds are done by hand in the Razorpay dashboard; a refund webhook only records the ledger + GA4 and does NOT revoke access (a duplicate-charge refund must not).
 - Erasure requests: `scripts/erase-user.ts <email> [--confirm]` (dry run by default). Contact/grievance details live only in `src/content/legal.ts`.
 
+## Loading states
+- Anything that waits shows it: use `PageLoader` (centred spinner + message, optional "taking longer than usual" way out), `Skeleton`, `ButtonLabel` (spinner inside a busy button) and `BusyOverlay` / `useBusy()` (blocking overlay) from `src/components/ui/`. Never leave a bare blank screen or plain "Loading…" text.
+- Log out only via `useLogout()` (`src/lib/use-logout.ts`): it shows the "Signing you out…" overlay. A signed-in visitor on /login is sent on with a full page load after `tryRefreshSessionCookie` (it times out, and a loop breaker stops endless bounces).
+
 ## Rules
 - Never expose `RAZORPAY_KEY_SECRET`, `FIREBASE_PRIVATE_KEY`, `MUX_TOKEN_SECRET`, or `MUX_SIGNING_KEY_PRIVATE` to the client — server-only env vars, no `NEXT_PUBLIC_` prefix.
 - Never grant course access from an unverified client message — only from a signature-verified path (`/api/razorpay/verify` or the webhook), per "Checkout & accounts" above.

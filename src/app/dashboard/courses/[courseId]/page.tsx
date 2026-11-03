@@ -9,6 +9,7 @@ import { useAuth } from "@/lib/firebase/auth-context";
 import { SecureVideoPlayer } from "@/components/course/secure-video-player";
 import { CheckoutButton } from "@/components/course/checkout-button";
 import { ResourceList } from "@/components/course/resource-list";
+import { PageLoader } from "@/components/ui/page-loader";
 import type { Course, Lesson } from "@/types/course";
 
 function LockIcon() {
@@ -126,7 +127,7 @@ function CourseView({ params }: { params: Promise<{ courseId: string }> }) {
   }
 
   if (!course || !courseId) {
-    return <div className="h-64 animate-pulse bg-neutral-100" />;
+    return <PageLoader label="Opening your course…" hint="Getting your lessons ready." />;
   }
 
   const activeLesson = lessons.find((l) => l.id === activeLessonId);

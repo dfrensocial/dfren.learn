@@ -7,6 +7,7 @@ import { LEGAL } from "@/content/legal";
 import { recordAcceptance } from "@/lib/legal-acceptance";
 import { endExpiredSession } from "@/lib/firebase/auth-context";
 import { AcceptTerms } from "@/components/legal/accept-terms";
+import { ButtonLabel } from "@/components/ui/spinner";
 
 // "We've updated our policies" gate for the dashboard.
 //
@@ -174,7 +175,7 @@ export function PolicyUpdateDialog({
             disabled={!checked || busy}
             className="border border-black bg-black px-5 py-2.5 font-semibold text-white transition hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-40"
           >
-            {busy ? "Saving…" : "Accept and continue"}
+            <ButtonLabel busy={busy}>{busy ? "Saving…" : "Accept and continue"}</ButtonLabel>
           </button>
           <button type="button" onClick={onLogout} className="underline">
             Log out

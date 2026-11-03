@@ -10,6 +10,7 @@ import { endExpiredSession, useAuth } from "@/lib/firebase/auth-context";
 import { track } from "@/lib/analytics";
 import { paintWatermarkOverlay } from "@/lib/watermark/paint-overlay";
 import { ChapterList } from "@/components/course/chapter-list";
+import { Spinner } from "@/components/ui/spinner";
 import type { Chapter, CourseProgress } from "@/types/course";
 
 // Playback speeds surfaced in the player's settings menu — useful for
@@ -409,7 +410,18 @@ export function SecureVideoPlayer({
       </div>
     );
   }
-  if (!playback) return <div className="aspect-video animate-pulse bg-neutral-100" />;
+  if (!playback) {
+    return (
+      <div
+        role="status"
+        aria-live="polite"
+        className="flex aspect-video flex-col items-center justify-center gap-3 bg-neutral-100 text-black"
+      >
+        <Spinner className="h-8 w-8" />
+        <p className="text-sm font-medium text-neutral-700">Preparing your video…</p>
+      </div>
+    );
+  }
 
   // Server-side position wins (it follows the student across devices); this
   // device's localStorage copy covers the case where the server has nothing.

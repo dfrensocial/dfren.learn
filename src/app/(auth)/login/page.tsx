@@ -10,7 +10,9 @@ import {
 } from "firebase/auth";
 import Link from "next/link";
 import { auth } from "@/lib/firebase/client";
-import { syncSessionCookie, refreshSessionCookie, useAuth } from "@/lib/firebase/auth-context";
+import { syncSessionCookie, tryRefreshSessionCookie, useAuth } from "@/lib/firebase/auth-context";
+import { PageLoader } from "@/components/ui/page-loader";
+import { ButtonLabel } from "@/components/ui/spinner";
 import { safeRedirectPath } from "@/lib/safe-redirect";
 import { track } from "@/lib/analytics";
 import { AcceptTerms } from "@/components/legal/accept-terms";
@@ -46,9 +48,25 @@ function stripSignInParams() {
   }
 }
 
+// If a signed-in person keeps bouncing between /login and the dashboard (the
+// browser isn't keeping our session cookie, say), stop redirecting after a few
+// rounds and show them a way out instead of looping forever.
+const BOUNCE_KEY = "dfrenlearn:login-bounce";
+function tooManyBounces(): boolean {
+  try {
+    const now = Date.now();
+    const saved = JSON.parse(window.sessionStorage.getItem(BOUNCE_KEY) ?? "null") as { n: number; at: number } | null;
+    const n = saved && now - saved.at < 30_000 ? saved.n + 1 : 1;
+    window.sessionStorage.setItem(BOUNCE_KEY, JSON.stringify({ n, at: saved && now - saved.at < 30_000 ? saved.at : now }));
+    return n > 3;
+  } catch {
+    return false;
+  }
+}
+
 export default function LoginPage() {
   return (
-    <Suspense>
+    <Suspense fallback={<PageLoader fullScreen label="Loading…" />}>
       <LoginForm />
     </Suspense>
   );
@@ -76,6 +94,9 @@ function LoginForm() {
   // and we need to ask for it inline instead of a jarring window.prompt().
   const [needsEmailConfirm, setNeedsEmailConfirm] = useState(false);
   const [confirmEmail, setConfirmEmail] = useState("");
+  // Set when an already-signed-in visitor can't be carried on to the dashboard automatically.
+  const [signInIssue, setSignInIssue] = useState<null | "unreachable" | "loop">(null);
+  const [retryKey, setRetryKey] = useState(0);
 
   async function finishEmailLinkSignIn(emailForLink: string) {
     try {
@@ -112,19 +133,31 @@ function LoginForm() {
   // our 5-day server cookie): re-issue the cookie and carry on, instead of
   // making the user request another emailed link. If the server refuses (e.g.
   // the session was revoked) drop the stale login so the form works normally.
+  // A slow or unreachable server is NOT a reason to sign anyone out: the
+  // screen offers a retry. The final hop is a full page load, so the browser is
+  // guaranteed to send the fresh cookie and no cached navigation can redirect
+  // back here.
   useEffect(() => {
     if (authLoading || !signedInUser || linkMode !== false) return;
     let cancelled = false;
-    refreshSessionCookie(signedInUser).then(async (ok) => {
+    if (tooManyBounces()) {
+      Promise.resolve().then(() => !cancelled && setSignInIssue("loop"));
+      return () => {
+        cancelled = true;
+      };
+    }
+    const target = safeRedirectPath(searchParams.get("redirect"));
+    tryRefreshSessionCookie(signedInUser).then(async (result) => {
       if (cancelled) return;
-      if (ok) router.replace(safeRedirectPath(searchParams.get("redirect")));
-      else await signOut(auth).catch(() => {});
+      if (result === "ok") window.location.replace(target);
+      else if (result === "refused") await signOut(auth).catch(() => {});
+      else setSignInIssue("unreachable");
     });
     return () => {
       cancelled = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authLoading, signedInUser, linkMode]);
+  }, [authLoading, signedInUser, linkMode, retryKey]);
 
   // Guest-checkout accounts have no password — this completes the sign-in
   // when the user arrives here from the emailed link.
@@ -205,16 +238,70 @@ function LoginForm() {
   }
 
   if (linkMode === null || authLoading) {
-    return <main className="min-h-screen w-full bg-white" />;
+    return <PageLoader fullScreen label="Loading…" />;
   }
 
   // Already signed in: the effect above is re-issuing the session cookie and
   // redirecting. Don't flash the form meanwhile.
   if (signedInUser && linkMode === false) {
+    const target = safeRedirectPath(searchParams.get("redirect"));
+    const way = (
+      <span className="flex flex-col items-center gap-2">
+        <a href={target} className="font-medium underline">
+          Open my dashboard
+        </a>
+        <button
+          type="button"
+          onClick={() => {
+            setSignInIssue(null);
+            void signOut(auth);
+          }}
+          className="underline"
+        >
+          Sign out and use a different account
+        </button>
+      </span>
+    );
+    if (signInIssue) {
+      return (
+        <main className="flex min-h-screen w-full flex-col items-center justify-center gap-3 bg-white px-6 text-center text-black">
+          <p className="text-base font-semibold">
+            {signInIssue === "loop" ? "We couldn't open your dashboard automatically" : "We couldn't reach the server"}
+          </p>
+          <p className="max-w-xs text-sm text-neutral-600">
+            {signInIssue === "loop"
+              ? "You're signed in, but your browser didn't keep the sign-in. Try opening the dashboard directly."
+              : "Check your connection and try again. You're still signed in."}
+          </p>
+          {signInIssue === "unreachable" && (
+            <button
+              type="button"
+              onClick={() => {
+                setSignInIssue(null);
+                setRetryKey((k) => k + 1);
+              }}
+              className="bg-black px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800"
+            >
+              Try again
+            </button>
+          )}
+          <div className="text-sm text-neutral-600">{way}</div>
+        </main>
+      );
+    }
     return (
-      <main className="flex min-h-screen w-full items-center justify-center bg-white px-6 text-black">
-        <p className="text-neutral-600">Signing you in...</p>
-      </main>
+      <PageLoader
+        fullScreen
+        label="Signing you in…"
+        hint="You're already logged in. Taking you to your dashboard."
+        slowAfterMs={8000}
+        slowContent={
+          <>
+            <p className="mb-2">Taking longer than usual.</p>
+            {way}
+          </>
+        }
+      />
     );
   }
 
@@ -251,9 +338,20 @@ function LoginForm() {
 
   if (completingLink) {
     return (
-      <main className="flex min-h-screen w-full items-center justify-center bg-white px-6 text-black">
-        <p className="text-neutral-600">Signing you in...</p>
-      </main>
+      <PageLoader
+        fullScreen
+        label="Signing you in…"
+        hint="Checking your sign-in link."
+        slowAfterMs={10000}
+        slowContent={
+          <>
+            Taking longer than usual.{" "}
+            <a href="/login" className="font-medium underline">
+              Start again
+            </a>
+          </>
+        }
+      />
     );
   }
 
@@ -279,7 +377,9 @@ function LoginForm() {
               disabled={submitting || cooldownLeft > 0}
               className="font-medium text-black underline disabled:text-neutral-400 disabled:no-underline"
             >
-              {submitting ? "Sending..." : cooldownLeft > 0 ? `Resend in ${cooldownLeft}s` : "Resend link"}
+              <ButtonLabel busy={submitting}>
+                {submitting ? "Sending…" : cooldownLeft > 0 ? `Resend in ${cooldownLeft}s` : "Resend link"}
+              </ButtonLabel>
             </button>
             <button
               type="button"
@@ -322,7 +422,9 @@ function LoginForm() {
               disabled={submitting || cooldownLeft > 0 || !accepted}
               className="bg-black px-4 py-3 font-semibold text-white transition hover:bg-neutral-800 disabled:opacity-50"
             >
-              {submitting ? "Sending..." : cooldownLeft > 0 ? `Wait ${cooldownLeft}s` : "Email me a sign-in link"}
+              <ButtonLabel busy={submitting}>
+                {submitting ? "Sending your link…" : cooldownLeft > 0 ? `Wait ${cooldownLeft}s` : "Email me a sign-in link"}
+              </ButtonLabel>
             </button>
           </form>
 

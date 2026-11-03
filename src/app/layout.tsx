@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { AuthProvider } from "@/lib/firebase/auth-context";
 import { PageViewTracker } from "@/components/analytics/page-view-tracker";
 import { ConsentBanner } from "@/components/consent/consent-banner";
+import { BusyProvider } from "@/components/ui/busy-provider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -35,11 +36,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
-        <AuthProvider>
-          <PageViewTracker />
-          {children}
-          <ConsentBanner />
-        </AuthProvider>
+        <BusyProvider>
+          <AuthProvider>
+            <PageViewTracker />
+            {children}
+            <ConsentBanner />
+          </AuthProvider>
+        </BusyProvider>
       </body>
     </html>
   );
