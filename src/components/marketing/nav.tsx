@@ -63,7 +63,7 @@ export function MarketingNav() {
           >
             FAQ
           </Link>
-          {!loading && user ? (
+          {loading ? null : user ? (
             <button
               type="button"
               onClick={() => {

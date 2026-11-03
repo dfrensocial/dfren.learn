@@ -135,6 +135,7 @@ export function SecureVideoPlayer({
   // because it is handed a new token (confirmed in a live browser).
   const [playerKey, setPlayerKey] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const [loadAttempt, setLoadAttempt] = useState(0); // bumped by "Try again"
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [activeChapter, setActiveChapter] = useState(0);
   // Where to resume, from the server-side progress record (follows the
@@ -233,7 +234,7 @@ export function SecureVideoPlayer({
     return () => {
       cancelled = true;
     };
-  }, [user, courseId, lessonId, sessionId]);
+  }, [user, courseId, lessonId, sessionId, loadAttempt]);
 
   // Fetches a fresh playback token and swaps it in without losing the
   // viewer's place. Used on a timer before expiry, when the tab wakes up, and
@@ -406,7 +407,12 @@ export function SecureVideoPlayer({
   if (error) {
     return (
       <div className="flex aspect-video items-center justify-center border border-black bg-neutral-50 px-6 text-center">
-        <p className="text-sm text-neutral-600">{error}</p>
+        <div className="flex flex-col items-center gap-3">
+          <p className="text-sm text-neutral-600">{error}</p>
+          <button type="button" onClick={() => setLoadAttempt((n) => n + 1)} className="text-sm font-medium underline">
+            Try again
+          </button>
+        </div>
       </div>
     );
   }

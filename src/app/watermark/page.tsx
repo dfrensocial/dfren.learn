@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/lib/firebase/auth-context";
+import { ButtonLabel } from "@/components/ui/spinner";
 
 // Internal tool: upload a screenshot/frame grab from a suspicious clip and
 // recover the invisible forensic watermark id, plus whichever viewer it was
@@ -198,7 +199,7 @@ export default function WatermarkCheckPage() {
             disabled={!file || submitting}
             className="bg-black px-4 py-3 font-semibold text-white transition hover:bg-neutral-800 disabled:opacity-40"
           >
-            {submitting ? "Checking..." : "Check for watermark"}
+            <ButtonLabel busy={submitting}>{submitting ? "Checking…" : "Check for watermark"}</ButtonLabel>
           </button>
           {error && <p className="text-sm text-red-600">{error}</p>}
         </form>
