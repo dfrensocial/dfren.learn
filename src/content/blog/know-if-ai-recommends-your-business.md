@@ -7,7 +7,7 @@ updated: 2026-11-03
 author: Litmus Team
 authorRole: Research and writing, Litmus by AiVirex
 authorUrl: https://litmus.aivirex.in
-tag: Getting recommended
+tag: Technical guides
 related: see-if-chatgpt-sends-visitors-to-your-site, track-who-visits-your-website, learn-geo-30-days
 ---
 

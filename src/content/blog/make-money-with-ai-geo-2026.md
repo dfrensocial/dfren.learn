@@ -13,9 +13,9 @@ related: geo-earnings-india, how-much-geo-audit, learn-geo-30-days
 
 # How to make money with AI in 2026: learn GEO, then sell it (an honest version)
 
-One real way to earn with AI in 2026 is to help local businesses get named by AI assistants. That work is called GEO. Sellers publish prices from ₹35,000 a month, but we found no independent data on what beginners earn. So treat every income promise as marketing, including anything from us. Here is what the work is and a realistic first 90 days.
+One way to potentially make money with AI in 2026 is to offer a service: helping local businesses get named by AI assistants. That work is called GEO, and sellers publish prices from ₹35,000 a month. Whether it earns you anything depends on finding paying clients, and we found no independent data on what beginners earn. So treat every income promise as marketing, including anything from us. Here is what the service is, what it could be worth in simple arithmetic and a realistic first 90 days.
 
-We sell a GEO course, so we want you to try this. We also can't promise you'll earn anything, and we don't.
+We sell a GEO course, so we want you to try this. We also can't promise you'll earn anything, and we don't. What we can show is how the service is priced and how to work out the numbers yourself.
 
 ## What people are searching for
 
@@ -37,9 +37,13 @@ GEO, or generative engine optimization, is the work of checking whether an assis
 
 These are asking prices from sellers. They aren't what beginners earn. Dollar prices use ₹94.72 per US dollar ([x-rates](https://www.x-rates.com/calculator/?from=USD&to=INR&amount=1), 3 November 2026). See [GEO earnings in India](/blog/geo-earnings-india) for the full data and its limits.
 
+## What it could be worth: the maths, with your own numbers
+
+Income from a service is price times clients, minus costs. Suppose you set a one-off audit price of ₹15,000 and sold 2 in a month: that's ₹30,000 of revenue before tax, tools and your own hours. Sell none and it's ₹0. These are made-up inputs for the arithmetic, not results anyone achieved and not typical results. Put your own price in, then test the one number nobody can supply: whether a real business will pay. The full model is in [what GEO work can be worth in India](/blog/geo-earnings-india).
+
 ## A realistic first 90 days
 
-This is our suggestion, not a forecast.
+This is our suggestion, not a forecast, and not a promise of clients.
 
 **Days 1 to 30: learn.** Follow the [30-day plan](/blog/learn-geo-30-days). A free course plus The GEO Blueprint takes about 3 hours of video. Practise on one site.
 
@@ -59,12 +63,12 @@ What happens after that, we can't tell you. You may win clients, or none, and no
 
 ## Where The GEO Blueprint fits
 
-Start small. The GEO Blueprint is ₹499, about 1.5 hours, mostly in Tamil with English terms mixed in. It covers the 6 pillars of GEO, a live audit demo and 2 ways to charge for the work, so it's a strong first step toward the 90 days above. It makes no promise of income, and it has no student reviews yet.
+Start small. The GEO Blueprint is ₹499, about 1.5 hours, mostly in Tamil with English terms mixed in. It covers the 6 pillars of GEO, a live audit demo and 2 ways to package the work as a paid service: charging to fix what an audit finds, and charging monthly for content. In our view that makes it a strong first step toward the 90 days above, and a low-cost way to find out if you like the work. If it clicks, the service could become a source of income. It makes no promise of income, and it has no student reviews yet.
 
 ## Questions, answered
 
 ### Can I make money with AI in India in 2026?
-Some people do, by selling services around AI tools. GEO audits are one example. We found no independent data on typical earnings, so we can't say you will. Learn the skill, try it on a real business and judge from your own results.
+Some people may, by selling services around AI tools. GEO audits and content retainers are one example, and sellers publish prices for them. We found no independent data on typical earnings, so we can't say you will. Learn the skill, try it on a real business and judge from your own results.
 
 ### Is GEO a good side hustle?
 It might suit you if you like research and writing and can find local clients. Demand for the term is still small in India, and no source measures what side-hustlers earn. Start with one audit before you invest more.

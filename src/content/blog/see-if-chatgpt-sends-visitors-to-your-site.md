@@ -7,7 +7,7 @@ updated: 2026-11-03
 author: AiVirex Team
 authorRole: Research and writing, AiVirex Innovations
 authorUrl: https://aivirex.in
-tag: Tracking
+tag: Technical guides
 related: track-who-visits-your-website, know-if-ai-recommends-your-business
 ---
 

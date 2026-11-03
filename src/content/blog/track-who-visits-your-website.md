@@ -7,7 +7,7 @@ updated: 2026-11-03
 author: AiVirex Team
 authorRole: Research and writing, AiVirex Innovations
 authorUrl: https://aivirex.in
-tag: Tracking
+tag: Technical guides
 related: connect-google-analytics-4-website, see-if-chatgpt-sends-visitors-to-your-site, know-if-ai-recommends-your-business
 ---
 

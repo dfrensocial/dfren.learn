@@ -7,7 +7,7 @@ updated: 2026-11-03
 author: Litmus Team
 authorRole: Research and writing, Litmus by AiVirex
 authorUrl: https://litmus.aivirex.in
-tag: How AI picks answers
+tag: Technical guides
 related: geo-vs-seo-vs-aeo, is-geo-rebranded-seo, learn-geo-30-days
 ---
 
