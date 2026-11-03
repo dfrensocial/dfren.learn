@@ -8,7 +8,7 @@ author: Litmus Team
 authorRole: Research and writing, Litmus by AiVirex
 authorUrl: https://litmus.aivirex.in
 tag: Technical guides
-related: geo-checklist-2026, how-to-run-a-geo-audit, is-llms-txt-enough-for-geo
+related: geo-checklist-2026, how-to-run-a-geo-audit, llms-txt-vs-geo-is-it-enough-2026
 ---
 
 # Schema markup for AI answers: what a small business site should add

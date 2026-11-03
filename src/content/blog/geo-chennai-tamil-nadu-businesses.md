@@ -8,7 +8,7 @@ author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
 tag: India and local
-related: geo-small-business-zero-budget, get-recommended-by-chatgpt, learn-geo-in-chennai
+related: geo-small-business-zero-budget, get-recommended-by-chatgpt, learn-geo-in-chennai-fees-2026
 ---
 
 # GEO for Chennai and Tamil Nadu businesses: what to do and what the data says

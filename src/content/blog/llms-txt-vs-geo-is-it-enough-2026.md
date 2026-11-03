@@ -8,7 +8,7 @@ author: Litmus Team
 authorRole: Research and writing, Litmus by AiVirex
 authorUrl: https://litmus.aivirex.in
 tag: Technical guides
-related: geo-vs-seo-vs-aeo, is-geo-rebranded-seo, learn-geo-30-days
+related: geo-vs-seo-vs-aeo, is-geo-just-rebranded-seo-vs-2026, learn-geo-30-days
 ---
 
 # llms.txt vs real GEO: is llms.txt enough for AI visibility in 2026?
@@ -64,7 +64,7 @@ The public course page for The GEO Blueprint names 6 pillars. Here they are in p
 
 Structured data is a minor item. Google's guide says there's no special schema.org markup you need for its AI features, though it's still worth using for other search features.
 
-For evidence on content changes, the one controlled study we know of is the GEO paper. It found that adding statistics, quotations and cited sources lifted visibility in its tests, and keyword stuffing didn't. We unpack it in [what "up to 40%" really means](/blog/geo-paper-up-to-40-percent). It's a lab result, not a promise. For the terms, see [GEO vs SEO vs AEO](/blog/geo-vs-seo-vs-aeo) and [is GEO just rebranded SEO](/blog/is-geo-rebranded-seo).
+For evidence on content changes, the one controlled study we know of is the GEO paper. It found that adding statistics, quotations and cited sources lifted visibility in its tests, and keyword stuffing didn't. We unpack it in [what "up to 40%" really means](/blog/geo-paper-up-to-40-percent). It's a lab result, not a promise. For the terms, see [GEO vs SEO vs AEO](/blog/geo-vs-seo-vs-aeo) and [is GEO just rebranded SEO](/blog/is-geo-just-rebranded-seo-vs-2026).
 
 ## How do you check your own site?
 

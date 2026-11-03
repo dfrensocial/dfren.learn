@@ -8,7 +8,7 @@ author: AiVirex Team
 authorRole: Research and writing, AiVirex Innovations
 authorUrl: https://aivirex.in
 tag: Mistakes
-related: geo-checklist-2026, is-llms-txt-enough-for-geo, why-chatgpt-gives-different-website-score
+related: geo-checklist-2026, llms-txt-vs-geo-is-it-enough-2026, why-chatgpt-gives-different-website-score
 ---
 
 # Seven GEO mistakes that waste money (and what to do instead)
@@ -27,7 +27,7 @@ The [original GEO paper](https://ar5iv.labs.arxiv.org/html/2311.09735) tested 9 
 
 ## 3. Treating llms.txt as a strategy
 
-Google's guide says Google Search [ignores llms.txt and Markdown files](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide), and a 300,000-domain study found [no measurable link with AI citations](https://www.searchenginejournal.com/llms-txt-shows-no-clear-effect-on-ai-citations-based-on-300k-domains/561542/). It's harmless, not a plan. **Instead:** fix pages first. See [is llms.txt enough?](/blog/is-llms-txt-enough-for-geo)
+Google's guide says Google Search [ignores llms.txt and Markdown files](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide), and a 300,000-domain study found [no measurable link with AI citations](https://www.searchenginejournal.com/llms-txt-shows-no-clear-effect-on-ai-citations-based-on-300k-domains/561542/). It's harmless, not a plan. **Instead:** fix pages first. See [is llms.txt enough?](/blog/llms-txt-vs-geo-is-it-enough-2026)
 
 ## 4. Judging by one answer
 

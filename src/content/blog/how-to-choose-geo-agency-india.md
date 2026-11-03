@@ -45,7 +45,7 @@ Published figures are from sellers:
 - upGrowth Digital's [benchmark page](https://upgrowth.in/geo-aeo-pricing-benchmark-india-2026/) says mid-market GEO retainers in India run ₹75,000 to ₹3,50,000 a month, and one-time audits ₹1,50,000 to ₹8,00,000.
 - A [Redefine ROI](https://www.theatdb.com/news/redefine-roi-launches-generative-engine-optimization-geo-service-to-help-brands-get-cited-by-chatgpt-google-ai) launch notice reports a service starting at ₹35,000 a month.
 
-We found no independent survey of what Indian businesses actually pay. See [GEO retainer pricing in India](/blog/geo-retainer-pricing-india) and [what GEO work can be worth](/blog/geo-earnings-india).
+We found no independent survey of what Indian businesses actually pay. See [GEO retainer pricing in India](/blog/geo-retainer-pricing-india) and [what GEO work can be worth](/blog/geo-freelancer-earnings-india-2026).
 
 ## Can you do it yourself first?
 

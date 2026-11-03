@@ -8,7 +8,7 @@ author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
 tag: Making money
-related: geo-earnings-india, how-much-geo-audit, learn-geo-30-days
+related: geo-freelancer-earnings-india-2026, how-much-geo-audit, learn-geo-30-days
 ---
 
 # How to make money with AI in 2026: learn GEO, then sell it (an honest version)
@@ -35,11 +35,11 @@ GEO, or generative engine optimization, is the work of checking whether an assis
 - An Indian agency publishes [retainers of ₹75,000 to ₹3,50,000 a month](https://upgrowth.in/geo-aeo-pricing-benchmark-india-2026/) for mid-market work.
 - Small-business SEO retainers run about ₹15,000 to ₹60,000 a month, [according to an agency page](https://seo.irpr.agency/pricing/small-business-seo/) (reported).
 
-These are asking prices from sellers. They aren't what beginners earn. Dollar prices use ₹94.72 per US dollar ([x-rates](https://www.x-rates.com/calculator/?from=USD&to=INR&amount=1), 3 November 2026). See [GEO earnings in India](/blog/geo-earnings-india) for the full data and its limits.
+These are asking prices from sellers. They aren't what beginners earn. Dollar prices use ₹94.72 per US dollar ([x-rates](https://www.x-rates.com/calculator/?from=USD&to=INR&amount=1), 3 November 2026). See [GEO earnings in India](/blog/geo-freelancer-earnings-india-2026) for the full data and its limits.
 
 ## What it could be worth: the maths, with your own numbers
 
-Income from a service is price times clients, minus costs. Suppose you set a one-off audit price of ₹15,000 and sold 2 in a month: that's ₹30,000 of revenue before tax, tools and your own hours. Sell none and it's ₹0. These are made-up inputs for the arithmetic, not results anyone achieved and not typical results. Put your own price in, then test the one number nobody can supply: whether a real business will pay. The full model is in [what GEO work can be worth in India](/blog/geo-earnings-india).
+Income from a service is price times clients, minus costs. Suppose you set a one-off audit price of ₹15,000 and sold 2 in a month: that's ₹30,000 of revenue before tax, tools and your own hours. Sell none and it's ₹0. These are made-up inputs for the arithmetic, not results anyone achieved and not typical results. Put your own price in, then test the one number nobody can supply: whether a real business will pay. The full model is in [what GEO work can be worth in India](/blog/geo-freelancer-earnings-india-2026).
 
 ## A realistic first 90 days
 

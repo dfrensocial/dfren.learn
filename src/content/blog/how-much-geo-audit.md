@@ -8,7 +8,7 @@ author: Litmus Team
 authorRole: Research and writing, Litmus by AiVirex
 authorUrl: https://litmus.aivirex.in
 tag: Pricing
-related: geo-retainer-pricing-india, geo-earnings-india, learn-geo-30-days
+related: geo-retainer-pricing-india, geo-freelancer-earnings-india-2026, learn-geo-30-days
 ---
 
 # How much to charge for a GEO audit in India (in rupees)

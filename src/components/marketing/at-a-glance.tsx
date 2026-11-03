@@ -27,7 +27,7 @@ export function AtAGlance({ pricing }: { pricing: CourseContent["pricing"] }) {
                   <th scope="row" className="w-1/3 bg-neutral-50 px-4 py-3 font-semibold">
                     {k}
                   </th>
-                  <td className="px-4 py-3 text-neutral-700">{v}</td>
+                  <td className="px-4 py-3 text-neutral-700">{v.endsWith(".") ? v : `${v}.`}</td>
                 </tr>
               ))}
             </tbody>

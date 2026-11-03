@@ -45,7 +45,7 @@ We make an audit tool and teach a course on this, so we have a stake. We've tied
 
 ## What you can skip
 
-- **llms.txt.** Google's guide says Google Search ignores it. See [is llms.txt enough?](/blog/is-llms-txt-enough-for-geo)
+- **llms.txt.** Google's guide says Google Search ignores it. See [is llms.txt enough?](/blog/llms-txt-vs-geo-is-it-enough-2026)
 - **Rewriting every page.** Start with your top three.
 - **Keyword stuffing for AI.** The paper found it did no better than doing nothing.
 

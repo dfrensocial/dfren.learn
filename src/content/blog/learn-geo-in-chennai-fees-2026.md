@@ -8,7 +8,7 @@ author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
 tag: Chennai
-related: where-can-i-learn-geo, geo-course-in-tamil, geo-courses-by-price
+related: where-can-i-learn-geo-in-india-2026, geo-course-in-tamil-free-and-paid-2026, geo-courses-by-price
 ---
 
 # Where to learn GEO in Chennai: institutes, fees and online options

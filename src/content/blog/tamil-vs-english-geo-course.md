@@ -8,7 +8,7 @@ author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
 tag: Learn in Tamil
-related: geo-course-in-tamil, how-to-learn-geo-in-tamil, where-can-i-learn-geo
+related: geo-course-in-tamil-free-and-paid-2026, how-to-learn-geo-in-tamil, where-can-i-learn-geo-in-india-2026
 ---
 
 # Should you learn GEO in Tamil or English? How to choose
