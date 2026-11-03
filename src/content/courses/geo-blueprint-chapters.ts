@@ -24,7 +24,6 @@ export const lessonChapters: Record<string, Chapter[]> = {
     { start: t("0:00"), title: "Welcome and what you'll learn", group: M1 },
     { start: t("1:06"), title: "A language model is a next-word predictor", group: M1 },
 
-    { start: t("6:01"), title: "Search has changed direction twice already", group: M2 },
     { start: t("11:31"), title: "What GEO is", group: M2 },
     { start: t("12:35"), title: "SEO vs GEO, side by side", group: M2 },
     { start: t("15:30"), title: "Where SEO and GEO overlap", group: M2 },

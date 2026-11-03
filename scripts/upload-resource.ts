@@ -1,10 +1,9 @@
 // Stores a downloadable file for a course (worksheet, slides, templates…).
 //
-// The file's bytes go into a private Firestore subdoc that no client can read
-// (see firestore.rules) and are served only by /api/resources after a session
-// + enrollment check. Firestore caps a document at 1 MiB, so this is for small
-// files; anything bigger needs real object storage (Firebase Storage / GCS,
-// which requires the Blaze plan).
+// The file goes into private Firebase Storage (storage.rules denies every client
+// read) and /api/resources hands out a 60-second signed link after a session +
+// enrollment check, so downloads don't pass through the web host. The Firestore
+// doc holds only the metadata and the `storagePath`.
 //
 // Source files must NOT go in the repo — the production repo is public.
 //
@@ -15,7 +14,7 @@ export {}; // force module scope so this file's `main` doesn't collide with othe
 
 process.loadEnvFile(".env.local");
 
-const MAX_BYTES = 900 * 1024; // headroom under Firestore's 1 MiB document limit
+const MAX_BYTES = 500 * 1024 * 1024; // sanity cap
 
 const CONTENT_TYPES: Record<string, string> = {
   pdf: "application/pdf",
@@ -39,17 +38,19 @@ async function main() {
   if (!fs.existsSync(filePath)) throw new Error(`File not found: ${filePath}`);
   const bytes = fs.readFileSync(filePath);
   if (bytes.length > MAX_BYTES) {
-    throw new Error(`File is ${(bytes.length / 1024).toFixed(0)} KB; the limit here is ${MAX_BYTES / 1024} KB. Use Firebase Storage for larger files.`);
+    throw new Error(`File is ${(bytes.length / 1024 / 1024).toFixed(0)} MB; the limit here is ${MAX_BYTES / 1024 / 1024} MB.`);
   }
   const filename = path.basename(filePath);
   const ext = filename.split(".").pop()?.toLowerCase() ?? "";
   const contentType = CONTENT_TYPES[ext];
   if (!contentType) throw new Error(`Unsupported file type ".${ext}" (add it to CONTENT_TYPES).`);
 
-  const { adminDb } = await import("../src/lib/firebase/admin");
+  const { adminDb, adminBucket } = await import("../src/lib/firebase/admin");
   const ref = adminDb.collection("courses").doc(courseId).collection("resources").doc(resourceId);
-  await ref.set({ title, description, filename, contentType, size: bytes.length, order: Number(orderStr) });
-  await ref.collection("file").doc("data").set({ bytes });
+  const storagePath = `courses/${courseId}/resources/${resourceId}/${filename}`;
+  await adminBucket.file(storagePath).save(bytes, { contentType, resumable: false });
+  await ref.set({ title, description, filename, contentType, size: bytes.length, order: Number(orderStr), storagePath });
+  await ref.collection("file").doc("data").delete(); // drop the old Firestore copy, if any
   console.log(`Stored "${title}" (${filename}, ${(bytes.length / 1024).toFixed(0)} KB) as ${courseId}/${resourceId}`);
 }
 
