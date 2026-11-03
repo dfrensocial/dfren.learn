@@ -197,7 +197,8 @@ function CourseView({ params }: { params: Promise<{ courseId: string }> }) {
         <p className="mt-6 text-sm text-neutral-500">Lessons coming soon.</p>
       )}
 
-      {lessons.length > 0 && (
+      {/* One lesson = nothing to pick between, and the player already names it. */}
+      {lessons.length > 1 && (
         <ol className="mt-6 max-w-4xl divide-y divide-black border border-black">
           {lessons.map((lesson, i) => {
             const isActive = enrolled && lesson.id === activeLessonId;
