@@ -81,7 +81,7 @@ From ₹0 to ₹70,682 including GST. Free courses exist, Coursera is ₹6,999 a
 Not necessarily. Price doesn't predict quality here. A free 90-minute course has 20 lessons, and a ₹499 course is about 1.5 hours long. A higher price mostly buys more hours, a certificate, mentors or an internship. Check the page for what you'd actually get. We suggest starting with The GEO Blueprint because it's short enough to finish and built around a first audit.
 
 ### Does GST apply to GEO courses?
-It does when the provider is registered and says so. IIM Skills adds 18% GST to its fees. Our ₹499 is the full price. Always check whether a page says "plus GST" before comparing totals.
+It does when the provider is registered and says so. IIM Skills adds 18% GST to its fees. The course is charged at ₹499 at checkout, with no extra tax added on top. Always check whether a page says "plus GST" before comparing totals.
 
 ### Are dollar courses cheaper than Indian ones?
 Often not once you convert. Trust Insights' $99 course is about ₹9,377, and its $199 bundle is about ₹18,848. That's far above a ₹499 course, though the content and length differ. Compare hours and topics, not just price.

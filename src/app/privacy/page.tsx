@@ -437,6 +437,10 @@ export default function PrivacyPage() {
           <a className="underline" href={`mailto:${LEGAL.grievanceEmail}`}>
             {LEGAL.grievanceEmail}
           </a>
+          <br />
+          Grievance Officer: {LEGAL.grievanceOfficer}
+          <br />
+          Phone: {LEGAL.grievancePhone}
         </p>
         <p className="mt-2">
           Send questions, requests and complaints to that same inbox. We acknowledge them within{" "}
