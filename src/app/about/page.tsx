@@ -8,7 +8,7 @@ import { geoBlueprintCourse } from "@/content/courses/geo-blueprint";
 export const metadata: Metadata = {
   title: "About dfrenLearn and The GEO Blueprint | dfrenLearn",
   description:
-    "dfrenLearn is run by DFREN Marketing Agency in Tambaram, Chennai. It publishes The GEO Blueprint, a 1.5-hour GEO course by AiVirex Innovations, and plain guides on GEO.",
+    "dfrenLearn is run by DFREN Marketing Agency in Tambaram, Chennai. It sells The GEO Blueprint, a 1.5-hour GEO course by AiVirex, and publishes GEO guides.",
   alternates: { canonical: "/about" },
   openGraph: { url: `${SITE_URL}/about`, type: "website", images: [{ url: "/opengraph-image", width: 1200, height: 630 }] },
   twitter: { card: "summary_large_image", images: ["/opengraph-image"] },

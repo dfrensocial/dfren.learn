@@ -29,7 +29,13 @@ export function LegalPage({
           <Link href="/" className="text-lg font-bold tracking-tight">
             dfren<span className="text-neutral-500">Learn</span>
           </Link>
-          <nav className="flex items-center gap-6">
+          <nav className="flex items-center gap-6 text-sm font-medium">
+            <Link href="/about" className="hidden sm:inline hover:underline">
+              About
+            </Link>
+            <Link href="/blog" className="hidden sm:inline hover:underline">
+              Blog
+            </Link>
             <AccountLinks showEnroll />
           </nav>
         </div>

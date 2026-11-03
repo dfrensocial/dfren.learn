@@ -1,7 +1,7 @@
 ---
 title: What is generative engine optimization (GEO)? A plain-words guide for 2026
 seoTitle: What is GEO (generative engine optimization)? Plain-words guide
-description: GEO is the work of making your site easy for AI assistants like ChatGPT and Gemini to find, understand and recommend. What it is, what it isn't and where to start.
+description: GEO is the work of making your site easy for AI assistants like ChatGPT and Gemini to find, understand and recommend. What it is and where to start.
 date: 2026-11-04
 updated: 2026-11-04
 author: AiVirex Team

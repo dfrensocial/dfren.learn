@@ -78,6 +78,18 @@ export default function ContactPage() {
         </p>
       </section>
       <section>
+        <h2>Who will read your message</h2>
+        <p>
+          Your email goes to the team at {LEGAL.entity} that runs dfrenLearn. For questions about how the course teaches
+          GEO, the course is by AiVirex Innovations, and we pass the question on to them. We do not sell or share your
+          email. Read the{" "}
+          <Link href="/about" className="underline">
+            About page
+          </Link>{" "}
+          to see who is behind the site.
+        </p>
+      </section>
+      <section>
         <h2>Business details</h2>
         <p>
           {LEGAL.entity} ({LEGAL.entityType}; brand name Dfren)

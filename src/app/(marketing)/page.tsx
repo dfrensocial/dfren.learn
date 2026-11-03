@@ -18,7 +18,7 @@ import { LEGAL } from "@/content/legal";
 
 const PAGE_TITLE = "The GEO Blueprint by dfrenLearn: GEO and AEO course, ₹499";
 const PAGE_DESCRIPTION =
-  "The GEO Blueprint by dfrenLearn: a 1.5-hour GEO and AEO course on how AI assistants pick answers, the 6 pillars, a live audit and 2 ways to charge for it. ₹499, mostly in Tamil.";
+  "The GEO Blueprint by dfrenLearn: a 1.5-hour GEO and AEO course on how AI picks answers, the 6 pillars, a live audit and 2 ways to charge. ₹499, mostly Tamil.";
 
 export const metadata: Metadata = {
   title: { absolute: PAGE_TITLE },
