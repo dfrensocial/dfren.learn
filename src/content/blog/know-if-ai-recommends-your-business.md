@@ -13,9 +13,13 @@ related: see-if-chatgpt-sends-visitors-to-your-site, track-who-visits-your-websi
 
 # How to know if AI is recommending your business (a free method)
 
-Write 10 to 20 questions your customers would ask, ask each one in ChatGPT, Gemini, Perplexity and Claude, and log which businesses get named. Repeat each question a few times, because the answers change from run to run. Then count how often you appear. It costs nothing but time, and it measures mentions, which your website analytics can't see.
+Write 10 to 20 questions your customers would ask, ask each one in ChatGPT, Gemini, Perplexity and Claude, and log which businesses get named. Repeat each question a few times, because the answers change from run to run. Then count how often you appear. It costs nothing but time, and it measures mentions, which your website analytics can't see. One honest warning: this is a free quick win, not a reliable tracking method. AI doesn't give the same answer every time, so you may be cited on one run and missed on the next, for many reasons. Read the next section before you trust any single result.
 
 We read every source below on 3 November 2026.
+
+## Is asking the AI directly a reliable way to track this?
+
+No. It's a useful free check, and it's a weak tracker. Assistants build each answer fresh, and what they cite depends on the exact wording, the assistant, whether web search is on, your location, the day and plain chance. So a single run can show you named when you usually aren't, or missing when you usually appear. What you can measure is how often you appear across many runs, a share of voice for your business, and even that is only an estimate. Use this method to get a quick, free first picture and to spot gaps. Don't use it to prove that a GEO change worked, and don't report one screenshot to a client as a result. For a steadier view, repeat prompts many times, track over months and combine it with traffic and Search Console data. Paid trackers automate the repeating, and they face the same limits.
 
 ## Why does one answer prove so little?
 

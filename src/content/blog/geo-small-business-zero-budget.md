@@ -25,7 +25,7 @@ We found no India study on how often assistants recommend small local businesses
 
 ## Step 1: Ask the assistants about your business (30 minutes)
 
-Write 10 questions a customer would ask, such as "best dentist near Anna Nagar" or "who makes custom uniforms in Tiruppur". Ask each in ChatGPT, Gemini, Perplexity and Claude, and record who is named. ChatGPT's help page says [people who aren't signed in can use web search](https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt). Answers change between runs, so repeat the set a few times. The full method is in [how to check for free](/blog/know-if-ai-recommends-your-business).
+Write 10 questions a customer would ask, such as "best dentist near Anna Nagar" or "who makes custom uniforms in Tiruppur". Ask each in ChatGPT, Gemini, Perplexity and Claude, and record who is named. ChatGPT's help page says [people who aren't signed in can use web search](https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt). Answers change between runs, so repeat the set a few times. Treat this as a free quick win, not reliable tracking: AI may cite you on one run and not the next, for many reasons, so a single answer proves little. The full method is in [how to check for free](/blog/know-if-ai-recommends-your-business).
 
 ## Step 2: Complete your Google Business Profile (1 hour)
 
