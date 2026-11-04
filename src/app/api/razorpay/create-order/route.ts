@@ -4,7 +4,7 @@ import { razorpay } from "@/lib/razorpay/server";
 import { getClientIp, rateLimit } from "@/lib/rate-limit";
 import { recordOrderCreated } from "@/lib/orders";
 import { parseAcceptance } from "@/lib/legal-acceptance-server";
-import { GST_RATE_PERCENT, gstPaise, totalWithGstPaise } from "@/lib/gst";
+import { GST_RATE_PERCENT, GST_SAC, gstPaise, totalWithGstPaise } from "@/lib/gst";
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req);
@@ -65,7 +65,15 @@ export async function POST(req: NextRequest) {
   const order = await razorpay.orders.create({
     amount: totalWithGstPaise(priceInPaise),
     currency: "INR",
-    notes: { courseId, email },
+    notes: {
+      courseId,
+      email,
+      // Shows the split in the Razorpay dashboard and exports.
+      base_rupees: (tax.basePaise / 100).toFixed(2),
+      gst_rupees: (tax.gstPaise / 100).toFixed(2),
+      gst_rate_percent: String(tax.ratePercent),
+      sac: GST_SAC,
+    },
   });
 
   // Business ledger: who started checkout, from which channel. Best-effort --

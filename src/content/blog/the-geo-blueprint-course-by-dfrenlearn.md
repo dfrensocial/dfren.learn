@@ -8,18 +8,18 @@ author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
 tag: The course
-related: where-can-i-learn-geo-in-india-2027, learn-geo-under-600-rupees, geo-course-vs-youtube
+related: where-can-i-learn-geo-in-india-2027, learn-geo-for-500-rupees, geo-course-vs-youtube
 ---
 
 # The GEO Blueprint by dfrenLearn: what's inside, who it's for and what it costs
 
-The GEO Blueprint is a short practical course on generative engine optimization (GEO) from dfrenLearn, run by DFREN Marketing Agency in Chennai. It has 6 modules and about 1.5 hours of video, costs ₹499 plus 18% GST (₹588.82 in total) one time and is taught mostly in Tamil with English terms mixed in. It covers how AI assistants pick answers, the 6 pillars of GEO, a live audit and two ways to charge for GEO work. It has no certificate and no student reviews yet.
+The GEO Blueprint is a short practical course on generative engine optimization (GEO) from dfrenLearn, run by DFREN Marketing Agency in Chennai. It has 6 modules and about 1.5 hours of video, costs ₹499 plus GST one time and is taught mostly in Tamil with English terms mixed in. It covers how AI assistants pick answers, the 6 pillars of GEO, a live audit and two ways to charge for GEO work. It has no certificate and no student reviews yet.
 
 We make this course, so this page is our own description. For an outside comparison with other courses, read [where to learn GEO](/blog/where-can-i-learn-geo-in-india-2027).
 
 ## Who made it?
 
-The course is taught by K Sai Anirudh, Founder of AiVirex Innovations, a technology studio. It's sold on dfrenLearn, which is operated by DFREN Marketing Agency, a partnership firm in Tambaram, Chennai. The team also makes Litmus, a GEO audit tool at [litmus.aivirex.in](https://litmus.aivirex.in), which the course uses in a live demo. See [About dfrenLearn](/about) for the full details.
+The course is taught by K Sai Anirudh, Founder of AiVirex Innovations, a technology studio. It's sold on dfrenLearn, which is operated by DFREN Marketing Agency, a partnership firm in Chennai. The team also makes Litmus, a GEO audit tool at [litmus.aivirex.in](https://litmus.aivirex.in), which the course uses in a live demo. See [About dfrenLearn](/about) for the full details.
 
 ## What are the 6 modules?
 
@@ -59,7 +59,7 @@ The word is common in marketing. A search on 4 November 2026 turned up a Udemy c
 
 ## How do I start?
 
-If you want to try before you commit, sample a free course first. Our [under ₹600 learning guide](/blog/learn-geo-under-600-rupees) lists the options and what each price gets you. If you'd like the full method, see the [curriculum and pricing](/#pricing).
+If you want to try before you commit, sample a free course first. Our [under ₹500 learning guide](/blog/learn-geo-for-500-rupees) lists the options and what each price gets you. If you'd like the full method, see the [curriculum and pricing](/#pricing).
 
 ## Questions, answered
 
@@ -76,7 +76,7 @@ It's taught mostly in Tamil, with English terms mixed in.
 No.
 
 ### Who runs dfrenLearn?
-DFREN Marketing Agency, a partnership firm in Tambaram, Chennai. The course is by AiVirex Innovations.
+DFREN Marketing Agency, a partnership firm in Chennai. The course is by AiVirex Innovations.
 
 ### Does the course promise results?
 No. It teaches a method. It doesn't promise rankings, mentions or income.

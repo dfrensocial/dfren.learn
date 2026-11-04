@@ -8,7 +8,7 @@ import { geoBlueprintCourse } from "@/content/courses/geo-blueprint";
 export const metadata: Metadata = {
   title: "About dfrenLearn and The GEO Blueprint | dfrenLearn",
   description:
-    "dfrenLearn is run by DFREN Marketing Agency in Tambaram, Chennai. It sells The GEO Blueprint, a 1.5-hour GEO course by AiVirex, and publishes GEO guides.",
+    "dfrenLearn is run by DFREN Marketing Agency in Chennai. It sells The GEO Blueprint, a 1.5-hour GEO course by AiVirex, and publishes GEO guides.",
   alternates: { canonical: "/about" },
   openGraph: { url: `${SITE_URL}/about`, type: "website", images: [{ url: "/opengraph-image", width: 1200, height: 630 }] },
   twitter: { card: "summary_large_image", images: ["/opengraph-image"] },
@@ -45,8 +45,8 @@ export default function AboutPage() {
       <section>
         <h2>Who runs it</h2>
         <p>
-          dfrenLearn is operated by {LEGAL.entity} (brand name: Dfren), {LEGAL.entityType} based in Tambaram, Chennai,
-          Tamil Nadu. The course and the Litmus audit tool are made by AiVirex Innovations, a technology studio at{" "}
+          dfrenLearn is operated by {LEGAL.entity} (brand name: Dfren), {LEGAL.entityType} based in Chennai,
+          Tamil Nadu (GSTIN {LEGAL.gstin}). The course and the Litmus audit tool are made by AiVirex Innovations, a technology studio at{" "}
           <a href="https://aivirex.in" target="_blank" rel="noopener noreferrer" className="underline">
             aivirex.in
           </a>

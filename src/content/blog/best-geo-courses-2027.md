@@ -13,7 +13,7 @@ related: where-can-i-learn-geo-in-india-2027, geo-course-in-tamil-free-and-paid-
 
 # Best GEO courses in 2027 for Indian learners, compared
 
-For most Indian learners starting out, our pick is The GEO Blueprint: ₹499 plus 18% GST (₹588.82 in total), about 1.5 hours, taught mostly in Tamil with English terms mixed in, and built around a first audit and two ways to charge for the work. Credit to the others: Rank Prompt's 20-lesson course (about 90 minutes) is the strongest free one we found, and Coursera's Edureka specialisation is the longest structured option, though its rating is only 3.3 from 12 reviews. What suits you depends on budget, time and language.
+For most Indian learners starting out, our pick is The GEO Blueprint: ₹499 plus GST, about 1.5 hours, taught mostly in Tamil with English terms mixed in, and built around a first audit and two ways to charge for the work. Credit to the others: Rank Prompt's 20-lesson course (about 90 minutes) is the strongest free one we found, and Coursera's Edureka specialisation is the longest structured option, though its rating is only 3.3 from 12 reviews. What suits you depends on budget, time and language.
 
 We sell The GEO Blueprint, so that pick is our opinion and we're one of the options. We scored every course on the same 5 things and listed a weakness for each, ours included.
 

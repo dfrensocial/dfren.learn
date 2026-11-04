@@ -7,7 +7,10 @@ export const LEGAL = {
   entity: "DFREN Marketing Agency",
   // Confirmed from the Razorpay business details (brand name: Dfren).
   entityType: "a partnership firm",
-  address: "7/16, Lutheran Church St, Kadaperi, Tambaram, Tamil Nadu 600045, India",
+  // Principal place of business on the GST registration certificate.
+  address: "4/15, Cox Street, Chinthadripet, Chennai, Tamil Nadu 600002, India",
+  // GST registration (regular, from 14 January 2026). Rate and SAC live in src/lib/gst.ts.
+  gstin: "33AAYFD6911B1ZI",
   // One inbox for support, privacy requests and grievances.
   contactEmail: "dfrensocial@gmail.com",
   grievanceEmail: "dfrensocial@gmail.com",
@@ -32,8 +35,8 @@ export const LEGAL = {
   // "we've updated our policies" dialog until they accept (src/lib/policy-gate.ts).
   // Run `npm run policy:check` after editing a policy page: it fails if the text
   // changed but these were not bumped.
-  termsVersion: "2026-11-02b",
-  privacyVersion: "2026-11-04",
+  termsVersion: "2026-11-04",
+  privacyVersion: "2026-11-04b",
   // Bump when the banner's purposes/wording change, so old choices are re-asked.
   consentVersion: "2026-11-02",
 };

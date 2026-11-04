@@ -15,7 +15,7 @@ related: where-can-i-learn-geo-in-india-2027, geo-course-in-tamil-free-and-paid-
 
 Check 7 things before you pay for an AI SEO or GEO course in India: the syllabus, the hours, the full price with GST, the language, the refund terms, proof of quality and any job or income promises. Most people start with a broad digital marketing course, then add GEO. Checked 3 November 2026.
 
-We sell a ₹499 plus 18% GST (₹588.82 in total) course, The GEO Blueprint, so we have a stake in this. We use the same checklist on our own course below. In our view it's a sensible first step for most beginners, and the reasons are at the end. That is our opinion, so check the facts yourself.
+We sell a ₹499 plus GST course, The GEO Blueprint, so we have a stake in this. We use the same checklist on our own course below. In our view it's a sensible first step for most beginners, and the reasons are at the end. That is our opinion, so check the facts yourself.
 
 ## What people search for before they find GEO
 

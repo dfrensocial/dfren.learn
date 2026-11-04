@@ -53,7 +53,7 @@ You'll learn the most by using one of each: a site audit, a perception check and
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint includes a live audit with Litmus and shows how to turn the findings into a fix list and a client proposal. It's ₹499 plus 18% GST (₹588.82 in total), about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has no student reviews yet.
+The GEO Blueprint includes a live audit with Litmus and shows how to turn the findings into a fix list and a client proposal. It's ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has no student reviews yet.
 
 ## Questions, answered
 

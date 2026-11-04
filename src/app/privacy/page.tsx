@@ -37,6 +37,19 @@ export default function PrivacyPage() {
         </ul>
       </section>
 
+      <section lang="ta">
+        <h2>தனியுரிமைக் கொள்கை: தமிழில் சுருக்கம்</h2>
+        <ul>
+          <li>பாடத்தை வழங்க உங்கள் மின்னஞ்சல், ஆர்டர் விவரங்கள், பாதுகாப்புப் பதிவுகள் தேவை. இவை கட்டாயம்.</li>
+          <li>பகுப்பாய்வு (Google Analytics) மற்றும் திரைப் பதிவுகள் (Microsoft Clarity) விருப்பத்திற்குரியவை. நீங்கள் &quot;Accept&quot; என்று சொல்லும் வரை இவை இயங்காது.</li>
+          <li>&quot;Decline&quot; செய்தால், அல்லது உங்கள் உலாவியில் Global Privacy Control அல்லது Do Not Track இயக்கத்தில் இருந்தால், விருப்பக் கருவிகள் எதுவும் ஏற்றப்படாது.</li>
+          <li>உங்கள் தரவை நாங்கள் விற்பதில்லை. விளம்பரத்திற்கும் பயன்படுத்துவதில்லை.</li>
+          <li>உங்கள் தரவின் சுருக்கத்தை, திருத்தத்தை அல்லது நீக்கத்தை நீங்கள் கேட்கலாம். {LEGAL.contactEmail} க்கு எழுதுங்கள். {LEGAL.grievanceAckHours} மணி நேரத்துக்குள் பதில் தருவோம், {LEGAL.grievanceResolveDays} நாட்களுக்குள் தீர்வு காண்போம்.</li>
+          <li>கணக்கை நீக்கினால் பாடத்துக்கான அணுகலும் முடிந்துவிடும், &quot;வாழ்நாள் அணுகல்&quot; என்று விற்கப்பட்டிருந்தாலும். பணம் திருப்பித் தரப்படாது.</li>
+          <li>முழு விவரங்களுக்குக் கீழே உள்ள ஆங்கிலக் கொள்கையைப் பாருங்கள்.</li>
+        </ul>
+      </section>
+
       <section>
         <h2>Who we are</h2>
         <p>
@@ -84,6 +97,12 @@ export default function PrivacyPage() {
             a file, plus which lesson is streaming from which session and when you first opened the course. We use
             these to enforce the 2-stream limit, spot account sharing, investigate abuse and answer payment
             disputes.
+          </li>
+          <li>
+            <strong>The viewing watermark.</strong> While you watch, the player lays a faint code over the video.
+            The code is made from your account, the course and the lesson. We store the link between that code and
+            your account on our servers. We use it only to trace a leaked copy of the course back to the account it
+            came from, and a person reviews it before any step is taken. Your email is not in the picture.
           </li>
           <li>
             <strong>Proof you agreed.</strong> The version of the Terms and Privacy Policy you accepted, and
@@ -181,8 +200,9 @@ export default function PrivacyPage() {
                   <strong>Session recordings:</strong> Microsoft Clarity
                 </td>
                 <td className={td}>
-                  Replays of mouse movement, clicks and scrolling, what was on screen, and heatmaps. Typed text,
-                  including email fields, is masked. We don&apos;t link recordings to your account.
+                  Replays of mouse movement, clicks and scrolling, what was on screen, and heatmaps. Typed text
+                  in forms is masked, and places that show your email or name are marked so they are masked too. We
+                  don&apos;t link recordings to your account.
                 </td>
                 <td className={td}>To see where people get confused or give up, so we can fix it.</td>
                 <td className={td}>Yes. Off by default.</td>
@@ -305,18 +325,12 @@ export default function PrivacyPage() {
 
       <section>
         <h2>The invisible watermark</h2>
-        <ul>
-          <li>
-            While you watch, the player overlays a faint code made from your account, the course and the lesson.
-            Your email isn&apos;t in the picture.
-          </li>
-          <li>Our servers keep the link between that code and your account.</li>
-          <li>We use it only to trace a leaked copy of the course back to its source. A person looks at it before any action is taken.</li>
-          <li>
-            We do this to protect the course. You can object by emailing us, and we&apos;ll look at your
-            reasons.
-          </li>
-        </ul>
+        <p>
+          It is part of the service you agreed to when you ticked the box at sign-in or checkout, because it is how
+          we protect the course from being copied. It is not used for advertising or to profile you. If you have a
+          concern about it, write to us and we&apos;ll explain how it works for your account. If you ask us to delete
+          your data, we delete the link between the code and your account.
+        </p>
       </section>
 
       <section>
@@ -340,6 +354,14 @@ export default function PrivacyPage() {
             to pay. Payment data is stored in India as RBI rules require.
           </li>
           <li>
+            <strong>Google (Gmail):</strong> the inbox where we receive and answer your messages and requests.
+            Google processes this data for us.
+          </li>
+          <li>
+            <strong>Google (Firebase Storage):</strong> the private storage that holds the course files you
+            download. Your browser fetches each file from Google through a link that lasts one minute.
+          </li>
+          <li>
             <strong>Netlify:</strong> hosting, and server logs that include IP addresses. US and AWS
             infrastructure. They process data for us.
           </li>
@@ -354,12 +376,95 @@ export default function PrivacyPage() {
       <section>
         <h2>How long we keep data</h2>
         <p>
-          We keep data for as long as we need it for the purposes described here and to meet our legal
-          obligations. If you ask us to delete your data, we do, subject to those obligations. When you ask, we
-          delete your account, progress, logs and the analytics details on your orders. We keep what the law
-          requires, such as invoices and payment records for tax and accounting, and security logs, and we use
-          those only for those reasons.
+          We keep each kind of data only for as long as the reason in the table below lasts. When you ask us to
+          delete your data, we do it within 30 days, except for the records the law requires us to keep, such as
+          invoices and payment records for tax and accounting. We use those only for those reasons. Deleting your
+          account also ends your access to the course, as the{" "}
+          <Link href="/terms" className="underline">
+            terms
+          </Link>{" "}
+          explain.
         </p>
+        <div className="mt-2 overflow-x-auto">
+          <table className="w-full border-collapse text-left text-xs">
+            <thead>
+              <tr>
+                <th className={th}>What</th>
+                <th className={th}>How long</th>
+                <th className={th}>Why</th>
+                <th className={th}>How it ends</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className={td}>Your account, course access and progress</td>
+                <td className={td}>While your account is open</td>
+                <td className={td}>To run the course</td>
+                <td className={td}>Deleted when you ask</td>
+              </tr>
+              <tr>
+                <td className={td}>Order and payment records (order id, amount, GST, date, status, method)</td>
+                <td className={td}>8 years</td>
+                <td className={td}>Tax and accounting duties</td>
+                <td className={td}>Deleted at the end of that period</td>
+              </tr>
+              <tr>
+                <td className={td}>Unfinished checkouts (email, amount, status)</td>
+                <td className={td}>12 months</td>
+                <td className={td}>To fix payment problems</td>
+                <td className={td}>Deleted after 12 months</td>
+              </tr>
+              <tr>
+                <td className={td}>Source, device and Google ids saved on an order (only if you allowed analytics)</td>
+                <td className={td}>Until you ask us to remove them</td>
+                <td className={td}>To learn which channels bring students</td>
+                <td className={td}>Removed when you ask</td>
+              </tr>
+              <tr>
+                <td className={td}>Sign-in and security records (IP address, browser, downloads, streams)</td>
+                <td className={td}>12 months from the event</td>
+                <td className={td}>To keep accounts safe and answer payment disputes. The law asks us to keep security logs for at least a year</td>
+                <td className={td}>Sign-in records delete themselves after about 12 months. Others are deleted with your account</td>
+              </tr>
+              <tr>
+                <td className={td}>Proof of your privacy choice (random id, choice, time, no IP address)</td>
+                <td className={td}>3 years after your last choice</td>
+                <td className={td}>To show that you agreed</td>
+                <td className={td}>Deleted after that period</td>
+              </tr>
+              <tr>
+                <td className={td}>Proof you accepted the Terms and Privacy Policy</td>
+                <td className={td}>While your account is open, then 3 years</td>
+                <td className={td}>To show what you agreed to</td>
+                <td className={td}>Deleted after that period</td>
+              </tr>
+              <tr>
+                <td className={td}>Messages you send us</td>
+                <td className={td}>2 years after the last message</td>
+                <td className={td}>To answer you and show how we handled a request</td>
+                <td className={td}>Deleted after that period</td>
+              </tr>
+              <tr>
+                <td className={td}>Google Analytics data (only if you allowed analytics)</td>
+                <td className={td}>14 months</td>
+                <td className={td}>Set in our Google Analytics account</td>
+                <td className={td}>Google deletes it</td>
+              </tr>
+              <tr>
+                <td className={td}>Microsoft Clarity recordings (only if you allowed recordings)</td>
+                <td className={td}>Set by Microsoft, not by us</td>
+                <td className={td}>Microsoft decides</td>
+                <td className={td}>Expires on Microsoft&apos;s schedule</td>
+              </tr>
+              <tr>
+                <td className={td}>Server logs at our host (IP address)</td>
+                <td className={td}>Set by our host</td>
+                <td className={td}>Security and fixing errors</td>
+                <td className={td}>Deleted by our host</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <section>
@@ -367,7 +472,7 @@ export default function PrivacyPage() {
         <ul>
           <li>Ask for a summary of the data we hold about you and who we&apos;ve shared it with.</li>
           <li>Ask us to correct data that&apos;s wrong or update it.</li>
-          <li>Ask us to erase your data.</li>
+          <li>Ask us to erase your data. This also ends your access to the course, so we warn you first. You can start a request from the footer of your dashboard.</li>
           <li>Nominate someone to exercise your rights if you die or can&apos;t act for yourself.</li>
           <li>
             Withdraw an optional choice any time, as easily as you gave it, with{" "}
@@ -413,7 +518,8 @@ export default function PrivacyPage() {
       <section>
         <h2>Language</h2>
         <p>
-          Want this policy in English or in another Indian language? Email us and we&apos;ll send you a copy.
+          This policy is in English. A short Tamil summary is at the top of this page. For a copy of the full
+          policy in another Indian language, email us.
         </p>
       </section>
 

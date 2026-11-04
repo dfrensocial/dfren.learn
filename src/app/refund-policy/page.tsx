@@ -70,6 +70,15 @@ export default function RefundPolicyPage() {
       </section>
 
       <section>
+        <h2>GST on refunds</h2>
+        <p>
+          The price is &ldquo;&#8377;499 + GST&rdquo;, so what you pay includes GST. When we refund a payment we
+          refund the amount you paid, including the GST on it. If the refund is for an extra charge, the GST on that
+          extra amount is refunded too. Where the law requires it, we issue a credit note for the tax.
+        </p>
+      </section>
+
+      <section>
         <h2>If your payment failed but money left your account</h2>
         <p>
           When a payment fails after your bank has debited you, the money normally goes back to you automatically
@@ -86,7 +95,9 @@ export default function RefundPolicyPage() {
             terms
           </Link>{" "}
           (for example sharing your account, or recording, leaking or reselling the course), you don&apos;t get a
-          refund. Deleting your account at your own request also doesn&apos;t entitle you to one.
+          refund. Deleting your account at your own request also doesn&apos;t entitle you to one, and it ends your
+          access to the course, including the lifetime access you bought. We warn you about this before we
+          delete anything.
         </p>
       </section>
 

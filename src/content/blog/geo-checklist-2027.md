@@ -62,7 +62,7 @@ The hours are our estimates for a small site.
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint turns this checklist into the 6 pillars and shows how a real audit applies them. It also ships with a quick-win checklist. It's ₹499 plus 18% GST (₹588.82 in total), about 1.5 hours, mostly in Tamil with English terms mixed in. Start small, see if it's useful, then go deeper if you want. Get the course to learn the full guide to doing GEO on your own site. It has no student reviews yet.
+The GEO Blueprint turns this checklist into the 6 pillars and shows how a real audit applies them. It also ships with a quick-win checklist. It's ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small, see if it's useful, then go deeper if you want. Get the course to learn the full guide to doing GEO on your own site. It has no student reviews yet.
 
 ## Questions, answered
 

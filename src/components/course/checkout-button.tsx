@@ -10,7 +10,7 @@ import { useEnrollment } from "@/lib/firebase/use-enrollment";
 import { analyticsAllowed, clarityTag, courseItem, getGaIds, track } from "@/lib/analytics";
 import { getAttribution } from "@/lib/attribution";
 import { AcceptTerms } from "@/components/legal/accept-terms";
-import { GST_RATE_PERCENT, gstPaise, rupeesFromPaise, totalWithGstPaise } from "@/lib/gst";
+import { GST_RATE_PERCENT, gstPaise, rupeesFromPaise } from "@/lib/gst";
 import { addAcceptanceParams, hasAcceptedCurrent, recordAcceptance } from "@/lib/legal-acceptance";
 import { rememberLoginEmail } from "@/lib/login-email";
 import { BusyOverlay } from "@/components/ui/busy-overlay";
@@ -216,7 +216,9 @@ export function CheckoutButton({
         currency: order.currency,
         order_id: order.id,
         name: "dfrenLearn",
-        description: courseTitle,
+        description: priceInPaise
+          ? `${courseTitle}: ₹${rupeesFromPaise(priceInPaise)} + ₹${rupeesFromPaise(gstPaise(priceInPaise))} GST (${GST_RATE_PERCENT}%)`
+          : courseTitle,
         handler: async (response: {
           razorpay_order_id: string;
           razorpay_payment_id: string;
@@ -367,8 +369,7 @@ export function CheckoutButton({
 
         {priceInPaise ? (
           <p className="mb-3 text-center text-sm text-neutral-700">
-            ₹{rupeesFromPaise(priceInPaise)} + ₹{rupeesFromPaise(gstPaise(priceInPaise))} GST ({GST_RATE_PERCENT}%) ={" "}
-            <strong>₹{rupeesFromPaise(totalWithGstPaise(priceInPaise))}</strong> in total
+            <strong>₹{rupeesFromPaise(priceInPaise)} + GST</strong>. GST is added when you pay.
           </p>
         ) : null}
 

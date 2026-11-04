@@ -62,7 +62,7 @@ Be honest about scale: AI chatbots sent [0.28% of web traffic](https://ahrefs.co
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint covers this conversation: how AI picks answers in plain terms, the six pillars, a live audit you can show and how to set expectations with a client. It's ₹499 plus 18% GST (₹588.82 in total), about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide you'll explain to clients. It has no student reviews yet and promises no results.
+The GEO Blueprint covers this conversation: how AI picks answers in plain terms, the six pillars, a live audit you can show and how to set expectations with a client. It's ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide you'll explain to clients. It has no student reviews yet and promises no results.
 
 ## Questions, answered
 

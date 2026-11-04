@@ -25,7 +25,7 @@ export function MarketingFooter() {
       </div>
       <div className="mx-auto max-w-5xl px-6 pb-8 text-center text-xs text-neutral-400 sm:text-left">
         <p>
-          dfrenLearn (Dfren) is run by {LEGAL.entity}, {LEGAL.entityType} in Tambaram, Chennai, Tamil Nadu. Courses and
+          dfrenLearn (Dfren) is run by {LEGAL.entity}, {LEGAL.entityType} in Chennai, Tamil Nadu (GSTIN {LEGAL.gstin}). Courses and
           tools are by AiVirex Innovations. Page last updated{" "}
           <time dateTime={LEGAL.siteUpdatedISO}>4 November 2026</time>.
         </p>

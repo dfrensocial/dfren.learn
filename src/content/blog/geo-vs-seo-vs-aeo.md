@@ -60,7 +60,7 @@ One page edit can help all 3. That's why people treat them as one skill.
 
 ## Which should you learn first?
 
-Start with the shared basics. A first pass on GEO takes about 90 minutes with a [free course](https://www.rankprompt.com/geo-course/). If you want a structured short course mostly in Tamil, with English terms mixed in, there's The GEO Blueprint at ₹499 plus 18% GST (₹588.82 in total). Our [where to learn GEO guide](/blog/where-can-i-learn-geo-in-india-2027) compares the options.
+Start with the shared basics. A first pass on GEO takes about 90 minutes with a [free course](https://www.rankprompt.com/geo-course/). If you want a structured short course mostly in Tamil, with English terms mixed in, there's The GEO Blueprint at ₹499 plus GST. Our [where to learn GEO guide](/blog/where-can-i-learn-geo-in-india-2027) compares the options.
 
 ## Where The GEO Blueprint fits
 

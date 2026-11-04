@@ -59,7 +59,7 @@ This is a made-up case to show the idea, not a real client. A garment maker in T
 
 ## Where The GEO Blueprint fits
 
-Start small. The GEO Blueprint is ₹499 plus 18% GST (₹588.82 in total), about 1.5 hours, taught mostly in Tamil with English terms mixed in, so you can follow new ideas in the language you think in. It covers the 6 pillars of GEO, a live audit and how to track results. Get the course to learn the full method for your own site or a client's. It has no student reviews yet and promises no ranking.
+Start small. The GEO Blueprint is ₹499 plus GST, about 1.5 hours, taught mostly in Tamil with English terms mixed in, so you can follow new ideas in the language you think in. It covers the 6 pillars of GEO, a live audit and how to track results. Get the course to learn the full method for your own site or a client's. It has no student reviews yet and promises no ranking.
 
 ## Questions, answered
 

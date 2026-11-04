@@ -70,7 +70,7 @@ When you later use results in marketing, show real baselines, dates and the meth
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint shows two ways to package GEO work, fix passes scoped from an audit and ongoing content, and covers client onboarding and setting expectations. It's ₹499 plus 18% GST (₹588.82 in total), about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide you can adapt to your own proposals. It has no student reviews yet and makes no promise of income.
+The GEO Blueprint shows two ways to package GEO work, fix passes scoped from an audit and ongoing content, and covers client onboarding and setting expectations. It's ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide you can adapt to your own proposals. It has no student reviews yet and makes no promise of income.
 
 ## Questions, answered
 

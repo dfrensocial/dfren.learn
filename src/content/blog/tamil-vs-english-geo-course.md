@@ -15,7 +15,7 @@ related: geo-course-in-tamil-free-and-paid-2027, how-to-learn-geo-in-tamil, wher
 
 Learn the ideas in the language you think in, and pick up the English terms along the way. Tamil lessons help you understand faster. English lessons give you more choice, more free courses and the words clients use. Many people do both: concepts in Tamil, selling and tools in English. No evidence we found says one language leads to better results.
 
-We sell a course taught mostly in Tamil, so we lean that way. If you pick Tamil and want to do the work, our pick is The GEO Blueprint: ₹499 plus 18% GST (₹588.82 in total), about 1.5 hours, mostly Tamil with English terms mixed in, with client files and an audit demo. That pick is our opinion. Here are the facts on both sides.
+We sell a course taught mostly in Tamil, so we lean that way. If you pick Tamil and want to do the work, our pick is The GEO Blueprint: ₹499 plus GST, about 1.5 hours, mostly Tamil with English terms mixed in, with client files and an audit demo. That pick is our opinion. Here are the facts on both sides.
 
 ## What you can learn in each language
 

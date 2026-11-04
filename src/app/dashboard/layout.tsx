@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useAuth } from "@/lib/firebase/auth-context";
 import { useLogout } from "@/lib/use-logout";
 import { LEGAL } from "@/content/legal";
+import { DeleteRequest } from "@/components/legal/delete-request";
 import { PrivacySettingsLink } from "@/components/consent/privacy-settings-link";
 import { PolicyUpdateDialog, usePolicyGate } from "@/components/legal/policy-gate";
 import { PageLoader } from "@/components/ui/page-loader";
@@ -82,6 +83,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <Link href="/privacy" className="hover:text-black">Privacy</Link>
           <Link href="/refund-policy" className="hover:text-black">Refunds</Link>
           <PrivacySettingsLink className="hover:text-black" />
+          <DeleteRequest email={user?.email} className="hover:text-black" />
         </div>
       </footer>
     </div>

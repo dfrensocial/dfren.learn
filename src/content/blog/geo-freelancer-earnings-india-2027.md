@@ -76,7 +76,7 @@ This is our view, not a forecast. Income from GEO work equals the hours you can 
 
 ## Where The GEO Blueprint fits
 
-Our suggestion: start small. The GEO Blueprint is ₹499 plus 18% GST (₹588.82 in total), about 1.5 hours, mostly in Tamil with English terms mixed in. It covers a client audit and 2 ways to charge for GEO work. In our view that's a strong first step for finding out whether you like the work. It doesn't promise income, and it has no student reviews yet.
+Our suggestion: start small. The GEO Blueprint is ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. It covers a client audit and 2 ways to charge for GEO work. In our view that's a strong first step for finding out whether you like the work. It doesn't promise income, and it has no student reviews yet.
 
 ## Questions, answered
 

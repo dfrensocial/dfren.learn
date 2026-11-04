@@ -57,7 +57,7 @@ These are asking prices from sellers aimed at larger clients. A small local busi
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint lays out the audit-then-fix and the ongoing-content packages as a step-by-step client workflow, with a client questionnaire and a prompt pack for content. It's ₹499 plus 18% GST (₹588.82 in total), about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for packaging GEO. It has no student reviews yet and makes no promise of income or clients.
+The GEO Blueprint lays out the audit-then-fix and the ongoing-content packages as a step-by-step client workflow, with a client questionnaire and a prompt pack for content. It's ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for packaging GEO. It has no student reviews yet and makes no promise of income or clients.
 
 ## Questions, answered
 

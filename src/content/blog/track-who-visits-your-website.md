@@ -85,7 +85,7 @@ Tracking tools set cookies and process data about visitors. Under India's Digita
 
 Proving that work moved something starts with a baseline. The GEO Blueprint's last module covers client onboarding and proof: setting up tracking before you start, setting timeline expectations, and turning before and after into a case study.
 
-It's a one-time ₹499 plus 18% GST (₹588.82 in total) course, about 1.5 hours across 6 modules. If you want the full guide to doing GEO on your own site or a client's, start small and see if it's useful, then go deeper later if you want. It's mostly taught in Tamil with English terms mixed in. See the [curriculum](/#curriculum). It has no student reviews yet.
+It's a one-time ₹499 plus GST course, about 1.5 hours across 6 modules. If you want the full guide to doing GEO on your own site or a client's, start small and see if it's useful, then go deeper later if you want. It's mostly taught in Tamil with English terms mixed in. See the [curriculum](/#curriculum). It has no student reviews yet.
 
 ## Questions, answered
 

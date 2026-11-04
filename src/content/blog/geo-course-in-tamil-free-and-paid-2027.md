@@ -13,7 +13,7 @@ related: how-to-learn-geo-in-tamil, tamil-vs-english-geo-course, where-can-i-lea
 
 # GEO course in Tamil: free and paid options compared (2027)
 
-Yes. We found 3 ways to learn GEO in Tamil: Entri's free GEO course, Entri's paid AI Integrated Digital Marketing course, which has a GEO module, and our own course, The GEO Blueprint, at ₹499 plus 18% GST (₹588.82 in total). Every other GEO course we checked is in English. For Tamil speakers who want to do the work, our pick is The GEO Blueprint: a structured, mostly-Tamil course with client files and an audit demo. We looked on 3 November 2026 and may have missed some.
+Yes. We found 3 ways to learn GEO in Tamil: Entri's free GEO course, Entri's paid AI Integrated Digital Marketing course, which has a GEO module, and our own course, The GEO Blueprint, at ₹499 plus GST. Every other GEO course we checked is in English. For Tamil speakers who want to do the work, our pick is The GEO Blueprint: a structured, mostly-Tamil course with client files and an audit demo. We looked on 3 November 2026 and may have missed some.
 
 We made The GEO Blueprint, so we're one of the options and that pick is our opinion. We describe the others using their own pages.
 

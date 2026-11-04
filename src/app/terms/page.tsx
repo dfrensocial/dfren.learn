@@ -16,7 +16,8 @@ export default function TermsPage() {
         <p className="mt-2">
           A single-user licence to stream the course videos on dfrenLearn for as long as the course is offered
           on the platform (&ldquo;lifetime access&rdquo;), including updates we publish to it. The licence is
-          personal and non-transferable. You get access, not ownership, of the content.
+          personal and non-transferable. You get access, not ownership, of the content. &ldquo;Lifetime&rdquo; does
+          not survive deleting your account: see &ldquo;Deleting your account&rdquo; below.
         </p>
       </section>
       <section>
@@ -37,6 +38,20 @@ export default function TermsPage() {
           Your account is created from the email you give at checkout and you sign in with a link sent to that
           address. Keep that inbox secure; anyone who can read it can sign in as you. You&apos;re responsible
           for activity on your account.
+        </p>
+      </section>
+      <section>
+        <h2>Deleting your account</h2>
+        <p>
+          You can ask us to delete your account at any time. <strong>If we delete it, you lose access to the
+          course, even though it was sold as lifetime access.</strong> Your enrolment, progress and sign-in are
+          removed with the account. We don&apos;t refund the payment, and we don&apos;t restore access later
+          without a new purchase. We confirm the request with you by email before we act on it. We keep only what
+          the law requires, such as payment and tax records, as the{" "}
+          <Link href="/privacy" className="underline">
+            privacy policy
+          </Link>{" "}
+          explains.
         </p>
       </section>
       <section>
@@ -127,8 +142,14 @@ export default function TermsPage() {
       <section>
         <h2>Prices</h2>
         <p>
-          The price shown at checkout is the price you pay. We may change prices or run offers at any time, and a
-          change never affects a purchase you&apos;ve already made.
+          The course is priced before tax, shown as &ldquo;&#8377;499 + GST&rdquo;. We are registered for GST
+          (GSTIN {LEGAL.gstin}), and GST is added to the price when you pay. The amount of tax is shown at checkout
+          and on your invoice. We may change prices or run offers at any time, and a change never affects a
+          purchase you&apos;ve already made.
+        </p>
+        <p className="mt-2">
+          Tax invoices are issued in the name and email you gave at checkout. If you need your business GSTIN on
+          the invoice, email us after you pay, and we will issue it with your GSTIN.
         </p>
       </section>
       <section>

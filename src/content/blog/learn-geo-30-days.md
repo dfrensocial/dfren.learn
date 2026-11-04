@@ -8,12 +8,12 @@ author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
 tag: Learn GEO
-related: where-can-i-learn-geo-in-india-2027, how-to-learn-geo-in-tamil, learn-geo-under-600-rupees
+related: where-can-i-learn-geo-in-india-2027, how-to-learn-geo-in-tamil, learn-geo-for-500-rupees
 ---
 
 # How to learn GEO in 30 days: a beginner plan for India
 
-You can learn the basics of GEO in 30 days with about 4 hours a week. Week 1: learn the ideas. Week 2: study the 6 pillars and the research. Week 3: audit one real website. Week 4: price your work and write a proposal. The plan costs ₹499 plus 18% GST (₹588.82 in total) with The GEO Blueprint, or ₹0 if you stick to free lessons. The weekly hours are our suggestion, not a measured result.
+You can learn the basics of GEO in 30 days with about 4 hours a week. Week 1: learn the ideas. Week 2: study the 6 pillars and the research. Week 3: audit one real website. Week 4: price your work and write a proposal. The plan costs ₹499 plus GST with The GEO Blueprint, or ₹0 if you stick to free lessons. The weekly hours are our suggestion, not a measured result.
 
 We sell one of the courses used in this plan, The GEO Blueprint, and we built the plan around it: weeks 2 to 4 lean on it. That is our opinion. We also mark where free options work as well.
 

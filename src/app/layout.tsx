@@ -77,9 +77,10 @@ function siteJsonLd() {
         knowsAbout: ["Generative engine optimization", "Answer engine optimization", "AI search visibility"],
         address: {
           "@type": "PostalAddress",
-          streetAddress: "7/16, Lutheran Church St, Kadaperi, Tambaram",
+          streetAddress: "4/15, Cox Street, Chinthadripet",
+          addressLocality: "Chennai",
           addressRegion: "Tamil Nadu",
-          postalCode: "600045",
+          postalCode: "600002",
           addressCountry: "IN",
         },
         sameAs: ["https://dfren.in", "https://aivirex.in", "https://litmus.aivirex.in", who.linkedinUrl],

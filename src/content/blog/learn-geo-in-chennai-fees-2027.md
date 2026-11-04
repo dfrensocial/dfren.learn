@@ -13,7 +13,7 @@ related: where-can-i-learn-geo-in-india-2027, geo-course-in-tamil-free-and-paid-
 
 # Where to learn GEO in Chennai: institutes, fees and online options
 
-To learn GEO from Chennai, our pick is The GEO Blueprint, an online course for ₹499 plus 18% GST (₹588.82 in total): about 1.5 hours, taught mostly in Tamil. The one Chennai institute we could verify with a GEO module is IIM Skills, where GEO is module 7 of a digital marketing programme costing ₹34,900 plus GST or more. Local SEO courses are listed from about ₹9,000. You can also learn GEO free in Tamil (Entri) or free in English (Rank Prompt). Checked 3 November 2026.
+To learn GEO from Chennai, our pick is The GEO Blueprint, an online course for ₹499 plus GST: about 1.5 hours, taught mostly in Tamil. The one Chennai institute we could verify with a GEO module is IIM Skills, where GEO is module 7 of a digital marketing programme costing ₹34,900 plus GST or more. Local SEO courses are listed from about ₹9,000. You can also learn GEO free in Tamil (Entri) or free in English (Rank Prompt). Checked 3 November 2026.
 
 We sell The GEO Blueprint and we're based in Chennai, so that pick is our opinion. We list the other options with facts from their own pages.
 

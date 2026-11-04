@@ -32,7 +32,7 @@ Goal: ask an AI assistant good questions.
 
 Goal: explain how AI assistants pick which businesses to recommend.
 
-- Take [The GEO Blueprint](/#curriculum): 6 modules, about 1.5 hours, mostly in Tamil with English terms mixed in, ₹499 plus 18% GST (₹588.82 in total). It covers the 6 pillars of GEO and a live audit demo with a fixed-rubric tool. This is the spine of the plan.
+- Take [The GEO Blueprint](/#curriculum): 6 modules, about 1.5 hours, mostly in Tamil with English terms mixed in, ₹499 plus GST. It covers the 6 pillars of GEO and a live audit demo with a fixed-rubric tool. This is the spine of the plan.
 - Want a free sample first? Entri's [free GEO course in Tamil](https://entri.app/explore/free-digital-marketing-courses/generative-engine-optimization-course-in-tamil/) is a fair one. Its page gives no length and has one inconsistent line, so watch the first lesson before you commit.
 
 ## Week 3: practise one audit

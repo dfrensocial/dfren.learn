@@ -62,7 +62,7 @@ India's [CCPA guidelines](https://ccpa.doca.gov.in/files/CCPA_Notification.pdf) 
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint's last module covers turning a before-and-after into a case study, after setting up tracking and expectations. It's ₹499 plus 18% GST (₹588.82 in total), about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide. It has no student reviews yet and promises no results.
+The GEO Blueprint's last module covers turning a before-and-after into a case study, after setting up tracking and expectations. It's ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide. It has no student reviews yet and promises no results.
 
 ## Questions, answered
 

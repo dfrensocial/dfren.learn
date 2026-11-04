@@ -13,7 +13,7 @@ related: free-vs-paid-geo-course, where-can-i-learn-geo-in-india-2027, learn-geo
 
 # GEO course vs learning from YouTube: what you actually get
 
-YouTube can teach you the basics of GEO for free, and many videos exist. What a short course adds is order, working files and a client workflow, so you spend less time piecing it together. In our view, if you can follow a structured 1.5 hour course and put it to work, that saves more than it costs at ₹499 plus 18% GST (₹588.82 in total). If you enjoy curating, YouTube is a fair start.
+YouTube can teach you the basics of GEO for free, and many videos exist. What a short course adds is order, working files and a client workflow, so you spend less time piecing it together. In our view, if you can follow a structured 1.5 hour course and put it to work, that saves more than it costs at ₹499 plus GST. If you enjoy curating, YouTube is a fair start.
 
 We sell a course, so weigh this with that in mind. We searched YouTube and listed what we found, but we haven't watched the videos in full, and we can't judge their quality.
 

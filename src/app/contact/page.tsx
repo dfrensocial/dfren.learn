@@ -7,7 +7,7 @@ import { LEGAL } from "@/content/legal";
 export const metadata: Metadata = {
   title: "Contact dfrenLearn | dfrenLearn",
   description:
-    "How to reach dfrenLearn: email, postal address in Tambaram, Chennai, and our Grievance Officer. We reply within 48 hours.",
+    "How to reach dfrenLearn: email, postal address in Chennai, and our Grievance Officer. We reply within 48 hours.",
   alternates: { canonical: "/contact" },
   openGraph: { url: `${SITE_URL}/contact`, type: "website", images: [{ url: "/opengraph-image", width: 1200, height: 630 }] },
   twitter: { card: "summary_large_image", images: ["/opengraph-image"] },
@@ -95,6 +95,8 @@ export default function ContactPage() {
           {LEGAL.entity} ({LEGAL.entityType}; brand name Dfren)
           <br />
           {LEGAL.address}
+          <br />
+          GSTIN: {LEGAL.gstin}
         </p>
       </section>
       <section>
