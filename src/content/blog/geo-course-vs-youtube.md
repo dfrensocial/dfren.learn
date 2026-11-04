@@ -13,7 +13,7 @@ related: free-vs-paid-geo-course, where-can-i-learn-geo-in-india-2027, learn-geo
 
 # GEO course vs learning from YouTube: what you actually get
 
-YouTube can teach you the basics of GEO for free, and many videos exist. What a short course adds is order, working files and a client workflow, so you spend less time piecing it together. In our view, if you can follow a structured 1.5 hour course and put it to work, that saves more than it costs at ₹499. If you enjoy curating, YouTube is a fair start.
+YouTube can teach you the basics of GEO for free, and many videos exist. What a short course adds is order, working files and a client workflow, so you spend less time piecing it together. In our view, if you can follow a structured 1.5 hour course and put it to work, that saves more than it costs at ₹499 plus 18% GST (₹588.82 in total). If you enjoy curating, YouTube is a fair start.
 
 We sell a course, so weigh this with that in mind. We searched YouTube and listed what we found, but we haven't watched the videos in full, and we can't judge their quality.
 
@@ -25,7 +25,7 @@ A YouTube search on 4 November 2026 for "generative engine optimization tutorial
 
 | | YouTube (free) | A short structured course |
 |---|---|---|
-| Price | ₹0 | For example ₹499 for The GEO Blueprint |
+| Price | ₹0 | For example ₹499 + GST for The GEO Blueprint |
 | Order | You assemble it | Set order from basics to selling |
 | Length | Varies, your pick | About 1.5 hours for ours |
 | Language | Not checked, most titles we saw are in English | Ours is mostly Tamil with English terms mixed in |
@@ -57,7 +57,7 @@ Our suggestion: use YouTube to sample the topic for an hour, then start small wi
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint puts the path in one sitting: how AI picks answers, the 6 pillars, a live audit and two ways to charge for the work. It's ₹499, about 1.5 hours, mostly in Tamil with English terms mixed in. Get the course to learn the full guide for your own site. It has no certificate and no student reviews yet.
+The GEO Blueprint puts the path in one sitting: how AI picks answers, the 6 pillars, a live audit and two ways to charge for the work. It's ₹499 + GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Get the course to learn the full guide for your own site. It has no certificate and no student reviews yet.
 
 ## Questions, answered
 

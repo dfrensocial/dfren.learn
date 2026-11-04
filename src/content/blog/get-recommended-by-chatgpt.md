@@ -57,7 +57,7 @@ ChatGPT's answers change. SparkToro and Gumshoe found ChatGPT and Google's AI [r
 
 ## Where The GEO Blueprint fits
 
-If you want the whole process on one page, start small. The GEO Blueprint is ₹499 and about 1.5 hours, taught mostly in Tamil with English terms mixed in. It covers the 6 pillars behind steps 1 to 6, a live audit of a real site and how to track the results. Get the course and you learn the full method for doing GEO on your own site. It has no student reviews yet and promises no recommendation.
+If you want the whole process on one page, start small. The GEO Blueprint is ₹499 plus 18% GST (₹588.82 in total) and about 1.5 hours, taught mostly in Tamil with English terms mixed in. It covers the 6 pillars behind steps 1 to 6, a live audit of a real site and how to track the results. Get the course and you learn the full method for doing GEO on your own site. It has no student reviews yet and promises no recommendation.
 
 ## Questions, answered
 

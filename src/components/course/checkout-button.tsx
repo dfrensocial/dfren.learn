@@ -10,6 +10,7 @@ import { useEnrollment } from "@/lib/firebase/use-enrollment";
 import { analyticsAllowed, clarityTag, courseItem, getGaIds, track } from "@/lib/analytics";
 import { getAttribution } from "@/lib/attribution";
 import { AcceptTerms } from "@/components/legal/accept-terms";
+import { GST_RATE_PERCENT, gstPaise, rupeesFromPaise, totalWithGstPaise } from "@/lib/gst";
 import { addAcceptanceParams, hasAcceptedCurrent, recordAcceptance } from "@/lib/legal-acceptance";
 import { rememberLoginEmail } from "@/lib/login-email";
 import { BusyOverlay } from "@/components/ui/busy-overlay";
@@ -64,9 +65,12 @@ function loadRazorpay(): Promise<void> {
 export function CheckoutButton({
   courseId,
   courseTitle,
+  priceInPaise,
 }: {
   courseId: string;
   courseTitle: string;
+  /** Pre-tax price. When given, the GST breakdown is shown above the button. */
+  priceInPaise?: number;
 }) {
   const { user } = useAuth();
   const { enrolled } = useEnrollment(courseId);
@@ -360,6 +364,13 @@ export function CheckoutButton({
         {infoMessage && (
           <p data-clarity-mask="true" className="mb-3 border border-black bg-neutral-50 px-3 py-2 text-sm">{infoMessage}</p>
         )}
+
+        {priceInPaise ? (
+          <p className="mb-3 text-center text-sm text-neutral-700">
+            ₹{rupeesFromPaise(priceInPaise)} + ₹{rupeesFromPaise(gstPaise(priceInPaise))} GST ({GST_RATE_PERCENT}%) ={" "}
+            <strong>₹{rupeesFromPaise(totalWithGstPaise(priceInPaise))}</strong> in total
+          </p>
+        ) : null}
 
         <AcceptTerms id="checkout-accept" checked={accepted} onChange={setAccepted} className="mb-3" refunds />
 

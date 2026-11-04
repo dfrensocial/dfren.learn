@@ -16,9 +16,9 @@ import { MarketingFooter } from "@/components/marketing/footer";
 import { geoBlueprintCourse } from "@/content/courses/geo-blueprint";
 import { LEGAL } from "@/content/legal";
 
-const PAGE_TITLE = "The GEO Blueprint by dfrenLearn: GEO and AEO course, ₹499";
+const PAGE_TITLE = "The GEO Blueprint by dfrenLearn: GEO and AEO course, ₹499 + GST";
 const PAGE_DESCRIPTION =
-  "The GEO Blueprint by dfrenLearn: a 1.5-hour GEO and AEO course on how AI picks answers, the 6 pillars, a live audit and 2 ways to charge. ₹499, mostly Tamil.";
+  "The GEO Blueprint by dfrenLearn: a 1.5-hour GEO and AEO course on how AI picks answers, 6 pillars, a live audit, 2 ways to charge. ₹499 + GST, mostly Tamil.";
 
 export const metadata: Metadata = {
   title: { absolute: PAGE_TITLE },
@@ -82,6 +82,13 @@ function homeJsonLd() {
           "@type": "Offer",
           price: String(course.pricing.priceInPaise / 100),
           priceCurrency: "INR",
+          // The price is before GST; GST is added at checkout.
+          priceSpecification: {
+            "@type": "PriceSpecification",
+            price: String(course.pricing.priceInPaise / 100),
+            priceCurrency: "INR",
+            valueAddedTaxIncluded: false,
+          },
           availability: "https://schema.org/InStock",
           url: `${SITE}/#pricing`,
         },

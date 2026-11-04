@@ -60,7 +60,7 @@ This is our suggestion, not a forecast. You might win clients, or none.
 
 ## Where The GEO Blueprint fits
 
-For an SEO freelancer, The GEO Blueprint is a short way to cover what's new: the six pillars, a live audit with a fixed-rubric tool and two ways to package GEO for clients. It's ₹499, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful, then go deeper if you want. Get the course to learn the full guide. It has no student reviews yet and promises no income or clients.
+For an SEO freelancer, The GEO Blueprint is a short way to cover what's new: the six pillars, a live audit with a fixed-rubric tool and two ways to package GEO for clients. It's ₹499 plus 18% GST (₹588.82 in total), about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful, then go deeper if you want. Get the course to learn the full guide. It has no student reviews yet and promises no income or clients.
 
 ## Questions, answered
 

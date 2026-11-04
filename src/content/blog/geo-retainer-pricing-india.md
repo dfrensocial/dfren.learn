@@ -64,7 +64,7 @@ For context, an agency page says most small-business SEO retainers in India run 
 
 ## Where The GEO Blueprint fits
 
-Our suggestion: start small. The GEO Blueprint is ₹499, about 1.5 hours, mostly in Tamil with English terms mixed in. It covers 2 ways to charge for GEO work and how to run a client audit, so it's a strong first step if you want to understand a quote or write one. It has no student reviews yet, and it can't tell you what clients will pay.
+Our suggestion: start small. The GEO Blueprint is ₹499 plus 18% GST (₹588.82 in total), about 1.5 hours, mostly in Tamil with English terms mixed in. It covers 2 ways to charge for GEO work and how to run a client audit, so it's a strong first step if you want to understand a quote or write one. It has no student reviews yet, and it can't tell you what clients will pay.
 
 ## Questions, answered
 

@@ -53,7 +53,7 @@ For a small business, yes: complete your [Google Business Profile](https://busin
 
 ## Where The GEO Blueprint fits
 
-If you'd rather understand GEO before hiring, or hire less, The GEO Blueprint explains the method in plain terms. It's ₹499, about 1.5 hours, mostly in Tamil with English terms mixed in. It covers the six pillars and a live audit. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has no student reviews yet and promises no results.
+If you'd rather understand GEO before hiring, or hire less, The GEO Blueprint explains the method in plain terms. It's ₹499 plus 18% GST (₹588.82 in total), about 1.5 hours, mostly in Tamil with English terms mixed in. It covers the six pillars and a live audit. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has no student reviews yet and promises no results.
 
 ## Questions, answered
 

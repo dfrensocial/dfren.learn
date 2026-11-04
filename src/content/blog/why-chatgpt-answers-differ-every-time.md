@@ -41,7 +41,7 @@ Our [free spreadsheet method](/blog/know-if-ai-recommends-your-business) shows h
 
 ## Where The GEO Blueprint fits
 
-Module 1 of The GEO Blueprint explains this word-by-word idea in plain language with no equations, because every GEO tactic tries to nudge that process. It's ₹499, about 1.5 hours, taught mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide to doing GEO on your site. It has no student reviews yet.
+Module 1 of The GEO Blueprint explains this word-by-word idea in plain language with no equations, because every GEO tactic tries to nudge that process. It's ₹499 plus 18% GST (₹588.82 in total), about 1.5 hours, taught mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide to doing GEO on your site. It has no student reviews yet.
 
 ## Questions, answered
 

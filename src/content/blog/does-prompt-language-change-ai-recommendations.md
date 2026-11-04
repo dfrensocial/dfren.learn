@@ -56,7 +56,7 @@ If you appear in English and not in Tamil, consider adding Tamil text to key pag
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint is taught mostly in Tamil with English terms mixed in, so you can follow the ideas in the language you think in. It covers the 6 pillars, a live audit and how to track results, which you can apply in either language. It's ₹499 and about 1.5 hours. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has no student reviews yet and promises no results.
+The GEO Blueprint is taught mostly in Tamil with English terms mixed in, so you can follow the ideas in the language you think in. It covers the 6 pillars, a live audit and how to track results, which you can apply in either language. It's ₹499 plus 18% GST (₹588.82 in total) and about 1.5 hours. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has no student reviews yet and promises no results.
 
 ## Questions, answered
 

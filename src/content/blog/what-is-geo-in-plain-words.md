@@ -53,7 +53,7 @@ Our course groups these into 6 pillars: technical optimization, answer-first con
 
 ## Where The GEO Blueprint fits
 
-If you want the whole method in one sitting, start small. The GEO Blueprint is ₹499, about 1.5 hours, taught mostly in Tamil with English terms mixed in. It starts from how a model produces an answer, covers the 6 pillars and a live audit, and shows two ways to package GEO as a service. Get the course to learn the full guide for your own site. It has no student reviews yet and makes no promise of results.
+If you want the whole method in one sitting, start small. The GEO Blueprint is ₹499 plus 18% GST (₹588.82 in total), about 1.5 hours, taught mostly in Tamil with English terms mixed in. It starts from how a model produces an answer, covers the 6 pillars and a live audit, and shows two ways to package GEO as a service. Get the course to learn the full guide for your own site. It has no student reviews yet and makes no promise of results.
 
 ## Questions, answered
 

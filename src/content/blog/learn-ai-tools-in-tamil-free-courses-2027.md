@@ -42,7 +42,7 @@ You don't need to know GEO to use AI tools. But if you can already use them, you
 ## A sensible order
 
 1. **Learn to use ChatGPT.** Watch the free Tamil course. Ask it 10 questions about your own work.
-2. **Learn how it picks businesses.** Take a GEO course. Ours is ₹499 and about 1.5 hours.
+2. **Learn how it picks businesses.** Take a GEO course. Ours is ₹499 plus 18% GST (₹588.82 in total) and about 1.5 hours.
 3. **Practise on one real website.** Audit a small shop's page.
 4. **Decide if you want more.** If you find it useful and want to dig deeper, a longer programme makes sense.
 
@@ -50,7 +50,7 @@ Follow the [4-week plan](/blog/how-to-learn-geo-in-tamil) for hours and tasks.
 
 ## Where The GEO Blueprint fits
 
-Start small. It's ₹499, mostly in Tamil, with English terms mixed in. It covers how AI assistants pick answers, the 6 pillars of GEO and a live audit demo. In our view it's a strong first step after you've learned to use AI tools. It has no student reviews yet.
+Start small. It's ₹499 + GST, mostly in Tamil, with English terms mixed in. It covers how AI assistants pick answers, the 6 pillars of GEO and a live audit demo. In our view it's a strong first step after you've learned to use AI tools. It has no student reviews yet.
 
 ## Questions, answered
 

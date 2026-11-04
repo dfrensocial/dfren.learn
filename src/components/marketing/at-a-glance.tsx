@@ -1,4 +1,5 @@
 import type { CourseContent } from "@/content/courses/geo-blueprint";
+import { GST_RATE_PERCENT, rupeesFromPaise, totalWithGstPaise } from "@/lib/gst";
 
 // A plain facts table: easy for people to scan and for AI engines to quote.
 export function AtAGlance({ pricing }: { pricing: CourseContent["pricing"] }) {
@@ -7,7 +8,7 @@ export function AtAGlance({ pricing }: { pricing: CourseContent["pricing"] }) {
     ["Course", "The GEO Blueprint by dfrenLearn"],
     ["Topic", "GEO (generative engine optimization), also useful for AEO"],
     ["Length", "About 1.5 hours of video in 6 modules"],
-    ["Price", `₹${rupees}, paid once, no subscription`],
+    ["Price", `₹${rupees} plus ${GST_RATE_PERCENT}% GST (₹${rupeesFromPaise(totalWithGstPaise(pricing.priceInPaise))} in total), paid once, no subscription.`],
     ["Language", "Mostly Tamil, with English terms mixed in"],
     ["Format", "Recorded video you stream on this site after checkout"],
     ["Included", "Quick-win checklist, client questionnaire, Claude Code prompt pack"],

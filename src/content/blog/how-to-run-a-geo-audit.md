@@ -66,7 +66,7 @@ A chatbot has no fixed rubric, so the same site can get different scores on diff
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint walks through a live audit of a real site with Litmus, then shows how to turn the findings into a fix list and a client proposal. It's ₹499, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site or a client's. It has no student reviews yet and promises no results.
+The GEO Blueprint walks through a live audit of a real site with Litmus, then shows how to turn the findings into a fix list and a client proposal. It's ₹499 plus 18% GST (₹588.82 in total), about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site or a client's. It has no student reviews yet and promises no results.
 
 ## Questions, answered
 

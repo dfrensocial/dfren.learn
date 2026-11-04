@@ -60,7 +60,7 @@ For a site audit rather than tracking, see [free GEO audit tools compared](/blog
 
 ## Where The GEO Blueprint fits
 
-You don't need a tracker to learn GEO. The GEO Blueprint is ₹499 one time, about 1.5 hours, mostly in Tamil with English terms mixed in. It teaches the 6 pillars, a live audit and how to set up baseline tracking before a client engagement. Start small and see if it's useful. Get the course to learn the full guide before you decide what tools you need. It has no student reviews yet.
+You don't need a tracker to learn GEO. The GEO Blueprint is ₹499 plus 18% GST (₹588.82 in total) one time, about 1.5 hours, mostly in Tamil with English terms mixed in. It teaches the 6 pillars, a live audit and how to set up baseline tracking before a client engagement. Start small and see if it's useful. Get the course to learn the full guide before you decide what tools you need. It has no student reviews yet.
 
 ## Questions, answered
 

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { CheckoutButton } from "@/components/course/checkout-button";
 import { TrackOnView } from "@/components/analytics/track-on-view";
 import type { CourseContent } from "@/content/courses/geo-blueprint";
+import { GST_RATE_PERCENT, gstPaise, rupeesFromPaise, totalWithGstPaise } from "@/lib/gst";
 
 export function Pricing({
   courseId,
@@ -33,8 +34,14 @@ export function Pricing({
           <p className="text-sm uppercase tracking-wide text-neutral-500">
             {pricing.productLabel}
           </p>
-          <p className="mt-2 text-5xl font-bold">₹{rupees}</p>
-          <p className="mt-1 text-sm text-neutral-500">One-time payment</p>
+          <p className="mt-2 text-5xl font-bold">
+            ₹{rupees}
+            <span className="ml-2 text-2xl font-semibold text-neutral-600">+ GST</span>
+          </p>
+          <p className="mt-1 text-sm text-neutral-600">
+            One-time payment. {GST_RATE_PERCENT}% GST (₹{rupeesFromPaise(gstPaise(pricing.priceInPaise))}) is added at
+            checkout, so you pay ₹{rupeesFromPaise(totalWithGstPaise(pricing.priceInPaise))} in total.
+          </p>
 
           <ul className="mt-6 space-y-2 text-left text-sm text-neutral-700">
             {pricing.includes.map((item) => (
@@ -46,7 +53,7 @@ export function Pricing({
           </ul>
 
           <div className="mt-8">
-            <CheckoutButton courseId={courseId} courseTitle={pricing.productLabel} />
+            <CheckoutButton courseId={courseId} courseTitle={pricing.productLabel} priceInPaise={pricing.priceInPaise} />
           </div>
           <p className="mt-3 text-xs text-neutral-500">
             Secure checkout via Razorpay. Instant digital access, so payments are non-refundable except as in the{" "}

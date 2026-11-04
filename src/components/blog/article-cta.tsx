@@ -17,7 +17,7 @@ export function ArticleCta() {
         and how to track the results. It also comes with a client questionnaire and a prompt pack. It is taught mostly in
         Tamil, with English terms mixed in.
       </p>
-      <p className="mt-3 text-sm font-medium">₹{price.toLocaleString("en-IN")}, one time. No subscription.</p>
+      <p className="mt-3 text-sm font-medium">₹{price.toLocaleString("en-IN")} + GST, one time. No subscription.</p>
       <div className="mt-5 flex flex-wrap items-center gap-4 text-sm">
         <Link
           href="/#pricing"

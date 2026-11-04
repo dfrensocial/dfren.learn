@@ -58,7 +58,7 @@ Analytics and session recording tools set cookies and process visitor data. Unde
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint's last module covers exactly this: finding out what's already tracked, connecting what's missing, setting timeline expectations and turning a before-and-after into a case study. It's ₹499, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full client workflow. It has no student reviews yet and promises no results.
+The GEO Blueprint's last module covers exactly this: finding out what's already tracked, connecting what's missing, setting timeline expectations and turning a before-and-after into a case study. It's ₹499 plus 18% GST (₹588.82 in total), about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full client workflow. It has no student reviews yet and promises no results.
 
 ## Questions, answered
 

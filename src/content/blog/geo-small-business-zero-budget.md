@@ -68,7 +68,7 @@ Update your three pages with new facts every three months and repeat Step 1. Com
 
 ## Where The GEO Blueprint fits
 
-Start free, then start small. The GEO Blueprint is ₹499, about 1.5 hours, taught mostly in Tamil with English terms mixed in. It puts the steps above into the 6 pillars of GEO and shows a live audit of a real site, so you know what to fix and in which order. Get the course to learn the full method for your own site. It has no student reviews yet and promises no results.
+Start free, then start small. The GEO Blueprint is ₹499 plus 18% GST (₹588.82 in total), about 1.5 hours, taught mostly in Tamil with English terms mixed in. It puts the steps above into the 6 pillars of GEO and shows a live audit of a real site, so you know what to fix and in which order. Get the course to learn the full method for your own site. It has no student reviews yet and promises no results.
 
 ## Questions, answered
 

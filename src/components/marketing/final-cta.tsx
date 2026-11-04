@@ -5,7 +5,7 @@ export function FinalCTA({ courseId }: { courseId: string }) {
     <section className="border-t border-black bg-black text-white">
       <div className="mx-auto max-w-2xl px-6 py-16 text-center sm:py-20">
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          Learn the full method for getting found by AI assistants, for ₹499.
+          Learn the full method for getting found by AI assistants, for ₹499 + GST.
         </h2>
         <CourseCta
           courseId={courseId}

@@ -15,7 +15,7 @@ related: where-can-i-learn-geo-in-india-2027, geo-course-in-tamil-free-and-paid-
 
 Check 7 things before you pay for an AI SEO or GEO course in India: the syllabus, the hours, the full price with GST, the language, the refund terms, proof of quality and any job or income promises. Most people start with a broad digital marketing course, then add GEO. Checked 3 November 2026.
 
-We sell a ₹499 course, The GEO Blueprint, so we have a stake in this. We use the same checklist on our own course below. In our view it's a sensible first step for most beginners, and the reasons are at the end. That is our opinion, so check the facts yourself.
+We sell a ₹499 plus 18% GST (₹588.82 in total) course, The GEO Blueprint, so we have a stake in this. We use the same checklist on our own course below. In our view it's a sensible first step for most beginners, and the reasons are at the end. That is our opinion, so check the facts yourself.
 
 ## What people search for before they find GEO
 
@@ -50,9 +50,9 @@ Be careful. IIM Skills advertises a "100% Job Guarantee" and a 95% placement rec
 
 Here's an illustrative example, not a real quote. You have ₹10,000 and a full-time job.
 
-| Check | **Option A: ₹499 short course (ours)** | Option B: classroom programme |
+| Check | **Option A: ₹499 + GST short course (ours)** | Option B: classroom programme |
 |---|---|---|
-| Price with GST | **₹499** | ₹41,182 |
+| Price with GST | **₹499 + GST** | ₹41,182 |
 | Time | **About 1.5 hours** | 4 months live |
 | GEO share | **The whole course** | 1 module of 22 |
 | Best for | **Getting to a first audit and offer quickly** | A full digital marketing course with an internship |
@@ -63,14 +63,14 @@ In our view, more hours don't mean more learning. If you can learn the GEO workf
 
 ## Where The GEO Blueprint fits
 
-Our recommendation: start with The GEO Blueprint, and judge it by the same checks. Syllabus: 6 modules on how AI picks answers, the 6 pillars, a live audit demo with a fixed-rubric tool and 2 ways to charge for the work, plus a client questionnaire, a prompt pack and a quick-win checklist. Hours and price: about 1.5 hours and ₹499 once, both stated on the course page. Language: mostly Tamil, with English terms mixed in. It makes no job or income promises.
+Our recommendation: start with The GEO Blueprint, and judge it by the same checks. Syllabus: 6 modules on how AI picks answers, the 6 pillars, a live audit demo with a fixed-rubric tool and 2 ways to charge for the work, plus a client questionnaire, a prompt pack and a quick-win checklist. Hours and price: about 1.5 hours and ₹499 + GST once, both stated on the course page. Language: mostly Tamil, with English terms mixed in. It makes no job or income promises.
 
 It is among the lowest-priced paid options we found, and we think it's the fastest route from "what is GEO?" to a first audit and offer. [See what's inside](/#curriculum). It falls short on proof, as check 6 says, so keep your expectations realistic. If it clicks and you want mentors, a certificate or an internship, a bigger programme makes sense later, and in our view those 1.5 hours already give you a foundation to build on, so nothing is wasted. There's no need to pay ₹41,182 before you know GEO is for you.
 
 ## Questions, answered
 
 ### How do I choose an AI SEO course in India?
-Check the syllabus, the stated hours, the full price with GST, the language, the refund terms, any public rating, and whether it promises jobs. If a page can't answer these, ask before you pay. A free course shows you what a good syllabus looks like. After that, we suggest The GEO Blueprint at ₹499 as a low-risk first paid step.
+Check the syllabus, the stated hours, the full price with GST, the language, the refund terms, any public rating, and whether it promises jobs. If a page can't answer these, ask before you pay. A free course shows you what a good syllabus looks like. After that, we suggest The GEO Blueprint at ₹499 + GST as a low-risk first paid step.
 
 ### Is a digital marketing course enough to learn GEO?
 Only if it has a GEO module, and few do. IIM Skills' Chennai programme lists GEO as module 7. Many broader courses mention AI but may not teach GEO. Check the syllabus for GEO or AEO by name.

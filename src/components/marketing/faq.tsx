@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { LEGAL } from "@/content/legal";
+import { GST_RATE_PERCENT, gstPaise, rupeesFromPaise, totalWithGstPaise } from "@/lib/gst";
 
 // `text` is the plain-text answer used for FAQPage structured data when `a` is JSX.
 const FAQS: { q: string; a: ReactNode; text?: string }[] = [
@@ -37,6 +38,10 @@ const FAQS: { q: string; a: ReactNode; text?: string }[] = [
   {
     q: "Does it cover making money from GEO?",
     a: "Yes. The second half covers two ways to charge for GEO: fixing what an audit finds, and an ongoing monthly fee for content. It also covers client onboarding and setting honest expectations. These are methods, not promised earnings.",
+  },
+  {
+    q: "How much does it cost?",
+    a: `The GEO Blueprint costs ₹499 plus ${GST_RATE_PERCENT}% GST (₹${rupeesFromPaise(gstPaise(49900))}), so ₹${rupeesFromPaise(totalWithGstPaise(49900))} in total at checkout. It is a one-time payment with no subscription.`,
   },
   {
     q: "What language is the course in?",

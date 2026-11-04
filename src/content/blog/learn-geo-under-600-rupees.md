@@ -1,7 +1,7 @@
 ---
-title: Where can I learn GEO for ₹500? What each price gets you
-seoTitle: Learn GEO for ₹500: what you get at each price (India 2027)
-description: Our pick for ₹500: The GEO Blueprint, ₹499 for about 1.5 hours, mostly in Tamil. See what ₹0, ₹499, ₹6,999 and ₹34,900 get you. Checked 3 Nov 2026.
+title: Where can I learn GEO for under ₹600? What each price gets you
+seoTitle: Learn GEO for under ₹600: what you get at each price (India 2027)
+description: Our pick under ₹600: The GEO Blueprint, ₹499 + GST (₹588.82) for about 1.5 hours, mostly in Tamil. See what ₹0, ₹6,999 and ₹34,900 get you. Checked 3 Nov 2026.
 date: 2026-11-03
 updated: 2026-11-03
 author: dfrenLearn Team
@@ -11,9 +11,9 @@ tag: Learn GEO
 related: where-can-i-learn-geo-in-india-2027, geo-course-in-tamil-free-and-paid-2027, geo-courses-by-price
 ---
 
-# Where can I learn GEO for ₹500? What each price gets you
+# Where can I learn GEO for under ₹600? What each price gets you
 
-For ₹500, our pick is The GEO Blueprint: about 1.5 hours of video for ₹499, or ₹333 an hour, taught mostly in Tamil, with a ready-made client questionnaire and prompt pack. You can also learn GEO for ₹0 with a free 90-minute course, which is a good way to sample the topic. Prices checked 3 November 2026.
+Under ₹600, our pick is The GEO Blueprint: about 1.5 hours of video for ₹499 plus 18% GST (₹588.82 in total, or about ₹393 an hour), taught mostly in Tamil, with a ready-made client questionnaire and prompt pack. You can also learn GEO for ₹0 with a free 90-minute course, which is a good way to sample the topic. Prices checked 3 November 2026.
 
 We sell The GEO Blueprint, so that pick is our opinion and we're one of the options here. Where we compare, we use facts from each course's own page.
 
@@ -25,7 +25,7 @@ Joe Davies' [30-minute mini-course](https://joedavies.beehiiv.com/p/build-a-5m-g
 
 If you read English comfortably, that's a real way to start. What the free courses leave to you is a repeatable audit routine and a client questionnaire (we couldn't check whether Rank Prompt includes one). That's the gap a short paid course can fill.
 
-## What does ₹499 get you?
+## What does ₹499 + GST get you?
 
 The GEO Blueprint has 6 modules and about 1.5 hours of video:
 
@@ -40,21 +40,21 @@ You also get a client research questionnaire, a Claude Code prompt pack and a qu
 
 The course page doesn't list a certificate, live classes or job help, so don't buy expecting them. It also has no student reviews yet.
 
-## Cost per hour: ₹333, ₹292 or unknown
+## Cost per hour: ₹393, ₹292 or unknown
 
 | Option | Price | Hours stated | Cost per hour | Best for |
 |---|---|---|---|---|
-| **The GEO Blueprint (ours)** | **₹499** | **About 1.5** | **₹333** | **A first audit and offer, mostly in Tamil** |
+| **The GEO Blueprint (ours)** | **₹588.82 (₹499 + GST + 18% GST)** | **About 1.5** | **₹393** | **A first audit and offer, mostly in Tamil** |
 | Rank Prompt | ₹0 | About 1.5 | ₹0 | A free first look, in English |
 | Coursera GEO specialisation | ₹6,999 a year (Coursera Plus) | 24 | ₹292 | Long, structured study in English |
 | Trust Insights GEO Power Pack | About ₹18,848 | Not stated | Can't tell | Marketers happy to pay in dollars |
 | IIM Skills Chennai (Expert) | ₹41,182 with GST | Not stated | Can't tell | A wider digital marketing programme with an internship |
 
-Coursera comes out cheaper per hour, but only if you finish all [24 hours of the specialisation](https://www.coursera.org/specializations/generative-engine-optimization-geo) inside the year, and you pay for the whole year up front. ₹499 is among the lowest-priced paid options we found. Its rating is 3.3 out of 5 from 12 reviews. Trust Insights ([$199 bundle](https://academy.trustinsights.ai/bundles/geo-power-pack)) and [IIM Skills](https://iimskills.com/digital-marketing-course-in-chennai/) don't state hours on their pages. Dollar prices use ₹94.72 per dollar ([x-rates](https://www.x-rates.com/calculator/?from=USD&to=INR&amount=1), 3 November 2026). IIM Skills lists ₹34,900 plus 18% GST.
+Coursera comes out cheaper per hour, but only if you finish all [24 hours of the specialisation](https://www.coursera.org/specializations/generative-engine-optimization-geo) inside the year, and you pay for the whole year up front. ₹588.82 including GST is among the lowest-priced paid options we found. Its rating is 3.3 out of 5 from 12 reviews. Trust Insights ([$199 bundle](https://academy.trustinsights.ai/bundles/geo-power-pack)) and [IIM Skills](https://iimskills.com/digital-marketing-course-in-chennai/) don't state hours on their pages. Dollar prices use ₹94.72 per dollar ([x-rates](https://www.x-rates.com/calculator/?from=USD&to=INR&amount=1), 3 November 2026). IIM Skills lists ₹34,900 plus 18% GST.
 
 More hours don't automatically mean more learning. In our view, if you can learn the GEO workflow in about 1.5 hours and run your first audit, why spend 10 or 24 hours first? Longer courses suit people who want a certificate, mentors or the whole of digital marketing.
 
-## A ₹500 plan for one weekend
+## A ₹600 plan for one weekend
 
 This is an illustrative plan, not a promise of results.
 
@@ -63,15 +63,15 @@ This is an illustrative plan, not a promise of results.
 3. **Sunday, 1.5 hours:** watch The GEO Blueprint. Compare how it explains the 6 pillars with what you noted.
 4. **Sunday evening, 1 hour:** use the client questionnaire to list what you'd ask that business owner.
 
-Total spend: ₹499. Total time: about 5 hours, including practice.
+Total spend: ₹588.82 including GST. Total time: about 5 hours, including practice.
 
 ## Where The GEO Blueprint fits
 
-Our recommendation: start with The GEO Blueprint. For ₹499 you get the 6 pillars of GEO, a live audit demo and 2 ways to charge for the work in about 1.5 hours. In our view that's the core most people need to start, and it costs little enough to treat as a test. Run its audit steps on one real website and see how much you learn. [See what's inside](/#curriculum).
+Our recommendation: start with The GEO Blueprint. For ₹499 + GST you get the 6 pillars of GEO, a live audit demo and 2 ways to charge for the work in about 1.5 hours. In our view that's the core most people need to start, and it costs little enough to treat as a test. Run its audit steps on one real website and see how much you learn. [See what's inside](/#curriculum).
 
 If it clicks and you later want mentors, a certificate or an internship, a programme such as IIM Skills' (₹41,182 with GST) becomes a clearer choice, and the 1.5 hours you already did stay useful as a foundation, so nothing is wasted.
 
-## What to know before you pay ₹499
+## What to know before you pay ₹499 + GST
 
 - **Refunds are narrow.** There are no refunds for a change of mind. We refund an extra charge, or a payment where we couldn't give you access within 30 days of your email. See the [refund policy](/refund-policy).
 - **Free may be enough.** If the first lesson of a free course already answers your question, skip paying.
@@ -79,8 +79,8 @@ If it clicks and you later want mentors, a certificate or an internship, a progr
 
 ## Questions, answered
 
-### Is ₹500 enough to learn GEO?
-Yes, for the basics. A free 90-minute course plus a ₹499 course gives you about 3 hours of structured teaching, and practice on a real website takes longer than that. If you buy only one thing, we suggest The GEO Blueprint, because it's built around a first audit and a way to charge for it.
+### Is ₹600 enough to learn GEO?
+Yes, for the basics. A free 90-minute course plus a ₹499 + GST course gives you about 3 hours of structured teaching, and practice on a real website takes longer than that. If you buy only one thing, we suggest The GEO Blueprint, because it's built around a first audit and a way to charge for it.
 
 ### Can I learn GEO completely free?
 Yes. Rank Prompt's course is free and has 20 lessons. Joe Davies' mini-course is free, and so is Entri's Tamil course. You may need to adapt the examples to Indian businesses yourself.
@@ -88,10 +88,10 @@ Yes. Rank Prompt's course is free and has 20 lessons. Joe Davies' mini-course is
 ### Do I need paid tools to practise GEO?
 Not to start. Free GEO audit tools exist, such as [Juma's](https://geo.juma.ai/), which appeared in our search results. We haven't tested it. You can also ask ChatGPT or Perplexity your customer's questions and note which businesses they name.
 
-### Can I learn GEO in Tamil for ₹500?
-Yes. Entri has a free GEO course in Tamil, so test one lesson there first. If you want a structured path with client files, The GEO Blueprint is ₹499 and taught mostly in Tamil, with English terms mixed in, which is why we suggest it as the place to start. We compare the Tamil options in [is there a GEO course in Tamil](/blog/geo-course-in-tamil-free-and-paid-2027).
+### Can I learn GEO in Tamil for under ₹600?
+Yes. Entri has a free GEO course in Tamil, so test one lesson there first. If you want a structured path with client files, The GEO Blueprint is ₹499 + GST and taught mostly in Tamil, with English terms mixed in, which is why we suggest it as the place to start. We compare the Tamil options in [is there a GEO course in Tamil](/blog/geo-course-in-tamil-free-and-paid-2027).
 
-### Will a ₹499 course help me get clients?
+### Will a ₹499 + GST course help me get clients?
 It can teach you what to check and how to package the work, but it can't find clients for you. No course can promise that, and ours doesn't. Treat the questionnaire and audit method as tools for the work.
 
 ## Sources

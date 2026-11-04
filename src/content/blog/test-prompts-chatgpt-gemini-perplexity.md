@@ -62,7 +62,7 @@ If your customers ask in Tamil, test in Tamil too. We found studies showing the 
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint shows how to set up this kind of baseline before any GEO work starts, and how to compare it later. It's ₹499, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has no student reviews yet.
+The GEO Blueprint shows how to set up this kind of baseline before any GEO work starts, and how to compare it later. It's ₹499 plus 18% GST (₹588.82 in total), about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has no student reviews yet.
 
 ## Questions, answered
 

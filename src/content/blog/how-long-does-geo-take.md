@@ -56,7 +56,7 @@ Blocked crawlers, unindexed pages, thin pages with no facts, and no mentions on 
 
 ## Where The GEO Blueprint fits
 
-Module 6 of The GEO Blueprint covers setting tracking up before you start, setting honest timeline expectations with a client, and turning a before-and-after into a case study. It's ₹499, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site or a client's. It has no student reviews yet and promises no timeline.
+Module 6 of The GEO Blueprint covers setting tracking up before you start, setting honest timeline expectations with a client, and turning a before-and-after into a case study. It's ₹499 plus 18% GST (₹588.82 in total), about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site or a client's. It has no student reviews yet and promises no timeline.
 
 ## Questions, answered
 

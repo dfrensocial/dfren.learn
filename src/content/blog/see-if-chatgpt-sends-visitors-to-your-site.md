@@ -75,7 +75,7 @@ Before you start any GEO work, record this number, so you have something to comp
 
 ## Where The GEO Blueprint fits
 
-Knowing where AI traffic shows up in GA4 is half of proving your work. The GEO Blueprint is a one-time ₹499 course, about 1.5 hours and 6 modules, mostly in Tamil with English terms mixed in. Its last module covers setting up tracking before you start a project, setting timeline expectations and turning before and after into a case study.
+Knowing where AI traffic shows up in GA4 is half of proving your work. The GEO Blueprint is a one-time ₹499 plus 18% GST (₹588.82 in total) course, about 1.5 hours and 6 modules, mostly in Tamil with English terms mixed in. Its last module covers setting up tracking before you start a project, setting timeline expectations and turning before and after into a case study.
 
 If you want the full guide to doing GEO on your own site or a client's, start small and see if it's useful, then go deeper later if you want. Details are in the [curriculum](/#curriculum). It has no student reviews yet.
 

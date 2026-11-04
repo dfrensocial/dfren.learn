@@ -47,14 +47,14 @@ export const geoBlueprintCourse: CourseContent = {
     headline: "Learn how to get your business recommended by ChatGPT, Gemini and Claude",
     subheadline:
       "A 1.5-hour GEO course. See how AI assistants pick their answers. Learn the 6 pillars, watch a live audit and find two ways to charge for the work.",
-    ctaLabel: "Get the course for ₹499",
-    ctaNote: "One-time payment, no subscription. Taught mostly in Tamil, with English terms mixed in.",
+    ctaLabel: "Get the course for ₹499 + GST",
+    ctaNote: "One-time payment of ₹499 plus 18% GST, no subscription. Taught mostly in Tamil, with English terms mixed in.",
   },
   stats: [
     { value: "1.5 hrs", label: "of video, no filler" },
     { value: "6", label: "GEO pillars" },
     { value: "2", label: "ways to charge for GEO work" },
-    { value: "₹499", label: "one time" },
+    { value: "₹499", label: "+ GST, one time" },
   ],
   curriculum: {
     heading: "What you learn in 1.5 hours",

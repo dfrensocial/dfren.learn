@@ -63,7 +63,7 @@ What happens after that, we can't tell you. You may win clients, or none, and no
 
 ## Where The GEO Blueprint fits
 
-Start small. The GEO Blueprint is ₹499, about 1.5 hours, mostly in Tamil with English terms mixed in. It covers the 6 pillars of GEO, a live audit demo and 2 ways to package the work as a paid service: charging to fix what an audit finds, and charging monthly for content. In our view that makes it a strong first step toward the 90 days above, and a low-cost way to find out if you like the work. If it clicks, the service could become a source of income. It makes no promise of income, and it has no student reviews yet.
+Start small. The GEO Blueprint is ₹499 plus 18% GST (₹588.82 in total), about 1.5 hours, mostly in Tamil with English terms mixed in. It covers the 6 pillars of GEO, a live audit demo and 2 ways to package the work as a paid service: charging to fix what an audit finds, and charging monthly for content. In our view that makes it a strong first step toward the 90 days above, and a low-cost way to find out if you like the work. If it clicks, the service could become a source of income. It makes no promise of income, and it has no student reviews yet.
 
 ## Questions, answered
 

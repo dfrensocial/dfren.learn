@@ -4,6 +4,7 @@ import { razorpay } from "@/lib/razorpay/server";
 import { getClientIp, rateLimit } from "@/lib/rate-limit";
 import { recordOrderCreated } from "@/lib/orders";
 import { parseAcceptance } from "@/lib/legal-acceptance-server";
+import { GST_RATE_PERCENT, gstPaise, totalWithGstPaise } from "@/lib/gst";
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req);
@@ -59,8 +60,10 @@ export async function POST(req: NextRequest) {
     }
   }
 
+  // The stored price is before tax. The buyer pays price + GST (see src/lib/gst.ts).
+  const tax = { basePaise: priceInPaise, gstPaise: gstPaise(priceInPaise), ratePercent: GST_RATE_PERCENT };
   const order = await razorpay.orders.create({
-    amount: priceInPaise,
+    amount: totalWithGstPaise(priceInPaise),
     currency: "INR",
     notes: { courseId, email },
   });
@@ -73,6 +76,7 @@ export async function POST(req: NextRequest) {
     email,
     uid: decoded?.uid,
     amount: Number(order.amount),
+    tax,
     currency: order.currency,
     analytics: analytics === true,
     legal: accepted,
