@@ -40,3 +40,33 @@ body {
 .blog-prose th { background: #f5f5f5; font-weight: 700; color: #000; white-space: nowrap; }
 .blog-prose tr:last-child td { border-bottom: 0; }
 .blog-prose hr { border: 0; border-top: 1px solid #000; margin: 2rem 0; }
+
+/* Auto-scrolling strip (testimonials). The track holds N identical copies and
+   slides left by exactly one copy, so the loop has no visible seam. Pauses on
+   hover and with the Pause button (data-paused on the section). It keeps moving
+   even when the OS asks for reduced motion, because that setting is on by
+   default on many PCs and would hide the strip's movement; the Pause button is
+   the way to stop it. */
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  animation: marquee-slide var(--dur, 40s) linear infinite;
+}
+.marquee-reverse .marquee-track {
+  animation-direction: reverse;
+}
+.marquee:hover .marquee-track,
+[data-paused="true"] .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee-slide {
+  to {
+    transform: translateX(calc(-100% / var(--copies, 4)));
+  }
+}
