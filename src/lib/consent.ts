@@ -4,12 +4,13 @@ import { useSyncExternalStore } from "react";
 import { LEGAL } from "@/content/legal";
 
 // ---------------------------------------------------------------------------
-// The visitor's privacy choices. Two OPTIONAL purposes, both off until the
+// The visitor's privacy choices. Three OPTIONAL purposes, both off until the
 // visitor says yes:
 //   analytics -> Google Analytics (via Firebase), first-party traffic-source
 //                memory, source/device/location saved with an order, Mux Data
 //                playback quality, server-side purchase counts
 //   replay    -> Microsoft Clarity session recordings + heatmaps
+//   ads       -> Meta Pixel (measures visits from Facebook/Instagram ads)
 //
 // Everything else the site does (account, sign-in, order, payment, security
 // logs, resume position) is NECESSARY processing and is covered by accepting
@@ -32,10 +33,10 @@ export const CONSENT_EVENT = "dfrenlearn:consent-change";
 export const OPEN_SETTINGS_EVENT = "dfrenlearn:open-privacy-settings";
 const MAX_AGE_MS = 180 * 24 * 60 * 60 * 1000;
 
-export type ConsentChoices = { analytics: boolean; replay: boolean };
+export type ConsentChoices = { analytics: boolean; replay: boolean; ads: boolean };
 type Stored = ConsentChoices & { id: string; version: string; decidedAt: number };
 
-const OFF: ConsentChoices = { analytics: false, replay: false };
+const OFF: ConsentChoices = { analytics: false, replay: false, ads: false };
 
 // If browser storage is blocked, the choice still holds for this page view
 // (otherwise the banner could never be dismissed).
@@ -58,6 +59,7 @@ function parse(raw: string | null): Stored | null {
     if (
       typeof s.analytics !== "boolean" ||
       typeof s.replay !== "boolean" ||
+      typeof s.ads !== "boolean" ||
       typeof s.id !== "string" ||
       s.version !== LEGAL.consentVersion ||
       typeof s.decidedAt !== "number" ||
@@ -82,11 +84,12 @@ export function privacySignalOn(): boolean {
 export function currentChoices(): ConsentChoices {
   if (typeof window === "undefined") return OFF;
   const s = parse(readRaw());
-  return s ? { analytics: s.analytics, replay: s.replay } : OFF;
+  return s ? { analytics: s.analytics, replay: s.replay, ads: s.ads } : OFF;
 }
 
 export const analyticsConsented = () => currentChoices().analytics;
 export const replayConsented = () => currentChoices().replay;
+export const adsConsented = () => currentChoices().ads;
 
 /** Should the banner be shown? Only when there is no valid choice AND no privacy signal. */
 export function needsDecision(): boolean {
@@ -132,7 +135,7 @@ export function saveConsent(choices: ConsentChoices) {
     // storage blocked: the in-memory copy keeps the choice for this page view
   }
 
-  const anyYes = choices.analytics || choices.replay;
+  const anyYes = choices.analytics || choices.replay || choices.ads;
   let recorded = false;
   try {
     recorded = window.localStorage.getItem(RECORDED_KEY) === id;
@@ -168,7 +171,8 @@ function subscribe(cb: () => void) {
 }
 
 // useSyncExternalStore needs a stable snapshot: a string is compared by value.
-const snapshot = () => `${analyticsConsented() ? 1 : 0}${replayConsented() ? 1 : 0}${needsDecision() ? 1 : 0}`;
+const snapshot = () =>
+  `${analyticsConsented() ? 1 : 0}${replayConsented() ? 1 : 0}${needsDecision() ? 1 : 0}${adsConsented() ? 1 : 0}`;
 
 /** `ready` is false during server render / hydration, so UI that depends on it can't mismatch. */
 export function useConsent() {
@@ -178,5 +182,6 @@ export function useConsent() {
     analytics: snap[0] === "1",
     replay: snap[1] === "1",
     undecided: snap[2] === "1",
+    ads: snap[3] === "1",
   };
 }

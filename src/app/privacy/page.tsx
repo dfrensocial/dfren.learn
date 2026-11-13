@@ -26,10 +26,10 @@ export default function PrivacyPage() {
         <h2>The short version</h2>
         <ul>
           <li>We need your email, your order details and a few security records to give you the course. That part isn&apos;t optional.</li>
-          <li>Analytics and session recordings are optional. They&apos;re off until you accept them on the banner.</li>
+          <li>Analytics, session recordings and ad measurement are optional. They&apos;re off until you accept them on the banner.</li>
           <li>Decline, or send a Global Privacy Control or Do Not Track signal, and none of the optional tools load.</li>
           <li>Ticking the Terms box at sign-in or checkout does not turn on analytics. The two are separate.</li>
-          <li>We don&apos;t sell your data and we don&apos;t use it for advertising.</li>
+          <li>We don&apos;t sell your data. The only advertising use is ad measurement with the Meta Pixel, and only if you switch it on.</li>
           <li>
             You can change your mind any time with <PrivacySettingsLink className="underline" />, or ask us to
             delete your data.
@@ -41,9 +41,9 @@ export default function PrivacyPage() {
         <h2>தனியுரிமைக் கொள்கை: தமிழில் சுருக்கம்</h2>
         <ul>
           <li>பாடத்தை வழங்க உங்கள் மின்னஞ்சல், ஆர்டர் விவரங்கள், பாதுகாப்புப் பதிவுகள் தேவை. இவை கட்டாயம்.</li>
-          <li>பகுப்பாய்வு (Google Analytics) மற்றும் திரைப் பதிவுகள் (Microsoft Clarity) விருப்பத்திற்குரியவை. நீங்கள் &quot;Accept&quot; என்று சொல்லும் வரை இவை இயங்காது.</li>
+          <li>பகுப்பாய்வு (Google Analytics), திரைப் பதிவுகள் (Microsoft Clarity) மற்றும் விளம்பர அளவீடு (Meta Pixel) விருப்பத்திற்குரியவை. நீங்கள் &quot;Accept&quot; என்று சொல்லும் வரை இவை இயங்காது.</li>
           <li>&quot;Decline&quot; செய்தால், அல்லது உங்கள் உலாவியில் Global Privacy Control அல்லது Do Not Track இயக்கத்தில் இருந்தால், விருப்பக் கருவிகள் எதுவும் ஏற்றப்படாது.</li>
-          <li>உங்கள் தரவை நாங்கள் விற்பதில்லை. விளம்பரத்திற்கும் பயன்படுத்துவதில்லை.</li>
+          <li>உங்கள் தரவை நாங்கள் விற்பதில்லை. நீங்கள் அனுமதித்தால் மட்டுமே, எங்கள் Facebook, Instagram விளம்பரங்கள் பலன் தருகின்றனவா என்பதை அளவிட Meta Pixel பயன்படுத்தப்படும்.</li>
           <li>உங்கள் தரவின் சுருக்கத்தை, திருத்தத்தை அல்லது நீக்கத்தை நீங்கள் கேட்கலாம். {LEGAL.contactEmail} க்கு எழுதுங்கள். {LEGAL.grievanceAckHours} மணி நேரத்துக்குள் பதில் தருவோம், {LEGAL.grievanceResolveDays} நாட்களுக்குள் தீர்வு காண்போம்.</li>
           <li>கணக்கை நீக்கினால் பாடத்துக்கான அணுகலும் முடிந்துவிடும், &quot;வாழ்நாள் அணுகல்&quot; என்று விற்கப்பட்டிருந்தாலும். பணம் திருப்பித் தரப்படாது.</li>
           <li>முழு விவரங்களுக்குக் கீழே உள்ள ஆங்கிலக் கொள்கையைப் பாருங்கள்.</li>
@@ -121,7 +121,7 @@ export default function PrivacyPage() {
       </section>
 
       <section>
-        <h2>Optional: analytics and session recordings</h2>
+        <h2>Optional: analytics, session recordings and ad measurement</h2>
         <p>
           These are the business decisions behind the banner. We want to know where visitors come from, which
           pages lose them, where checkout trips people up and whether lessons are working. Each tool below is off
@@ -207,6 +207,21 @@ export default function PrivacyPage() {
                 <td className={td}>To see where people get confused or give up, so we can fix it.</td>
                 <td className={td}>Yes. Off by default.</td>
               </tr>
+              <tr>
+                <td className={td}>
+                  <strong>Ad measurement:</strong> Meta Pixel
+                </td>
+                <td className={td}>
+                  The pages you visit here, your browser and device, your IP address, and Meta&apos;s own cookies.
+                  If you&apos;re logged in to Facebook or Instagram in the same browser, Meta can connect the visit
+                  to that account. We never send Meta your email, name or phone number.
+                </td>
+                <td className={td}>
+                  To see which of our Facebook and Instagram ads bring visitors, and to show our ads again to people
+                  who visited.
+                </td>
+                <td className={td}>Yes. Off by default.</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -217,7 +232,13 @@ export default function PrivacyPage() {
             on request. Recordings expire on Clarity&apos;s own schedule. If that bothers you, decline recordings.
           </li>
           <li>
-            We switch off Google signals and ad personalisation. Nothing here is used to show you ads.
+            We switch off Google signals and ad personalisation in Google Analytics, and Clarity is told no
+            advertising storage. Only the Meta Pixel is used for ads, and only if you switch on ad measurement.
+          </li>
+          <li>
+            Meta decides for itself how it uses Pixel data for its own purposes (such as running and improving its
+            ads), under its own privacy policy. To control ads on Facebook and Instagram, use Meta&apos;s ad
+            settings. Switching ad measurement off here stops the Pixel and removes its cookies from our site.
           </li>
           <li>
             A browser Global Privacy Control or Do Not Track signal counts as &ldquo;declined&rdquo; until you
@@ -313,6 +334,18 @@ export default function PrivacyPage() {
                 <td className={td}>Identify the browser across Clarity visits. Recordings only.</td>
                 <td className={td}>Up to about 1 year</td>
               </tr>
+              <tr>
+                <td className={td}>_fbp, _fbc</td>
+                <td className={td}>Meta Pixel (on our domain)</td>
+                <td className={td}>Recognise the browser and the ad click that brought you. Ad measurement only.</td>
+                <td className={td}>About 90 days</td>
+              </tr>
+              <tr>
+                <td className={td}>fr and other facebook.com cookies</td>
+                <td className={td}>Meta (facebook.com)</td>
+                <td className={td}>Meta&apos;s own ad cookies, read when the Pixel loads. Ad measurement only.</td>
+                <td className={td}>Set by Meta, up to about 90 days</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -343,6 +376,11 @@ export default function PrivacyPage() {
           <li>
             <strong>Microsoft (Clarity):</strong> session recordings and heatmaps, stored on Microsoft Azure. It
             is an independent controller of that data.
+          </li>
+          <li>
+            <strong>Meta (Pixel):</strong> ad measurement, only if you allow it. Meta Platforms processes the data
+            outside India and also uses it for its own purposes, as an independent controller, under its own
+            privacy policy.
           </li>
           <li>
             <strong>Mux:</strong> video delivery and, if you accept analytics, Mux Data. Based in the US. Mux
@@ -455,6 +493,12 @@ export default function PrivacyPage() {
                 <td className={td}>Set by Microsoft, not by us</td>
                 <td className={td}>Microsoft decides</td>
                 <td className={td}>Expires on Microsoft&apos;s schedule</td>
+              </tr>
+              <tr>
+                <td className={td}>Meta Pixel data (only if you allowed ad measurement)</td>
+                <td className={td}>Set by Meta, not by us</td>
+                <td className={td}>Meta decides</td>
+                <td className={td}>Deleted on Meta&apos;s schedule</td>
               </tr>
               <tr>
                 <td className={td}>Server logs at our host (IP address)</td>

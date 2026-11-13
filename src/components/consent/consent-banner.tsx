@@ -22,6 +22,7 @@ export function ConsentBanner() {
   const [opened, setOpened] = useState(false); // opened on purpose from a "Privacy settings" link
   const [analytics, setAnalytics] = useState(false);
   const [replay, setReplay] = useState(false);
+  const [ads, setAds] = useState(false);
   const headingRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
@@ -29,6 +30,7 @@ export function ConsentBanner() {
       const c = currentChoices();
       setAnalytics(c.analytics);
       setReplay(c.replay);
+      setAds(c.ads);
       setPanel(true);
       setOpened(true);
     }
@@ -62,8 +64,8 @@ export function ConsentBanner() {
 
   if (!visible) return null;
 
-  function decide(a: boolean, r: boolean) {
-    saveConsent({ analytics: a, replay: r });
+  function decide(a: boolean, r: boolean, ad: boolean) {
+    saveConsent({ analytics: a, replay: r, ads: ad });
     setOpened(false);
     setPanel(false);
   }
@@ -82,21 +84,22 @@ export function ConsentBanner() {
       {!panel ? (
         <>
           <p className="mt-2 leading-relaxed text-neutral-700">
-            We&apos;d like to use two optional tools, <strong>analytics</strong> and{" "}
-            <strong>session recordings</strong>, to see what&apos;s working on the site and fix what isn&apos;t.
-            Nothing optional runs unless you say yes, and you can change your mind any time.
+            We&apos;d like to use three optional tools: <strong>analytics</strong> and{" "}
+            <strong>session recordings</strong> to see what&apos;s working and fix what isn&apos;t, and{" "}
+            <strong>ad measurement</strong> (Meta) to see which of our Facebook and Instagram ads bring people
+            here. Nothing optional runs unless you say yes, and you can change your mind any time.
           </p>
           <div className="mt-4 grid grid-cols-2 gap-2">
             <button
               type="button"
-              onClick={() => decide(false, false)}
+              onClick={() => decide(false, false, false)}
               className="border border-black bg-white px-4 py-2.5 font-semibold transition hover:bg-neutral-100"
             >
               Decline
             </button>
             <button
               type="button"
-              onClick={() => decide(true, true)}
+              onClick={() => decide(true, true, true)}
               className="border border-black bg-white px-4 py-2.5 font-semibold transition hover:bg-neutral-100"
             >
               Accept
@@ -114,7 +117,7 @@ export function ConsentBanner() {
       ) : (
         <>
           <p className="mt-2 text-neutral-700">
-            Both are off until you switch them on. Sign-in, checkout and security always run, because we need
+            All three are off until you switch them on. Sign-in, checkout and security always run, because we need
             them to give you the service.
           </p>
           <div className="mt-3 space-y-3">
@@ -148,18 +151,33 @@ export function ConsentBanner() {
                 </span>
               </span>
             </label>
+            <label className="flex cursor-pointer items-start gap-3">
+              <input
+                type="checkbox"
+                checked={ads}
+                onChange={(e) => setAds(e.target.checked)}
+                className="mt-1 h-4 w-4 accent-black"
+              />
+              <span>
+                <span className="block font-medium">Ad measurement</span>
+                <span className="block text-xs leading-relaxed text-neutral-600">
+                  Tells Meta (Facebook, Instagram) which pages you visit, so we can see which of our ads work and
+                  show them to people who visited. No email or name is sent.
+                </span>
+              </span>
+            </label>
           </div>
           <div className="mt-4 grid grid-cols-2 gap-2">
             <button
               type="button"
-              onClick={() => decide(false, false)}
+              onClick={() => decide(false, false, false)}
               className="border border-black bg-white px-4 py-2.5 font-semibold transition hover:bg-neutral-100"
             >
               Decline all
             </button>
             <button
               type="button"
-              onClick={() => decide(true, true)}
+              onClick={() => decide(true, true, true)}
               className="border border-black bg-white px-4 py-2.5 font-semibold transition hover:bg-neutral-100"
             >
               Accept all
@@ -167,7 +185,7 @@ export function ConsentBanner() {
           </div>
           <button
             type="button"
-            onClick={() => decide(analytics, replay)}
+            onClick={() => decide(analytics, replay, ads)}
             className="mt-2 w-full border border-black bg-white px-4 py-2.5 font-semibold transition hover:bg-neutral-100"
           >
             Save my choices

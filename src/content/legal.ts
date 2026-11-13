@@ -23,8 +23,8 @@ export const LEGAL = {
   // access could not be given within this many days of the buyer telling us.
   accessFixDays: 30,
   // Date of the last substantive edit to any of the three policies.
-  updated: "4 November 2026",
-  updatedISO: "2026-11-04",
+  updated: "13 November 2026",
+  updatedISO: "2026-11-13",
   publishedISO: "2026-11-02",
   // Public marketing pages (home, blog) were last revised on this date.
   siteUpdatedISO: "2026-11-04",
@@ -36,7 +36,7 @@ export const LEGAL = {
   // Run `npm run policy:check` after editing a policy page: it fails if the text
   // changed but these were not bumped.
   termsVersion: "2026-11-04",
-  privacyVersion: "2026-11-04b",
+  privacyVersion: "2026-11-13",
   // Bump when the banner's purposes/wording change, so old choices are re-asked.
-  consentVersion: "2026-11-02",
+  consentVersion: "2026-11-13",
 };

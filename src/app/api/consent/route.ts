@@ -33,6 +33,7 @@ export async function POST(req: NextRequest) {
     !UUID.test(b.id) ||
     typeof b.analytics !== "boolean" ||
     typeof b.replay !== "boolean" ||
+    typeof b.ads !== "boolean" ||
     typeof b.version !== "string" ||
     b.version !== LEGAL.consentVersion ||
     !ACTIONS.has(b.action)
@@ -44,6 +45,7 @@ export async function POST(req: NextRequest) {
     consentId: b.id.toLowerCase(),
     analytics: b.analytics,
     replay: b.replay,
+    ads: b.ads,
     version: b.version,
     action: b.action,
     at: new Date(),
