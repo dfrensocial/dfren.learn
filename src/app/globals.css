@@ -43,10 +43,8 @@ body {
 
 /* Auto-scrolling strip (testimonials). The track holds N identical copies and
    slides left by exactly one copy, so the loop has no visible seam. Pauses on
-   hover and with the Pause button (data-paused on the section). It keeps moving
-   even when the OS asks for reduced motion, because that setting is on by
-   default on many PCs and would hide the strip's movement; the Pause button is
-   the way to stop it. */
+   hover. It keeps moving even when the OS asks for reduced motion, because that
+   setting is on by default on many PCs and would hide the strip's movement. */
 .marquee {
   overflow: hidden;
   -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
@@ -61,8 +59,7 @@ body {
 .marquee-reverse .marquee-track {
   animation-direction: reverse;
 }
-.marquee:hover .marquee-track,
-[data-paused="true"] .marquee-track {
+.marquee:hover .marquee-track {
   animation-play-state: paused;
 }
 @keyframes marquee-slide {

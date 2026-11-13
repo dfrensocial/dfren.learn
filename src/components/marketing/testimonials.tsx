@@ -1,6 +1,5 @@
 import fs from "node:fs";
 import path from "node:path";
-import { MarqueePause } from "@/components/marketing/marquee-pause";
 
 // Student proof: screenshots (WhatsApp messages, results) dropped into
 // public/images/testimonials/. Read at build time, shown in filename order as
@@ -82,7 +81,6 @@ export function Testimonials() {
         <div className="mt-12 space-y-4">
           <Row files={rowA} offset={0} />
           {rowB.length > 0 && <Row files={rowB} reverse offset={rowA.length} />}
-          <MarqueePause />
         </div>
       )}
     </section>
