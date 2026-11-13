@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
 import { MarketingNav } from "@/components/marketing/nav";
 import { Hero } from "@/components/marketing/hero";
-import { StatsBar } from "@/components/marketing/stats-bar";
+import { Promo } from "@/components/marketing/promo";
 import { Problem } from "@/components/marketing/problem";
 import { Curriculum } from "@/components/marketing/curriculum";
 import { AtAGlance } from "@/components/marketing/at-a-glance";
@@ -11,7 +11,7 @@ import { Instructor } from "@/components/marketing/instructor";
 import { Testimonials } from "@/components/marketing/testimonials";
 import { Pricing } from "@/components/marketing/pricing";
 import { FAQ, faqForSchema } from "@/components/marketing/faq";
-import { FinalCTA } from "@/components/marketing/final-cta";
+import { Audience } from "@/components/marketing/audience";
 import { MarketingFooter } from "@/components/marketing/footer";
 import { geoBlueprintCourse } from "@/content/courses/geo-blueprint";
 import { LEGAL } from "@/content/legal";
@@ -112,17 +112,22 @@ export default function LandingPage() {
     <main className="min-h-screen bg-white text-black">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd()) }} />
       <MarketingNav />
-      <Hero hero={course.hero} courseId={course.id} />
-      <StatsBar stats={course.stats} />
+      <Hero hero={course.hero} stats={course.stats} courseId={course.id} />
+      <Promo />
       <Problem />
-      <Curriculum curriculum={course.curriculum} />
-      <AtAGlance pricing={course.pricing} />
-      <Bonus bonus={course.bonus} />
+      <Curriculum
+        curriculum={course.curriculum}
+        courseTitle={course.title}
+        instructorName={`${course.instructor.name} · ${course.instructor.title}`}
+        courseId={course.id}
+      />
+      <Audience />
       <Instructor instructor={course.instructor} />
       <Testimonials testimonials={course.testimonials} />
-      <Pricing courseId={course.id} pricing={course.pricing} />
+      <AtAGlance pricing={course.pricing} />
+      <Bonus bonus={course.bonus} />
       <FAQ />
-      <FinalCTA courseId={course.id} />
+      <Pricing courseId={course.id} pricing={course.pricing} subheadline={course.hero.subheadline} />
       <MarketingFooter />
     </main>
   );

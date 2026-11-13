@@ -16,18 +16,18 @@ export function AtAGlance({ pricing }: { pricing: CourseContent["pricing"] }) {
     ["Taught by", "K Sai Anirudh, Founder, AiVirex Innovations"],
   ];
   return (
-    <section className="border-b border-black">
-      <div className="mx-auto max-w-4xl px-6 py-16 sm:py-20">
+    <section className="bg-neutral-50">
+      <div className="mx-auto max-w-4xl px-6 py-16 sm:py-24">
         <h2 className="text-center text-3xl font-bold tracking-tight sm:text-4xl">The course at a glance</h2>
-        <div className="mt-10 overflow-x-auto border border-black">
+        <div className="mt-10 overflow-x-auto rounded-2xl border border-neutral-200 bg-white">
           <table className="w-full text-left text-sm">
-            <tbody className="divide-y divide-black">
+            <tbody className="divide-y divide-neutral-200">
               {rows.map(([k, v]) => (
                 <tr key={k}>
-                  <th scope="row" className="w-1/3 bg-neutral-50 px-4 py-3 font-semibold">
+                  <th scope="row" className="w-1/3 px-5 py-3.5 font-semibold">
                     {k}
                   </th>
-                  <td className="px-4 py-3 text-neutral-700">{v.endsWith(".") ? v : `${v}.`}</td>
+                  <td className="px-5 py-3.5 text-neutral-700">{v.endsWith(".") ? v : `${v}.`}</td>
                 </tr>
               ))}
             </tbody>

@@ -77,21 +77,21 @@ export function faqForSchema() {
 
 export function FAQ() {
   return (
-    <section id="faq" className="scroll-mt-16">
-      <div className="mx-auto max-w-2xl px-6 py-16 sm:py-20">
+    <section id="faq" className="scroll-mt-16 bg-neutral-50">
+      <div className="mx-auto max-w-3xl px-6 py-16 sm:py-24">
         <h2 className="text-center text-3xl font-bold tracking-tight sm:text-4xl">
           Frequently asked questions
         </h2>
-        <div className="mt-10 divide-y divide-black border border-black">
+        <div className="mt-10 space-y-3">
           {FAQS.map((item) => (
-            <details key={item.q} className="group p-5">
+            <details key={item.q} className="group rounded-2xl border border-neutral-200 bg-white px-5 py-4">
               <summary className="flex cursor-pointer list-none items-center justify-between font-semibold">
                 {item.q}
-                <span className="ml-4 text-neutral-600 group-open:rotate-45 transition-transform">
-                  +
+                <span aria-hidden className="ml-4 text-neutral-500 transition-transform group-open:rotate-180">
+                  ⌄
                 </span>
               </summary>
-              <p className="mt-3 text-sm text-neutral-600">{item.a}</p>
+              <p className="mt-3 text-sm leading-relaxed text-neutral-600">{item.a}</p>
             </details>
           ))}
         </div>
