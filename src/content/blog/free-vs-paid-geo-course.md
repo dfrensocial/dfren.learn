@@ -53,7 +53,7 @@ Don't pay if you read English comfortably, enjoy self-study and want to see whet
 
 [The GEO Blueprint](/#curriculum) is ₹599 including GST once, about 1.5 hours, in 6 modules. It's taught mostly in Tamil, with English terms mixed in. It includes a client research questionnaire, a Claude Code prompt pack and a quick-win checklist. It teaches 2 ways to charge for GEO work.
 
-It doesn't list a certificate or live classes. It has no student reviews yet. It's also shorter than Coursera's [24-hour specialisation](https://www.coursera.org/specializations/generative-engine-optimization-geo), and in our view shorter is fine: if you can learn the GEO workflow in about 1.5 hours and run your first audit, why spend 10 or 24 hours first? Longer programmes suit people who want a certificate, mentors or the whole of digital marketing.
+It doesn't list a certificate or live classes. It has only a few early student messages so far. It's also shorter than Coursera's [24-hour specialisation](https://www.coursera.org/specializations/generative-engine-optimization-geo), and in our view shorter is fine: if you can learn the GEO workflow in about 1.5 hours and run your first audit, why spend 10 or 24 hours first? Longer programmes suit people who want a certificate, mentors or the whole of digital marketing.
 
 Our recommendation: if you want one structured path, start with The GEO Blueprint, not a ₹40,000 programme. It's cheap enough to try as a test. If a free course already answers your questions, stop there. If you later want more depth, bigger programmes make sense, and your 1.5 hours stay useful as a foundation. Learning in Tamil? See [is there a GEO course in Tamil](/blog/geo-course-in-tamil-free-and-paid-2027).
 

@@ -38,7 +38,7 @@ The GEO Blueprint has 6 modules and about 1.5 hours of video:
 
 You also get a client research questionnaire, a Claude Code prompt pack and a quick-win checklist. It's a one-time payment (GST is included in the price), and access lasts for as long as the course is offered. It's taught mostly in Tamil, with English terms mixed in.
 
-The course page doesn't list a certificate, live classes or job help, so don't buy expecting them. It also has no student reviews yet.
+The course page doesn't list a certificate, live classes or job help, so don't buy expecting them. It also has only a few early student messages so far.
 
 ## Cost per hour: ₹399, ₹312 or unknown
 

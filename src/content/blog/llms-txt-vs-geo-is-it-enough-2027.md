@@ -82,7 +82,7 @@ For a scored check, there's Litmus. It's made by AiVirex, the same team behind o
 
 llms.txt is a small piece. The GEO Blueprint is the full guide to doing GEO on your own site or a client's: how AI picks the next word, SEO vs GEO, the 6 pillars, why manual audits are inconsistent, a live audit demo with Litmus, two ways to turn GEO into revenue, and client onboarding and proof.
 
-It's a one-time ₹599 including GST course, about 1.5 hours across 6 modules, mostly in Tamil with English terms mixed in. Start small, see if it's useful, and go deeper later if you want. See the [curriculum](/#curriculum). It has no student reviews yet, and it doesn't promise rankings or income.
+It's a one-time ₹599 including GST course, about 1.5 hours across 6 modules, mostly in Tamil with English terms mixed in. Start small, see if it's useful, and go deeper later if you want. See the [curriculum](/#curriculum). It has only a few early student messages so far, and it doesn't promise rankings or income.
 
 ## Questions, answered
 

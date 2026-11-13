@@ -64,7 +64,7 @@ Start with the shared basics. A first pass on GEO takes about 90 minutes with a 
 
 ## Where The GEO Blueprint fits
 
-Start small. The GEO Blueprint is ₹599 including GST and about 1.5 hours, taught mostly in Tamil with English terms mixed in. It covers the 6 pillars of GEO, a live audit demo and 2 ways to charge for the work, so it's a strong first step. If you find it useful and want more depth later, bigger programmes are there. It has no student reviews yet. Learning in Tamil? See [is there a GEO course in Tamil](/blog/geo-course-in-tamil-free-and-paid-2027).
+Start small. The GEO Blueprint is ₹599 including GST and about 1.5 hours, taught mostly in Tamil with English terms mixed in. It covers the 6 pillars of GEO, a live audit demo and 2 ways to charge for the work, so it's a strong first step. If you find it useful and want more depth later, bigger programmes are there. It has only a few early student messages so far. Learning in Tamil? See [is there a GEO course in Tamil](/blog/geo-course-in-tamil-free-and-paid-2027).
 
 ## Questions, answered
 

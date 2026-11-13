@@ -63,7 +63,7 @@ It doesn't give you a certificate or a client. No course finds clients, and none
 
 ## Where The GEO Blueprint fits
 
-Our recommendation: start with The GEO Blueprint, because it carries weeks 2 to 4 of this plan. It's ₹599 including GST, mostly in Tamil, and covers the 6 pillars, an audit demo and 2 ways to charge, with a client questionnaire, a prompt pack and a quick-win checklist to work from. In our view that suits Tamil-speaking learners who want to do the work, not only watch. Entri's free courses fill week 1 and make a fair free sample for week 2. [See what's inside](/#curriculum). If you go bigger later, in our view those 1.5 hours are a foundation, not wasted time. The course has no student reviews yet.
+Our recommendation: start with The GEO Blueprint, because it carries weeks 2 to 4 of this plan. It's ₹599 including GST, mostly in Tamil, and covers the 6 pillars, an audit demo and 2 ways to charge, with a client questionnaire, a prompt pack and a quick-win checklist to work from. In our view that suits Tamil-speaking learners who want to do the work, not only watch. Entri's free courses fill week 1 and make a fair free sample for week 2. [See what's inside](/#curriculum). If you go bigger later, in our view those 1.5 hours are a foundation, not wasted time. The course has only a few early student messages so far.
 
 ## Questions, answered
 

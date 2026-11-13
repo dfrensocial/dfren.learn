@@ -48,7 +48,7 @@ In a [Google Trends chart for India](https://trends.google.com/trends/explore?q=
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint covers both ideas under one method: answer-first content and AI comprehension are two of its 6 pillars. It's ₹599 including GST, about 1.5 hours, taught mostly in Tamil with English terms mixed in. Start small, see if it helps, and go deeper later if you want. Get the course to learn the full guide for your own site. It has no student reviews yet.
+The GEO Blueprint covers both ideas under one method: answer-first content and AI comprehension are two of its 6 pillars. It's ₹599 including GST, about 1.5 hours, taught mostly in Tamil with English terms mixed in. Start small, see if it helps, and go deeper later if you want. Get the course to learn the full guide for your own site. It has only a few early student messages so far.
 
 ## Questions, answered
 

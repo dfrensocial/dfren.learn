@@ -50,7 +50,7 @@ We found no study of which sites assistants cite for Indian local queries. That 
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint teaches citation authority as one of its 6 pillars, alongside answer-first content and technical optimization. It's ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Get the course to learn the full guide to being citable on your own site. It has no student reviews yet and promises no citations.
+The GEO Blueprint teaches citation authority as one of its 6 pillars, alongside answer-first content and technical optimization. It's ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Get the course to learn the full guide to being citable on your own site. It has only a few early student messages so far and promises no citations.
 
 ## Questions, answered
 

@@ -74,7 +74,7 @@ Analytics cookies and tracking tools can need a visitor's consent under India's 
 
 Setting up tracking before you touch a client's site is one step in proving that your work moved anything. The GEO Blueprint is a one-time ₹599 including GST course, about 1.5 hours across 6 modules. Its last module covers client onboarding, including setting up tracking before you start and turning before and after results into a case study. It's mostly taught in Tamil, with English terms mixed in.
 
-If you want the full guide to doing GEO on your own site or a client's, start small and see if it's useful. Go deeper later if you want. See the [curriculum](/#curriculum). It has no student reviews yet, and it doesn't promise rankings or income.
+If you want the full guide to doing GEO on your own site or a client's, start small and see if it's useful. Go deeper later if you want. See the [curriculum](/#curriculum). It has only a few early student messages so far, and it doesn't promise rankings or income.
 
 ## Questions, answered
 

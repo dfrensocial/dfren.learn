@@ -65,7 +65,7 @@ If you're learning GEO for a job, a reference point helps. [Payscale](https://ww
 
 It's an online course, so you can take it from anywhere. It's taught mostly in Tamil, with English terms mixed in, the way many people in Chennai speak. Our recommendation: start with The GEO Blueprint. It has 6 modules, a live audit demo, a client questionnaire and a prompt pack, which in our view is a strong first step, and at ₹599 including GST it's cheap enough to try as a test. [See what's inside](/#curriculum).
 
-If you then want mentors, an internship or a longer programme, that's the time to compare institutes like IIM Skills, and your 1.5 hours stay useful as a foundation. The course lists no certificate or live classes and has no student reviews yet. Read our [refund policy](/refund-policy) before buying.
+If you then want mentors, an internship or a longer programme, that's the time to compare institutes like IIM Skills, and your 1.5 hours stay useful as a foundation. The course lists no certificate or live classes and has only a few early student messages so far. Read our [refund policy](/refund-policy) before buying.
 
 ## Questions, answered
 

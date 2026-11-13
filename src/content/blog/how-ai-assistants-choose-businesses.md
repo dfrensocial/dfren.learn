@@ -67,7 +67,7 @@ Our [30-day GEO plan](/blog/learn-geo-30-days) turns this into weekly tasks.
 
 ## Where The GEO Blueprint fits
 
-Start small. The GEO Blueprint is ₹599 including GST and about 1.5 hours, taught mostly in Tamil with English terms mixed in. It walks through how a model produces an answer, the 6 pillars of GEO and a live audit, so you can apply the checks above to your own site. It has no student reviews yet, and it doesn't promise that any assistant will name you.
+Start small. The GEO Blueprint is ₹599 including GST and about 1.5 hours, taught mostly in Tamil with English terms mixed in. It walks through how a model produces an answer, the 6 pillars of GEO and a live audit, so you can apply the checks above to your own site. It has only a few early student messages so far, and it doesn't promise that any assistant will name you.
 
 ## Questions, answered
 

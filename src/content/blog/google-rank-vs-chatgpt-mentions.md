@@ -55,7 +55,7 @@ This is our suggestion, based on the studies above.
 
 ## Where The GEO Blueprint fits
 
-Start small. The GEO Blueprint is ₹599 including GST, about 1.5 hours, taught mostly in Tamil with English terms mixed in. Module 2 covers where SEO and GEO overlap and where they differ, and the 6 pillars show what to fix beyond rankings. It's a strong first step in our view. It has no student reviews yet and makes no ranking promise.
+Start small. The GEO Blueprint is ₹599 including GST, about 1.5 hours, taught mostly in Tamil with English terms mixed in. Module 2 covers where SEO and GEO overlap and where they differ, and the 6 pillars show what to fix beyond rankings. It's a strong first step in our view. It has only a few early student messages so far and makes no ranking promise.
 
 ## Questions, answered
 

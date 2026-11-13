@@ -31,7 +31,7 @@ A YouTube search on 4 November 2026 for "generative engine optimization tutorial
 | Language | Not checked, most titles we saw are in English | Ours is mostly Tamil with English terms mixed in |
 | Working files | Not stated in the listings we saw | Ours includes a client questionnaire and prompt pack |
 | Updates | Varies by creator, unchecked | Ours says updates are included while the course is offered |
-| Quality check | You judge | You judge from a preview, and ours has no reviews yet |
+| Quality check | You judge | You judge from a preview, and ours has only a few early student messages so far |
 
 ## What are the risks of learning from videos?
 
@@ -57,7 +57,7 @@ Our suggestion: use YouTube to sample the topic for an hour, then start small wi
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint puts the path in one sitting: how AI picks answers, the 6 pillars, a live audit and two ways to charge for the work. It's ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Get the course to learn the full guide for your own site. It has no certificate and no student reviews yet.
+The GEO Blueprint puts the path in one sitting: how AI picks answers, the 6 pillars, a live audit and two ways to charge for the work. It's ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Get the course to learn the full guide for your own site. It has no certificate and only a few early student messages so far.
 
 ## Questions, answered
 

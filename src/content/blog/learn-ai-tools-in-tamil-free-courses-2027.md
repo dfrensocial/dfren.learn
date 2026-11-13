@@ -50,7 +50,7 @@ Follow the [4-week plan](/blog/how-to-learn-geo-in-tamil) for hours and tasks.
 
 ## Where The GEO Blueprint fits
 
-Start small. It's ₹599 including GST, mostly in Tamil, with English terms mixed in. It covers how AI assistants pick answers, the 6 pillars of GEO and a live audit demo. In our view it's a strong first step after you've learned to use AI tools. It has no student reviews yet.
+Start small. It's ₹599 including GST, mostly in Tamil, with English terms mixed in. It covers how AI assistants pick answers, the 6 pillars of GEO and a live audit demo. In our view it's a strong first step after you've learned to use AI tools. It has only a few early student messages so far.
 
 ## Questions, answered
 

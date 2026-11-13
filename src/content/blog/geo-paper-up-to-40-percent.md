@@ -76,7 +76,7 @@ This is an illustrative example, not a real client. A Chennai dental clinic's pa
 
 ## Where The GEO Blueprint fits
 
-Our suggestion: start small. The GEO Blueprint is ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. It teaches the 6 pillars of GEO and how to audit a page, which is the practical side of what the paper tested. In our view it's a strong first step. It has no student reviews yet, and it doesn't promise the gains in the paper.
+Our suggestion: start small. The GEO Blueprint is ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. It teaches the 6 pillars of GEO and how to audit a page, which is the practical side of what the paper tested. In our view it's a strong first step. It has only a few early student messages so far, and it doesn't promise the gains in the paper.
 
 ## Questions, answered
 

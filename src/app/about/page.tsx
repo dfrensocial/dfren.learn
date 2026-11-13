@@ -64,7 +64,7 @@ export default function AboutPage() {
           <li>Access for as long as the course is offered on dfrenLearn, with updates included.</li>
         </ul>
         <p className="mt-2">
-          It has no certificate and no student reviews yet, and we make no promise of rankings, mentions or income.
+          It has no certificate and only a few early student messages so far (shown on the home page), and we make no promise of rankings, mentions or income.
         </p>
       </section>
       <section>

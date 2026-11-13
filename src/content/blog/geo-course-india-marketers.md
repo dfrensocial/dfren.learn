@@ -41,7 +41,7 @@ Most GEO courses we found are in English. Entri has a [free Tamil course](https:
 Ask before paying. Read them in writing, not on a sales call. Ours: no refunds for a change of mind, only an extra charge or access we can't fix within 30 days ([refund policy](/refund-policy)).
 
 ### 6. Is there proof of quality?
-A public rating helps, even a small one. Coursera's GEO specialisation shows 3.3 out of 5 from 12 reviews. Many Indian course pages show testimonials without a source. Ours has no student reviews yet and lists no certificate.
+A public rating helps, even a small one. Coursera's GEO specialisation shows 3.3 out of 5 from 12 reviews. Many Indian course pages show testimonials without a source. Ours has only a few early student messages so far and lists no certificate.
 
 ### 7. Does it promise jobs or income?
 Be careful. IIM Skills advertises a "100% Job Guarantee" and a 95% placement record, and its page doesn't explain how it counted. India's consumer regulator issued guidelines in November 2024 that bar false guarantee claims in coaching, [according to Taxmann](https://www.taxmann.com/post/blog/analysis-consumer-protection-act-ccpa-targets-coaching-centres-promises/). That analysis is secondary, so read the official text. Ask what a "guarantee" means in practice and what you get if it fails.

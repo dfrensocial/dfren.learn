@@ -69,7 +69,7 @@ One audit, one proposal and a checklist. No certificate and no client. A first c
 
 ## Where The GEO Blueprint fits
 
-Our recommendation: start with The GEO Blueprint. It's week 2 of this plan, ₹599 including GST, about 1.5 hours, and weeks 3 and 4 use its audit demo, quick-win checklist, 2 ways to charge and client questionnaire. In our view that makes it the core most beginners need, and it's cheap enough to try as a test. The free resources in weeks 1 and 2 are a fair way to add background. It has no student reviews yet.
+Our recommendation: start with The GEO Blueprint. It's week 2 of this plan, ₹599 including GST, about 1.5 hours, and weeks 3 and 4 use its audit demo, quick-win checklist, 2 ways to charge and client questionnaire. In our view that makes it the core most beginners need, and it's cheap enough to try as a test. The free resources in weeks 1 and 2 are a fair way to add background. It has only a few early student messages so far.
 
 If it clicks and you want mentors, a certificate or an internship, bigger programmes make sense later, and in our view the 1.5 hours already give you a foundation to build on, so nothing is wasted. There's no need to pay more before you know GEO is for you.
 

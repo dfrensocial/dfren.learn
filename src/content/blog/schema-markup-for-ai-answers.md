@@ -53,7 +53,7 @@ For LocalBusiness, Google says the required properties are the business name and
 
 ## Where The GEO Blueprint fits
 
-Structured data is one item under the technical pillar of The GEO Blueprint, along with crawl access and speed. The course shows where it sits next to answer-first content and citation authority, and how to audit it. It's ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has no student reviews yet.
+Structured data is one item under the technical pillar of The GEO Blueprint, along with crawl access and speed. The course shows where it sits next to answer-first content and citation authority, and how to audit it. It's ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has only a few early student messages so far.
 
 ## Questions, answered
 

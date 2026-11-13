@@ -43,7 +43,7 @@ The [GEO Blueprint](/#curriculum) is about 1.5 hours in 6 modules, taught mostly
 
 It costs ₹599 including GST once. In our view, more hours don't mean more learning: if you can learn the GEO workflow in about 1.5 hours and run your first audit, why spend 10 or 24 hours first? Longer programmes suit people who want a certificate, mentors or the whole of digital marketing.
 
-It has no student reviews yet, and the course page doesn't list a certificate or live classes.
+It has only a few early student messages so far, and the course page doesn't list a certificate or live classes.
 
 ## Why so few GEO courses are in Tamil
 

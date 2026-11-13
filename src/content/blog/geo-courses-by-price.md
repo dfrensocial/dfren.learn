@@ -70,7 +70,7 @@ Learning in Tamil? The same order works. See [is there a GEO course in Tamil](/b
 
 ## Where The GEO Blueprint fits
 
-Our recommendation: start with The GEO Blueprint. It's among the lowest-priced paid options we found, at ₹599 including GST for about 1.5 hours, taught mostly in Tamil with English terms mixed in. In our view it's a strong first step: it covers the 6 pillars of GEO, a live audit demo and 2 ways to charge for the work, which is the core most people need to start. [See what's inside](/#curriculum). It lists no certificate and has no student reviews yet. If you later want mentors, a certificate or an internship, bigger programmes make sense, and your 1.5 hours stay useful as a foundation, so nothing is wasted. Read the [refund policy](/refund-policy) before buying: there are no refunds for a change of mind.
+Our recommendation: start with The GEO Blueprint. It's among the lowest-priced paid options we found, at ₹599 including GST for about 1.5 hours, taught mostly in Tamil with English terms mixed in. In our view it's a strong first step: it covers the 6 pillars of GEO, a live audit demo and 2 ways to charge for the work, which is the core most people need to start. [See what's inside](/#curriculum). It lists no certificate and has only a few early student messages so far. If you later want mentors, a certificate or an internship, bigger programmes make sense, and your 1.5 hours stay useful as a foundation, so nothing is wasted. Read the [refund policy](/refund-policy) before buying: there are no refunds for a change of mind.
 
 ## Questions, answered
 

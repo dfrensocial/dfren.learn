@@ -72,7 +72,7 @@ For the full list and a step-by-step plan, read [is there a GEO course in Tamil]
 
 Our recommendation: start with The GEO Blueprint. For ₹599 including GST and about 1.5 hours you get the 6 pillars of GEO, a live audit demo and 2 ways to charge for the work, in mostly Tamil with English terms mixed in. In our view that is the core most people need to start, and it is cheap enough to try as a test. Practise the audit steps on one real website and see how much you learn. [See what's inside](/#curriculum).
 
-If it clicks and you want mentors, a certificate or an internship, that's the time to look at a bigger programme such as IIM Skills'. You won't start from zero, because the 1.5 hours give you a foundation to build on. There's no need to pay ₹41,182 before you know GEO is for you. The course has no certificate and no student reviews yet, so keep your expectations realistic.
+If it clicks and you want mentors, a certificate or an internship, that's the time to look at a bigger programme such as IIM Skills'. You won't start from zero, because the 1.5 hours give you a foundation to build on. There's no need to pay ₹41,182 before you know GEO is for you. The course has no certificate and only a few early student messages so far, so keep your expectations realistic.
 
 ## Questions, answered
 

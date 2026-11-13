@@ -53,7 +53,7 @@ We looked at 5 things, using each course's own page, checked 3 November 2026 (pr
 
 **IIM Skills.** The Chennai [digital marketing programme](https://iimskills.com/digital-marketing-course-in-chennai/) teaches GEO as module 7 of 24. It advertises a "100% Job Guarantee" and a 95% placement record without showing how it counted them. It suits people who want the whole of digital marketing plus an internship.
 
-**The GEO Blueprint.** 6 modules, about 1.5 hours, a live audit demo, a client questionnaire and a prompt pack, ₹599 including GST once. Our weaknesses: it's short, it has no student reviews yet, and the course page doesn't list a certificate.
+**The GEO Blueprint.** 6 modules, about 1.5 hours, a live audit demo, a client questionnaire and a prompt pack, ₹599 including GST once. Our weaknesses: it's short, it has only a few early student messages so far, and the course page doesn't list a certificate.
 
 More hours isn't the same as more learning. In our view, if you can learn the GEO workflow in about 1.5 hours and run your first audit, why spend 24 hours first? Longer programmes suit people who want a certificate, mentors or the whole of digital marketing.
 

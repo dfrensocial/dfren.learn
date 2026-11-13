@@ -83,7 +83,7 @@ Session replay records behaviour, so treat it like any tracking tool. In Clarity
 
 Clarity and GA are the kind of tools you'd set up before you start work on a site, so you can show what changed afterwards. The GEO Blueprint covers that habit in its last module: setting up tracking before you start, setting timeline expectations, and turning before and after into a case study.
 
-It's a one-time ₹599 including GST course of about 1.5 hours and 6 modules, taught mostly in Tamil with English terms mixed in. If you want the full guide to doing GEO on your own site or a client's, start small and see if it's useful. Go deeper later. The [curriculum](/#curriculum) is on the home page. It has no student reviews yet.
+It's a one-time ₹599 including GST course of about 1.5 hours and 6 modules, taught mostly in Tamil with English terms mixed in. If you want the full guide to doing GEO on your own site or a client's, start small and see if it's useful. Go deeper later. The [curriculum](/#curriculum) is on the home page. It has only a few early student messages so far.
 
 ## Questions, answered
 
