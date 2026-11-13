@@ -1,7 +1,7 @@
 ---
 title: Where can I learn GEO for under ₹600? What each price gets you
 seoTitle: Learn GEO for under ₹600: what you get at each price (India 2027)
-description: Our pick under ₹600: The GEO Blueprint, ₹599 including GST for about 1.5 hours, mostly in Tamil. See what ₹0, ₹599, ₹6,999 and ₹34,900 get you. Checked 3 Nov 2026.
+description: Our pick under ₹600: The GEO Blueprint, ₹599 including GST for about 1.5 hours, mostly in Tamil. See what ₹0, ₹599, ₹7,499 and ₹34,900 get you. Prices rechecked 13 Nov 2026.
 date: 2026-11-03
 updated: 2026-11-13
 author: dfrenLearn Team
@@ -40,17 +40,17 @@ You also get a client research questionnaire, a Claude Code prompt pack and a qu
 
 The course page doesn't list a certificate, live classes or job help, so don't buy expecting them. It also has no student reviews yet.
 
-## Cost per hour: ₹399, ₹292 or unknown
+## Cost per hour: ₹399, ₹312 or unknown
 
 | Option | Price | Hours stated | Cost per hour | Best for |
 |---|---|---|---|---|
 | **The GEO Blueprint (ours)** | **₹599 including GST** | **About 1.5** | **₹399** | **A first audit and offer, mostly in Tamil** |
 | Rank Prompt | ₹0 | About 1.5 | ₹0 | A free first look, in English |
-| Coursera GEO specialisation | ₹6,999 a year (Coursera Plus) | 24 | ₹292 | Long, structured study in English |
-| Trust Insights GEO Power Pack | About ₹18,848 | Not stated | Can't tell | Marketers happy to pay in dollars |
+| Coursera GEO specialisation | ₹7,499 a year (Coursera Plus) | 24 | ₹312 | Long, structured study in English |
+| Trust Insights GEO Power Pack | About ₹18,754 | Not stated | Can't tell | Marketers happy to pay in dollars |
 | IIM Skills Chennai (Expert) | ₹41,182 with GST | Not stated | Can't tell | A wider digital marketing programme with an internship |
 
-Coursera comes out cheaper per hour, but only if you finish all [24 hours of the specialisation](https://www.coursera.org/specializations/generative-engine-optimization-geo) inside the year, and you pay for the whole year up front. ₹599 including GST is among the lowest-priced paid options we found. Its rating is 3.3 out of 5 from 12 reviews. Trust Insights ([$199 bundle](https://academy.trustinsights.ai/bundles/geo-power-pack)) and [IIM Skills](https://iimskills.com/digital-marketing-course-in-chennai/) don't state hours on their pages. Dollar prices use ₹94.72 per dollar ([x-rates](https://www.x-rates.com/calculator/?from=USD&to=INR&amount=1), 3 November 2026). IIM Skills lists ₹34,900 plus 18% GST. Cost per hour for ours is ₹599, GST included, divided by about 1.5 hours.
+Coursera comes out cheaper per hour, but only if you finish all [24 hours of the specialisation](https://www.coursera.org/specializations/generative-engine-optimization-geo) inside the year, and you pay for the whole year up front. ₹599 including GST is among the lowest-priced paid options we found. Its rating is 3.3 out of 5 from 12 reviews. Trust Insights ([$199 bundle](https://academy.trustinsights.ai/bundles/geo-power-pack)) and [IIM Skills](https://iimskills.com/digital-marketing-course-in-chennai/) don't state hours on their pages. Dollar prices use ₹94.24 per dollar ([x-rates](https://www.x-rates.com/calculator/?from=USD&to=INR&amount=1), 13 November 2026). IIM Skills lists ₹34,900 plus 18% GST. Cost per hour for ours is ₹599, GST included, divided by about 1.5 hours.
 
 More hours don't automatically mean more learning. In our view, if you can learn the GEO workflow in about 1.5 hours and run your first audit, why spend 10 or 24 hours first? Longer courses suit people who want a certificate, mentors or the whole of digital marketing.
 
@@ -96,7 +96,7 @@ It can teach you what to check and how to package the work, but it can't find cl
 
 ## Sources
 
-Checked 3 November 2026.
+Prices rechecked 13 November 2026.
 
 - [Rank Prompt: Free GEO and AEO course](https://www.rankprompt.com/geo-course/)
 - [Joe Davies: free 30-minute mini-course](https://joedavies.beehiiv.com/p/build-a-5m-geo-agency)

@@ -54,7 +54,7 @@ Here's an illustrative example, not a real quote. You have ₹10,000 and a full-
 |---|---|---|
 | Price with GST | **₹599 including GST** | ₹41,182 |
 | Time | **About 1.5 hours** | 4 months live |
-| GEO share | **The whole course** | 1 module of 22 |
+| GEO share | **The whole course** | 1 module of 24 |
 | Best for | **Getting to a first audit and offer quickly** | A full digital marketing course with an internship |
 
 With ₹10,000, option B isn't affordable, so the real choice is between A and a free course. Option A costs 1.2% of option B's price. That doesn't make it better for everyone, only cheaper and shorter. Our suggestion: start with A, see whether GEO is useful for you, and save up for B only if you then want mentors and an internship.

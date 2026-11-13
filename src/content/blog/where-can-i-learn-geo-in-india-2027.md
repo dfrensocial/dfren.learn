@@ -1,7 +1,7 @@
 ---
 title: Where can I learn GEO in India? Every option compared (2027)
 seoTitle: Where can I learn GEO? Free to ₹70,000 compared (India 2027)
-description: 7 ways to learn GEO in India, prices checked 3 Nov 2026. For most people, a ₹599 including GST course in Tamil is the quickest way to start. Free to ₹70,000 compared.
+description: 7 ways to learn GEO in India, prices checked 13 Nov 2026. For most people, a ₹599 including GST course in Tamil is the quickest way to start. Free to ₹70,000 compared.
 date: 2026-11-03
 updated: 2026-11-13
 author: dfrenLearn Team
@@ -25,11 +25,11 @@ We sell The GEO Blueprint, so that pick is our opinion. The facts behind it come
 | Rank Prompt free GEO and AEO course | Free | About 90 minutes, 20 lessons | English | Yes, 4 lessons | A free first look, in English |
 | Joe Davies mini-course | Free | 30 minutes | English | Yes, retainers | Agency owners who want a quick pitch |
 | Entri GEO course in Tamil | Free | Not stated | Tamil | Not stated | A free taste in Tamil, once you've tested a lesson |
-| Coursera GEO specialisation (Edureka) | ₹6,999 a year with Coursera Plus | 3 courses, 24 hours | English | Not listed | Learners who want a longer, structured course |
-| Trust Insights GEO Power Pack | $199, about ₹18,848 | 28 lessons, hours not stated | English | Not stated | Marketers comfortable paying in dollars |
+| Coursera GEO specialisation (Edureka) | ₹7,499 a year with Coursera Plus | 3 courses, 24 hours | English | Not listed | Learners who want a longer, structured course |
+| Trust Insights GEO Power Pack | $199, about ₹18,754 | 28 lessons, hours not stated | English | Not stated | Marketers comfortable paying in dollars |
 | IIM Skills Chennai programme | ₹34,900 or ₹59,900 plus 18% GST | 5 to 8 months with internship | English | Not stated | A full digital marketing programme with an internship |
 
-Language is the language of each course page. Dollar prices use ₹94.72 per US dollar ([x-rates](https://www.x-rates.com/calculator/?from=USD&to=INR&amount=1), 3 November 2026) and leave out card fees.
+Language is the language of each course page. Dollar prices use ₹94.24 per US dollar ([x-rates](https://www.x-rates.com/calculator/?from=USD&to=INR&amount=1), 13 November 2026) and leave out card fees.
 
 ## Which free GEO courses are worth your time?
 
@@ -43,11 +43,11 @@ If you read English comfortably, free is a real way to sample the topic. The fre
 
 ## What do the paid options add, and what do they cost you?
 
-**Coursera.** The Edureka [GEO specialisation](https://www.coursera.org/specializations/generative-engine-optimization-geo) has 3 courses of 9, 8 and 7 hours. The page suggests 8 weeks at 5 hours a week. It's rated 3.3 out of 5 from 12 reviews, which is a small sample. Access comes with Coursera Plus at ₹6,999 a year, so you are paying for a year to study about 24 hours of English content. We found no selling lessons listed on the page.
+**Coursera.** The Edureka [GEO specialisation](https://www.coursera.org/specializations/generative-engine-optimization-geo) has 3 courses of 9, 8 and 7 hours. The page suggests 8 weeks at 5 hours a week. It's rated 3.3 out of 5 from 12 reviews, which is a small sample. Access comes with Coursera Plus at ₹7,499 a year, so you are paying for a year to study about 24 hours of English content. We found no selling lessons listed on the page.
 
 **Trust Insights.** [GEO 101 and GEO 201](https://academy.trustinsights.ai/bundles/geo-power-pack) cost $99 and $149, and the bundle is $199 for 28 lessons. They're written for marketers. The page doesn't state hours or any selling lessons.
 
-**IIM Skills.** Its Chennai [digital marketing programme](https://iimskills.com/digital-marketing-course-in-chennai/) has GEO as module 7 of 22, so GEO is one slice of a wider course. Expert is ₹34,900 plus GST (4 months live, 1 month virtual internship). Master is ₹59,900 plus GST (6 months and 2). It suits people who want the whole of digital marketing, an internship and a certificate. The page advertises a "100% Job Guarantee" and a 95% placement record but doesn't say how it counted them. Read the terms before you pay.
+**IIM Skills.** Its Chennai [digital marketing programme](https://iimskills.com/digital-marketing-course-in-chennai/) has GEO as module 7 of 24, so GEO is one slice of a wider course. Expert is ₹34,900 plus GST (4 months live, 1 month virtual internship). Master is ₹59,900 plus GST (6 months and 2). It suits people who want the whole of digital marketing, an internship and a certificate. The page advertises a "100% Job Guarantee" and a 95% placement record but doesn't say how it counted them. Read the terms before you pay.
 
 **The GEO Blueprint.** Everything is about GEO, with nothing else to sit through. 6 modules and about 1.5 hours of video cover how AI picks answers, the 6 pillars, a live audit with a fixed-rubric tool and two ways to charge for the work. It comes with a client questionnaire, a prompt pack and a quick-win checklist. It costs ₹599 including GST once and is taught mostly in Tamil, with English terms mixed in. We think that is the fastest route from "what is GEO?" to your first audit and offer.
 
@@ -89,18 +89,18 @@ The courses we checked don't require it. Entri's page says no advertising experi
 Yes. Entri has a free GEO course in Tamil, though its page is inconsistent, so test one lesson first. The GEO Blueprint is taught mostly in Tamil, with English terms mixed in. Most other courses we found are in English only.
 
 ### How much does a GEO course cost in India?
-From ₹0 to ₹70,682. The high end is IIM Skills' Master programme at ₹59,900 plus 18% GST. In the middle sit Coursera at ₹6,999 a year and Trust Insights at about ₹9,377 to ₹18,848. Ours is ₹599 including GST, among the lowest-priced paid options we found. Prices checked 3 November 2026.
+From ₹0 to ₹70,682. The high end is IIM Skills' Master programme at ₹59,900 plus 18% GST. In the middle sit Coursera at ₹7,499 a year and Trust Insights at about ₹9,330 to ₹18,754. Ours is ₹599 including GST, among the lowest-priced paid options we found. Prices checked 3 November 2026.
 
 ## Sources
 
-Prices and facts checked on 3 November 2026 on each page.
+Prices rechecked on 13 November 2026 on each page; other facts checked on 3 November 2026.
 
 **Key facts**
 
 - The GEO Blueprint: ₹599 including GST, about 1.5 hours, 6 modules, mostly Tamil.
 - Rank Prompt's free course: 20 lessons, about 90 minutes ([Rank Prompt](https://www.rankprompt.com/geo-course/)).
-- Coursera's GEO specialisation: ₹6,999 a year with Coursera Plus, about 24 hours, rated 3.3 from 12 reviews ([Coursera](https://www.coursera.org/specializations/generative-engine-optimization-geo)).
-- IIM Skills Chennai: ₹34,900 plus 18% GST for the Expert programme, with GEO as module 7 of 22 ([IIM Skills](https://iimskills.com/digital-marketing-course-in-chennai/)).
+- Coursera's GEO specialisation: ₹7,499 a year with Coursera Plus, about 24 hours, rated 3.3 from 12 reviews ([Coursera](https://www.coursera.org/specializations/generative-engine-optimization-geo)).
+- IIM Skills Chennai: ₹34,900 plus 18% GST for the Expert programme, with GEO as module 7 of 24 ([IIM Skills](https://iimskills.com/digital-marketing-course-in-chennai/)).
 
 - [Rank Prompt: Free GEO and AEO course](https://www.rankprompt.com/geo-course/)
 - [Joe Davies: free 30-minute GEO agency mini-course](https://joedavies.beehiiv.com/p/build-a-5m-geo-agency)

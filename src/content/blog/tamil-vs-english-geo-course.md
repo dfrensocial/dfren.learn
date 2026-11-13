@@ -22,7 +22,7 @@ We sell a course taught mostly in Tamil, so we lean that way. If you pick Tamil 
 | | Tamil | English |
 |---|---|---|
 | Free GEO course | [Entri](https://entri.app/explore/free-digital-marketing-courses/generative-engine-optimization-course-in-tamil/) (length not stated) | [Rank Prompt](https://www.rankprompt.com/geo-course/) (20 lessons, about 90 minutes), [Joe Davies](https://joedavies.beehiiv.com/p/build-a-5m-geo-agency) (30 minutes) |
-| Paid GEO course | **The GEO Blueprint, ₹599 including GST, mostly Tamil, with a client questionnaire and audit demo** | Coursera ₹6,999 a year, Trust Insights $99 to $199 |
+| Paid GEO course | **The GEO Blueprint, ₹599 including GST, mostly Tamil, with a client questionnaire and audit demo** | Coursera ₹7,499 a year, Trust Insights $99 to $199 |
 | Longer programme | [Entri digital marketing in Tamil](https://entri.app/course/digital-marketing-course-in-tamil/) (module 6 covers GEO) | IIM Skills, ₹41,182 and up with GST |
 | Selling lessons | Module 5 of The GEO Blueprint | Rank Prompt part 4, Joe Davies |
 

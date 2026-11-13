@@ -34,7 +34,7 @@ The IIM Skills fees come from its [Chennai page](https://iimskills.com/digital-m
 
 ## What do Chennai institutes charge?
 
-The one we verified, IIM Skills, charges [₹34,900 or ₹59,900 plus 18% GST](https://iimskills.com/digital-marketing-course-in-chennai/). Both programmes cover far more than GEO, which is one module of 22. In our view, if you can learn the GEO workflow in about 1.5 hours and run your first audit, why spend months first? A long programme suits people who want a certificate, mentors, an internship or the whole of digital marketing. Its page advertises a "100% Job Guarantee" and a 95% placement record but doesn't explain how it counted them, so ask for the terms in writing.
+The one we verified, IIM Skills, charges [₹34,900 or ₹59,900 plus 18% GST](https://iimskills.com/digital-marketing-course-in-chennai/). Both programmes cover far more than GEO, which is one module of 24. In our view, if you can learn the GEO workflow in about 1.5 hours and run your first audit, why spend months first? A long programme suits people who want a certificate, mentors, an internship or the whole of digital marketing. Its page advertises a "100% Job Guarantee" and a 95% placement record but doesn't explain how it counted them, so ask for the terms in writing.
 
 An older directory listing shows a 2-month diploma at ₹22,000 and an SEO course at ₹9,000 at one Teynampet institute. An India-wide guide from Skillcure Academy puts 3 to 6 month digital marketing programmes at ₹40,000 to ₹1,00,000 ([reported](https://skillcureacademy.com/blogs/digital-marketing-course-fees-in-india-2026/), seller-written).
 

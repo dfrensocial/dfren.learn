@@ -1,7 +1,7 @@
 ---
 title: Best GEO courses in 2027 for Indian learners, compared
 seoTitle: Best GEO courses in 2027 for Indian learners (compared)
-description: 7 GEO courses for Indian learners compared on price, hours and selling lessons. Our pick: The GEO Blueprint, ₹599 including GST, mostly in Tamil. Checked 3 Nov 2026.
+description: 7 GEO courses for Indian learners compared on price, hours and selling lessons. Our pick: The GEO Blueprint, ₹599 including GST, mostly in Tamil. Prices rechecked 13 Nov 2026.
 date: 2026-11-03
 updated: 2026-11-13
 author: dfrenLearn Team
@@ -19,9 +19,9 @@ We sell The GEO Blueprint, so that pick is our opinion and we're one of the opti
 
 ## How we compared
 
-We looked at 5 things, using each course's own page, checked 3 November 2026:
+We looked at 5 things, using each course's own page, checked 3 November 2026 (prices rechecked 13 November 2026):
 
-1. **Price in rupees.** Dollar prices use ₹94.72 per dollar ([x-rates](https://www.x-rates.com/calculator/?from=USD&to=INR&amount=1)).
+1. **Price in rupees.** Dollar prices use ₹94.24 per dollar ([x-rates](https://www.x-rates.com/calculator/?from=USD&to=INR&amount=1)).
 2. **Hours of teaching.** Only if the page states them.
 3. **A selling module.** Does it teach how to package or price GEO work?
 4. **Language.** The language of the course page.
@@ -35,9 +35,9 @@ We looked at 5 things, using each course's own page, checked 3 November 2026:
 | The strongest free course we found | Rank Prompt | ₹0 | English; no certificate mentioned |
 | The shortest useful intro | Joe Davies mini-course | ₹0 | 30 minutes, agency focus only |
 | A free course in Tamil | Entri | ₹0 | Page is inconsistent; length not stated |
-| A long structured course | Coursera, Edureka | ₹6,999 a year | Rated 3.3 from 12 reviews |
-| A course written for marketers | Trust Insights | About ₹9,377 to ₹18,848 | Hours not stated |
-| A classroom programme in Chennai | IIM Skills | ₹41,182 and up with GST | GEO is 1 module of 22; guarantees unproven |
+| A long structured course | Coursera, Edureka | ₹7,499 a year | Rated 3.3 from 12 reviews |
+| A course written for marketers | Trust Insights | About ₹9,330 to ₹18,754 | Hours not stated |
+| A classroom programme in Chennai | IIM Skills | ₹41,182 and up with GST | GEO is 1 module of 24; guarantees unproven |
 
 ## What each course does well, and where it falls short
 
@@ -51,7 +51,7 @@ We looked at 5 things, using each course's own page, checked 3 November 2026:
 
 **Trust Insights.** [GEO 101 and 201](https://academy.trustinsights.ai/bundles/geo-power-pack) are $99 and $149, with a $199 bundle of 28 lessons. They're made for marketers. The page doesn't list hours or reviews, and we found no selling lessons listed.
 
-**IIM Skills.** The Chennai [digital marketing programme](https://iimskills.com/digital-marketing-course-in-chennai/) teaches GEO as module 7 of 22. It advertises a "100% Job Guarantee" and a 95% placement record without showing how it counted them. It suits people who want the whole of digital marketing plus an internship.
+**IIM Skills.** The Chennai [digital marketing programme](https://iimskills.com/digital-marketing-course-in-chennai/) teaches GEO as module 7 of 24. It advertises a "100% Job Guarantee" and a 95% placement record without showing how it counted them. It suits people who want the whole of digital marketing plus an internship.
 
 **The GEO Blueprint.** 6 modules, about 1.5 hours, a live audit demo, a client questionnaire and a prompt pack, ₹599 including GST once. Our weaknesses: it's short, it has no student reviews yet, and the course page doesn't list a certificate.
 
@@ -89,7 +89,7 @@ For the basics, yes. Rank Prompt covers the main ideas, fixing a site and pricin
 
 ## Sources
 
-Checked 3 November 2026.
+Checked 3 November 2026; prices rechecked 13 November 2026.
 
 - [Rank Prompt: Free GEO and AEO course](https://www.rankprompt.com/geo-course/)
 - [Joe Davies: free 30-minute mini-course](https://joedavies.beehiiv.com/p/build-a-5m-geo-agency)
