@@ -3,7 +3,7 @@ title: Which websites do AI assistants cite most? What studies show and don't
 seoTitle: Which websites do ChatGPT, Gemini and Perplexity cite most?
 description: Wikipedia, Reddit and YouTube lead several studies of AI citations, but the numbers differ by method. What each study measured and what it means for small sites.
 date: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-13
 author: AiVirex Team
 authorRole: Research and writing, AiVirex Innovations
 authorUrl: https://aivirex.in
@@ -50,7 +50,7 @@ We found no study of which sites assistants cite for Indian local queries. That 
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint teaches citation authority as one of its 6 pillars, alongside answer-first content and technical optimization. It's ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Get the course to learn the full guide to being citable on your own site. It has no student reviews yet and promises no citations.
+The GEO Blueprint teaches citation authority as one of its 6 pillars, alongside answer-first content and technical optimization. It's ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Get the course to learn the full guide to being citable on your own site. It has no student reviews yet and promises no citations.
 
 ## Questions, answered
 

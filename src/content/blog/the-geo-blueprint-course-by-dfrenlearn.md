@@ -1,19 +1,19 @@
 ---
 title: The GEO Blueprint by dfrenLearn: what's inside, who it's for and what it costs
 seoTitle: The GEO Blueprint by dfrenLearn: what's inside, price, who it's for
-description: The GEO Blueprint is a 1.5-hour GEO course by dfrenLearn for ₹499 + GST, mostly in Tamil. What the 6 modules cover, who it suits, and what it doesn't include.
+description: The GEO Blueprint is a 1.5-hour GEO course by dfrenLearn for ₹599 including GST, mostly in Tamil. What the 6 modules cover, who it suits, and what it doesn't include.
 date: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-13
 author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
 tag: The course
-related: where-can-i-learn-geo-in-india-2027, learn-geo-for-500-rupees, geo-course-vs-youtube
+related: where-can-i-learn-geo-in-india-2027, learn-geo-for-600-rupees, geo-course-vs-youtube
 ---
 
 # The GEO Blueprint by dfrenLearn: what's inside, who it's for and what it costs
 
-The GEO Blueprint is a short practical course on generative engine optimization (GEO) from dfrenLearn, run by DFREN Marketing Agency in Chennai. It has 6 modules and about 1.5 hours of video, costs ₹499 plus GST one time and is taught mostly in Tamil with English terms mixed in. It covers how AI assistants pick answers, the 6 pillars of GEO, a live audit and two ways to charge for GEO work. It has no certificate and no student reviews yet.
+The GEO Blueprint is a short practical course on generative engine optimization (GEO) from dfrenLearn, run by DFREN Marketing Agency in Chennai. It has 6 modules and about 1.5 hours of video, costs ₹599 including GST one time and is taught mostly in Tamil with English terms mixed in. It covers how AI assistants pick answers, the 6 pillars of GEO, a live audit and two ways to charge for GEO work. It has no certificate and no student reviews yet.
 
 We make this course, so this page is our own description. For an outside comparison with other courses, read [where to learn GEO](/blog/where-can-i-learn-geo-in-india-2027).
 
@@ -51,7 +51,7 @@ You don't need SEO experience first.
 
 ## What does it cost, and how does access work?
 
-It costs ₹499 + GST, paid once, with no subscription. You get access for as long as the course is offered on dfrenLearn, with updates included. Payments aren't refundable for a change of mind, because it's a digital product with instant access. We refund an extra charge, or a payment where you can't get access and we can't fix it. Read the [refund policy](/refund-policy) before buying.
+It costs ₹599 including GST, paid once, with no subscription. You get access for as long as the course is offered on dfrenLearn, with updates included. Payments aren't refundable for a change of mind, because it's a digital product with instant access. We refund an extra charge, or a payment where you can't get access and we can't fix it. Read the [refund policy](/refund-policy) before buying.
 
 ## Why "blueprint"? Are there other courses with that name?
 
@@ -59,7 +59,7 @@ The word is common in marketing. A search on 4 November 2026 turned up a Udemy c
 
 ## How do I start?
 
-If you want to try before you commit, sample a free course first. Our [under ₹500 learning guide](/blog/learn-geo-for-500-rupees) lists the options and what each price gets you. If you'd like the full method, see the [curriculum and pricing](/#pricing).
+If you want to try before you commit, sample a free course first. Our [under ₹600 learning guide](/blog/learn-geo-for-600-rupees) lists the options and what each price gets you. If you'd like the full method, see the [curriculum and pricing](/#pricing).
 
 ## Questions, answered
 
@@ -67,7 +67,7 @@ If you want to try before you commit, sample a free course first. Our [under ₹
 A 1.5-hour recorded course on generative engine optimization from dfrenLearn. It covers how AI assistants pick answers, the 6 pillars of GEO, a live audit and two ways to charge for GEO work.
 
 ### How much does The GEO Blueprint cost?
-₹499 + GST, one time. There's no subscription.
+₹599 including GST, one time. There's no subscription.
 
 ### Is The GEO Blueprint in Tamil?
 It's taught mostly in Tamil, with English terms mixed in.
@@ -83,7 +83,7 @@ No. It teaches a method. It doesn't promise rankings, mentions or income.
 
 ## Where The GEO Blueprint fits
 
-If you want the full guide to doing GEO on your own site, or offering it to clients, [get the course](/#pricing). Start small at ₹499 + GST, see if it's useful and go deeper later if you want. It has no student reviews yet.
+If you want the full guide to doing GEO on your own site, or offering it to clients, [get the course](/#pricing). Start small at ₹599 including GST, see if it's useful and go deeper later if you want. It has no student reviews yet.
 
 ## Sources
 

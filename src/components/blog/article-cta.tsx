@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { geoBlueprintCourse } from "@/content/courses/geo-blueprint";
+import { rupeesFromPaise } from "@/lib/gst";
 
 /**
  * The call to action at the end of every article. Facts come from the course
@@ -7,7 +8,7 @@ import { geoBlueprintCourse } from "@/content/courses/geo-blueprint";
  * ranking or job promises here, and the refund rule is stated next to the price.
  */
 export function ArticleCta() {
-  const price = geoBlueprintCourse.pricing.priceInPaise / 100;
+  const price = rupeesFromPaise(geoBlueprintCourse.pricing.priceInPaise);
   return (
     <aside className="my-12 border border-black p-6">
       <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">The GEO Blueprint</p>
@@ -17,7 +18,7 @@ export function ArticleCta() {
         and how to track the results. It also comes with a client questionnaire and a prompt pack. It is taught mostly in
         Tamil, with English terms mixed in.
       </p>
-      <p className="mt-3 text-sm font-medium">₹{price.toLocaleString("en-IN")} + GST, one time. No subscription.</p>
+      <p className="mt-3 text-sm font-medium">₹{price} including GST, one time. No subscription.</p>
       <div className="mt-5 flex flex-wrap items-center gap-4 text-sm">
         <Link
           href="/#pricing"

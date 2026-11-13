@@ -68,7 +68,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     // Self-serve password sign-up was removed: accounts are created by
     // checkout and entered via emailed link (see grant-access.ts).
-    return [{ source: "/signup", destination: "/login", permanent: false }];
+    return [
+      { source: "/signup", destination: "/login", permanent: false },
+      // Retitled when the price became ₹599 including GST.
+      { source: "/blog/learn-geo-for-500-rupees", destination: "/blog/learn-geo-for-600-rupees", permanent: true },
+    ];
   },
   async headers() {
     return [

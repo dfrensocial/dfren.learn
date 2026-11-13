@@ -3,7 +3,7 @@ title: Why ranking #1 on Google doesn't mean ChatGPT will mention you
 seoTitle: Google #1 ranking vs ChatGPT mentions: what studies show
 description: Only about 12% of links cited by ChatGPT, Gemini and Copilot were in Google's top 10 in one study. Here are six studies, why they disagree and what to do.
 date: 2026-11-03
-updated: 2026-11-03
+updated: 2026-11-13
 author: AiVirex Team
 authorRole: Research and writing, AiVirex Innovations
 authorUrl: https://aivirex.in
@@ -55,7 +55,7 @@ This is our suggestion, based on the studies above.
 
 ## Where The GEO Blueprint fits
 
-Start small. The GEO Blueprint is ₹499 plus GST, about 1.5 hours, taught mostly in Tamil with English terms mixed in. Module 2 covers where SEO and GEO overlap and where they differ, and the 6 pillars show what to fix beyond rankings. It's a strong first step in our view. It has no student reviews yet and makes no ranking promise.
+Start small. The GEO Blueprint is ₹599 including GST, about 1.5 hours, taught mostly in Tamil with English terms mixed in. Module 2 covers where SEO and GEO overlap and where they differ, and the 6 pillars show what to fix beyond rankings. It's a strong first step in our view. It has no student reviews yet and makes no ranking promise.
 
 ## Questions, answered
 

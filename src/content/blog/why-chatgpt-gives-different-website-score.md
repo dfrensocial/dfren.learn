@@ -3,7 +3,7 @@ title: Why asking ChatGPT to grade your website gives a different score every ti
 seoTitle: Why ChatGPT gives a different website score every time you ask
 description: A chatbot has no fixed rubric, so the same site can get different scores on different runs. Why it happens, what studies show and how to audit repeatably.
 date: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-13
 author: Litmus Team
 authorRole: Research and writing, Litmus by AiVirex
 authorUrl: https://litmus.aivirex.in
@@ -50,7 +50,7 @@ See [how to run a GEO audit](/blog/how-to-run-a-geo-audit) for the full steps.
 
 ## Where The GEO Blueprint fits
 
-Module 4 of The GEO Blueprint covers exactly this: why manual chatbot audits don't work, then a live demo of a fixed-rubric audit with Litmus across all 6 pillars. It's ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site or a client's. It has no student reviews yet.
+Module 4 of The GEO Blueprint covers exactly this: why manual chatbot audits don't work, then a live demo of a fixed-rubric audit with Litmus across all 6 pillars. It's ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site or a client's. It has no student reviews yet.
 
 ## Questions, answered
 

@@ -3,7 +3,7 @@ title: How to explain GEO to a client who has never heard of it
 seoTitle: How to explain GEO to a client who has never heard of it
 description: A short script, three public numbers and answers to the questions clients ask, for explaining GEO without jargon or promises.
 date: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-13
 author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
@@ -62,7 +62,7 @@ Be honest about scale: AI chatbots sent [0.28% of web traffic](https://ahrefs.co
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint covers this conversation: how AI picks answers in plain terms, the six pillars, a live audit you can show and how to set expectations with a client. It's ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide you'll explain to clients. It has no student reviews yet and promises no results.
+The GEO Blueprint covers this conversation: how AI picks answers in plain terms, the six pillars, a live audit you can show and how to set expectations with a client. It's ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide you'll explain to clients. It has no student reviews yet and promises no results.
 
 ## Questions, answered
 

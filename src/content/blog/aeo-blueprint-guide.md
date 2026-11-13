@@ -3,7 +3,7 @@ title: An AEO blueprint: a 7-step plan to get your content used as the answer
 seoTitle: AEO blueprint: a 7-step answer engine optimization plan (2027)
 description: A plain 7-step AEO blueprint: pick real questions, answer first, structure pages, check access, build mentions, track and refresh. Each step tied to a source.
 date: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-13
 author: AiVirex Team
 authorRole: Research and writing, AiVirex Innovations
 authorUrl: https://aivirex.in
@@ -68,7 +68,7 @@ You don't need three. Most of the work is shared. See [GEO vs SEO vs AEO](/blog/
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint is dfrenLearn's course on this work. Its 6 pillars include answer-first content, AI comprehension, citation authority and technical optimization, which are the same building blocks as the plan above. It's ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has no student reviews yet and promises no results. See [what's inside](/blog/the-geo-blueprint-course-by-dfrenlearn).
+The GEO Blueprint is dfrenLearn's course on this work. Its 6 pillars include answer-first content, AI comprehension, citation authority and technical optimization, which are the same building blocks as the plan above. It's ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has no student reviews yet and promises no results. See [what's inside](/blog/the-geo-blueprint-course-by-dfrenlearn).
 
 ## Questions, answered
 

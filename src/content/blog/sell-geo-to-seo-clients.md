@@ -3,7 +3,7 @@ title: How to sell GEO services to your existing SEO clients (without overpromis
 seoTitle: How to sell GEO to your existing SEO clients (India, 2027)
 description: A practical way to offer GEO as an add-on to SEO clients: what to say, what evidence to show, what to offer first and what never to promise.
 date: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-13
 author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
@@ -58,7 +58,7 @@ Put what you will and won't promise in the proposal. See [a GEO proposal that do
 
 ## Where The GEO Blueprint fits
 
-If you're moving from SEO to GEO and need a client workflow, The GEO Blueprint covers two ways to package it: charging to fix what an audit finds, and charging monthly for content. It also covers client onboarding and tracking. It's ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site and your clients'. It has no student reviews yet and makes no promise of income.
+If you're moving from SEO to GEO and need a client workflow, The GEO Blueprint covers two ways to package it: charging to fix what an audit finds, and charging monthly for content. It also covers client onboarding and tracking. It's ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site and your clients'. It has no student reviews yet and makes no promise of income.
 
 ## Questions, answered
 

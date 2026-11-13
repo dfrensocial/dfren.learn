@@ -3,7 +3,7 @@ title: What can GEO work be worth in India? Prices, salaries and the maths
 seoTitle: GEO freelancer earnings in India: prices and the maths (2027)
 description: GEO is a service you can offer to businesses. See what sellers charge in India, what SEO jobs pay, and how to work out what it could be worth to you.
 date: 2026-11-03
-updated: 2026-11-03
+updated: 2026-11-13
 author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
@@ -76,7 +76,7 @@ This is our view, not a forecast. Income from GEO work equals the hours you can 
 
 ## Where The GEO Blueprint fits
 
-Our suggestion: start small. The GEO Blueprint is ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. It covers a client audit and 2 ways to charge for GEO work. In our view that's a strong first step for finding out whether you like the work. It doesn't promise income, and it has no student reviews yet.
+Our suggestion: start small. The GEO Blueprint is ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. It covers a client audit and 2 ways to charge for GEO work. In our view that's a strong first step for finding out whether you like the work. It doesn't promise income, and it has no student reviews yet.
 
 ## Questions, answered
 

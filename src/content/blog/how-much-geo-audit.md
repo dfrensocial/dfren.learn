@@ -3,7 +3,7 @@ title: How much to charge for a GEO audit in India (in rupees)
 seoTitle: How much to charge for a GEO audit in India (₹, 2027)
 description: Published GEO audit prices run from about ₹47,358 ($500) to ₹8,00,000. See who publishes which number, why they differ and how to price a first audit.
 date: 2026-11-03
-updated: 2026-11-03
+updated: 2026-11-13
 author: Litmus Team
 authorRole: Research and writing, Litmus by AiVirex
 authorUrl: https://litmus.aivirex.in
@@ -65,7 +65,7 @@ This is an illustrative example, not a real quote. You spend 8 hours on an audit
 
 ## Where The GEO Blueprint fits
 
-Our suggestion: start small. The GEO Blueprint is ₹499 plus GST, about 1.5 hours and mostly in Tamil, with English terms mixed in. It shows a live audit and covers 2 ways to charge for the work, so it's a strong first step before you quote anyone. It has no student reviews yet. We can't tell you what to charge, and no course can promise you'll win clients.
+Our suggestion: start small. The GEO Blueprint is ₹599 including GST, about 1.5 hours and mostly in Tamil, with English terms mixed in. It shows a live audit and covers 2 ways to charge for the work, so it's a strong first step before you quote anyone. It has no student reviews yet. We can't tell you what to charge, and no course can promise you'll win clients.
 
 ## Questions, answered
 

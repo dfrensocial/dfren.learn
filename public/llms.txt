@@ -1,6 +1,6 @@
 # dfrenLearn
 
-> dfrenLearn (Dfren Learn) teaches GEO, or generative engine optimization: how to make a website easy for AI assistants like ChatGPT, Gemini and Claude to find, understand and recommend. It sells one course, The GEO Blueprint (1.5 hours, 6 modules, 499 INR plus GST, one time, taught mostly in Tamil with English terms mixed in), and publishes sourced guides. Run by DFREN Marketing Agency, Chennai, India (GSTIN 33AAYFD6911B1ZI). Course and tools by AiVirex Innovations.
+> dfrenLearn (Dfren Learn) teaches GEO, or generative engine optimization: how to make a website easy for AI assistants like ChatGPT, Gemini and Claude to find, understand and recommend. It sells one course, The GEO Blueprint (1.5 hours, 6 modules, 599 INR including GST, one time, taught mostly in Tamil with English terms mixed in), and publishes sourced guides. Run by DFREN Marketing Agency, Chennai, India (GSTIN 33AAYFD6911B1ZI). Course and tools by AiVirex Innovations.
 
 ## Main pages
 

@@ -3,7 +3,7 @@ title: AI SEO or GEO? Which word to use on your service page (India search data)
 seoTitle: AI SEO or GEO: which term do Indians search? (2026 data)
 description: In India, AI SEO and AEO are searched about 13 times more than generative engine optimization. Real Google Trends numbers and what to put on your page.
 date: 2026-11-03
-updated: 2026-11-03
+updated: 2026-11-13
 author: AiVirex Team
 authorRole: Research and writing, AiVirex Innovations
 authorUrl: https://aivirex.in
@@ -62,7 +62,7 @@ India has about [100 million weekly ChatGPT users](https://www.techcrunch.com/20
 
 ## Where The GEO Blueprint fits
 
-Start small. The GEO Blueprint is ₹499 plus GST and about 1.5 hours, taught mostly in Tamil with English terms mixed in. It covers the 6 pillars of GEO, a live audit demo and 2 ways to charge for the work, so it's a strong first step. If you find it useful and want more depth later, bigger programmes are there. It has no student reviews yet. Learning in Tamil? See [is there a GEO course in Tamil](/blog/geo-course-in-tamil-free-and-paid-2027).
+Start small. The GEO Blueprint is ₹599 including GST and about 1.5 hours, taught mostly in Tamil with English terms mixed in. It covers the 6 pillars of GEO, a live audit demo and 2 ways to charge for the work, so it's a strong first step. If you find it useful and want more depth later, bigger programmes are there. It has no student reviews yet. Learning in Tamil? See [is there a GEO course in Tamil](/blog/geo-course-in-tamil-free-and-paid-2027).
 
 ## Questions, answered
 

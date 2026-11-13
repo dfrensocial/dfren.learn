@@ -3,7 +3,7 @@ title: Before-and-after proof: how to document that GEO worked (honestly)
 seoTitle: How to document GEO before-and-after results as a case study
 description: How to turn a GEO baseline and a three-month re-check into an honest case study: what to record, how to report appearance rate and what you can't claim.
 date: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-13
 author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
@@ -62,7 +62,7 @@ India's [CCPA guidelines](https://ccpa.doca.gov.in/files/CCPA_Notification.pdf) 
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint's last module covers turning a before-and-after into a case study, after setting up tracking and expectations. It's ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide. It has no student reviews yet and promises no results.
+The GEO Blueprint's last module covers turning a before-and-after into a case study, after setting up tracking and expectations. It's ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide. It has no student reviews yet and promises no results.
 
 ## Questions, answered
 

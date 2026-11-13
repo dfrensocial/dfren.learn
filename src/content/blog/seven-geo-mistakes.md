@@ -3,7 +3,7 @@ title: Seven GEO mistakes that waste money (and what to do instead)
 seoTitle: 7 GEO mistakes that waste money, and what to do instead
 description: Blocking AI crawlers, keyword stuffing, trusting llms.txt, judging by one answer, chatbot scoring, promising rankings and skipping a baseline, with sources.
 date: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-13
 author: AiVirex Team
 authorRole: Research and writing, AiVirex Innovations
 authorUrl: https://aivirex.in
@@ -61,7 +61,7 @@ Our course lists this as a common mistake: publishing low-effort pages generated
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint covers these in its "common mistakes" slide, the six pillars and the client onboarding module. It's ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has no student reviews yet and promises no results.
+The GEO Blueprint covers these in its "common mistakes" slide, the six pillars and the client onboarding module. It's ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has no student reviews yet and promises no results.
 
 ## Questions, answered
 

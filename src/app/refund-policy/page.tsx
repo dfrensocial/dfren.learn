@@ -72,7 +72,7 @@ export default function RefundPolicyPage() {
       <section>
         <h2>GST on refunds</h2>
         <p>
-          The price is &ldquo;&#8377;499 + GST&rdquo;, so what you pay includes GST. When we refund a payment we
+          The price is &ldquo;&#8377;599 including GST&rdquo;: &#8377;507.63 plus &#8377;91.37 GST at 18%. When we refund a payment we
           refund the amount you paid, including the GST on it. If the refund is for an extra charge, the GST on that
           extra amount is refunded too. Where the law requires it, we issue a credit note for the tax.
         </p>

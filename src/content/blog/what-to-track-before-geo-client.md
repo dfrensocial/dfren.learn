@@ -3,7 +3,7 @@ title: What to track before you start a GEO client: an onboarding baseline check
 seoTitle: What to track before starting GEO for a client (baseline checklist)
 description: Set up analytics, Search Console, Clarity and an AI prompt panel before any GEO work, so you can compare at three months. A checklist with sources.
 date: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-13
 author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
@@ -58,7 +58,7 @@ Analytics and session recording tools set cookies and process visitor data. Unde
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint's last module covers exactly this: finding out what's already tracked, connecting what's missing, setting timeline expectations and turning a before-and-after into a case study. It's ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full client workflow. It has no student reviews yet and promises no results.
+The GEO Blueprint's last module covers exactly this: finding out what's already tracked, connecting what's missing, setting timeline expectations and turning a before-and-after into a case study. It's ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full client workflow. It has no student reviews yet and promises no results.
 
 ## Questions, answered
 

@@ -10,7 +10,7 @@ import { useEnrollment } from "@/lib/firebase/use-enrollment";
 import { analyticsAllowed, clarityTag, courseItem, getGaIds, track } from "@/lib/analytics";
 import { getAttribution } from "@/lib/attribution";
 import { AcceptTerms } from "@/components/legal/accept-terms";
-import { GST_RATE_PERCENT, gstPaise, rupeesFromPaise } from "@/lib/gst";
+import { GST_RATE_PERCENT, rupeesFromPaise, splitInclusivePaise } from "@/lib/gst";
 import { addAcceptanceParams, hasAcceptedCurrent, recordAcceptance } from "@/lib/legal-acceptance";
 import { rememberLoginEmail } from "@/lib/login-email";
 import { BusyOverlay } from "@/components/ui/busy-overlay";
@@ -69,7 +69,7 @@ export function CheckoutButton({
 }: {
   courseId: string;
   courseTitle: string;
-  /** Pre-tax price. When given, the GST breakdown is shown above the button. */
+  /** GST-inclusive price. When given, the split into pre-tax value + GST is shown above the button. */
   priceInPaise?: number;
 }) {
   const { user } = useAuth();
@@ -217,7 +217,10 @@ export function CheckoutButton({
         order_id: order.id,
         name: "dfrenLearn",
         description: priceInPaise
-          ? `${courseTitle}: ₹${rupeesFromPaise(priceInPaise)} + ₹${rupeesFromPaise(gstPaise(priceInPaise))} GST (${GST_RATE_PERCENT}%)`
+          ? (() => {
+              const s = splitInclusivePaise(priceInPaise);
+              return `${courseTitle}: ₹${rupeesFromPaise(s.totalPaise)} (₹${rupeesFromPaise(s.basePaise)} + ₹${rupeesFromPaise(s.gstPaise)} GST ${GST_RATE_PERCENT}%)`;
+            })()
           : courseTitle,
         handler: async (response: {
           razorpay_order_id: string;
@@ -369,7 +372,9 @@ export function CheckoutButton({
 
         {priceInPaise ? (
           <p className="mb-3 text-center text-sm text-neutral-700">
-            <strong>₹{rupeesFromPaise(priceInPaise)} + GST</strong>. GST is added when you pay.
+            <strong>₹{rupeesFromPaise(priceInPaise)}</strong> including {GST_RATE_PERCENT}% GST (₹
+            {rupeesFromPaise(splitInclusivePaise(priceInPaise).basePaise)} + ₹
+            {rupeesFromPaise(splitInclusivePaise(priceInPaise).gstPaise)}).
           </p>
         ) : null}
 

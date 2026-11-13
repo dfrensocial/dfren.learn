@@ -3,7 +3,7 @@ title: How to choose a GEO agency in India: a buyer's checklist
 seoTitle: How to choose a GEO agency in India: buyer's checklist (2027)
 description: Questions to ask a GEO agency, red flags to watch, what published Indian prices look like and how to judge a proposal. A checklist for business owners.
 date: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-13
 author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
@@ -53,7 +53,7 @@ For a small business, yes: complete your [Google Business Profile](https://busin
 
 ## Where The GEO Blueprint fits
 
-If you'd rather understand GEO before hiring, or hire less, The GEO Blueprint explains the method in plain terms. It's ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. It covers the six pillars and a live audit. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has no student reviews yet and promises no results.
+If you'd rather understand GEO before hiring, or hire less, The GEO Blueprint explains the method in plain terms. It's ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. It covers the six pillars and a live audit. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has no student reviews yet and promises no results.
 
 ## Questions, answered
 

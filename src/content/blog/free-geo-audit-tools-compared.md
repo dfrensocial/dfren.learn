@@ -3,7 +3,7 @@ title: Free GEO audit tools compared: what each one actually checks
 seoTitle: Free GEO audit tools compared (2027): what each checks
 description: Juma, HubSpot's AI Search Grader, Litmus and a manual method compared on what they check, price and limits. Why different tools give different scores.
 date: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-13
 author: Litmus Team
 authorRole: Research and writing, Litmus by AiVirex
 authorUrl: https://litmus.aivirex.in
@@ -53,7 +53,7 @@ You'll learn the most by using one of each: a site audit, a perception check and
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint includes a live audit with Litmus and shows how to turn the findings into a fix list and a client proposal. It's ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has no student reviews yet.
+The GEO Blueprint includes a live audit with Litmus and shows how to turn the findings into a fix list and a client proposal. It's ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has no student reviews yet.
 
 ## Questions, answered
 

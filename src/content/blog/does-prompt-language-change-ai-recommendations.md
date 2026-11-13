@@ -3,7 +3,7 @@ title: Does the language you ask in (Tamil, English) change which businesses AI 
 seoTitle: Does prompt language change which brands AI recommends?
 description: A 2026 test of 1,650 answers found the language of the question changed which brands AI named. What that means for Tamil and English searches in India.
 date: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-13
 author: AiVirex Team
 authorRole: Research and writing, AiVirex Innovations
 authorUrl: https://aivirex.in
@@ -56,7 +56,7 @@ If you appear in English and not in Tamil, consider adding Tamil text to key pag
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint is taught mostly in Tamil with English terms mixed in, so you can follow the ideas in the language you think in. It covers the 6 pillars, a live audit and how to track results, which you can apply in either language. It's ₹499 plus GST and about 1.5 hours. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has no student reviews yet and promises no results.
+The GEO Blueprint is taught mostly in Tamil with English terms mixed in, so you can follow the ideas in the language you think in. It covers the 6 pillars, a live audit and how to track results, which you can apply in either language. It's ₹599 including GST and about 1.5 hours. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has no student reviews yet and promises no results.
 
 ## Questions, answered
 

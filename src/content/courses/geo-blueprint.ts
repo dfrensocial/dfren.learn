@@ -1,6 +1,7 @@
 // Single source of truth for this course's marketing copy + price.
-// scripts/seed-course.ts reads id/title/priceInPaise from here to seed Firestore —
+// scripts/seed-course.ts reads id/title/priceInPaise from here (stored in Firestore as priceInclusiveInPaise) —
 // change the price or title here, then re-run the seed script.
+// priceInPaise is the GST-INCLUSIVE price the buyer pays.
 //
 // Adding a second course later = a new file shaped like this one, a new route
 // reusing the same section components, and a re-run of the seed script.
@@ -34,6 +35,7 @@ export interface CourseContent {
   testimonials: { quote: string; name: string; role: string }[];
   pricing: {
     productLabel: string;
+    /** What the buyer pays, GST INCLUDED (59900 = ₹599). Base and GST are derived in src/lib/gst.ts. */
     priceInPaise: number;
     includes: string[];
   };
@@ -47,14 +49,14 @@ export const geoBlueprintCourse: CourseContent = {
     headline: "Learn how to get your business recommended by ChatGPT, Gemini and Claude",
     subheadline:
       "A 1.5-hour GEO course. See how AI assistants pick their answers. Learn the 6 pillars, watch a live audit and find two ways to charge for the work.",
-    ctaLabel: "Get the course for ₹499 + GST",
-    ctaNote: "One-time payment of ₹499 plus GST, no subscription. Taught mostly in Tamil, with English terms mixed in.",
+    ctaLabel: "Get the course for ₹599",
+    ctaNote: "One-time payment of ₹599 including GST, no subscription. Taught mostly in Tamil, with English terms mixed in.",
   },
   stats: [
     { value: "1.5 hrs", label: "of video, no filler" },
     { value: "6", label: "GEO pillars" },
     { value: "2", label: "ways to charge for GEO work" },
-    { value: "₹499", label: "+ GST, one time" },
+    { value: "₹599", label: "incl. GST, one time" },
   ],
   curriculum: {
     heading: "What you learn in 1.5 hours",
@@ -119,7 +121,7 @@ export const geoBlueprintCourse: CourseContent = {
   testimonials: [],
   pricing: {
     productLabel: "The GEO Blueprint",
-    priceInPaise: 49900,
+    priceInPaise: 59900,
     includes: [
       "1.5 hours of video: the 6 GEO pillars, a live audit and 2 ways to charge for the work",
       "The GEO quick-win checklist from the course",

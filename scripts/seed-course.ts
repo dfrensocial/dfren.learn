@@ -22,7 +22,8 @@ async function main() {
         title,
         slug: id,
         description: hero.subheadline,
-        priceInPaise: pricing.priceInPaise,
+        // GST-inclusive. Deliberately not the old `priceInPaise` field (pre-tax).
+        priceInclusiveInPaise: pricing.priceInPaise,
         thumbnailUrl: "",
         published: true,
         createdAt: new Date().toISOString(),
@@ -44,7 +45,7 @@ async function main() {
       { merge: true }
     );
 
-  console.log(`Seeded course "${title}" (${id}) at ₹${pricing.priceInPaise / 100}`);
+  console.log(`Seeded course "${title}" (${id}) at ₹${pricing.priceInPaise / 100} (GST included)`);
 }
 
 main()

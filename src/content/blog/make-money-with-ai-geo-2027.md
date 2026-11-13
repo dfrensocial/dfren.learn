@@ -3,7 +3,7 @@ title: How to make money with AI in 2027: learn GEO, then sell it (an honest ver
 seoTitle: Make money with AI in 2027: learn GEO, then sell it
 description: One real way to earn with AI is helping local businesses get named by AI assistants. What the work is, what sellers charge, what's unknown and a 90-day plan.
 date: 2026-11-03
-updated: 2026-11-03
+updated: 2026-11-13
 author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
@@ -63,7 +63,7 @@ What happens after that, we can't tell you. You may win clients, or none, and no
 
 ## Where The GEO Blueprint fits
 
-Start small. The GEO Blueprint is ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. It covers the 6 pillars of GEO, a live audit demo and 2 ways to package the work as a paid service: charging to fix what an audit finds, and charging monthly for content. In our view that makes it a strong first step toward the 90 days above, and a low-cost way to find out if you like the work. If it clicks, the service could become a source of income. It makes no promise of income, and it has no student reviews yet.
+Start small. The GEO Blueprint is ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. It covers the 6 pillars of GEO, a live audit demo and 2 ways to package the work as a paid service: charging to fix what an audit finds, and charging monthly for content. In our view that makes it a strong first step toward the 90 days above, and a low-cost way to find out if you like the work. If it clicks, the service could become a source of income. It makes no promise of income, and it has no student reviews yet.
 
 ## Questions, answered
 

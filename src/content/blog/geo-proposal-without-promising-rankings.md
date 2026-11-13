@@ -3,7 +3,7 @@ title: How to write a GEO proposal that doesn't promise rankings
 seoTitle: How to write a GEO proposal that doesn't promise rankings
 description: A proposal structure for GEO work: scope, method, how progress is measured, honest timelines and what you don't promise, with wording examples and sources.
 date: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-13
 author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
@@ -70,7 +70,7 @@ When you later use results in marketing, show real baselines, dates and the meth
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint shows two ways to package GEO work, fix passes scoped from an audit and ongoing content, and covers client onboarding and setting expectations. It's ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide you can adapt to your own proposals. It has no student reviews yet and makes no promise of income.
+The GEO Blueprint shows two ways to package GEO work, fix passes scoped from an audit and ongoing content, and covers client onboarding and setting expectations. It's ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide you can adapt to your own proposals. It has no student reviews yet and makes no promise of income.
 
 ## Questions, answered
 

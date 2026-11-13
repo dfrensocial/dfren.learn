@@ -3,7 +3,7 @@ title: How to know if AI is recommending your business (a free method)
 seoTitle: How to know if AI is recommending your business (free method)
 description: Write 10 to 20 customer questions, ask ChatGPT, Gemini, Perplexity and Claude several times, and log who gets named. A free spreadsheet method with limits.
 date: 2026-11-03
-updated: 2026-11-03
+updated: 2026-11-13
 author: Litmus Team
 authorRole: Research and writing, Litmus by AiVirex
 authorUrl: https://litmus.aivirex.in
@@ -81,7 +81,7 @@ Use the manual panel to see mentions, and a site audit to find the likely reason
 
 ## Where The GEO Blueprint fits
 
-The manual panel tells you where you stand. Fixing it needs a plan. The GEO Blueprint is a one-time ₹499 plus GST course, about 1.5 hours and 6 modules. It covers how AI picks its next word, the 6 pillars of GEO, why manual audits are inconsistent, and a live audit demo with Litmus.
+The manual panel tells you where you stand. Fixing it needs a plan. The GEO Blueprint is a one-time ₹599 including GST course, about 1.5 hours and 6 modules. It covers how AI picks its next word, the 6 pillars of GEO, why manual audits are inconsistent, and a live audit demo with Litmus.
 
 If you want the full guide to doing GEO on your own site or a client's, start small and see if it's useful, then go deeper later if you want. It's mostly in Tamil, with English terms mixed in. See the [pricing and curriculum](/#pricing). It has no student reviews yet. For a week-by-week plan, read [how to learn GEO in 30 days](/blog/learn-geo-30-days).
 

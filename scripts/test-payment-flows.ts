@@ -113,7 +113,7 @@ async function main() {
   const guestEmail = newEmail("guest");
   r = await createOrder(guestEmail);
   const orderA = r.json.order!;
-  check("guest order created with server-set notes and course price", r.status === 200 && orderA.amount === 58882 && orderA.notes?.email === guestEmail && orderA.notes?.courseId === COURSE, r);
+  check("guest order created with server-set notes and course price", r.status === 200 && orderA.amount === 59900 && orderA.notes?.email === guestEmail && orderA.notes?.courseId === COURSE, r);
 
   console.log("\n— verify: bad input —");
   r = await call("/api/razorpay/verify", { razorpay_order_id: orderA.id });

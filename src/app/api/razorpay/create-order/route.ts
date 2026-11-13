@@ -4,7 +4,7 @@ import { razorpay } from "@/lib/razorpay/server";
 import { getClientIp, rateLimit } from "@/lib/rate-limit";
 import { recordOrderCreated } from "@/lib/orders";
 import { parseAcceptance } from "@/lib/legal-acceptance-server";
-import { GST_RATE_PERCENT, GST_SAC, gstPaise, totalWithGstPaise } from "@/lib/gst";
+import { GST_RATE_PERCENT, GST_SAC, splitInclusivePaise } from "@/lib/gst";
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req);
@@ -42,7 +42,8 @@ export async function POST(req: NextRequest) {
 
   const courseSnap = await adminDb.collection("courses").doc(courseId).get();
   const course = courseSnap.data();
-  const priceInPaise = course?.priceInPaise;
+  // GST-inclusive price the buyer pays. (Not the legacy `priceInPaise`, which was pre-tax.)
+  const priceInPaise = course?.priceInclusiveInPaise;
   if (!courseSnap.exists || course?.published !== true || !priceInPaise) {
     return NextResponse.json({ error: "Course not found" }, { status: 404 });
   }
@@ -60,10 +61,12 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  // The stored price is before tax. The buyer pays price + GST (see src/lib/gst.ts).
-  const tax = { basePaise: priceInPaise, gstPaise: gstPaise(priceInPaise), ratePercent: GST_RATE_PERCENT };
+  // The stored price is what the buyer pays, GST included. The pre-tax value and the GST
+  // are worked out from it (see src/lib/gst.ts), so the charge is exactly the advertised price.
+  const split = splitInclusivePaise(priceInPaise);
+  const tax = { basePaise: split.basePaise, gstPaise: split.gstPaise, ratePercent: GST_RATE_PERCENT };
   const order = await razorpay.orders.create({
-    amount: totalWithGstPaise(priceInPaise),
+    amount: split.totalPaise,
     currency: "INR",
     notes: {
       courseId,

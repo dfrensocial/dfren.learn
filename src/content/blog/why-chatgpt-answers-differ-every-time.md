@@ -3,7 +3,7 @@ title: Why ChatGPT gives a different answer every time you ask
 seoTitle: Why ChatGPT gives a different answer every time (and what to do)
 description: AI assistants build answers word by word from probabilities, so the same question can return different results. What studies measured and how to check your brand.
 date: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-13
 author: AiVirex Team
 authorRole: Research and writing, AiVirex Innovations
 authorUrl: https://aivirex.in
@@ -41,7 +41,7 @@ Our [free spreadsheet method](/blog/know-if-ai-recommends-your-business) shows h
 
 ## Where The GEO Blueprint fits
 
-Module 1 of The GEO Blueprint explains this word-by-word idea in plain language with no equations, because every GEO tactic tries to nudge that process. It's ₹499 plus GST, about 1.5 hours, taught mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide to doing GEO on your site. It has no student reviews yet.
+Module 1 of The GEO Blueprint explains this word-by-word idea in plain language with no equations, because every GEO tactic tries to nudge that process. It's ₹599 including GST, about 1.5 hours, taught mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide to doing GEO on your site. It has no student reviews yet.
 
 ## Questions, answered
 

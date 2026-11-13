@@ -3,7 +3,7 @@ title: How to start a GEO agency or freelance practice without a tools budget
 seoTitle: Start a GEO agency without a tools budget: free stack (India)
 description: A zero-cost starting stack for a GEO practice: Google Analytics, Search Console, Bing, free audit tools and a spreadsheet, plus what not to promise.
 date: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-13
 author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
@@ -60,7 +60,7 @@ Business registration, GST and contracts depend on your situation, and we aren't
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint is built around starting this practice: the six pillars, a live audit with a fixed-rubric tool, two ways to charge for the work and client onboarding. It comes with a client questionnaire and a prompt pack. It's ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide. It has no student reviews yet and promises no clients or income.
+The GEO Blueprint is built around starting this practice: the six pillars, a live audit with a fixed-rubric tool, two ways to charge for the work and client onboarding. It comes with a client questionnaire and a prompt pack. It's ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide. It has no student reviews yet and promises no clients or income.
 
 ## Questions, answered
 

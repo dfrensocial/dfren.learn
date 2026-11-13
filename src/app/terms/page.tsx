@@ -142,8 +142,8 @@ export default function TermsPage() {
       <section>
         <h2>Prices</h2>
         <p>
-          The course is priced before tax, shown as &ldquo;&#8377;499 + GST&rdquo;. We are registered for GST
-          (GSTIN {LEGAL.gstin}), and GST is added to the price when you pay. The amount of tax is shown at checkout
+          The course price is &ldquo;&#8377;599 including GST&rdquo;, which is &#8377;507.63 plus &#8377;91.37 GST at 18%. We are registered for GST
+          (GSTIN {LEGAL.gstin}), and the price you see is the price you pay. The split of tax is shown at checkout
           and on your invoice. We may change prices or run offers at any time, and a change never affects a
           purchase you&apos;ve already made.
         </p>

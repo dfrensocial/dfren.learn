@@ -27,7 +27,7 @@ export const LEGAL = {
   updatedISO: "2026-11-13",
   publishedISO: "2026-11-02",
   // Public marketing pages (home, blog) were last revised on this date.
-  siteUpdatedISO: "2026-11-04",
+  siteUpdatedISO: "2026-11-13",
   // BUMP THESE whenever the Terms, the Refund policy (it is part of the Terms) or
   // the Privacy Policy change in a way people must agree to again. The version is
   // stored with every acceptance (login, checkout) as proof of what was agreed,
@@ -35,7 +35,7 @@ export const LEGAL = {
   // "we've updated our policies" dialog until they accept (src/lib/policy-gate.ts).
   // Run `npm run policy:check` after editing a policy page: it fails if the text
   // changed but these were not bumped.
-  termsVersion: "2026-11-04",
+  termsVersion: "2026-11-13",
   privacyVersion: "2026-11-13",
   // Bump when the banner's purposes/wording change, so old choices are re-asked.
   consentVersion: "2026-11-13",

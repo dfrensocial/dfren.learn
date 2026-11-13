@@ -3,7 +3,7 @@ title: How to run a GEO audit, step by step (for your own site or a client's)
 seoTitle: How to run a GEO audit step by step (2027 guide)
 description: A step-by-step GEO audit: record a baseline, check crawler access, review pages, test AI answers and write a prioritised fix list. Tools and limits included.
 date: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-13
 author: Litmus Team
 authorRole: Research and writing, Litmus by AiVirex
 authorUrl: https://litmus.aivirex.in
@@ -66,7 +66,7 @@ A chatbot has no fixed rubric, so the same site can get different scores on diff
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint walks through a live audit of a real site with Litmus, then shows how to turn the findings into a fix list and a client proposal. It's ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site or a client's. It has no student reviews yet and promises no results.
+The GEO Blueprint walks through a live audit of a real site with Litmus, then shows how to turn the findings into a fix list and a client proposal. It's ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site or a client's. It has no student reviews yet and promises no results.
 
 ## Questions, answered
 

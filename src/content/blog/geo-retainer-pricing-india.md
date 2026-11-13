@@ -3,7 +3,7 @@ title: GEO retainer pricing in India: what agencies publish, in rupees
 seoTitle: GEO retainer pricing in India: ₹35,000 to ₹3,50,000
 description: Published GEO retainers in India run from ₹35,000 to ₹3,50,000 a month. See what each tier includes, where sources disagree and how to check a quote.
 date: 2026-11-03
-updated: 2026-11-03
+updated: 2026-11-13
 author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
@@ -64,7 +64,7 @@ For context, an agency page says most small-business SEO retainers in India run 
 
 ## Where The GEO Blueprint fits
 
-Our suggestion: start small. The GEO Blueprint is ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. It covers 2 ways to charge for GEO work and how to run a client audit, so it's a strong first step if you want to understand a quote or write one. It has no student reviews yet, and it can't tell you what clients will pay.
+Our suggestion: start small. The GEO Blueprint is ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. It covers 2 ways to charge for GEO work and how to run a client audit, so it's a strong first step if you want to understand a quote or write one. It has no student reviews yet, and it can't tell you what clients will pay.
 
 ## Questions, answered
 

@@ -38,7 +38,7 @@ export default function OpengraphImage() {
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 30, color: "#d4d4d4" }}>
           <span>learn.dfren.in</span>
-          <span>₹499 + GST, one time</span>
+          <span>₹599 incl. GST, one time</span>
         </div>
       </div>
     ),

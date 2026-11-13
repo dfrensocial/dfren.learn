@@ -3,7 +3,7 @@ title: How do ChatGPT, Gemini and Claude choose which businesses to recommend?
 seoTitle: How ChatGPT, Gemini and Claude pick which businesses to recommend
 description: No AI company publishes its formula. Here is what OpenAI, Google and Anthropic do say, what studies link to being named, and why answers change each run.
 date: 2026-11-03
-updated: 2026-11-03
+updated: 2026-11-13
 author: AiVirex Team
 authorRole: Research and writing, AiVirex Innovations
 authorUrl: https://aivirex.in
@@ -67,7 +67,7 @@ Our [30-day GEO plan](/blog/learn-geo-30-days) turns this into weekly tasks.
 
 ## Where The GEO Blueprint fits
 
-Start small. The GEO Blueprint is ₹499 plus GST and about 1.5 hours, taught mostly in Tamil with English terms mixed in. It walks through how a model produces an answer, the 6 pillars of GEO and a live audit, so you can apply the checks above to your own site. It has no student reviews yet, and it doesn't promise that any assistant will name you.
+Start small. The GEO Blueprint is ₹599 including GST and about 1.5 hours, taught mostly in Tamil with English terms mixed in. It walks through how a model produces an answer, the 6 pillars of GEO and a live audit, so you can apply the checks above to your own site. It has no student reviews yet, and it doesn't promise that any assistant will name you.
 
 ## Questions, answered
 

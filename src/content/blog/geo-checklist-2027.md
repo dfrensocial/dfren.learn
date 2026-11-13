@@ -3,7 +3,7 @@ title: GEO checklist 2027: what to fix first on your website
 seoTitle: GEO checklist 2027: 12 things to fix first on your website
 description: A 12-point GEO checklist ordered by priority: crawler access, answer-first pages, proof, listings, freshness and tracking. Each item is tied to a source.
 date: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-13
 author: Litmus Team
 authorRole: Research and writing, Litmus by AiVirex
 authorUrl: https://litmus.aivirex.in
@@ -62,7 +62,7 @@ The hours are our estimates for a small site.
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint turns this checklist into the 6 pillars and shows how a real audit applies them. It also ships with a quick-win checklist. It's ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small, see if it's useful, then go deeper if you want. Get the course to learn the full guide to doing GEO on your own site. It has no student reviews yet.
+The GEO Blueprint turns this checklist into the 6 pillars and shows how a real audit applies them. It also ships with a quick-win checklist. It's ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small, see if it's useful, then go deeper if you want. Get the course to learn the full guide to doing GEO on your own site. It has no student reviews yet.
 
 ## Questions, answered
 

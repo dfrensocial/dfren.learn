@@ -4,6 +4,7 @@ import Link from "next/link";
 import { LegalPage } from "@/components/legal/legal-page";
 import { LEGAL } from "@/content/legal";
 import { geoBlueprintCourse } from "@/content/courses/geo-blueprint";
+import { rupeesFromPaise } from "@/lib/gst";
 
 export const metadata: Metadata = {
   title: "About dfrenLearn and The GEO Blueprint | dfrenLearn",
@@ -26,7 +27,7 @@ export default function AboutPage() {
     about: { "@id": `${SITE}/#organization` },
     isPartOf: { "@id": `${SITE}/#website` },
   };
-  const price = (geoBlueprintCourse.pricing.priceInPaise / 100).toLocaleString("en-IN");
+  const price = rupeesFromPaise(geoBlueprintCourse.pricing.priceInPaise);
 
   return (
     <LegalPage title="About dfrenLearn">
@@ -59,7 +60,7 @@ export default function AboutPage() {
           <li>About 1.5 hours of video in 6 modules.</li>
           <li>Covers how AI picks answers, the 6 pillars of GEO, a live audit, and two ways to charge for GEO work.</li>
           <li>Comes with a client research questionnaire, a Claude Code prompt pack and a quick-win checklist.</li>
-          <li>₹{price} + GST, one time. Taught mostly in Tamil, with English terms mixed in.</li>
+          <li>₹{price} including GST, one time. Taught mostly in Tamil, with English terms mixed in.</li>
           <li>Access for as long as the course is offered on dfrenLearn, with updates included.</li>
         </ul>
         <p className="mt-2">

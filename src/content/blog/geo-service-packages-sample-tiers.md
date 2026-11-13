@@ -3,7 +3,7 @@ title: GEO service packages: audit, content and retainer, with sample tiers
 seoTitle: GEO service packages: audit, content and retainer sample tiers
 description: A sample way to package GEO as an audit, a fix pass and a monthly retainer, with what each includes, how to price it from your hours and published benchmarks.
 date: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-13
 author: dfrenLearn Team
 authorRole: Research and writing, Dfren
 authorUrl: https://dfren.in
@@ -57,7 +57,7 @@ These are asking prices from sellers aimed at larger clients. A small local busi
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint lays out the audit-then-fix and the ongoing-content packages as a step-by-step client workflow, with a client questionnaire and a prompt pack for content. It's ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for packaging GEO. It has no student reviews yet and makes no promise of income or clients.
+The GEO Blueprint lays out the audit-then-fix and the ongoing-content packages as a step-by-step client workflow, with a client questionnaire and a prompt pack for content. It's ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for packaging GEO. It has no student reviews yet and makes no promise of income or clients.
 
 ## Questions, answered
 

@@ -3,7 +3,7 @@ title: GEO for small business: where to start on a zero budget (India)
 seoTitle: GEO for small business on a zero budget: 7 free steps (India)
 description: Seven free steps a small Indian business can take to get found by AI assistants, using Google Business Profile, Search Console and plain page fixes.
 date: 2026-11-03
-updated: 2026-11-03
+updated: 2026-11-13
 author: Litmus Team
 authorRole: Research and writing, Litmus by AiVirex
 authorUrl: https://litmus.aivirex.in
@@ -68,7 +68,7 @@ Update your three pages with new facts every three months and repeat Step 1. Com
 
 ## Where The GEO Blueprint fits
 
-Start free, then start small. The GEO Blueprint is ₹499 plus GST, about 1.5 hours, taught mostly in Tamil with English terms mixed in. It puts the steps above into the 6 pillars of GEO and shows a live audit of a real site, so you know what to fix and in which order. Get the course to learn the full method for your own site. It has no student reviews yet and promises no results.
+Start free, then start small. The GEO Blueprint is ₹599 including GST, about 1.5 hours, taught mostly in Tamil with English terms mixed in. It puts the steps above into the 6 pillars of GEO and shows a live audit of a real site, so you know what to fix and in which order. Get the course to learn the full method for your own site. It has no student reviews yet and promises no results.
 
 ## Questions, answered
 

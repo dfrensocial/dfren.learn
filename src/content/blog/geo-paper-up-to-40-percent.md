@@ -3,7 +3,7 @@ title: The GEO research paper: what "up to 40%" really means
 seoTitle: GEO research paper: what "up to 40%" really means
 description: The 2023 paper behind GEO tested 9 methods on 10,000 queries. Here is what it found, what it didn't test and which 3 changes did best.
 date: 2026-11-03
-updated: 2026-11-03
+updated: 2026-11-13
 author: AiVirex Team
 authorRole: Research and writing, AiVirex Innovations
 authorUrl: https://aivirex.in
@@ -76,7 +76,7 @@ This is an illustrative example, not a real client. A Chennai dental clinic's pa
 
 ## Where The GEO Blueprint fits
 
-Our suggestion: start small. The GEO Blueprint is ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. It teaches the 6 pillars of GEO and how to audit a page, which is the practical side of what the paper tested. In our view it's a strong first step. It has no student reviews yet, and it doesn't promise the gains in the paper.
+Our suggestion: start small. The GEO Blueprint is ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. It teaches the 6 pillars of GEO and how to audit a page, which is the practical side of what the paper tested. In our view it's a strong first step. It has no student reviews yet, and it doesn't promise the gains in the paper.
 
 ## Questions, answered
 

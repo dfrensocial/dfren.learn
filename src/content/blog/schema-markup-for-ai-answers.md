@@ -3,7 +3,7 @@ title: Schema markup for AI answers: what a small business site should add
 seoTitle: Schema markup for AI answers: what a small-business site needs
 description: Google says no special schema is needed for AI features. Here is what structured data is, which types suit a small business and how to test it.
 date: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-13
 author: Litmus Team
 authorRole: Research and writing, Litmus by AiVirex
 authorUrl: https://litmus.aivirex.in
@@ -53,7 +53,7 @@ For LocalBusiness, Google says the required properties are the business name and
 
 ## Where The GEO Blueprint fits
 
-Structured data is one item under the technical pillar of The GEO Blueprint, along with crawl access and speed. The course shows where it sits next to answer-first content and citation authority, and how to audit it. It's ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has no student reviews yet.
+Structured data is one item under the technical pillar of The GEO Blueprint, along with crawl access and speed. The course shows where it sits next to answer-first content and citation authority, and how to audit it. It's ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has no student reviews yet.
 
 ## Questions, answered
 

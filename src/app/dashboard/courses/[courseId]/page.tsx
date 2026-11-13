@@ -164,7 +164,7 @@ function CourseView({ params }: { params: Promise<{ courseId: string }> }) {
       ) : (
         !enrolled && (
           <div className="mt-6 max-w-xs">
-            <CheckoutButton courseId={courseId} courseTitle={course.title} priceInPaise={course.priceInPaise} />
+            <CheckoutButton courseId={courseId} courseTitle={course.title} priceInPaise={course.priceInclusiveInPaise} />
           </div>
         )
       )}

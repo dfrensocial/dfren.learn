@@ -40,7 +40,7 @@ const FAQS: { q: string; a: ReactNode; text?: string }[] = [
   },
   {
     q: "How much does it cost?",
-    a: `The GEO Blueprint costs ₹499 plus GST. GST is added at checkout and shown on your invoice. It is a one-time payment with no subscription.`,
+    a: `The GEO Blueprint costs ₹599, GST included: ₹507.63 plus ₹91.37 GST at 18%. You pay exactly ₹599 at checkout and the split is shown on your invoice. It is a one-time payment with no subscription.`,
   },
   {
     q: "What language is the course in?",

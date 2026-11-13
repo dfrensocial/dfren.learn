@@ -3,7 +3,7 @@ title: How to test your prompts across ChatGPT, Gemini, Perplexity and Claude
 seoTitle: How to test prompts across ChatGPT, Gemini, Perplexity, Claude
 description: Which assistants you can use free, how to write prompts that match real customers, what to keep the same each run and how short prompts differ from long ones.
 date: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-13
 author: Litmus Team
 authorRole: Research and writing, Litmus by AiVirex
 authorUrl: https://litmus.aivirex.in
@@ -62,7 +62,7 @@ If your customers ask in Tamil, test in Tamil too. We found studies showing the 
 
 ## Where The GEO Blueprint fits
 
-The GEO Blueprint shows how to set up this kind of baseline before any GEO work starts, and how to compare it later. It's ₹499 plus GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has no student reviews yet.
+The GEO Blueprint shows how to set up this kind of baseline before any GEO work starts, and how to compare it later. It's ₹599 including GST, about 1.5 hours, mostly in Tamil with English terms mixed in. Start small and see if it's useful. Get the course to learn the full guide for your own site. It has no student reviews yet.
 
 ## Questions, answered
 
