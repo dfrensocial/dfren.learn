@@ -115,6 +115,7 @@ export default function LandingPage() {
       <Hero hero={course.hero} stats={course.stats} courseId={course.id} />
       <Promo />
       <Problem />
+      <Testimonials />
       <Curriculum
         curriculum={course.curriculum}
         courseTitle={course.title}
@@ -123,7 +124,6 @@ export default function LandingPage() {
       />
       <Audience />
       <Instructor instructor={course.instructor} />
-      <Testimonials testimonials={course.testimonials} />
       <AtAGlance pricing={course.pricing} />
       <Bonus bonus={course.bonus} />
       <FAQ />
