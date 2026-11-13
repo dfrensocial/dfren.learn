@@ -113,9 +113,9 @@ export default function LandingPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd()) }} />
       <MarketingNav />
       <Hero hero={course.hero} stats={course.stats} courseId={course.id} />
+      <Testimonials />
       <Promo />
       <Problem />
-      <Testimonials />
       <Curriculum
         curriculum={course.curriculum}
         courseTitle={course.title}
