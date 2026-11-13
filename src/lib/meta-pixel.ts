@@ -8,6 +8,11 @@ import { adsConsented } from "@/lib/consent";
 // visitor switches it on. No advanced matching -- no email, name, phone or
 // account id is ever passed to fbq. The <noscript> image from Meta's snippet is
 // left out on purpose: it would fire without any consent check.
+//
+// Events (all from the same call sites as the GA4 ones, see track() in analytics.ts):
+//   view_item      -> ViewContent      (pricing card seen)
+//   begin_checkout -> InitiateCheckout (payment window opened)
+//   purchase       -> Purchase         (payment verified; eventID = Razorpay order id)
 // ---------------------------------------------------------------------------
 
 const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || "979958740686067";
@@ -70,6 +75,37 @@ function start(): boolean {
 export function metaPageView() {
   try {
     if (start()) (window as MetaWindow).fbq?.("track", "PageView");
+  } catch {
+    // ad measurement must never break the page
+  }
+}
+
+type Item = { item_id?: unknown; item_name?: unknown };
+
+/**
+ * Sends the Meta equivalent of a GA4 event, if there is one. Only ids, the
+ * product name, the value and the currency are sent -- never an email, name or
+ * phone number. Safe to call for any event name: unmapped ones are ignored.
+ */
+export function metaEvent(name: string, params: Record<string, unknown> = {}) {
+  try {
+    const metaName =
+      name === "view_item" ? "ViewContent" : name === "begin_checkout" ? "InitiateCheckout" : name === "purchase" ? "Purchase" : null;
+    if (!metaName || !start()) return;
+    const items = Array.isArray(params.items) ? (params.items as Item[]) : [];
+    const data: Record<string, unknown> = {
+      content_type: "product",
+      content_ids: items.map((i) => String(i.item_id ?? "")).filter(Boolean),
+      content_name: items[0]?.item_name ? String(items[0].item_name) : undefined,
+      value: typeof params.value === "number" ? params.value : undefined,
+      currency: typeof params.currency === "string" ? params.currency : "INR",
+    };
+    if (metaName === "InitiateCheckout") data.num_items = 1;
+    // Purchase carries the order id as the event id, so a repeat never double-counts.
+    const options = metaName === "Purchase" && typeof params.transaction_id === "string" ? { eventID: params.transaction_id } : undefined;
+    const fbq = (window as MetaWindow).fbq;
+    if (options) fbq?.("track", metaName, data, options);
+    else fbq?.("track", metaName, data);
   } catch {
     // ad measurement must never break the page
   }

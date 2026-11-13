@@ -19,7 +19,7 @@ export function TrackOnView({
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const firedRef = useRef(false);
-  const { analytics } = useConsent();
+  const { analytics, ads } = useConsent();
   // Params only matter at fire time; keep the latest without re-subscribing.
   const paramsRef = useRef(params);
   useEffect(() => {
@@ -28,7 +28,7 @@ export function TrackOnView({
 
   useEffect(() => {
     // Waits for a yes: if they accept later while this is on screen, it fires then.
-    if (!analytics) return;
+    if (!analytics && !ads) return;
     const el = ref.current;
     if (!el || typeof IntersectionObserver === "undefined") return;
     const observer = new IntersectionObserver(
@@ -42,7 +42,7 @@ export function TrackOnView({
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [event, analytics]);
+  }, [event, analytics, ads]);
 
   return <div ref={ref}>{children}</div>;
 }

@@ -1,9 +1,9 @@
 "use client";
 
 import { getFirebaseAnalytics, peekFirebaseAnalytics } from "@/lib/firebase/client";
-import { CONSENT_EVENT, CONSENT_KEY, analyticsConsented, currentChoices, replayConsented } from "@/lib/consent";
+import { CONSENT_EVENT, CONSENT_KEY, adsConsented, analyticsConsented, currentChoices, replayConsented } from "@/lib/consent";
 import { clearAttribution } from "@/lib/attribution";
-import { metaRevoke } from "@/lib/meta-pixel";
+import { metaEvent, metaRevoke } from "@/lib/meta-pixel";
 
 // ---------------------------------------------------------------------------
 // Consent. Nothing in this file runs for a visitor who hasn't said yes:
@@ -207,6 +207,7 @@ export async function track(name: string, params: Record<string, unknown> = {}):
         }
       });
     }
+    if (adsConsented()) metaEvent(name, params); // Meta Pixel: its own consent, independent of analytics
     if (!analyticsAllowed()) return;
     const analytics = await getFirebaseAnalytics();
     if (!analytics) return;
