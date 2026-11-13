@@ -32,9 +32,9 @@ export function Audience() {
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {AUDIENCE.map((a) => (
             <div key={a.label} className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">{a.label}</p>
-              <h3 className="mt-2 font-semibold leading-snug">{a.title}</h3>
-              <p className="mt-2 text-sm text-neutral-600">{a.body}</p>
+              <h3 className="text-xl font-bold leading-snug tracking-tight">{a.label}</h3>
+              <p className="mt-1.5 text-sm font-medium text-neutral-500">{a.title}</p>
+              <p className="mt-3 text-sm text-neutral-600">{a.body}</p>
             </div>
           ))}
         </div>
