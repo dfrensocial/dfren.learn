@@ -48,7 +48,7 @@ export function Hero({
           <AnswerMock />
         </div>
 
-        <dl className="mt-16 grid grid-cols-2 gap-y-8 border-t border-white/15 pt-10 sm:grid-cols-4">
+        <dl className="mt-16 grid grid-cols-2 gap-x-4 gap-y-8 border-t border-white/15 pt-10 text-center sm:grid-cols-4">
           {stats.map((stat) => (
             <div key={stat.label}>
               <dt className="sr-only">{stat.label}</dt>
