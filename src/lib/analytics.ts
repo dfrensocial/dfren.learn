@@ -1,13 +1,15 @@
 "use client";
 
 import { getFirebaseAnalytics, peekFirebaseAnalytics } from "@/lib/firebase/client";
-import { CONSENT_EVENT, CONSENT_KEY, analyticsConsented, currentChoices, replayConsented } from "@/lib/consent";
+import { CONSENT_EVENT, CONSENT_KEY, adsConsented, analyticsConsented, currentChoices, replayConsented } from "@/lib/consent";
 import { clearAttribution } from "@/lib/attribution";
+import { metaEvent, metaRevoke } from "@/lib/meta-pixel";
 
 // ---------------------------------------------------------------------------
 // Consent. Nothing in this file runs for a visitor who hasn't said yes:
 //   analytics -> GA4 events, GA ids on orders
 //   replay    -> Microsoft Clarity
+//   ads       -> Meta Pixel (src/lib/meta-pixel.ts)
 // The choices live in consent.ts (banner + "Privacy settings" write them).
 // When someone withdraws, collection stops straight away and the cookies and
 // stored attribution we can reach on their device are removed.
@@ -116,7 +118,7 @@ export async function clarityTag(key: string, value: string) {
 // ---------------------------------------------------------------------------
 // React to the visitor changing their mind.
 // ---------------------------------------------------------------------------
-let applied = { analytics: false, replay: false };
+let applied = { analytics: false, replay: false, ads: false };
 
 async function setGoogleEnabled(enabled: boolean) {
   const pending = peekFirebaseAnalytics();
@@ -168,6 +170,7 @@ function onConsentChange() {
   if (!now.analytics) purgeAnalyticsLeftovers();
   if (applied.replay !== now.replay) void applyClarityConsent();
   if (!now.replay) purgeReplayLeftovers();
+  if (!now.ads) metaRevoke();
   applied = now;
 }
 
@@ -180,6 +183,7 @@ if (typeof window !== "undefined") {
   });
   if (!applied.analytics) purgeAnalyticsLeftovers();
   if (!applied.replay) purgeReplayLeftovers();
+  if (!applied.ads) metaRevoke();
 }
 
 /**
@@ -203,6 +207,7 @@ export async function track(name: string, params: Record<string, unknown> = {}):
         }
       });
     }
+    if (adsConsented()) metaEvent(name, params); // Meta Pixel: its own consent, independent of analytics
     if (!analyticsAllowed()) return;
     const analytics = await getFirebaseAnalytics();
     if (!analytics) return;

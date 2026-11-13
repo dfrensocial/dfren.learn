@@ -1,6 +1,9 @@
 import { initializeApp, getApps, cert, App } from "firebase-admin/app";
 import { getAuth, Auth } from "firebase-admin/auth";
 import { getFirestore, Firestore } from "firebase-admin/firestore";
+import { getStorage } from "firebase-admin/storage";
+
+type Bucket = ReturnType<ReturnType<typeof getStorage>["bucket"]>;
 
 export function isFirebaseAdminConfigured(): boolean {
   return Boolean(
@@ -17,6 +20,7 @@ function getAdminApp(): App {
   }
 
   return initializeApp({
+    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
     credential: cert({
       projectId: process.env.FIREBASE_PROJECT_ID,
       clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
@@ -42,3 +46,5 @@ function lazy<T extends object>(factory: () => T): T {
 
 export const adminAuth: Auth = lazy(() => getAuth(getAdminApp()));
 export const adminDb: Firestore = lazy(() => getFirestore(getAdminApp()));
+/** Private course files (Firebase Storage). Handed out only as short-lived signed URLs. */
+export const adminBucket: Bucket = lazy(() => getStorage(getAdminApp()).bucket());

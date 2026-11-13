@@ -4,6 +4,7 @@ import { razorpay } from "@/lib/razorpay/server";
 import { getClientIp, rateLimit } from "@/lib/rate-limit";
 import { recordOrderCreated } from "@/lib/orders";
 import { parseAcceptance } from "@/lib/legal-acceptance-server";
+import { GST_RATE_PERCENT, GST_SAC, splitInclusivePaise } from "@/lib/gst";
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req);
@@ -41,7 +42,8 @@ export async function POST(req: NextRequest) {
 
   const courseSnap = await adminDb.collection("courses").doc(courseId).get();
   const course = courseSnap.data();
-  const priceInPaise = course?.priceInPaise;
+  // GST-inclusive price the buyer pays. (Not the legacy `priceInPaise`, which was pre-tax.)
+  const priceInPaise = course?.priceInclusiveInPaise;
   if (!courseSnap.exists || course?.published !== true || !priceInPaise) {
     return NextResponse.json({ error: "Course not found" }, { status: 404 });
   }
@@ -59,10 +61,22 @@ export async function POST(req: NextRequest) {
     }
   }
 
+  // The stored price is what the buyer pays, GST included. The pre-tax value and the GST
+  // are worked out from it (see src/lib/gst.ts), so the charge is exactly the advertised price.
+  const split = splitInclusivePaise(priceInPaise);
+  const tax = { basePaise: split.basePaise, gstPaise: split.gstPaise, ratePercent: GST_RATE_PERCENT };
   const order = await razorpay.orders.create({
-    amount: priceInPaise,
+    amount: split.totalPaise,
     currency: "INR",
-    notes: { courseId, email },
+    notes: {
+      courseId,
+      email,
+      // Shows the split in the Razorpay dashboard and exports.
+      base_rupees: (tax.basePaise / 100).toFixed(2),
+      gst_rupees: (tax.gstPaise / 100).toFixed(2),
+      gst_rate_percent: String(tax.ratePercent),
+      sac: GST_SAC,
+    },
   });
 
   // Business ledger: who started checkout, from which channel. Best-effort --
@@ -73,6 +87,7 @@ export async function POST(req: NextRequest) {
     email,
     uid: decoded?.uid,
     amount: Number(order.amount),
+    tax,
     currency: order.currency,
     analytics: analytics === true,
     legal: accepted,

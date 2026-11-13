@@ -112,6 +112,8 @@ export async function recordOrderCreated(o: {
   email: string;
   uid?: string;
   amount: number;
+  /** Pre-tax value, GST and the rate used (derived from the GST-inclusive price), so a tax invoice can be made later. `amount` is the total paid. */
+  tax?: { basePaise: number; gstPaise: number; ratePercent: number };
   currency: string;
   /** The visitor allowed analytics: only then are source / device / location kept with the order. */
   analytics: boolean;
@@ -134,6 +136,7 @@ export async function recordOrderCreated(o: {
         email: o.email.trim().toLowerCase(),
         uid: o.uid,
         amount: o.amount,
+        tax: o.tax,
         currency: o.currency,
         status: "created",
         createdAt: new Date(),

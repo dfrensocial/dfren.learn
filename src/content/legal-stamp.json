@@ -1,10 +1,10 @@
 {
   "terms": {
-    "version": "2026-11-02b",
-    "hash": "7041b43d9f882f3e"
+    "version": "2026-11-13",
+    "hash": "4f8517bbfc70244f"
   },
   "privacy": {
-    "version": "2026-11-02",
-    "hash": "df87b567300f030d"
+    "version": "2026-11-13b",
+    "hash": "a5261c6d818c0131"
   }
 }

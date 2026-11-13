@@ -3,7 +3,8 @@ export interface Course {
   title: string;
   slug: string;
   description: string;
-  priceInPaise: number;
+  /** What the buyer pays, GST included (59900 = ₹599). */
+  priceInclusiveInPaise: number;
   thumbnailUrl: string;
   published: boolean;
   createdAt: string;

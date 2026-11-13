@@ -7,6 +7,7 @@ import { db } from "@/lib/firebase/client";
 import { useAuth } from "@/lib/firebase/auth-context";
 import { LEGAL } from "@/content/legal";
 import { ResourceList } from "@/components/course/resource-list";
+import { Skeleton } from "@/components/ui/page-loader";
 import type { Course, CourseProgress } from "@/types/course";
 
 type PurchasedCourse = {
@@ -106,7 +107,7 @@ export default function DashboardPage() {
   }
 
   if (items === null) {
-    return <div className="h-40 animate-pulse bg-neutral-100" />;
+    return <Skeleton label="Loading your courses…" className="h-48" />;
   }
 
   return (

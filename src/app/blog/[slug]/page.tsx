@@ -1,0 +1,117 @@
+import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { BlogShell } from "@/components/blog/blog-shell";
+import { ArticleCta } from "@/components/blog/article-cta";
+import { formatDate, getAllPosts, getPost } from "@/lib/blog";
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return getAllPosts().map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getPost(slug);
+  if (!post) return {};
+  const url = `${SITE_URL}/blog/${post.slug}`;
+  return {
+    title: post.seoTitle,
+    description: post.description,
+    alternates: { canonical: url },
+    authors: [{ name: post.author }],
+    openGraph: {
+      title: post.seoTitle,
+      description: post.description,
+      type: "article",
+      url,
+      siteName: "dfrenLearn",
+      publishedTime: post.date,
+      modifiedTime: post.updated,
+      images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "The GEO Blueprint: a 1.5-hour GEO course by dfrenLearn" }],
+    },
+    twitter: { card: "summary_large_image", title: post.seoTitle, description: post.description, images: ["/opengraph-image"] },
+  };
+}
+
+export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = getPost(slug);
+  if (!post) notFound();
+
+  const all = getAllPosts();
+  const related = post.related.map((s) => all.find((p) => p.slug === s)).filter((p): p is NonNullable<typeof p> => !!p);
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    dateModified: post.updated,
+    author: { "@type": "Organization", name: post.author, ...(post.authorUrl ? { url: post.authorUrl } : {}) },
+    publisher: { "@type": "Organization", name: "dfrenLearn", url: SITE_URL },
+    mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
+    image: `${SITE_URL}/opengraph-image`,
+    inLanguage: "en-IN",
+  };
+  const breadcrumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "dfrenLearn", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/blog` },
+      { "@type": "ListItem", position: 3, name: post.title, item: `${SITE_URL}/blog/${post.slug}` },
+    ],
+  };
+
+  return (
+    <BlogShell>
+      <main className="mx-auto max-w-3xl px-6 py-12">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
+        <p className="text-sm">
+          <Link href="/blog" className="text-neutral-500 hover:text-black hover:underline">
+            ← All guides
+          </Link>
+        </p>
+        <article className="mt-6">
+          {post.tag && <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">{post.tag}</p>}
+          <h1 className="mt-2 text-3xl font-bold leading-tight tracking-tight sm:text-4xl">{post.title}</h1>
+          <p className="mt-4 text-sm text-neutral-600">
+            By{" "}
+            {post.authorUrl ? (
+              <a href={post.authorUrl} target="_blank" rel="noopener noreferrer" className="font-medium text-black underline underline-offset-2">
+                {post.author}
+              </a>
+            ) : (
+              <span className="font-medium text-black">{post.author}</span>
+            )}
+            , {post.authorRole} · Published {formatDate(post.date)} · Updated {formatDate(post.updated)} ·{" "}
+            {Math.max(1, Math.round(post.words / 220))} min read
+          </p>
+          <div className="blog-prose mt-8" dangerouslySetInnerHTML={{ __html: post.html }} />
+          <ArticleCta />
+          {post.sourcesHtml && <div className="blog-prose" dangerouslySetInnerHTML={{ __html: post.sourcesHtml }} />}
+        </article>
+
+        {related.length > 0 && (
+          <section className="mt-14 border-t border-black pt-8">
+            <h2 className="text-lg font-bold tracking-tight">Keep reading</h2>
+            <ul className="mt-4 grid gap-4 sm:grid-cols-3">
+              {related.map((p) => (
+                <li key={p.slug}>
+                  <Link href={`/blog/${p.slug}`} className="block h-full border border-black p-4 text-sm hover:bg-neutral-50">
+                    <span className="font-semibold">{p.title}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+      </main>
+    </BlogShell>
+  );
+}

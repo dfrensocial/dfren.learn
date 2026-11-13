@@ -9,6 +9,7 @@ import { useAuth } from "@/lib/firebase/auth-context";
 import { SecureVideoPlayer } from "@/components/course/secure-video-player";
 import { CheckoutButton } from "@/components/course/checkout-button";
 import { ResourceList } from "@/components/course/resource-list";
+import { PageLoader, Skeleton } from "@/components/ui/page-loader";
 import type { Course, Lesson } from "@/types/course";
 
 function LockIcon() {
@@ -37,7 +38,7 @@ export default function CoursePage({
 }
 
 function CourseView({ params }: { params: Promise<{ courseId: string }> }) {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const searchParams = useSearchParams();
   const justPurchased = searchParams.get("purchased") === "1";
 
@@ -45,6 +46,10 @@ function CourseView({ params }: { params: Promise<{ courseId: string }> }) {
   const [course, setCourse] = useState<Course | null>(null);
   const [lessons, setLessons] = useState<Lesson[]>([]);
   const [enrolled, setEnrolled] = useState(false);
+  // Which course the enrollment check has answered for, and whether the lessons arrived:
+  // until then the page shows placeholders, not an "Enroll now" button or "coming soon".
+  const [checkedFor, setCheckedFor] = useState<string | null>(null);
+  const [lessonsLoaded, setLessonsLoaded] = useState(false);
   const [activeLessonId, setActiveLessonId] = useState<string | null>(null);
   const [loadError, setLoadError] = useState(false);
   const [retryKey, setRetryKey] = useState(0);
@@ -71,6 +76,8 @@ function CourseView({ params }: { params: Promise<{ courseId: string }> }) {
       setLessons([]);
       setActiveLessonId(null);
       setEnrolled(false);
+      setCheckedFor(null);
+      setLessonsLoaded(false);
       setLoadError(false);
 
       getDoc(doc(db, "courses", courseId))
@@ -86,6 +93,7 @@ function CourseView({ params }: { params: Promise<{ courseId: string }> }) {
           if (cancelled) return;
           const list = snap.docs.map((d) => ({ id: d.id, ...d.data() }) as Lesson);
           setLessons(list);
+          setLessonsLoaded(true);
           if (list[0]) setActiveLessonId(list[0].id);
         })
         .catch(() => !cancelled && setLoadError(true));
@@ -100,7 +108,11 @@ function CourseView({ params }: { params: Promise<{ courseId: string }> }) {
     if (!user || !courseId) return;
     let cancelled = false;
     getDoc(doc(db, "users", user.uid, "enrollments", courseId))
-      .then((snap) => !cancelled && setEnrolled(snap.exists()))
+      .then((snap) => {
+        if (cancelled) return;
+        setEnrolled(snap.exists());
+        setCheckedFor(courseId);
+      })
       .catch(() => !cancelled && setLoadError(true));
     return () => {
       cancelled = true;
@@ -109,7 +121,8 @@ function CourseView({ params }: { params: Promise<{ courseId: string }> }) {
     // we were already mounted on this exact route (enrolled-first-then-buy),
     // that's a query-only change, not a remount, so re-run this check on it
     // or the just-granted enrollment never gets picked up.
-  }, [user, courseId, justPurchased]);
+    // retryKey: the reset above clears `enrolled`, so "Try again" must re-check it too.
+  }, [user, courseId, justPurchased, retryKey]);
 
   if (loadError) {
     return (
@@ -126,10 +139,11 @@ function CourseView({ params }: { params: Promise<{ courseId: string }> }) {
   }
 
   if (!course || !courseId) {
-    return <div className="h-64 animate-pulse bg-neutral-100" />;
+    return <PageLoader label="Opening your course…" hint="Getting your lessons ready." />;
   }
 
   const activeLesson = lessons.find((l) => l.id === activeLessonId);
+  const accessKnown = checkedFor === courseId || (!authLoading && !user);
 
   return (
     <div>
@@ -145,10 +159,14 @@ function CourseView({ params }: { params: Promise<{ courseId: string }> }) {
       <h1 className="mt-3 text-2xl font-bold tracking-tight">{course.title}</h1>
       <p className="mt-1 max-w-3xl text-neutral-600">{course.description}</p>
 
-      {!enrolled && (
-        <div className="mt-6 max-w-xs">
-          <CheckoutButton courseId={courseId} courseTitle={course.title} />
-        </div>
+      {!accessKnown ? (
+        <Skeleton label="Checking your access…" className="mt-6 h-12 max-w-xs" />
+      ) : (
+        !enrolled && (
+          <div className="mt-6 max-w-xs">
+            <CheckoutButton courseId={courseId} courseTitle={course.title} priceInPaise={course.priceInclusiveInPaise} />
+          </div>
+        )
       )}
 
       {enrolled && activeLessonId && (
@@ -174,11 +192,13 @@ function CourseView({ params }: { params: Promise<{ courseId: string }> }) {
         </div>
       )}
 
-      {lessons.length === 0 && (
+      {!lessonsLoaded && <Skeleton label="Loading lessons…" className="mt-6 h-40 max-w-4xl" />}
+      {lessonsLoaded && lessons.length === 0 && (
         <p className="mt-6 text-sm text-neutral-500">Lessons coming soon.</p>
       )}
 
-      {lessons.length > 0 && (
+      {/* One lesson = nothing to pick between, and the player already names it. */}
+      {lessons.length > 1 && (
         <ol className="mt-6 max-w-4xl divide-y divide-black border border-black">
           {lessons.map((lesson, i) => {
             const isActive = enrolled && lesson.id === activeLessonId;

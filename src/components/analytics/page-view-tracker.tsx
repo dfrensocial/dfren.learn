@@ -5,11 +5,13 @@ import { usePathname } from "next/navigation";
 import { track, initClarity, clarityTag } from "@/lib/analytics";
 import { captureAttribution, getAttribution } from "@/lib/attribution";
 import { useConsent } from "@/lib/consent";
+import { metaPageView } from "@/lib/meta-pixel";
 
 // Module-level so they survive React re-running effects (StrictMode does this
 // in dev) without sending the same thing twice.
 let lastTrackedPath: string | null = null;
 let attributionCaptured = false;
+let lastMetaPath: string | null = null;
 
 /**
  * Everything here waits for the visitor's choice (see consent.ts):
@@ -18,11 +20,12 @@ let attributionCaptured = false;
  *   query strings can carry redirect targets and one-time codes.
  * - recordings yes: starts Clarity and tags the session with its traffic
  *   source when we know it. Clarity is never given an account id or email.
+ * - ads yes: Meta Pixel PageView on first load and every navigation.
  * - no / undecided: does nothing at all.
  */
 export function PageViewTracker() {
   const pathname = usePathname();
-  const { analytics, replay } = useConsent();
+  const { analytics, replay, ads } = useConsent();
 
   useEffect(() => {
     if (!analytics) {
@@ -58,6 +61,16 @@ export function PageViewTracker() {
       page_title: document.title,
     });
   }, [pathname, analytics]);
+
+  useEffect(() => {
+    if (!ads) {
+      lastMetaPath = null;
+      return;
+    }
+    if (pathname === lastMetaPath) return;
+    lastMetaPath = pathname;
+    metaPageView();
+  }, [pathname, ads]);
 
   return null;
 }

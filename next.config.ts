@@ -28,6 +28,8 @@ const scriptSrc = [
   // Microsoft Clarity (session replays / heatmaps).
   "https://www.clarity.ms",
   "https://scripts.clarity.ms",
+  // Meta Pixel (only after the visitor allows advertising measurement).
+  "https://connect.facebook.net",
   ...(process.env.NODE_ENV !== "production" ? ["'unsafe-eval'"] : []),
 ].join(" ");
 
@@ -43,7 +45,7 @@ const CSP = [
   "img-src 'self' data: blob: https:",
   "media-src 'self' blob: https:",
   "font-src 'self' data:",
-  "connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.mux.com https://inferred.litix.io https://*.razorpay.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.clarity.ms https://c.bing.com",
+  "connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.mux.com https://inferred.litix.io https://*.razorpay.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.clarity.ms https://c.bing.com https://www.facebook.com https://connect.facebook.net",
   "frame-src https://api.razorpay.com https://checkout.razorpay.com https://razorpay.com https://rzp.io",
   "form-action 'self' https://razorpay.com https://rzp.io https://*.razorpay.com",
   "frame-ancestors 'none'",
@@ -62,10 +64,15 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  productionBrowserSourceMaps: true,
   async redirects() {
     // Self-serve password sign-up was removed: accounts are created by
     // checkout and entered via emailed link (see grant-access.ts).
-    return [{ source: "/signup", destination: "/login", permanent: false }];
+    return [
+      { source: "/signup", destination: "/login", permanent: false },
+      // Retitled when the price became ₹599 including GST.
+      { source: "/blog/learn-geo-for-500-rupees", destination: "/blog/learn-geo-for-600-rupees", permanent: true },
+    ];
   },
   async headers() {
     return [

@@ -1,24 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { signOut } from "firebase/auth";
-import { auth } from "@/lib/firebase/client";
-import { clearSessionCookie, useAuth } from "@/lib/firebase/auth-context";
+import { useAuth } from "@/lib/firebase/auth-context";
+import { useLogout } from "@/lib/use-logout";
 import { track } from "@/lib/analytics";
 
 /** Signed-in state for the public pages' headers. Renders nothing until auth resolves. */
 export function useAccountActions() {
-  const router = useRouter();
   const { user, loading } = useAuth();
-
-  async function logout() {
-    await clearSessionCookie();
-    await signOut(auth);
-    router.push("/");
-    router.refresh();
-  }
-
+  const logout = useLogout();
   return { user, loading, logout };
 }
 

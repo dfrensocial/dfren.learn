@@ -10,6 +10,7 @@ import { endExpiredSession, useAuth } from "@/lib/firebase/auth-context";
 import { track } from "@/lib/analytics";
 import { paintWatermarkOverlay } from "@/lib/watermark/paint-overlay";
 import { ChapterList } from "@/components/course/chapter-list";
+import { Spinner } from "@/components/ui/spinner";
 import type { Chapter, CourseProgress } from "@/types/course";
 
 // Playback speeds surfaced in the player's settings menu — useful for
@@ -134,6 +135,7 @@ export function SecureVideoPlayer({
   // because it is handed a new token (confirmed in a live browser).
   const [playerKey, setPlayerKey] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const [loadAttempt, setLoadAttempt] = useState(0); // bumped by "Try again"
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [activeChapter, setActiveChapter] = useState(0);
   // Where to resume, from the server-side progress record (follows the
@@ -232,7 +234,7 @@ export function SecureVideoPlayer({
     return () => {
       cancelled = true;
     };
-  }, [user, courseId, lessonId, sessionId]);
+  }, [user, courseId, lessonId, sessionId, loadAttempt]);
 
   // Fetches a fresh playback token and swaps it in without losing the
   // viewer's place. Used on a timer before expiry, when the tab wakes up, and
@@ -405,11 +407,27 @@ export function SecureVideoPlayer({
   if (error) {
     return (
       <div className="flex aspect-video items-center justify-center border border-black bg-neutral-50 px-6 text-center">
-        <p className="text-sm text-neutral-600">{error}</p>
+        <div className="flex flex-col items-center gap-3">
+          <p className="text-sm text-neutral-600">{error}</p>
+          <button type="button" onClick={() => setLoadAttempt((n) => n + 1)} className="text-sm font-medium underline">
+            Try again
+          </button>
+        </div>
       </div>
     );
   }
-  if (!playback) return <div className="aspect-video animate-pulse bg-neutral-100" />;
+  if (!playback) {
+    return (
+      <div
+        role="status"
+        aria-live="polite"
+        className="flex aspect-video flex-col items-center justify-center gap-3 bg-neutral-100 text-black"
+      >
+        <Spinner className="h-8 w-8" />
+        <p className="text-sm font-medium text-neutral-700">Preparing your video…</p>
+      </div>
+    );
+  }
 
   // Server-side position wins (it follows the student across devices); this
   // device's localStorage copy covers the case where the server has nothing.

@@ -68,17 +68,39 @@ export async function syncSessionCookie(user: User) {
  * revoked -- so callers can fall back to a real sign-in instead of looping.
  */
 export async function refreshSessionCookie(user: User): Promise<boolean> {
+  return (await tryRefreshSessionCookie(user)) === "ok";
+}
+
+/**
+ * Like refreshSessionCookie, but tells "the server said no" (revoked / expired
+ * login: sign in again) apart from "couldn't reach the server in time" (slow
+ * network: don't sign anyone out for that, just let them retry). Gives up after
+ * `timeoutMs` so callers never wait forever.
+ */
+export async function tryRefreshSessionCookie(
+  user: User,
+  timeoutMs = 12_000
+): Promise<"ok" | "refused" | "unreachable"> {
+  const controller = new AbortController();
+  const timer = window.setTimeout(() => controller.abort(), timeoutMs);
   try {
     const idToken = await user.getIdToken();
     const res = await fetch("/api/auth/session", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ idToken, legal: getAcceptance() }),
+      signal: controller.signal,
     });
-    if (res.ok) window.localStorage.setItem(SESSION_SYNCED_KEY, String(Date.now()));
-    return res.ok;
+    if (res.ok) {
+      window.localStorage.setItem(SESSION_SYNCED_KEY, String(Date.now()));
+      return "ok";
+    }
+    // 4xx = the server refused this login; 5xx / rate limit = a server hiccup, not a verdict.
+    return res.status >= 500 || res.status === 429 ? "unreachable" : "refused";
   } catch {
-    return false;
+    return "unreachable";
+  } finally {
+    window.clearTimeout(timer);
   }
 }
 

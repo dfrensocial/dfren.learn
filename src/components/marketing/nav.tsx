@@ -12,7 +12,7 @@ export function MarketingNav() {
     <header className="sticky top-0 z-50 border-b border-black bg-white">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
         <Link href="/" className="text-lg font-bold tracking-tight">
-          dfren<span className="text-neutral-400">Learn</span>
+          dfren<span className="text-neutral-500">Learn</span>
         </Link>
         <nav className="flex items-center gap-6 text-sm font-medium">
           <Link href="#curriculum" className="hidden sm:inline hover:underline">
@@ -20,6 +20,9 @@ export function MarketingNav() {
           </Link>
           <Link href="#faq" className="hidden sm:inline hover:underline">
             FAQ
+          </Link>
+          <Link href="/blog" className="hidden sm:inline hover:underline">
+            Blog
           </Link>
           <AccountLinks showEnroll />
           <button
@@ -63,7 +66,14 @@ export function MarketingNav() {
           >
             FAQ
           </Link>
-          {!loading && user ? (
+          <Link
+            href="/blog"
+            onClick={() => setMenuOpen(false)}
+            className="border-b border-black px-6 py-4 text-sm font-medium"
+          >
+            Blog
+          </Link>
+          {loading ? null : user ? (
             <button
               type="button"
               onClick={() => {

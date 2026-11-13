@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/lib/firebase/auth-context";
+import { ButtonLabel } from "@/components/ui/spinner";
 import type { computeInsights } from "@/lib/insights";
 
 type Insights = ReturnType<typeof computeInsights> & { days: number | "all"; generatedAt: string };
@@ -85,7 +86,7 @@ export default function AdminInsightsPage() {
               ))}
             </select>
             <button onClick={load} disabled={busy} className="border border-black px-3 py-2 font-medium disabled:opacity-50">
-              {busy ? "Loading…" : "Refresh"}
+              <ButtonLabel busy={busy}>{busy ? "Loading…" : "Refresh"}</ButtonLabel>
             </button>
           </div>
         </header>
