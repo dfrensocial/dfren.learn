@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { AuthProvider } from "@/lib/firebase/auth-context";
 import { PageViewTracker } from "@/components/analytics/page-view-tracker";
 import { ConsentBanner } from "@/components/consent/consent-banner";
+import { WhatsAppButton } from "@/components/ui/whatsapp-button";
 import { BusyProvider } from "@/components/ui/busy-provider";
 import "./globals.css";
 import { LEGAL } from "@/content/legal";
@@ -127,6 +128,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <PageViewTracker />
             {children}
             <ConsentBanner />
+            <WhatsAppButton />
           </AuthProvider>
         </BusyProvider>
       </body>

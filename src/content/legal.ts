@@ -36,7 +36,7 @@ export const LEGAL = {
   // Run `npm run policy:check` after editing a policy page: it fails if the text
   // changed but these were not bumped.
   termsVersion: "2026-11-13",
-  privacyVersion: "2026-11-13",
+  privacyVersion: "2026-11-13b",
   // Bump when the banner's purposes/wording change, so old choices are re-asked.
   consentVersion: "2026-11-13",
 };

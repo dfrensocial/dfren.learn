@@ -400,6 +400,11 @@ export default function PrivacyPage() {
             download. Your browser fetches each file from Google through a link that lasts one minute.
           </li>
           <li>
+            <strong>WhatsApp (Meta):</strong> only if you tap the green chat button and message us. The button is a
+            plain link and loads nothing from WhatsApp until you tap it. After that, WhatsApp handles the chat under
+            its own terms and privacy policy, and we see your number and what you write to us.
+          </li>
+          <li>
             <strong>Netlify:</strong> hosting, and server logs that include IP addresses. US and AWS
             infrastructure. They process data for us.
           </li>
