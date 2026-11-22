@@ -8,6 +8,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  /* Third brand colour, used sparingly to highlight what matters (CTAs, price, key phrases). */
+  --color-accent: #a9591c;
+  --color-accent-dark: #8a4616;
+  --color-accent-light: #d98544; /* tint of the accent for text on black */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -67,3 +71,12 @@ body {
     transform: translateX(calc(-100% / var(--copies, 4)));
   }
 }
+
+/* Hero video player: slim seek / volume sliders in the accent colour. */
+.hp-range { -webkit-appearance: none; appearance: none; height: 18px; background: transparent; cursor: pointer; }
+.hp-range::-webkit-slider-runnable-track { height: 4px; border-radius: 9999px; background: linear-gradient(to right, #a9591c var(--pct, 0%), rgba(255,255,255,0.28) var(--pct, 0%)); }
+.hp-range::-moz-range-track { height: 4px; border-radius: 9999px; background: rgba(255,255,255,0.28); }
+.hp-range::-moz-range-progress { height: 4px; border-radius: 9999px; background: #a9591c; }
+.hp-range::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; margin-top: -4.5px; border-radius: 9999px; background: #fff; border: 0; box-shadow: 0 0 0 3px rgba(169,89,28,0.55); }
+.hp-range::-moz-range-thumb { width: 13px; height: 13px; border-radius: 9999px; background: #fff; border: 0; box-shadow: 0 0 0 3px rgba(169,89,28,0.55); }
+.hp-range:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }

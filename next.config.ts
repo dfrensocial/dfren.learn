@@ -30,6 +30,8 @@ const scriptSrc = [
   "https://scripts.clarity.ms",
   // Meta Pixel (only after the visitor allows advertising measurement).
   "https://connect.facebook.net",
+  // YouTube IFrame API for the hero video.
+  "https://www.youtube.com",
   ...(process.env.NODE_ENV !== "production" ? ["'unsafe-eval'"] : []),
 ].join(" ");
 
@@ -46,7 +48,7 @@ const CSP = [
   "media-src 'self' blob: https:",
   "font-src 'self' data:",
   "connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.mux.com https://inferred.litix.io https://*.razorpay.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.clarity.ms https://c.bing.com https://www.facebook.com https://connect.facebook.net",
-  "frame-src https://api.razorpay.com https://checkout.razorpay.com https://razorpay.com https://rzp.io",
+  "frame-src https://www.youtube-nocookie.com https://www.youtube.com https://api.razorpay.com https://checkout.razorpay.com https://razorpay.com https://rzp.io",
   "form-action 'self' https://razorpay.com https://rzp.io https://*.razorpay.com",
   "frame-ancestors 'none'",
   "object-src 'none'",
@@ -64,6 +66,8 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Dev only: lets a phone on the same Wi-Fi open the dev server, e.g. DEV_ORIGINS=192.168.1.3 npm run dev.
+  ...(process.env.DEV_ORIGINS ? { allowedDevOrigins: process.env.DEV_ORIGINS.split(",") } : {}),
   productionBrowserSourceMaps: true,
   async redirects() {
     // Self-serve password sign-up was removed: accounts are created by

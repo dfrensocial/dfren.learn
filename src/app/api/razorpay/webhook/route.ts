@@ -4,6 +4,7 @@ import { grantCourseAccess } from "@/lib/razorpay/grant-access";
 import { isValidPublishedCourse } from "@/lib/razorpay/validate-course";
 import { recordWebhookEvent } from "@/lib/orders";
 import { reportPurchaseToGa4, reportRefundToGa4 } from "@/lib/ga4-server";
+import { reportPurchaseToMeta } from "@/lib/meta-capi";
 
 // Razorpay signs the raw request body, so it must be read as text, not parsed as JSON first.
 // This is the idempotent fallback for /api/razorpay/verify — it covers a browser
@@ -58,6 +59,10 @@ export async function POST(req: NextRequest) {
     // blocks analytics scripts). After access is granted, best-effort, once.
     await reportPurchaseToGa4(payment.order_id).catch((err) =>
       console.error("[ga4] could not send purchase", payment.order_id, err)
+    );
+    // Same for Meta (Conversions API), only for buyers who allowed ad measurement, de-duplicated with the browser event.
+    await reportPurchaseToMeta(payment.order_id).catch((err) =>
+      console.error("[meta] could not send purchase", payment.order_id, err)
     );
   } else if (event.event === "refund.processed") {
     const refund = event.payload?.refund?.entity;

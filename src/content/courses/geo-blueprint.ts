@@ -13,6 +13,8 @@ export interface CourseContent {
     kicker: string;
     headline: string;
     subheadline: string;
+    /** Short line under the hero headline (the full subheadline is still used in the pricing band and course description). */
+    tagline: string;
     ctaLabel: string;
     ctaNote: string;
   };
@@ -49,6 +51,7 @@ export const geoBlueprintCourse: CourseContent = {
     headline: "Learn how to get your business recommended by ChatGPT, Gemini and Claude",
     subheadline:
       "A 1.5-hour GEO course. See how AI assistants pick their answers. Learn the 6 pillars, watch a live audit and find two ways to charge for the work.",
+    tagline: "A 1.5-hour GEO course.",
     ctaLabel: "Get the course for ₹599",
     ctaNote: "One-time payment of ₹599 including GST, no subscription. Taught mostly in Tamil, with English terms mixed in.",
   },

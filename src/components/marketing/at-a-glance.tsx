@@ -1,3 +1,5 @@
+import { WideImage } from "@/components/ui/wide-image";
+import Image from "next/image";
 import type { CourseContent } from "@/content/courses/geo-blueprint";
 import { GST_RATE_PERCENT, rupeesFromPaise, splitInclusivePaise } from "@/lib/gst";
 
@@ -21,7 +23,15 @@ export function AtAGlance({ pricing }: { pricing: CourseContent["pricing"] }) {
     <section className="bg-neutral-50">
       <div className="mx-auto max-w-4xl px-6 py-16 sm:py-24">
         <h2 className="text-center text-3xl font-bold tracking-tight sm:text-4xl">The course at a glance</h2>
-        <div className="mt-10 overflow-x-auto rounded-2xl border border-neutral-200 bg-white">
+        <WideImage
+          src="/images/geo/banner-at-a-glance-desk.webp"
+          alt="Course at a glance: 1.5 hours of video, 6 GEO pillars, 2 ways to charge, quick-win checklist and prompt pack, mostly Tamil, ₹599 including GST."
+          width={2400}
+          height={960}
+          sizes="(min-width: 896px) 832px, 100vw"
+          className="mx-auto mt-10 h-auto w-full rounded-2xl"
+        />
+        <div className="mt-6 overflow-x-auto rounded-2xl border border-neutral-200 bg-white">
           <table className="w-full text-left text-sm">
             <tbody className="divide-y divide-neutral-200">
               {rows.map(([k, v]) => (

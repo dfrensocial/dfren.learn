@@ -57,6 +57,7 @@ const CLARITY_PROJECT_ID = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID || "z7b92h
 const CLARITY_EVENTS = new Set([
   "cta_click",
   "checkout_email_prompt",
+  "generate_lead",
   "begin_checkout",
   "payment_failed",
   "checkout_dismissed",

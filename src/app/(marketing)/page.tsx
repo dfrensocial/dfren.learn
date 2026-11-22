@@ -12,6 +12,7 @@ import { Testimonials } from "@/components/marketing/testimonials";
 import { Pricing } from "@/components/marketing/pricing";
 import { FAQ, faqForSchema } from "@/components/marketing/faq";
 import { Audience } from "@/components/marketing/audience";
+import { StickyBuyBar } from "@/components/marketing/sticky-buy-bar";
 import { MarketingFooter } from "@/components/marketing/footer";
 import { geoBlueprintCourse } from "@/content/courses/geo-blueprint";
 import { LEGAL } from "@/content/legal";
@@ -118,8 +119,6 @@ export default function LandingPage() {
       <Problem />
       <Curriculum
         curriculum={course.curriculum}
-        courseTitle={course.title}
-        instructorName={`${course.instructor.name} · ${course.instructor.title}`}
         courseId={course.id}
       />
       <Audience />
@@ -129,6 +128,7 @@ export default function LandingPage() {
       <FAQ />
       <Pricing courseId={course.id} pricing={course.pricing} subheadline={course.hero.subheadline} />
       <MarketingFooter />
+      <StickyBuyBar />
     </main>
   );
 }

@@ -1,3 +1,4 @@
+import { SectionCta } from "@/components/marketing/section-cta";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { LEGAL } from "@/content/legal";
@@ -66,6 +67,10 @@ const FAQS: { q: string; a: ReactNode; text?: string }[] = [
     ),
   },
   {
+    q: "What happens after I pay?",
+    a: "Your payment goes through Razorpay (UPI, cards, net banking). As soon as it is confirmed, your access is switched on, even if you close the tab right after paying. If you are new, you are signed in automatically and land on your course dashboard. If you already have an account with us, we email you a sign-in link at the address you paid with, so check your inbox. Then open Module 1 and start watching, with the checklist and prompt pack waiting in the course. If something looks wrong, write to us and we will sort it out.",
+  },
+  {
     q: "How is the course delivered?",
     a: "You stream it on this site from your dashboard after checkout. No app to install.",
   },
@@ -95,6 +100,11 @@ export function FAQ() {
             </details>
           ))}
         </div>
+        <SectionCta
+          location="faq"
+          label="Still thinking? Get the course for ₹599"
+          note="One-time payment · incl. GST · instant access · no subscription"
+        />
       </div>
     </section>
   );

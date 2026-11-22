@@ -46,7 +46,7 @@ export function AccountLinks({ showEnroll = false }: { showEnroll?: boolean }) {
         <Link
           href="/#pricing"
           onClick={() => track("cta_click", { cta_location: "header", cta_label: "enroll" })}
-          className="rounded-full bg-black px-5 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
+          className="rounded-full bg-accent px-5 py-2 text-sm font-medium text-white transition hover:bg-accent-dark"
         >
           Enroll now
         </Link>

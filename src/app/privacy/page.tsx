@@ -29,7 +29,8 @@ export default function PrivacyPage() {
           <li>Analytics, session recordings and ad measurement are optional. They&apos;re off until you accept them on the banner.</li>
           <li>Decline, or send a Global Privacy Control or Do Not Track signal, and none of the optional tools load.</li>
           <li>Ticking the Terms box at sign-in or checkout does not turn on analytics. The two are separate.</li>
-          <li>We don&apos;t sell your data. The only advertising use is ad measurement with the Meta Pixel, and only if you switch it on.</li>
+          <li>We don&apos;t sell your data. The only advertising use is ad measurement with Meta (the Meta Pixel, and a report of your purchase), and only if you switch it on.</li>
+          <li>The video at the top of the home page is played by YouTube, so Google can see that your browser loaded it. It is not one of the optional tools.</li>
           <li>
             You can change your mind any time with <PrivacySettingsLink className="underline" />, or ask us to
             delete your data.
@@ -43,7 +44,8 @@ export default function PrivacyPage() {
           <li>பாடத்தை வழங்க உங்கள் மின்னஞ்சல், ஆர்டர் விவரங்கள், பாதுகாப்புப் பதிவுகள் தேவை. இவை கட்டாயம்.</li>
           <li>பகுப்பாய்வு (Google Analytics), திரைப் பதிவுகள் (Microsoft Clarity) மற்றும் விளம்பர அளவீடு (Meta Pixel) விருப்பத்திற்குரியவை. நீங்கள் &quot;Accept&quot; என்று சொல்லும் வரை இவை இயங்காது.</li>
           <li>&quot;Decline&quot; செய்தால், அல்லது உங்கள் உலாவியில் Global Privacy Control அல்லது Do Not Track இயக்கத்தில் இருந்தால், விருப்பக் கருவிகள் எதுவும் ஏற்றப்படாது.</li>
-          <li>உங்கள் தரவை நாங்கள் விற்பதில்லை. நீங்கள் அனுமதித்தால் மட்டுமே, எங்கள் Facebook, Instagram விளம்பரங்கள் பலன் தருகின்றனவா என்பதை அளவிட Meta Pixel பயன்படுத்தப்படும்.</li>
+          <li>உங்கள் தரவை நாங்கள் விற்பதில்லை. நீங்கள் அனுமதித்தால் மட்டுமே, எங்கள் Facebook, Instagram விளம்பரங்கள் பலன் தருகின்றனவா என்பதை அளவிட Meta Pixel பயன்படுத்தப்படும். நீங்கள் வாங்கினால், அனுமதித்திருந்தால் மட்டும், வாங்கிய தகவல் (ஆர்டர் எண், விலை) Meta-வுக்கு எங்கள் சர்வரிலிருந்தும் அனுப்பப்படும். உங்கள் மின்னஞ்சல், பெயர், தொலைபேசி எண் ஒருபோதும் அனுப்பப்படாது.</li>
+          <li>முகப்புப் பக்கத்தின் மேலே உள்ள வீடியோவை YouTube இயக்குகிறது. அதனால் உங்கள் உலாவி அதை ஏற்றியது Google-க்குத் தெரியும். இது விருப்பக் கருவி அல்ல.</li>
           <li>உங்கள் தரவின் சுருக்கத்தை, திருத்தத்தை அல்லது நீக்கத்தை நீங்கள் கேட்கலாம். {LEGAL.contactEmail} க்கு எழுதுங்கள். {LEGAL.grievanceAckHours} மணி நேரத்துக்குள் பதில் தருவோம், {LEGAL.grievanceResolveDays} நாட்களுக்குள் தீர்வு காண்போம்.</li>
           <li>கணக்கை நீக்கினால் பாடத்துக்கான அணுகலும் முடிந்துவிடும், &quot;வாழ்நாள் அணுகல்&quot; என்று விற்கப்பட்டிருந்தாலும். பணம் திருப்பித் தரப்படாது.</li>
           <li>முழு விவரங்களுக்குக் கீழே உள்ள ஆங்கிலக் கொள்கையைப் பாருங்கள்.</li>
@@ -78,6 +80,11 @@ export default function PrivacyPage() {
             <strong>Your orders.</strong> Course, amount, payment status, the type of payment (card, UPI,
             netbanking, wallet), the bank, wallet or card-network name, and, if a payment fails, the reason
             Razorpay gives. We never see or store card numbers, UPI IDs or phone numbers. Razorpay handles those.
+          </li>
+          <li>
+            <strong>Your ad choice on an order.</strong> If you allowed ad measurement when you paid, we note that
+            on the order, together with Meta&apos;s two browser ids (the _fbp and _fbc cookies). We use them only to
+            report that purchase to Meta, as described below. If you declined, none of this is saved.
           </li>
           <li>
             <strong>Unfinished checkouts.</strong> If you enter your email and start paying but don&apos;t finish,
@@ -209,16 +216,19 @@ export default function PrivacyPage() {
               </tr>
               <tr>
                 <td className={td}>
-                  <strong>Ad measurement:</strong> Meta Pixel
+                  <strong>Ad measurement:</strong> Meta Pixel and a server report of your purchase
                 </td>
                 <td className={td}>
                   The pages you visit here, your browser and device, your IP address, and Meta&apos;s own cookies.
                   If you&apos;re logged in to Facebook or Instagram in the same browser, Meta can connect the visit
-                  to that account. We never send Meta your email, name or phone number.
+                  to that account. If you buy the course, our server also tells Meta that a purchase happened, once
+                  your payment is confirmed: the order number, the price, the course, Meta&apos;s browser ids, and
+                  your IP address and browser details. We never send Meta your email, name or phone number, and we
+                  send nothing about your purchase if you declined ad measurement.
                 </td>
                 <td className={td}>
-                  To see which of our Facebook and Instagram ads bring visitors, and to show our ads again to people
-                  who visited.
+                  To see which of our Facebook and Instagram ads bring visitors and buyers (including when your
+                  browser blocks the Pixel), and to show our ads again to people who visited.
                 </td>
                 <td className={td}>Yes. Off by default.</td>
               </tr>
@@ -233,12 +243,23 @@ export default function PrivacyPage() {
           </li>
           <li>
             We switch off Google signals and ad personalisation in Google Analytics, and Clarity is told no
-            advertising storage. Only the Meta Pixel is used for ads, and only if you switch on ad measurement.
+            advertising storage. Only Meta (the Pixel, and the purchase report) is used for ads, and only if you switch on ad measurement.
           </li>
           <li>
-            Meta decides for itself how it uses Pixel data for its own purposes (such as running and improving its
-            ads), under its own privacy policy. To control ads on Facebook and Instagram, use Meta&apos;s ad
-            settings. Switching ad measurement off here stops the Pixel and removes its cookies from our site.
+            Meta decides for itself how it uses Pixel and purchase-report data for its own purposes (such as running
+            and improving its ads), under its own privacy policy. To control ads on Facebook and Instagram, use
+            Meta&apos;s ad settings. Switching ad measurement off here stops the Pixel and removes its cookies from
+            our site. It also stops any new purchase report: we send Meta nothing about orders placed after you
+            switch it off, but we can&apos;t take back a purchase report already sent while you had it on, except by
+            asking Meta.
+          </li>
+          <li>
+            The video at the top of the home page is played by YouTube (Google), using its privacy-enhanced player
+            (youtube-nocookie.com). It loads from Google when the page opens and is not tied to the banner, because
+            it is part of the page, like an image. Google can see your IP address and browser details when it loads,
+            and may store data in your browser once you interact with the video. Google decides how it uses that,
+            under its own privacy policy. We don&apos;t pass YouTube any information about you. How far you watch is
+            counted in our own analytics only if you allowed analytics.
           </li>
           <li>
             A browser Global Privacy Control or Do Not Track signal counts as &ldquo;declined&rdquo; until you
@@ -346,6 +367,12 @@ export default function PrivacyPage() {
                 <td className={td}>Meta&apos;s own ad cookies, read when the Pixel loads. Ad measurement only.</td>
                 <td className={td}>Set by Meta, up to about 90 days</td>
               </tr>
+              <tr>
+                <td className={td}>Storage and cookies from youtube-nocookie.com / youtube.com</td>
+                <td className={td}>Google (YouTube)</td>
+                <td className={td}>Plays the video at the top of the home page. Loads with the page, not tied to the banner. The privacy-enhanced player mainly stores data after you interact with the video.</td>
+                <td className={td}>Set by Google, varies</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -378,9 +405,15 @@ export default function PrivacyPage() {
             is an independent controller of that data.
           </li>
           <li>
-            <strong>Meta (Pixel):</strong> ad measurement, only if you allow it. Meta Platforms processes the data
-            outside India and also uses it for its own purposes, as an independent controller, under its own
+            <strong>Meta (Pixel and purchase report):</strong> ad measurement, only if you allow it. This covers the
+            Pixel in your browser and a report from our server that a purchase happened. Meta Platforms processes the
+            data outside India and also uses it for its own purposes, as an independent controller, under its own
             privacy policy.
+          </li>
+          <li>
+            <strong>Google (YouTube):</strong> plays the video at the top of the home page. It loads from Google
+            when the page opens, whatever you chose on the banner. Google decides how it uses the data it receives,
+            as an independent controller, under its own privacy policy.
           </li>
           <li>
             <strong>Mux:</strong> video delivery and, if you accept analytics, Mux Data. Based in the US. Mux
@@ -458,7 +491,7 @@ export default function PrivacyPage() {
                 <td className={td}>Deleted after 12 months</td>
               </tr>
               <tr>
-                <td className={td}>Source, device and Google ids saved on an order (only if you allowed analytics)</td>
+                <td className={td}>Source, device and Google ids saved on an order (only if you allowed analytics), and your ad choice with Meta&apos;s browser ids (only if you allowed ad measurement)</td>
                 <td className={td}>Until you ask us to remove them</td>
                 <td className={td}>To learn which channels bring students</td>
                 <td className={td}>Removed when you ask</td>
@@ -500,7 +533,7 @@ export default function PrivacyPage() {
                 <td className={td}>Expires on Microsoft&apos;s schedule</td>
               </tr>
               <tr>
-                <td className={td}>Meta Pixel data (only if you allowed ad measurement)</td>
+                <td className={td}>Meta Pixel and purchase-report data (only if you allowed ad measurement)</td>
                 <td className={td}>Set by Meta, not by us</td>
                 <td className={td}>Meta decides</td>
                 <td className={td}>Deleted on Meta&apos;s schedule</td>

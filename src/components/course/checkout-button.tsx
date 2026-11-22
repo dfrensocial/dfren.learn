@@ -8,6 +8,8 @@ import { auth } from "@/lib/firebase/client";
 import { useAuth, syncSessionCookie } from "@/lib/firebase/auth-context";
 import { useEnrollment } from "@/lib/firebase/use-enrollment";
 import { analyticsAllowed, clarityTag, courseItem, getGaIds, track } from "@/lib/analytics";
+import { adsConsented } from "@/lib/consent";
+import { getMetaIds } from "@/lib/meta-pixel";
 import { getAttribution } from "@/lib/attribution";
 import { AcceptTerms } from "@/components/legal/accept-terms";
 import { GST_RATE_PERCENT, rupeesFromPaise, splitInclusivePaise } from "@/lib/gst";
@@ -153,6 +155,8 @@ export function CheckoutButton({
     if (!user && !showEmailField) {
       setShowEmailField(true);
       track("checkout_email_prompt");
+      // GA4 key event / Meta Lead: this visitor wants to buy. Counts the value of the course, nothing personal.
+      track("generate_lead", { currency: "INR", value: priceInPaise ? priceInPaise / 100 : undefined, lead_source: "enroll_click" });
       return;
     }
 
@@ -197,6 +201,9 @@ export function CheckoutButton({
           analytics: analyticsAllowed(),
           attribution: getAttribution(),
           ga: getGaIds(),
+          // Ad-measurement choice and Meta's browser ids: the server only uses them if the visitor said yes.
+          ads: adsConsented(),
+          meta: getMetaIds(),
         }),
       });
       if (res.status === 409) {
@@ -383,7 +390,7 @@ export function CheckoutButton({
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-black px-6 py-3 font-semibold text-white transition hover:bg-neutral-800 disabled:opacity-50"
+          className="w-full bg-accent px-6 py-3 font-semibold text-white transition hover:bg-accent-dark disabled:opacity-50"
         >
           <ButtonLabel busy={loading}>{loading ? "Preparing checkout…" : "Enroll now"}</ButtonLabel>
         </button>
