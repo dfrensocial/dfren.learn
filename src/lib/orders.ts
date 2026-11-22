@@ -69,6 +69,16 @@ export function sanitizeAttribution(input: unknown): { first?: Touch; last?: Tou
   return Object.keys(out).length ? out : undefined;
 }
 
+/** Meta _fbp / _fbc browser ids. Untrusted: strict format only. */
+export function sanitizeMeta(input: unknown): { fbp?: string; fbc?: string } | undefined {
+  if (!input || typeof input !== "object") return undefined;
+  const m = input as Json;
+  const fbp = typeof m.fbp === "string" && /^fb\.\d\.\d{10,14}\.\d{1,20}$/.test(m.fbp) ? m.fbp : undefined;
+  const fbc = typeof m.fbc === "string" && /^fb\.\d\.\d{10,14}\.[\w-]{1,300}$/.test(m.fbc) ? m.fbc : undefined;
+  const out = compact({ fbp, fbc });
+  return Object.keys(out).length ? out : undefined;
+}
+
 /**
  * GA4 client/session ids from the buyer's own _ga cookies, used to attach the
  * server-side purchase to their GA session. Untrusted: strict format only.
@@ -117,6 +127,9 @@ export async function recordOrderCreated(o: {
   currency: string;
   /** The visitor allowed analytics: only then are source / device / location kept with the order. */
   analytics: boolean;
+  /** The visitor allowed ad measurement: only then may the paid order be reported to Meta, and only then are their Meta browser ids kept. */
+  ads?: boolean;
+  meta?: unknown;
   /** What they agreed to at checkout (Terms + Privacy Policy versions). */
   legal: { termsVersion: string; privacyVersion: string; acceptedAt: string };
   attribution?: unknown;
@@ -155,6 +168,8 @@ export async function recordOrderCreated(o: {
               region: geo.region,
             }
           : {}),
+        // Optional extra: kept only when the visitor said yes to ad measurement.
+        ...(o.ads ? { adsConsent: true, meta: sanitizeMeta(o.meta) } : {}),
       })
     )
     .catch((err) => {

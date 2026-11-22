@@ -1,3 +1,7 @@
+import { WideImage } from "@/components/ui/wide-image";
+import { SectionCta } from "@/components/marketing/section-cta";
+import Image from "next/image";
+
 const PAIN_POINTS = [
   "Customers now ask full questions, like \"What's the best CRM for a 10 person sales team?\", and the assistant hands back a short list. Sometimes it's one name.",
   "Asking ChatGPT to grade your site gives you a different score each time. It improvises a judgment. It doesn't apply a fixed rubric.",
@@ -15,7 +19,7 @@ export function Problem() {
           Your customers are asking AI for a shortlist. Is your business on it?
         </h2>
         <p className="mx-auto mt-5 max-w-2xl text-center text-lg text-neutral-600">
-          <strong className="text-black">GEO, or generative engine optimization,</strong> is the work of making your
+          <strong className="text-accent">GEO, or generative engine optimization,</strong> is the work of making your
           site easy for these assistants to find, understand and recommend. The term comes from a{" "}
           <a href="https://arxiv.org/abs/2311.09735" target="_blank" rel="noopener noreferrer" className={link}>
             2023 research paper
@@ -26,55 +30,34 @@ export function Problem() {
         {/* The numbers */}
         <div className="mt-12 grid gap-4 md:grid-cols-3">
           <Stat
-            big="~100M"
-            label="weekly ChatGPT users in India"
+            image="research-100m-chatgpt-india"
+            alt="About 100 million weekly ChatGPT users in India"
             source="February 2026 TechCrunch report"
             href="https://www.techcrunch.com/2026/02/15/india-has-100m-weekly-active-chatgpt-users-sam-altman-says/"
           />
           <Stat
-            big="2B"
-            label="monthly users reached by Google's AI Overviews by July 2025"
+            image="research-2b-ai-overviews"
+            alt="2 billion monthly users reached by Google's AI Overviews by July 2025"
             source="2 billion monthly users"
             href="https://techcrunch.com/2025/07/23/googles-ai-overviews-have-2b-monthly-users-ai-mode-100m-in-the-us-and-india"
           />
           <Stat
-            big="8% vs 15%"
-            label="of US visits ended in a click on a result, with an AI summary vs without one"
+            image="research-8-vs-15-percent-clicks"
+            alt="8% vs 15% of US visits ended in a click on a result, with an AI summary vs without one"
             source="Pew Research study"
             href="https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/"
           />
         </div>
 
         {/* Old way vs new way */}
-        <div aria-hidden className="mt-4 grid gap-4 md:grid-cols-2">
-          <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">The old way</p>
-            <p className="mt-3 rounded-full border border-neutral-300 bg-white px-4 py-2 text-sm text-neutral-600">
-              CRM software India
-            </p>
-            <div className="mt-5 space-y-3">
-              {[70, 62, 66].map((w) => (
-                <div key={w}>
-                  <div className="h-2 rounded bg-neutral-400" style={{ width: `${w}%` }} />
-                  <div className="mt-1.5 h-1.5 w-[90%] rounded bg-neutral-200" />
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="rounded-2xl bg-black p-6 text-white">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400">The new way</p>
-            <p className="ml-auto mt-3 w-fit max-w-full rounded-xl bg-white/10 px-4 py-2 text-sm">
-              What&apos;s the best CRM for a 10 person sales team?
-            </p>
-            <div className="mt-3 space-y-2 text-sm">
-              <p className="rounded-lg bg-white px-3 py-2 font-semibold text-black">1. A named brand</p>
-              <p className="rounded-lg bg-white/10 px-3 py-2">2. A named brand</p>
-              <p className="rounded-lg border border-dashed border-white/25 px-3 py-2 text-neutral-400">
-                Not mentioned: everyone else
-              </p>
-            </div>
-          </div>
-        </div>
+        <WideImage
+          src="/images/geo/old-way-vs-new-way.webp"
+          alt="The old way: a search for CRM software India returns a page of links. The new way: an AI assistant names two brands and leaves everyone else out."
+          width={2400}
+          height={1200}
+          sizes="(min-width: 1152px) 1104px, 100vw"
+          className="mt-4 h-auto w-full rounded-2xl"
+        />
 
         {/* The problems */}
         <ul className="mt-14 grid gap-x-10 gap-y-8 sm:grid-cols-2">
@@ -87,21 +70,28 @@ export function Problem() {
             </li>
           ))}
         </ul>
+        <SectionCta location="problem" variant="soft" label="See what you will learn" href="#curriculum" />
       </div>
     </section>
   );
 }
 
-function Stat({ big, label, source, href }: { big: string; label: string; source: string; href: string }) {
+function Stat({ image, alt, source, href }: { image: string; alt: string; source: string; href: string }) {
   return (
-    <div className="flex flex-col rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
-      <p className="text-4xl font-bold tracking-tight sm:text-5xl">{big}</p>
-      <p className="mt-3 flex-1 text-sm text-neutral-700">{label}</p>
+    <div className="flex flex-col">
+      <Image
+        src={`/images/geo/${image}.webp`}
+        alt={alt}
+        width={1200}
+        height={800}
+        sizes="(min-width: 1152px) 360px, (min-width: 768px) 33vw, 100vw"
+        className="h-auto w-full rounded-2xl"
+      />
       <a
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-4 text-xs text-neutral-500 underline underline-offset-2 hover:text-black"
+        className="mt-3 text-center text-xs text-neutral-500 underline underline-offset-2 hover:text-black"
       >
         Source: {source} ↗
       </a>

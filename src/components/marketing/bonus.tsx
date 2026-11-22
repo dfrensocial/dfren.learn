@@ -1,4 +1,8 @@
+import { SectionCta } from "@/components/marketing/section-cta";
+import Image from "next/image";
 import type { CourseContent } from "@/content/courses/geo-blueprint";
+
+const BONUS_IMAGES = ["/images/geo/questionnaire-document.webp", "/images/geo/prompt-pack-terminal.webp"];
 
 export function Bonus({ bonus }: { bonus: CourseContent["bonus"] }) {
   return (
@@ -8,15 +12,14 @@ export function Bonus({ bonus }: { bonus: CourseContent["bonus"] }) {
         <div className="mt-10 grid gap-5 sm:grid-cols-2">
           {bonus.items.map((item, i) => (
             <div key={item.title} className="overflow-hidden rounded-2xl border border-neutral-200 bg-white">
-              <div aria-hidden className="flex h-28 items-center justify-center gap-3 bg-black">
-                <div className="w-14 rotate-[-6deg] space-y-1.5 rounded-md bg-white p-2.5 shadow-lg">
-                  <div className="h-1 w-2/3 rounded bg-neutral-800" />
-                  <div className="h-1 rounded bg-neutral-300" />
-                  <div className="h-1 rounded bg-neutral-300" />
-                  <div className="h-1 w-4/5 rounded bg-neutral-300" />
-                </div>
-                <span className="text-3xl font-bold text-white">{i + 1}</span>
-              </div>
+              <Image
+                src={BONUS_IMAGES[i] ?? BONUS_IMAGES[0]}
+                alt=""
+                width={1200}
+                height={900}
+                sizes="(min-width: 640px) 400px, 100vw"
+                className="h-auto w-full"
+              />
               <div className="p-6">
                 <h3 className="font-semibold">{item.title}</h3>
                 <p className="mt-2 text-sm text-neutral-600">{item.description}</p>
@@ -24,6 +27,11 @@ export function Bonus({ bonus }: { bonus: CourseContent["bonus"] }) {
             </div>
           ))}
         </div>
+        <SectionCta
+          location="bonus"
+          label="Get the course and the working files"
+          note="Checklist, client questionnaire and prompt pack included · incl. GST"
+        />
       </div>
     </section>
   );

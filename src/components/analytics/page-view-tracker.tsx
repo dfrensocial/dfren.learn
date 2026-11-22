@@ -62,6 +62,38 @@ export function PageViewTracker() {
     });
   }, [pathname, analytics]);
 
+  // Home page only: how far down the page people read (25/50/75/90 %), and which FAQ they open.
+  // Analytics consent only; nothing here is personal.
+  useEffect(() => {
+    if (!analytics || pathname !== "/") return;
+    const seen = new Set<number>();
+    function onScroll() {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - window.innerHeight;
+      if (max <= 0) return;
+      const pct = (window.scrollY / max) * 100;
+      for (const m of [25, 50, 75, 90]) {
+        if (pct >= m && !seen.has(m)) {
+          seen.add(m);
+          track("scroll_depth", { percent: m });
+        }
+      }
+    }
+    function onToggle(e: Event) {
+      const d = e.target as HTMLDetailsElement | null;
+      if (d?.tagName === "DETAILS" && d.open && d.closest("#faq")) {
+        const q = d.querySelector("summary")?.textContent?.trim().slice(0, 80);
+        if (q) track("faq_open", { question: q });
+      }
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    document.addEventListener("toggle", onToggle, true);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("toggle", onToggle, true);
+    };
+  }, [analytics, pathname]);
+
   useEffect(() => {
     if (!ads) {
       lastMetaPath = null;

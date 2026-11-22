@@ -3,6 +3,7 @@ import { LEGAL } from "@/content/legal";
 import { SITE_URL } from "@/lib/site";
 import { AccountLinks } from "@/components/marketing/account-links";
 import { PrivacySettingsLink } from "@/components/consent/privacy-settings-link";
+import { Logo } from "@/components/ui/logo";
 
 export function LegalPage({
   title,
@@ -27,7 +28,7 @@ export function LegalPage({
       <header className="border-b border-black px-6 py-4">
         <div className="mx-auto flex max-w-5xl items-center justify-between">
           <Link href="/" className="text-lg font-bold tracking-tight">
-            dfren<span className="text-neutral-500">Learn</span>
+          <Logo />
           </Link>
           <nav className="flex items-center gap-6 text-sm font-medium">
             <Link href="/about" className="hidden sm:inline hover:underline">

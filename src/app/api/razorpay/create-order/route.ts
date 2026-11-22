@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
   const idToken = authHeader?.replace("Bearer ", "");
   const decoded = idToken ? await adminAuth.verifyIdToken(idToken).catch(() => null) : null;
 
-  const { courseId, guestEmail, attribution, ga, terms, analytics } = await req.json();
+  const { courseId, guestEmail, attribution, ga, terms, analytics, ads, meta } = await req.json();
   const email = decoded?.email ?? guestEmail;
 
   if (!courseId || !email) {
@@ -90,6 +90,8 @@ export async function POST(req: NextRequest) {
     tax,
     currency: order.currency,
     analytics: analytics === true,
+    ads: ads === true,
+    meta,
     legal: accepted,
     attribution,
     ga,

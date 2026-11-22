@@ -1,3 +1,5 @@
+import { WideImage } from "@/components/ui/wide-image";
+import { SectionCta } from "@/components/marketing/section-cta";
 import Image from "next/image";
 import Link from "next/link";
 import type { CourseContent } from "@/content/courses/geo-blueprint";
@@ -21,7 +23,7 @@ export function Instructor({ instructor }: { instructor: CourseContent["instruct
           </p>
         </div>
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">Your instructor</p>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">Your instructor</p>
           <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">{instructor.name}</h2>
           <p className="mt-1 text-sm text-neutral-500">{instructor.title}</p>
           <p className="mt-5 leading-relaxed text-neutral-700">{instructor.bio}</p>
@@ -33,6 +35,23 @@ export function Instructor({ instructor }: { instructor: CourseContent["instruct
           >
             LinkedIn ↗
           </Link>
+        </div>
+        <div className="min-w-0 md:col-span-2">
+          <WideImage
+            src="/images/geo/score-consistency-chart.webp"
+            alt="A chatbot gives a different score each run. A fixed rubric gives the same score every time."
+            width={2400}
+            height={960}
+            sizes="(min-width: 1152px) 1104px, 100vw"
+            className="h-auto w-full rounded-2xl"
+          />
+        </div>
+        <div className="md:col-span-2">
+          <SectionCta
+            location="instructor"
+            label="Learn the method for ₹599"
+            note="Taught by K Sai Anirudh · mostly Tamil, English terms mixed in"
+          />
         </div>
       </div>
     </section>

@@ -13,6 +13,8 @@ import { adsConsented } from "@/lib/consent";
 //   view_item      -> ViewContent      (pricing card seen)
 //   begin_checkout -> InitiateCheckout (payment window opened)
 //   purchase       -> Purchase         (payment verified; eventID = Razorpay order id)
+//   generate_lead  -> Lead             (tapped Enroll and reached the email step; no email is sent)
+//   cta_click on the WhatsApp button -> Contact
 // ---------------------------------------------------------------------------
 
 const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || "979958740686067";
@@ -90,7 +92,17 @@ type Item = { item_id?: unknown; item_name?: unknown };
 export function metaEvent(name: string, params: Record<string, unknown> = {}) {
   try {
     const metaName =
-      name === "view_item" ? "ViewContent" : name === "begin_checkout" ? "InitiateCheckout" : name === "purchase" ? "Purchase" : null;
+      name === "view_item"
+        ? "ViewContent"
+        : name === "begin_checkout"
+          ? "InitiateCheckout"
+          : name === "purchase"
+            ? "Purchase"
+            : name === "generate_lead"
+              ? "Lead"
+              : name === "cta_click" && params.cta_label === "whatsapp"
+                ? "Contact"
+                : null;
     if (!metaName || !start()) return;
     const items = Array.isArray(params.items) ? (params.items as Item[]) : [];
     const data: Record<string, unknown> = {
@@ -101,6 +113,10 @@ export function metaEvent(name: string, params: Record<string, unknown> = {}) {
       currency: typeof params.currency === "string" ? params.currency : "INR",
     };
     if (metaName === "InitiateCheckout") data.num_items = 1;
+    if (metaName === "Contact") {
+      delete data.content_ids; // a chat tap is not a product event
+      delete data.content_type;
+    }
     // Purchase carries the order id as the event id, so a repeat never double-counts.
     const options = metaName === "Purchase" && typeof params.transaction_id === "string" ? { eventID: params.transaction_id } : undefined;
     const fbq = (window as MetaWindow).fbq;
@@ -108,6 +124,28 @@ export function metaEvent(name: string, params: Record<string, unknown> = {}) {
     else fbq?.("track", metaName, data);
   } catch {
     // ad measurement must never break the page
+  }
+}
+
+/**
+ * Meta's own browser ids (_fbp, _fbc), read from their first-party cookies, so the server can tie the
+ * paid order back to the ad click when it reports the purchase. Only returned when the visitor said
+ * yes to ad measurement AND the Pixel actually set them; otherwise nothing is sent anywhere.
+ */
+export function getMetaIds(): { fbp?: string; fbc?: string } | undefined {
+  try {
+    if (!adsConsented()) return undefined;
+    const cookies = Object.fromEntries(
+      document.cookie.split("; ").map((c) => {
+        const i = c.indexOf("=");
+        return [c.slice(0, i), c.slice(i + 1)];
+      })
+    );
+    const fbp = /^fb\.\d\.\d{10,14}\.\d{1,20}$/.test(cookies["_fbp"] ?? "") ? cookies["_fbp"] : undefined;
+    const fbc = /^fb\.\d\.\d{10,14}\.[\w-]{1,300}$/.test(cookies["_fbc"] ?? "") ? cookies["_fbc"] : undefined;
+    return fbp || fbc ? { fbp, fbc } : undefined;
+  } catch {
+    return undefined;
   }
 }
 

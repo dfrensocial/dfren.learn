@@ -1,3 +1,5 @@
+import { WideImage } from "@/components/ui/wide-image";
+import Image from "next/image";
 import Link from "next/link";
 import { CheckoutButton } from "@/components/course/checkout-button";
 import { TrackOnView } from "@/components/analytics/track-on-view";
@@ -24,7 +26,15 @@ export function Pricing({
             Learn the full method for getting found by AI assistants, for ₹{rupees} including GST.
           </h2>
           <p className="mt-6 max-w-xl text-lg text-neutral-300">{subheadline}</p>
-          <p className="mt-8 text-2xl font-bold">One price. No subscription.</p>
+          <p className="mt-8 text-2xl font-bold text-accent-light">One price. No subscription.</p>
+          <Image
+            src="/images/geo/gst-split-donut.webp"
+            alt="How ₹599 splits: ₹507.63 course fee plus ₹91.37 GST at 18%."
+            width={1200}
+            height={800}
+            sizes="(min-width: 1024px) 400px, 100vw"
+            className="mt-8 h-auto w-full max-w-sm rounded-2xl"
+          />
         </div>
 
         <TrackOnView
@@ -39,7 +49,7 @@ export function Pricing({
         >
           <div className="rounded-2xl bg-white p-7 text-black shadow-[0_30px_60px_-20px_rgba(0,0,0,0.6)] sm:p-8">
             <p className="font-semibold">{pricing.productLabel}</p>
-            <p className="mt-3 text-5xl font-bold">
+            <p className="mt-3 text-5xl font-bold text-accent">
               ₹{rupees}
               <span className="ml-2 text-2xl font-semibold text-neutral-600">incl. GST</span>
             </p>
@@ -48,7 +58,7 @@ export function Pricing({
             <ul className="mt-6 space-y-2.5 text-sm text-neutral-700">
               {pricing.includes.map((item) => (
                 <li key={item} className="flex gap-2.5">
-                  <span aria-hidden className="font-bold text-black">
+                  <span aria-hidden className="font-bold text-accent">
                     ✓
                   </span>
                   {item}
@@ -68,6 +78,16 @@ export function Pricing({
             </p>
           </div>
         </TrackOnView>
+      </div>
+      <div className="mx-auto max-w-6xl px-6 pb-16 sm:pb-24">
+        <WideImage
+          src="/images/geo/banner-pricing-checkout.webp" dark
+          alt="Secure checkout via Razorpay. One time, no subscription. Instant access, stream after checkout. Updates included."
+          width={2400}
+          height={960}
+          sizes="(min-width: 1152px) 1104px, 100vw"
+          className="h-auto w-full rounded-2xl border border-white/10"
+        />
       </div>
     </section>
   );
