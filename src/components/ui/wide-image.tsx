@@ -1,9 +1,14 @@
+import type { ReactNode } from "react";
 import Image from "next/image";
 
 /**
- * A wide infographic that stays readable on a phone: below the `sm` breakpoint it keeps a minimum
- * width and the visitor swipes sideways inside the rounded frame; from `sm` up it simply fits the column.
- * (`min-w-0` on every wrapper stops the minimum width from stretching a grid/flex parent and the page.)
+ * A wide infographic that never scrolls sideways and never gets cropped.
+ *
+ * From `sm` up it is the picture, scaled to the column. On a phone the picture's baked-in text would be
+ * far too small, so the caller picks one of:
+ *  - `mobile`: a native HTML version of the same content, shown instead of the picture on phones;
+ *  - `hideOnMobile`: skip it on phones (use when the same facts are already in text right next to it);
+ *  - neither: the picture just scales down to the screen width.
  */
 export function WideImage({
   src,
@@ -12,8 +17,8 @@ export function WideImage({
   height,
   sizes,
   className = "",
-  dark = false,
-  minWidth = "min-w-[640px]",
+  mobile,
+  hideOnMobile = false,
 }: {
   src: string;
   alt: string;
@@ -21,28 +26,28 @@ export function WideImage({
   height: number;
   sizes: string;
   className?: string;
-  /** Hint text colour for black sections. */
+  mobile?: ReactNode;
+  hideOnMobile?: boolean;
+  /** Kept so existing callers still compile; no longer used. */
   dark?: boolean;
+  /** Kept so existing callers still compile; no longer used. */
   minWidth?: string;
 }) {
   // The caller's top margin belongs to the wrapper, the rest of the classes to the image.
   const margin = className.split(/\s+/).filter((c) => /^mt-/.test(c)).join(" ");
   const imageClasses = className.split(/\s+/).filter((c) => c && !/^mt-/.test(c)).join(" ");
+  const swapped = Boolean(mobile) || hideOnMobile;
   return (
-    <div className={`min-w-0 max-w-full ${margin}`}>
-      <div className="min-w-0 overflow-x-auto rounded-2xl sm:overflow-visible">
-        <Image
-          src={src}
-          alt={alt}
-          width={width}
-          height={height}
-          sizes={sizes}
-          className={`${imageClasses} h-auto w-full max-w-none ${minWidth} sm:min-w-0 sm:max-w-full`}
-        />
-      </div>
-      <p className={`mt-1.5 text-center text-[11px] sm:hidden ${dark ? "text-neutral-500" : "text-neutral-400"}`}>
-        Swipe to see the full picture →
-      </p>
+    <div className={`min-w-0 max-w-full ${margin} ${hideOnMobile ? "hidden sm:block" : ""}`}>
+      <Image
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        sizes={sizes}
+        className={`${imageClasses} h-auto w-full max-w-full ${swapped ? "hidden sm:block" : ""}`}
+      />
+      {mobile && <div className="sm:hidden">{mobile}</div>}
     </div>
   );
 }

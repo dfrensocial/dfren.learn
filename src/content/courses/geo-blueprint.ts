@@ -16,9 +16,9 @@ export interface CourseContent {
     /** Short line under the hero headline (the full subheadline is still used in the pricing band and course description). */
     tagline: string;
     ctaLabel: string;
-    ctaNote: string;
+    ctaPoints: string[];
   };
-  stats: { value: string; label: string }[];
+  stats: { value: string; title: string }[];
   curriculum: {
     heading: string;
     subheading: string;
@@ -52,14 +52,18 @@ export const geoBlueprintCourse: CourseContent = {
     subheadline:
       "A 1.5-hour GEO course. See how AI assistants pick their answers. Learn the 6 pillars, watch a live audit and find two ways to charge for the work.",
     tagline: "A 1.5-hour GEO course.",
-    ctaLabel: "Get the course for ₹599",
-    ctaNote: "One-time payment of ₹599 including GST, no subscription. Taught mostly in Tamil, with English terms mixed in.",
+    ctaLabel: "Get instant access · ₹599",
+    ctaPoints: [
+      "One-time payment of ₹599, inclusive of GST",
+      "No subscription",
+      "Taught mostly in Tamil, with English terms mixed in",
+    ],
   },
   stats: [
-    { value: "1.5 hrs", label: "of video, no filler" },
-    { value: "6", label: "GEO pillars" },
-    { value: "2", label: "ways to charge for GEO work" },
-    { value: "₹599", label: "incl. GST, one time" },
+    { value: "1.5", title: "Hours of video" },
+    { value: "6", title: "Modules" },
+    { value: "3", title: "Bonus tools" },
+    { value: "2", title: "Revenue streams" },
   ],
   curriculum: {
     heading: "What you learn in 1.5 hours",

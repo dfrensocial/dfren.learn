@@ -72,7 +72,7 @@ function siteJsonLd() {
         alternateName: ["Dfren", "dfrenLearn", "Dfren Learn"],
         url: SITE,
         email: LEGAL.contactEmail,
-        logo: { "@type": "ImageObject", url: `${SITE}/apple-icon`, width: 180, height: 180 },
+        logo: { "@type": "ImageObject", url: `${SITE}/apple-icon.png`, width: 180, height: 180 },
         description:
           "DFREN Marketing Agency (brand: Dfren) runs dfrenLearn, which publishes The GEO Blueprint course and guides on generative engine optimization.",
         knowsAbout: ["Generative engine optimization", "Answer engine optimization", "AI search visibility"],

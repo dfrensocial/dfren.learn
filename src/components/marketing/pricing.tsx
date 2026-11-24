@@ -1,5 +1,4 @@
 import { WideImage } from "@/components/ui/wide-image";
-import Image from "next/image";
 import Link from "next/link";
 import { CheckoutButton } from "@/components/course/checkout-button";
 import { TrackOnView } from "@/components/analytics/track-on-view";
@@ -27,14 +26,6 @@ export function Pricing({
           </h2>
           <p className="mt-6 max-w-xl text-lg text-neutral-300">{subheadline}</p>
           <p className="mt-8 text-2xl font-bold text-accent-light">One price. No subscription.</p>
-          <Image
-            src="/images/geo/gst-split-donut.webp"
-            alt="How ₹599 splits: ₹507.63 course fee plus ₹91.37 GST at 18%."
-            width={1200}
-            height={800}
-            sizes="(min-width: 1024px) 400px, 100vw"
-            className="mt-8 h-auto w-full max-w-sm rounded-2xl"
-          />
         </div>
 
         <TrackOnView
@@ -49,8 +40,8 @@ export function Pricing({
         >
           <div className="rounded-2xl bg-white p-7 text-black shadow-[0_30px_60px_-20px_rgba(0,0,0,0.6)] sm:p-8">
             <p className="font-semibold">{pricing.productLabel}</p>
-            <p className="mt-3 text-5xl font-bold text-accent">
-              ₹{rupees}
+            <p className="mt-3 text-5xl font-bold text-accent tabular-nums">
+              ₹<span data-count={rupees}>{rupees}</span>
               <span className="ml-2 text-2xl font-semibold text-neutral-600">incl. GST</span>
             </p>
             <p className="mt-1 text-sm text-neutral-600">One-time payment. No extra tax at checkout.</p>
@@ -81,7 +72,7 @@ export function Pricing({
       </div>
       <div className="mx-auto max-w-6xl px-6 pb-16 sm:pb-24">
         <WideImage
-          src="/images/geo/banner-pricing-checkout.webp" dark
+          src="/images/geo/banner-pricing-checkout.webp" hideOnMobile
           alt="Secure checkout via Razorpay. One time, no subscription. Instant access, stream after checkout. Updates included."
           width={2400}
           height={960}

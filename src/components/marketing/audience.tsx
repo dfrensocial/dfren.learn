@@ -1,4 +1,5 @@
 import { WideImage } from "@/components/ui/wide-image";
+import { TimelineMobile } from "@/components/marketing/mobile-infographics";
 import { SectionCta } from "@/components/marketing/section-cta";
 import Image from "next/image";
 
@@ -56,6 +57,7 @@ export function Audience() {
         </div>
         <WideImage
           src="/images/geo/not-for-you-timeline.webp"
+          mobile={<TimelineMobile />}
           alt="Results take weeks to a few months: content is published, crawled, then cited."
           width={2400}
           height={600}
