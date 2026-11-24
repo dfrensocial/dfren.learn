@@ -2,6 +2,7 @@ import { WideImage } from "@/components/ui/wide-image";
 import Image from "next/image";
 import type { CourseContent } from "@/content/courses/geo-blueprint";
 import { CourseCta } from "@/components/marketing/course-cta";
+import { SixPillarsMobile } from "@/components/marketing/mobile-infographics";
 
 const MODULE_IMAGES = [
   "m1-how-ai-picks-next-word",
@@ -27,7 +28,7 @@ export function Curriculum({
         <p className="mx-auto mt-3 max-w-2xl text-center text-neutral-400">{curriculum.subheading}</p>
 
         <WideImage
-          src="/images/geo/course-roadmap-6-modules.webp" dark
+          src="/images/geo/course-roadmap-6-modules.webp" hideOnMobile
           alt="The GEO Blueprint roadmap: six modules from how AI picks its next word to onboarding clients and proving the work."
           width={2400}
           height={880}
@@ -37,7 +38,7 @@ export function Curriculum({
 
         <ol className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {curriculum.modules.map((module, i) => (
-            <li key={module.title} className="overflow-hidden rounded-2xl border border-white/15 bg-white/[0.04]">
+            <li key={module.title} className="glow-card relative overflow-hidden rounded-2xl border border-white/15 bg-white/[0.04] transition duration-300 hover:-translate-y-1 hover:border-white/35">
               <Image
                 src={`/images/geo/${MODULE_IMAGES[i] ?? MODULE_IMAGES[0]}.webp`}
                 alt=""
@@ -58,7 +59,7 @@ export function Curriculum({
         </ol>
 
         <WideImage
-          src="/images/geo/six-pillars-hexagon.webp" dark
+          src="/images/geo/six-pillars-hexagon.webp" mobile={<SixPillarsMobile />}
           alt="The 6 pillars of GEO: technical optimization, answer-first content, citation authority, AI comprehension, content freshness and content depth. Each has a quick win you can apply the same day."
           width={2400}
           height={1400}

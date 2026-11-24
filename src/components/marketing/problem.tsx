@@ -1,6 +1,7 @@
 import { WideImage } from "@/components/ui/wide-image";
 import { SectionCta } from "@/components/marketing/section-cta";
 import Image from "next/image";
+import { OldVsNewMobile } from "@/components/marketing/mobile-infographics";
 
 const PAIN_POINTS = [
   "Customers now ask full questions, like \"What's the best CRM for a 10 person sales team?\", and the assistant hands back a short list. Sometimes it's one name.",
@@ -52,6 +53,7 @@ export function Problem() {
         {/* Old way vs new way */}
         <WideImage
           src="/images/geo/old-way-vs-new-way.webp"
+          mobile={<OldVsNewMobile />}
           alt="The old way: a search for CRM software India returns a page of links. The new way: an AI assistant names two brands and leaves everyone else out."
           width={2400}
           height={1200}

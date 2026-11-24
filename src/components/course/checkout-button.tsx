@@ -12,7 +12,7 @@ import { adsConsented } from "@/lib/consent";
 import { getMetaIds } from "@/lib/meta-pixel";
 import { getAttribution } from "@/lib/attribution";
 import { AcceptTerms } from "@/components/legal/accept-terms";
-import { GST_RATE_PERCENT, rupeesFromPaise, splitInclusivePaise } from "@/lib/gst";
+import { rupeesFromPaise } from "@/lib/gst";
 import { addAcceptanceParams, hasAcceptedCurrent, recordAcceptance } from "@/lib/legal-acceptance";
 import { rememberLoginEmail } from "@/lib/login-email";
 import { BusyOverlay } from "@/components/ui/busy-overlay";
@@ -223,12 +223,7 @@ export function CheckoutButton({
         currency: order.currency,
         order_id: order.id,
         name: "dfrenLearn",
-        description: priceInPaise
-          ? (() => {
-              const s = splitInclusivePaise(priceInPaise);
-              return `${courseTitle}: ₹${rupeesFromPaise(s.totalPaise)} (₹${rupeesFromPaise(s.basePaise)} + ₹${rupeesFromPaise(s.gstPaise)} GST ${GST_RATE_PERCENT}%)`;
-            })()
-          : courseTitle,
+        description: priceInPaise ? `${courseTitle}: ₹${rupeesFromPaise(priceInPaise)} inclusive of GST` : courseTitle,
         handler: async (response: {
           razorpay_order_id: string;
           razorpay_payment_id: string;
@@ -379,9 +374,7 @@ export function CheckoutButton({
 
         {priceInPaise ? (
           <p className="mb-3 text-center text-sm text-neutral-700">
-            <strong>₹{rupeesFromPaise(priceInPaise)}</strong> including {GST_RATE_PERCENT}% GST (₹
-            {rupeesFromPaise(splitInclusivePaise(priceInPaise).basePaise)} + ₹
-            {rupeesFromPaise(splitInclusivePaise(priceInPaise).gstPaise)}).
+            <strong>₹{rupeesFromPaise(priceInPaise)}</strong> inclusive of GST.
           </p>
         ) : null}
 

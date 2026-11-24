@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
 import Link from "next/link";
 import { BlogShell } from "@/components/blog/blog-shell";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { formatDate, getAllPosts } from "@/lib/blog";
 
 export const metadata: Metadata = {
@@ -41,6 +42,7 @@ export default function BlogIndex() {
   return (
     <BlogShell>
       <main className="mx-auto max-w-3xl px-6 py-12">
+        <ScrollReveal items="main > ul > li" stagger />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <h1 className="text-3xl font-bold tracking-tight">Guides on learning GEO in India</h1>
         <p className="mt-3 max-w-xl text-neutral-600">

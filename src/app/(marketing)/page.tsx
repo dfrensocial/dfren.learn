@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
 import { MarketingNav } from "@/components/marketing/nav";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { Hero } from "@/components/marketing/hero";
-import { Promo } from "@/components/marketing/promo";
 import { Problem } from "@/components/marketing/problem";
 import { Curriculum } from "@/components/marketing/curriculum";
 import { AtAGlance } from "@/components/marketing/at-a-glance";
@@ -112,10 +112,11 @@ export default function LandingPage() {
   return (
     <main className="min-h-screen bg-white text-black">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd()) }} />
+      <ScrollReveal />
+      <div aria-hidden className="scroll-progress" />
       <MarketingNav />
       <Hero hero={course.hero} stats={course.stats} courseId={course.id} />
       <Testimonials />
-      <Promo />
       <Problem />
       <Curriculum
         curriculum={course.curriculum}

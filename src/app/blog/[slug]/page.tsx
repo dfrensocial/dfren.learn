@@ -3,6 +3,7 @@ import { SITE_URL } from "@/lib/site";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BlogShell } from "@/components/blog/blog-shell";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { ArticleCta } from "@/components/blog/article-cta";
 import { formatDate, getAllPosts, getPost } from "@/lib/blog";
 
@@ -70,6 +71,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   return (
     <BlogShell>
       <main className="mx-auto max-w-3xl px-6 py-12">
+        <ScrollReveal items="article .blog-prose > *, main > section" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
         <p className="text-sm">

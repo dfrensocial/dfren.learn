@@ -91,9 +91,8 @@ export function ConsentBanner() {
       {!panel ? (
         <>
           <p className="leading-snug text-neutral-800">
-            We use optional <strong>analytics</strong>, <strong>session recordings</strong> and Meta{" "}
-            <strong>ad measurement</strong> to see what works and make this course better. Nothing runs unless you
-            say yes, and you can change it any time.
+            We use optional analytics, session recordings and Meta ad measurement to see what works and make this
+            course better. Nothing runs unless you say yes, and you can change it any time.
           </p>
           <div className="mt-2.5 flex items-center gap-2">
             <button

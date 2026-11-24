@@ -1,4 +1,5 @@
 import { WideImage } from "@/components/ui/wide-image";
+import { ScoreChartMobile } from "@/components/marketing/mobile-infographics";
 import { SectionCta } from "@/components/marketing/section-cta";
 import Image from "next/image";
 import Link from "next/link";
@@ -39,6 +40,7 @@ export function Instructor({ instructor }: { instructor: CourseContent["instruct
         <div className="min-w-0 md:col-span-2">
           <WideImage
             src="/images/geo/score-consistency-chart.webp"
+            mobile={<ScoreChartMobile />}
             alt="A chatbot gives a different score each run. A fixed rubric gives the same score every time."
             width={2400}
             height={960}

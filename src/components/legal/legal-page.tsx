@@ -4,6 +4,7 @@ import { SITE_URL } from "@/lib/site";
 import { AccountLinks } from "@/components/marketing/account-links";
 import { PrivacySettingsLink } from "@/components/consent/privacy-settings-link";
 import { Logo } from "@/components/ui/logo";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 export function LegalPage({
   title,
@@ -25,6 +26,7 @@ export function LegalPage({
   return (
     <main className="min-h-screen bg-white text-black">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <ScrollReveal items="main article > div > *" />
       <header className="border-b border-black px-6 py-4">
         <div className="mx-auto flex max-w-5xl items-center justify-between">
           <Link href="/" className="text-lg font-bold tracking-tight">
