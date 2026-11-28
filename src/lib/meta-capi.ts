@@ -20,7 +20,7 @@ import { SITE_URL } from "@/lib/site";
 // Inert until META_CAPI_ACCESS_TOKEN is set. Best-effort: callers catch, and a failure here can never
 // affect payment or access.
 
-const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || "979958740686067";
+const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || "4420891844840936";
 const GRAPH = "https://graph.facebook.com/v21.0";
 
 type OrderDoc = {
