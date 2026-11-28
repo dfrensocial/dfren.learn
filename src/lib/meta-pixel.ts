@@ -17,7 +17,7 @@ import { adsConsented } from "@/lib/consent";
 //   cta_click on the WhatsApp button -> Contact
 // ---------------------------------------------------------------------------
 
-const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || "979958740686067";
+const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || "4420891844840936";
 const IS_DEV = process.env.NODE_ENV !== "production";
 const EXCLUDED_PATHS = ["/admin", "/watermark"];
 
